@@ -68,6 +68,10 @@ class ViewController: UIViewController {
                 if inputLabel.text?.contains(",") == true { return }
                 inputLabel.text?.append(buttonText)
             }
+        case "0":
+            if inputLabel.text != "0" {
+                inputLabel.text?.append(buttonText)
+            }
         default:
             if isNewInput {
                 inputLabel.text = buttonText
