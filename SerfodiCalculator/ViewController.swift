@@ -8,40 +8,6 @@
 import UIKit
 
 
-enum CalculationError: Error {
-    case dividedByZero
-}
-
-
-enum Operation: String {
-    case add = "+"
-    case subtract = "-"
-    case multiply = "x"
-    case divide = "/"
-    
-    func calculate(_ number1: Double, _ number2: Double) throws -> Double {
-        switch self{
-        case .add:
-            return number1 + number2
-        case .subtract:
-            return number1 - number2
-        case .multiply:
-            return number1 * number2
-        case .divide:
-            if number2 == 0 {
-                throw CalculationError.dividedByZero
-            }
-            return number1 / number2
-        }
-    }
-}
-
-enum CalculationHistoryItem {
-    case number(Double)
-    case operation(Operation)
-}
-
-
 class ViewController: UIViewController {
     
     @IBOutlet weak var inputLabel: UILabel!
@@ -64,7 +30,7 @@ class ViewController: UIViewController {
     
     var currentOperationButton: UIButton = UIButton() {
         didSet {
-            oldValue.backgroundColor = UIColor.serviceButtonColor()
+            oldValue.backgroundColor = UIColor.operatingButtonColor()
             oldValue.isSelected = false
         }
         willSet {
@@ -88,10 +54,10 @@ class ViewController: UIViewController {
     /// Кнопки от 0 до 9 и point
     @IBAction func numberButtonTap(_ sender: UIButton) {
         guard let buttonText = sender.currentTitle else { return }
-        
+        guard inputLabel.text!.count < 13 else { return }
         switch buttonText {
         case ",":
-            if isNewInput && calculationHistory.count == 0 {
+            if isNewInput {
                 inputLabel.text = "0,"
                 isNewInput = false
             } else {
@@ -106,36 +72,32 @@ class ViewController: UIViewController {
                 inputLabel.text?.append(buttonText)
             }
         }
-        
-        
-        
     }
     
     
     /// Кнопки опираций: / x - +
     @IBAction func operatingButtonTap(_ sender: UIButton) {
-        
         guard let buttonText = sender.currentTitle,
               let buttonOperation = Operation(rawValue: buttonText)
         else { return }
-        
         guard let labelText = inputLabel.text,
               let labelNumber = numberFormatter.number(from: labelText)?.doubleValue
         else { return }
         
-        
-        if !isNewInput {
-            
+        if case .operation(let operation) = calculationHistory.last {
+            if operation != buttonOperation {
+                calculationHistory.removeLast()
+                currentOperationButton = sender
+                calculationHistory.append(.operation(buttonOperation))
+            }
+            calculateResult()
+        } else {
             currentOperationButton = sender
             calculationHistory.append(.number(labelNumber))
             calculationHistory.append(.operation(buttonOperation))
-            isNewInput = true
-            
-            calculateResult()
         }
         
-        
-//        resetLabelText()
+        isNewInput = true
     }
     
     
@@ -145,18 +107,19 @@ class ViewController: UIViewController {
               let labelNumber = numberFormatter.number(from: labelText)?.doubleValue
         else { return }
         
-        if !isNewInput {
-            calculationHistory.append(.number(labelNumber))
-            calculateResult()
-            calculationHistory.removeAll()
-            currentOperationButton = UIButton()
-        }
+        
+        calculationHistory.append(.number(labelNumber))
+        calculateResult()
+        calculationHistory.removeAll()
+        currentOperationButton = UIButton()
+        isNewInput = true
     }
     
     
     /// Кнопка С
     @IBAction func clearButtonTap(_ sender: UIButton) {
         calculationHistory.removeAll()
+        currentOperationButton = UIButton()
         resetLabelText()
         isNewInput = true
     }

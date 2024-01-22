@@ -13,24 +13,8 @@ extension UIColor {
         .white
     }
     
-    static func padViewColor() -> UIColor {
-        UIColor(red: 247/255, green: 242/255, blue: 229/255, alpha: 1)
-    }
-    
-    static func numberButtonColor() -> UIColor {
-        UIColor(red: 161/255, green: 206/255, blue: 249/255, alpha: 1)
-    }
-    
     static func operatingButtonColor() -> UIColor {
-        UIColor(red: 246/255, green: 211/255, blue: 156/255, alpha: 1)
-    }
-    
-    static func serviceButtonColor() -> UIColor {
-        UIColor(red: 243.0/255.0, green: 146.0/255.0, blue: 163.0/255.0, alpha: 1)
-    }
-    
-    static func operatingFountColor() -> UIColor {
-        UIColor(white: 0.3, alpha: 1)
+        #colorLiteral(red: 1, green: 0.5486019254, blue: 0.635882616, alpha: 1)
     }
     
 }
