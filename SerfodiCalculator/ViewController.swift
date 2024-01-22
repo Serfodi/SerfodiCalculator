@@ -75,7 +75,7 @@ class ViewController: UIViewController {
     }
     
     
-    /// Кнопки опираций: / x - +
+    
     @IBAction func operatingButtonTap(_ sender: UIButton) {
         guard let buttonText = sender.currentTitle,
               let buttonOperation = Operation(rawValue: buttonText)
@@ -84,19 +84,27 @@ class ViewController: UIViewController {
               let labelNumber = numberFormatter.number(from: labelText)?.doubleValue
         else { return }
         
-        if case .operation(let operation) = calculationHistory.last {
-            if operation != buttonOperation {
-                calculationHistory.removeLast()
+        if isNewInput {
+            // старое число
+            if case .operation(let operation) = calculationHistory.last {
+                if operation != buttonOperation {
+                    // Смена знака
+                    calculationHistory.removeLast()
+                    currentOperationButton = sender
+                    calculationHistory.append(.operation(buttonOperation))
+                }
+            } else {
                 currentOperationButton = sender
+                calculationHistory.append(.number(labelNumber))
                 calculationHistory.append(.operation(buttonOperation))
             }
-            calculateResult()
         } else {
+            // Новое число введенно
             currentOperationButton = sender
             calculationHistory.append(.number(labelNumber))
             calculationHistory.append(.operation(buttonOperation))
+            calculateResult()
         }
-        
         isNewInput = true
     }
     
