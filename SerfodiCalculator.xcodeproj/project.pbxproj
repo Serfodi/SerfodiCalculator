@@ -13,7 +13,7 @@
 		B02EC6642B5D8D4E00CE0122 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B02EC6622B5D8D4E00CE0122 /* Main.storyboard */; };
 		B02EC6662B5D8D5200CE0122 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B02EC6652B5D8D5200CE0122 /* Assets.xcassets */; };
 		B02EC6692B5D8D5200CE0122 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B02EC6672B5D8D5200CE0122 /* LaunchScreen.storyboard */; };
-		B02EC6752B5D94C300CE0122 /* UIColor + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02EC6742B5D94C300CE0122 /* UIColor + Extension.swift */; };
+		B064E2F42B5E9DD800E56208 /* UIColor + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B064E2F32B5E9DD800E56208 /* UIColor + Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,7 +25,7 @@
 		B02EC6652B5D8D5200CE0122 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B02EC6682B5D8D5200CE0122 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B02EC66A2B5D8D5200CE0122 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B02EC6742B5D94C300CE0122 /* UIColor + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor + Extension.swift"; sourceTree = "<group>"; };
+		B064E2F32B5E9DD800E56208 /* UIColor + Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor + Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,7 +61,7 @@
 				B02EC65C2B5D8D4E00CE0122 /* AppDelegate.swift */,
 				B02EC65E2B5D8D4E00CE0122 /* SceneDelegate.swift */,
 				B02EC6602B5D8D4E00CE0122 /* ViewController.swift */,
-				B02EC6742B5D94C300CE0122 /* UIColor + Extension.swift */,
+				B064E2F32B5E9DD800E56208 /* UIColor + Extension.swift */,
 				B02EC6622B5D8D4E00CE0122 /* Main.storyboard */,
 				B02EC6652B5D8D5200CE0122 /* Assets.xcassets */,
 				B02EC6672B5D8D5200CE0122 /* LaunchScreen.storyboard */,
@@ -142,9 +142,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				B02EC6612B5D8D4E00CE0122 /* ViewController.swift in Sources */,
+				B064E2F42B5E9DD800E56208 /* UIColor + Extension.swift in Sources */,
 				B02EC65D2B5D8D4E00CE0122 /* AppDelegate.swift in Sources */,
 				B02EC65F2B5D8D4E00CE0122 /* SceneDelegate.swift in Sources */,
-				B02EC6752B5D94C300CE0122 /* UIColor + Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

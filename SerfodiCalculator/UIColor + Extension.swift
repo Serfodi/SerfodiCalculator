@@ -26,7 +26,7 @@ extension UIColor {
     }
     
     static func serviceButtonColor() -> UIColor {
-        UIColor(red: 231/255, green: 150/255, blue: 165/255, alpha: 1)
+        UIColor(red: 243.0/255.0, green: 146.0/255.0, blue: 163.0/255.0, alpha: 1)
     }
     
     static func operatingFountColor() -> UIColor {

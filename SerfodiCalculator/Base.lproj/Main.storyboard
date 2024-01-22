@@ -49,16 +49,16 @@
                                                     </button>
                                                     <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9e1-CM-ga4">
                                                         <rect key="frame" x="225" y="0.0" width="60" height="60"/>
-                                                        <color key="backgroundColor" red="0.90462511779999999" green="0.58753818270000002" blue="0.64705997709999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                        <color key="backgroundColor" red="0.95294117647058818" green="0.5725490196078431" blue="0.63921568627450975" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                         <state key="normal" title="/">
                                                             <color key="titleColor" white="0.33077375860000002" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </state>
                                                         <state key="selected">
-                                                            <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <color key="titleColor" red="0.90196078431372551" green="0.58823529411764708" blue="0.64313725490196072" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                         </state>
                                                         <state key="highlighted">
-                                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <color key="titleColor" red="0.90461021659999996" green="0.45230510829999998" blue="0.53154152639999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                         </state>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -124,16 +124,16 @@
                                                     </button>
                                                     <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y86-lH-O6Z">
                                                         <rect key="frame" x="225" y="0.0" width="60" height="60"/>
-                                                        <color key="backgroundColor" red="0.90462511779999999" green="0.58753818270000002" blue="0.64705997709999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                        <color key="backgroundColor" red="0.95294117649999999" green="0.57254901960000004" blue="0.63921568630000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                         <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="30"/>
                                                         <state key="normal" title="x">
                                                             <color key="titleColor" white="0.33077375860000002" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </state>
                                                         <state key="selected">
-                                                            <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <color key="titleColor" red="0.90461021659999996" green="0.58760350939999995" blue="0.64313787219999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                         </state>
                                                         <state key="highlighted">
-                                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <color key="titleColor" red="0.90461021659999996" green="0.45230510829999998" blue="0.53154152639999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                         </state>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -199,16 +199,16 @@
                                                     </button>
                                                     <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VQy-YL-jmy">
                                                         <rect key="frame" x="225" y="0.0" width="60" height="60"/>
-                                                        <color key="backgroundColor" red="0.90462511779999999" green="0.58753818270000002" blue="0.64705997709999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                        <color key="backgroundColor" red="0.95294117649999999" green="0.57254901960000004" blue="0.63921568630000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                         <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="30"/>
                                                         <state key="normal" title="+">
                                                             <color key="titleColor" white="0.33077375860000002" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </state>
                                                         <state key="selected">
-                                                            <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <color key="titleColor" red="0.90461021659999996" green="0.58760350939999995" blue="0.64313787219999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                         </state>
                                                         <state key="highlighted">
-                                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <color key="titleColor" red="0.90461021659999996" green="0.45230510829999998" blue="0.53154152639999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                         </state>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -263,7 +263,6 @@
                                                         <state key="normal" title="3">
                                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </state>
-                                                        <state key="selected" backgroundImage="BOS"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                                 <integer key="value" value="30"/>
@@ -275,16 +274,16 @@
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Pg-wl-K2B">
                                                         <rect key="frame" x="225" y="0.0" width="60" height="60"/>
-                                                        <color key="backgroundColor" red="0.90462511779999999" green="0.58753818270000002" blue="0.64705997709999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                        <color key="backgroundColor" red="0.95294117649999999" green="0.57254901960000004" blue="0.63921568630000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                         <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="30"/>
-                                                        <state key="normal" title="−">
+                                                        <state key="normal" title="-">
                                                             <color key="titleColor" white="0.33077375860000002" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </state>
                                                         <state key="selected">
-                                                            <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <color key="titleColor" red="0.90461021659999996" green="0.58760350939999995" blue="0.64313787219999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                         </state>
                                                         <state key="highlighted">
-                                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <color key="titleColor" red="0.90461021659999996" green="0.45230510829999998" blue="0.53154152639999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                         </state>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -324,7 +323,7 @@
                                                             <constraint firstAttribute="width" constant="60" id="4zb-7x-77m"/>
                                                         </constraints>
                                                         <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="30"/>
-                                                        <state key="normal" title=".">
+                                                        <state key="normal" title=",">
                                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </state>
                                                         <userDefinedRuntimeAttributes>
@@ -333,12 +332,12 @@
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                         <connections>
-                                                            <action selector="pointButtonTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Hjf-vE-uLI"/>
+                                                            <action selector="numberButtonTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="UjO-KQ-14b"/>
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IPO-KK-qV4">
                                                         <rect key="frame" x="225" y="0.0" width="60" height="60"/>
-                                                        <color key="backgroundColor" red="0.90462511779999999" green="0.58753818270000002" blue="0.64705997709999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                        <color key="backgroundColor" red="0.95294117649999999" green="0.57254901960000004" blue="0.63921568630000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="60" id="eF2-xx-Eid"/>
                                                         </constraints>
@@ -347,10 +346,10 @@
                                                             <color key="titleColor" white="0.33077375860000002" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </state>
                                                         <state key="selected">
-                                                            <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <color key="titleColor" red="0.90461021659999996" green="0.58760350939999995" blue="0.64313787219999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                         </state>
                                                         <state key="highlighted">
-                                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <color key="titleColor" red="0.90461021659999996" green="0.45230510829999998" blue="0.53154152639999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                         </state>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -415,7 +414,6 @@
                         <outlet property="clearButton" destination="5Iu-Iv-IGr" id="J0f-EA-Sgz"/>
                         <outlet property="inputLabel" destination="oKN-Hv-xpk" id="Jeu-Jk-BwO"/>
                         <outlet property="numpadView" destination="g8v-Qr-J1c" id="PKG-Lr-icN"/>
-                        <outlet property="pointButton" destination="IUr-sc-SrU" id="qTw-wl-TCX"/>
                         <outletCollection property="numberButton" destination="alG-hA-Ef7" collectionClass="NSMutableArray" id="H9O-FO-zTs"/>
                         <outletCollection property="numberButton" destination="haZ-xM-ovp" collectionClass="NSMutableArray" id="ejk-bU-Nw7"/>
                         <outletCollection property="numberButton" destination="oGj-sA-CzH" collectionClass="NSMutableArray" id="KQH-xR-dqY"/>
@@ -431,6 +429,7 @@
                         <outletCollection property="operationButton" destination="VQy-YL-jmy" collectionClass="NSMutableArray" id="7sh-qV-Lbb"/>
                         <outletCollection property="operationButton" destination="8Pg-wl-K2B" collectionClass="NSMutableArray" id="1mG-xV-8tK"/>
                         <outletCollection property="operationButton" destination="IPO-KK-qV4" collectionClass="NSMutableArray" id="ecc-Ag-yfT"/>
+                        <outletCollection property="numberButton" destination="IUr-sc-SrU" collectionClass="NSMutableArray" id="5Pk-cM-Sg9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -439,7 +438,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="BOS" width="70" height="70"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
