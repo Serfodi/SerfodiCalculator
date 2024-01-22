@@ -53,6 +53,10 @@ class ViewController: UIViewController {
     
     /// Кнопки от 0 до 9 и point
     @IBAction func numberButtonTap(_ sender: UIButton) {
+        
+        sender.animationTap()
+        sender.hapticLightTap()
+        
         guard let buttonText = sender.currentTitle else { return }
         guard inputLabel.text!.count < 13 else { return }
         switch buttonText {
@@ -77,6 +81,10 @@ class ViewController: UIViewController {
     
     
     @IBAction func operatingButtonTap(_ sender: UIButton) {
+        sender.animationTap()
+        
+        sender.hapticSoftTap()
+        
         guard let buttonText = sender.currentTitle,
               let buttonOperation = Operation(rawValue: buttonText)
         else { return }
@@ -111,6 +119,11 @@ class ViewController: UIViewController {
     
     /// Кнопка =
     @IBAction func equallyButtonTap(_ sender: UIButton) {
+        
+//        sender.hapticRigidTap()
+        sender.hapticMediumTap()
+        
+        sender.animationTap()
         guard let labelText = inputLabel.text,
               let labelNumber = numberFormatter.number(from: labelText)?.doubleValue
         else { return }
@@ -126,6 +139,10 @@ class ViewController: UIViewController {
     
     /// Кнопка С
     @IBAction func clearButtonTap(_ sender: UIButton) {
+        
+        sender.hapticHeavyTap()
+        
+        sender.animationTap()
         calculationHistory.removeAll()
         currentOperationButton = UIButton()
         resetLabelText()
@@ -140,6 +157,8 @@ class ViewController: UIViewController {
             inputLabel.text = numberFormatter.string(from: NSNumber(value: result))
         } catch {
             inputLabel.text = "Ошибка!"
+//            animatorColor(view: inputLabel)
+            inputLabel.animationError()
         }
     }
     

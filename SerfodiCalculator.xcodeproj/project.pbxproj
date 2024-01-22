@@ -16,6 +16,8 @@
 		B064E2F42B5E9DD800E56208 /* UIColor + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B064E2F32B5E9DD800E56208 /* UIColor + Extension.swift */; };
 		B064E2F62B5EB7AB00E56208 /* CalculationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B064E2F52B5EB7AB00E56208 /* CalculationError.swift */; };
 		B064E2F82B5EB7D900E56208 /* Calculate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B064E2F72B5EB7D900E56208 /* Calculate.swift */; };
+		B064E2FA2B5ED38800E56208 /* UIButton + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B064E2F92B5ED38800E56208 /* UIButton + Extension.swift */; };
+		B064E2FC2B5ED4F000E56208 /* UILabel + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B064E2FB2B5ED4F000E56208 /* UILabel + Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +32,8 @@
 		B064E2F32B5E9DD800E56208 /* UIColor + Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor + Extension.swift"; sourceTree = "<group>"; };
 		B064E2F52B5EB7AB00E56208 /* CalculationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculationError.swift; sourceTree = "<group>"; };
 		B064E2F72B5EB7D900E56208 /* Calculate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calculate.swift; sourceTree = "<group>"; };
+		B064E2F92B5ED38800E56208 /* UIButton + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton + Extension.swift"; sourceTree = "<group>"; };
+		B064E2FB2B5ED4F000E56208 /* UILabel + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel + Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +71,8 @@
 				B02EC6602B5D8D4E00CE0122 /* ViewController.swift */,
 				B064E2F72B5EB7D900E56208 /* Calculate.swift */,
 				B064E2F32B5E9DD800E56208 /* UIColor + Extension.swift */,
+				B064E2F92B5ED38800E56208 /* UIButton + Extension.swift */,
+				B064E2FB2B5ED4F000E56208 /* UILabel + Extension.swift */,
 				B064E2F52B5EB7AB00E56208 /* CalculationError.swift */,
 				B02EC6622B5D8D4E00CE0122 /* Main.storyboard */,
 				B02EC6652B5D8D5200CE0122 /* Assets.xcassets */,
@@ -149,7 +155,9 @@
 			files = (
 				B064E2F82B5EB7D900E56208 /* Calculate.swift in Sources */,
 				B02EC6612B5D8D4E00CE0122 /* ViewController.swift in Sources */,
+				B064E2FC2B5ED4F000E56208 /* UILabel + Extension.swift in Sources */,
 				B064E2F42B5E9DD800E56208 /* UIColor + Extension.swift in Sources */,
+				B064E2FA2B5ED38800E56208 /* UIButton + Extension.swift in Sources */,
 				B064E2F62B5EB7AB00E56208 /* CalculationError.swift in Sources */,
 				B02EC65D2B5D8D4E00CE0122 /* AppDelegate.swift in Sources */,
 				B02EC65F2B5D8D4E00CE0122 /* SceneDelegate.swift in Sources */,
