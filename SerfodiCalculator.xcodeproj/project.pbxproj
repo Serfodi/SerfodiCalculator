@@ -70,9 +70,7 @@
 				B02EC65E2B5D8D4E00CE0122 /* SceneDelegate.swift */,
 				B02EC6602B5D8D4E00CE0122 /* ViewController.swift */,
 				B064E2F72B5EB7D900E56208 /* Calculate.swift */,
-				B064E2F32B5E9DD800E56208 /* UIColor + Extension.swift */,
-				B064E2F92B5ED38800E56208 /* UIButton + Extension.swift */,
-				B064E2FB2B5ED4F000E56208 /* UILabel + Extension.swift */,
+				B064E2FD2B5EE64300E56208 /* Extension */,
 				B064E2F52B5EB7AB00E56208 /* CalculationError.swift */,
 				B02EC6622B5D8D4E00CE0122 /* Main.storyboard */,
 				B02EC6652B5D8D5200CE0122 /* Assets.xcassets */,
@@ -80,6 +78,16 @@
 				B02EC66A2B5D8D5200CE0122 /* Info.plist */,
 			);
 			path = SerfodiCalculator;
+			sourceTree = "<group>";
+		};
+		B064E2FD2B5EE64300E56208 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				B064E2F32B5E9DD800E56208 /* UIColor + Extension.swift */,
+				B064E2F92B5ED38800E56208 /* UIButton + Extension.swift */,
+				B064E2FB2B5ED4F000E56208 /* UILabel + Extension.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

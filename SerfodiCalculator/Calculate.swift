@@ -28,6 +28,16 @@ enum Operation: String {
             return number1 / number2
         }
     }
+    
+    func priority() -> Int {
+        switch self{
+        case .add: return 1
+        case .subtract: return 1
+        case .multiply: return 2
+        case .divide: return 2
+        }
+    }
+    
 }
 
 enum CalculationHistoryItem {
