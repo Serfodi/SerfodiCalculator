@@ -24,20 +24,24 @@ class ViewController: UIViewController {
         return numberFormatter
     }()
     
-    var calculationHistory: [CalculationHistoryItem] = []
+//    var calculationHistory: [CalculationHistoryItem] = []
     
     var isNewInput = true
     
-    var currentOperationButton: UIButton = UIButton() {
+    var currentOperationButton: UIButton? = UIButton() {
         didSet {
-            oldValue.backgroundColor = UIColor.operatingButtonColor()
-            oldValue.isSelected = false
+            guard let button = oldValue else { return }
+            button.backgroundColor = UIColor.operatingButtonColor()
+            button.isSelected = false
         }
         willSet {
-            newValue.backgroundColor = UIColor.mainColor()
-            newValue.isSelected = true
+            guard let button = newValue else { return }
+            button.backgroundColor = UIColor.mainColor()
+            button.isSelected = true
         }
     }
+    
+    let calculator = Calculator()
     
     // MARK: - viewDidLoad
     
@@ -55,6 +59,7 @@ class ViewController: UIViewController {
     @IBAction func numberButtonTap(_ sender: UIButton) {
         sender.animationTap()
         sender.hapticLightTap()
+        currentOperationButton = nil
         
         guard let buttonText = sender.currentTitle else { return }
         guard inputLabel.text!.count < 13 else { return }
@@ -99,33 +104,30 @@ class ViewController: UIViewController {
               let labelNumber = numberFormatter.number(from: labelText)?.doubleValue
         else { return }
         
-        if isNewInput {
-            // Без ввода нового числа.
-            if case .operation(let operation) = calculationHistory.last {
-                // Если есть опирации
-                if operation != buttonOperation {
-                    // Смена знака
-                    calculationHistory.removeLast()
-                    currentOperationButton = sender
-                    calculationHistory.append(.operation(buttonOperation))
-                    calculateResult()
-                }
-                
-            } else {
-                // Опираций нет
+        
+        if !isNewInput {
+            calculator.addNumber(labelNumber)
+        }
+        
+        if let button = currentOperationButton {
+            if button != sender {
                 currentOperationButton = sender
-                calculationHistory.append(.number(labelNumber))
-                calculationHistory.append(.operation(buttonOperation))
             }
         } else {
-            // Новое число введенно.
             currentOperationButton = sender
-            calculationHistory.append(.number(labelNumber))
-            calculationHistory.append(.operation(buttonOperation))
             
-            calculateResult()
+            if isNewInput {
+                calculator.removeLastNumber()
+            }
             
         }
+        
+        
+        
+        
+        calculator.addOperation(buttonOperation)
+        calculateResult()
+        
         isNewInput = true
     }
     
@@ -138,10 +140,24 @@ class ViewController: UIViewController {
               let labelNumber = numberFormatter.number(from: labelText)?.doubleValue
         else { return }
         
-        calculationHistory.append(.number(labelNumber))
+        if currentOperationButton == nil {
+            // Нажимают на равно
+            if !isNewInput {
+                // Нажали в первый раз
+                calculator.addNumber(labelNumber)
+            }
+        } else {
+            // Нажали после того как нажали опирацию
+            calculator.removeLastOperation()
+        }
+        
         calculateResult()
-        calculationHistory.removeAll()
-        currentOperationButton = UIButton()
+        
+        calculator.removeHistory { example in
+            print(example)
+        }
+        
+        currentOperationButton = nil
         isNewInput = true
     }
     
@@ -149,8 +165,8 @@ class ViewController: UIViewController {
     @IBAction func clearButtonTap(_ sender: UIButton) {
         sender.hapticHeavyTap()
         sender.animationTap()
-        calculationHistory.removeAll()
-        currentOperationButton = UIButton()
+        calculator.removeHistory()
+        currentOperationButton = nil
         resetLabelText()
         isNewInput = true
     }
@@ -162,93 +178,14 @@ class ViewController: UIViewController {
     
     
     func calculateResult() {
-        do {
-//            let result = try calculate()
-            
-            print(calculationHistory)
-            let postfix = toPostfix(calculationHistory: calculationHistory)
-            let result = try calculate(postfix: postfix)
-            
-            inputLabel.text = numberFormatter.string(from: NSNumber(value: result))
-            
-        } catch {
-            inputLabel.text = "Ошибка!"
-            inputLabel.animationError()
-        }
-    }
-    
-    
-    func calculate() throws -> Double {
-        
-        guard case .number(let firstNumber) = calculationHistory[0] else { return 0 }
-        var currentResult = firstNumber
-        
-        for index in stride(from: 1, to: calculationHistory.count - 1, by: 2) {
-            
-            guard
-                case .operation(let operation) = calculationHistory[index],
-                case .number(let number) = calculationHistory[index + 1]
-            else { break }
-            
-            currentResult = try operation.calculate(currentResult, number)
-        }
-        
-        return currentResult
-    }
-    
-    func toPostfix(calculationHistory: [CalculationHistoryItem]) -> [CalculationHistoryItem] {
-        var items = calculationHistory
-        var lastOperator: Operation!
-        
-        if case .operation(let operation) = items.last {
-            items.removeLast()
-            lastOperator = operation
-        }
-        
-        var stack = [CalculationHistoryItem]()
-        var output = [CalculationHistoryItem]()
-         
-        for index in items {
-            if case .number(_) = index {
-                output.append(index)
-            } else if case .operation(let operation) = index {
-                while let last = stack.last, case .operation(let lastOp) = last, operation.priority() <= lastOp.priority() {
-                    output.append(stack.removeLast())
-                }
-                stack.append(index)
+        calculator.calculateResult { (number, error) in
+            if let result = number {
+                self.inputLabel.text = self.numberFormatter.string(from: NSNumber(value: result))
+            } else {
+                self.inputLabel.text = "Ошибка!"
+                self.inputLabel.animationError()
             }
         }
-        output += stack.reversed()
-        
-        if let op = lastOperator, op.priority() > 1 { output.removeLast() }
-        
-        return output
-    }
-    
-    func calculate(postfix: [CalculationHistoryItem]) throws -> Double {
-        
-        guard case .number(let lastNumber) = calculationHistory.first else { return 0 }
-        var result = lastNumber
-        
-        var stack = [Double]()
-        
-        for index in postfix {
-            if case .number(let number) = index {
-                stack.append(number)
-                result = number
-                
-            } else if case .operation(let operation) = index {
-                guard let two = stack.popLast(), let one = stack.popLast() else { return result }
-                let calculate = try operation.calculate(one, two)
-                stack.append(calculate)
-                result = calculate
-            }
-        }
-        
-        guard let resultLast = stack.popLast() else { return result }
-        result = resultLast
-        
-        return result
     }
     
 }
