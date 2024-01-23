@@ -41,7 +41,7 @@ enum Operation: String {
     
 }
 
-enum CalculationHistoryItem: Equatable {
+enum CalculationHistoryItem {
     /// Число
     case number(Double)
     /// Опирация
@@ -49,10 +49,14 @@ enum CalculationHistoryItem: Equatable {
     
 }
 
+
 final class Calculator {
     
-    private var calculationHistory: [CalculationHistoryItem] = []
+    var calculationHistory: [CalculationHistoryItem] = []
     
+    public var count: Int {
+        calculationHistory.count
+    }
     
     public var lastOperation: Operation? {
         if case .operation(let operation) = calculationHistory.last {
@@ -68,65 +72,16 @@ final class Calculator {
         return nil
     }
     
-    private var currentResult: Double = 0
-    
     
     public func calculateResult(completion: @escaping (Double?, Error?) -> Void) {
         do {
             let postfix = toPostfix(calculationHistory: calculationHistory)
             let result = try calculate(postfix: postfix)
-            currentResult = result
             completion(result, nil)
         } catch (let error) {
             completion(nil, error)
         }
     }
-    
-    public func addNumber(_ number: Double) {
-        if let lastNumber = lastNumber, lastNumber != number {
-            calculationHistory.removeLast()
-        }
-        calculationHistory.append(.number(number))
-    }
-    
-    public func addOperation(_ operation: Operation) {
-        if let lastOperation = lastOperation, lastOperation != operation {
-            calculationHistory.removeLast()
-        }
-        calculationHistory.append(.operation(operation))
-    }
-    
-    public func removeLastOperation() {
-        if let _ = lastOperation {
-            calculationHistory.removeLast()
-        }
-    }
-    
-    public func removeLastNumber() {
-        if let _ = lastNumber {
-            calculationHistory.removeLast()
-        }
-    }
-    
-    
-    
-    public func removeHistory(completion: @escaping ([CalculationHistoryItem]) -> ()) {
-        var newHistory: [CalculationHistoryItem] = [ .number(currentResult) ]
-        if let number = calculationHistory.popLast(), let operation = calculationHistory.popLast() {
-            newHistory.append(operation)
-            newHistory.append(number)
-        }
-        completion(calculationHistory)
-        calculationHistory.removeAll()
-        calculationHistory = newHistory
-    }
-    
-    public func removeHistory() {
-        calculationHistory.removeAll()
-    }
-    
-    
-    
     
     private func toPostfix(calculationHistory: [CalculationHistoryItem]) -> [CalculationHistoryItem] {
         var items = calculationHistory
@@ -151,16 +106,19 @@ final class Calculator {
             }
         }
         output += stack.reversed()
-        
-        if let op = lastOperator, op.priority() > 1, !output.isEmpty {
-            output.removeLast()
+                
+        if let op = lastOperator {
+            if case .operation(let operation) = output.last {
+                if op.priority() > operation.priority(), !output.isEmpty {
+                    output.removeLast()
+                }
+            }
         }
         
         return output
     }
     
     private func calculate(postfix: [CalculationHistoryItem]) throws -> Double {
-        
         guard case .number(let lastNumber) = calculationHistory.first else { return 0 }
         var result = lastNumber
         
@@ -182,8 +140,55 @@ final class Calculator {
         guard let resultLast = stack.popLast() else { return result }
         result = resultLast
         
+        print("=\(result)")
         return result
     }
+    
+    
+    public func addNumber(_ number: Double) {
+        calculationHistory.append(.number(number))
+        print(number)
+    }
+    
+    public func addOperation(_ operation: Operation) {
+        if let ope = lastOperation {
+            if ope != operation {
+                removeLastOperation()
+                calculationHistory.append(.operation(operation))
+                print("\(ope.rawValue) -> \(operation.rawValue)")
+            }
+        } else {
+            calculationHistory.append(.operation(operation))
+            print(operation.rawValue)
+        }
+    }
+    
+    public func removeLastOperation() {
+        if let op = lastOperation {
+            calculationHistory.removeLast()
+            print("Удалили знак: \(op.rawValue)")
+        }
+    }
+    
+    public func removeLastNumber() {
+        if let nn = lastNumber {
+            calculationHistory.removeLast()
+            print("Удалили число: \(nn)")
+        }
+    }
+    
+    
+    public func removeHistory(completion: @escaping ([CalculationHistoryItem]) -> ()) {
+        completion(calculationHistory)
+        calculationHistory.removeAll()
+        print("Удалили все.")
+    }
+    public func removeHistory() {
+        calculationHistory.removeAll()
+        print("Удалили все.")
+    }
+    
+    
     
     
 }

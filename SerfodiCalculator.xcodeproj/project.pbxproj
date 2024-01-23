@@ -18,6 +18,8 @@
 		B064E2F82B5EB7D900E56208 /* Calculate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B064E2F72B5EB7D900E56208 /* Calculate.swift */; };
 		B064E2FA2B5ED38800E56208 /* UIButton + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B064E2F92B5ED38800E56208 /* UIButton + Extension.swift */; };
 		B064E2FC2B5ED4F000E56208 /* UILabel + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B064E2FB2B5ED4F000E56208 /* UILabel + Extension.swift */; };
+		B064E2FF2B60280500E56208 /* CalculateHistoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B064E2FE2B60280500E56208 /* CalculateHistoryVC.swift */; };
+		B064E3022B6039A600E56208 /* HistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B064E3012B6039A600E56208 /* HistoryCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +36,8 @@
 		B064E2F72B5EB7D900E56208 /* Calculate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calculate.swift; sourceTree = "<group>"; };
 		B064E2F92B5ED38800E56208 /* UIButton + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton + Extension.swift"; sourceTree = "<group>"; };
 		B064E2FB2B5ED4F000E56208 /* UILabel + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel + Extension.swift"; sourceTree = "<group>"; };
+		B064E2FE2B60280500E56208 /* CalculateHistoryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculateHistoryVC.swift; sourceTree = "<group>"; };
+		B064E3012B6039A600E56208 /* HistoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,11 +72,11 @@
 			children = (
 				B02EC65C2B5D8D4E00CE0122 /* AppDelegate.swift */,
 				B02EC65E2B5D8D4E00CE0122 /* SceneDelegate.swift */,
-				B02EC6602B5D8D4E00CE0122 /* ViewController.swift */,
-				B064E2F72B5EB7D900E56208 /* Calculate.swift */,
-				B064E2FD2B5EE64300E56208 /* Extension */,
-				B064E2F52B5EB7AB00E56208 /* CalculationError.swift */,
 				B02EC6622B5D8D4E00CE0122 /* Main.storyboard */,
+				B064E3002B60283C00E56208 /* CalculateVC */,
+				B064E2FE2B60280500E56208 /* CalculateHistoryVC.swift */,
+				B064E3012B6039A600E56208 /* HistoryCell.swift */,
+				B064E2FD2B5EE64300E56208 /* Extension */,
 				B02EC6652B5D8D5200CE0122 /* Assets.xcassets */,
 				B02EC6672B5D8D5200CE0122 /* LaunchScreen.storyboard */,
 				B02EC66A2B5D8D5200CE0122 /* Info.plist */,
@@ -88,6 +92,16 @@
 				B064E2FB2B5ED4F000E56208 /* UILabel + Extension.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		B064E3002B60283C00E56208 /* CalculateVC */ = {
+			isa = PBXGroup;
+			children = (
+				B02EC6602B5D8D4E00CE0122 /* ViewController.swift */,
+				B064E2F72B5EB7D900E56208 /* Calculate.swift */,
+				B064E2F52B5EB7AB00E56208 /* CalculationError.swift */,
+			);
+			path = CalculateVC;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -164,10 +178,12 @@
 				B064E2F82B5EB7D900E56208 /* Calculate.swift in Sources */,
 				B02EC6612B5D8D4E00CE0122 /* ViewController.swift in Sources */,
 				B064E2FC2B5ED4F000E56208 /* UILabel + Extension.swift in Sources */,
+				B064E2FF2B60280500E56208 /* CalculateHistoryVC.swift in Sources */,
 				B064E2F42B5E9DD800E56208 /* UIColor + Extension.swift in Sources */,
 				B064E2FA2B5ED38800E56208 /* UIButton + Extension.swift in Sources */,
 				B064E2F62B5EB7AB00E56208 /* CalculationError.swift in Sources */,
 				B02EC65D2B5D8D4E00CE0122 /* AppDelegate.swift in Sources */,
+				B064E3022B6039A600E56208 /* HistoryCell.swift in Sources */,
 				B02EC65F2B5D8D4E00CE0122 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -16,6 +16,9 @@ class ViewController: UIViewController {
     @IBOutlet var numberButton: [UIButton]!
     @IBOutlet weak var numpadView: UIView!
     
+    @IBOutlet weak var historyTableView: UITableView!
+    
+    
     lazy var numberFormatter: NumberFormatter = {
         let numberFormatter = NumberFormatter()
         numberFormatter.usesGroupingSeparator = false
@@ -24,18 +27,18 @@ class ViewController: UIViewController {
         return numberFormatter
     }()
     
-//    var calculationHistory: [CalculationHistoryItem] = []
-    
     var isNewInput = true
     
     var currentOperationButton: UIButton? = UIButton() {
         didSet {
             guard let button = oldValue else { return }
+            guard button != currentOperationButton else { return }
             button.backgroundColor = UIColor.operatingButtonColor()
             button.isSelected = false
         }
         willSet {
             guard let button = newValue else { return }
+            guard button != currentOperationButton else { return }
             button.backgroundColor = UIColor.mainColor()
             button.isSelected = true
         }
@@ -43,17 +46,40 @@ class ViewController: UIViewController {
     
     let calculator = Calculator()
     
+    
+    var historyExample: [String] = []
+    
+    
+    
     // MARK: - viewDidLoad
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        resetLabelText()
+        historyTableView.delegate = self
+        
+        inputLabel.text = "0"
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: false)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier {
+        case "HistoryVC":
+            break
+        default: break
+        }
+    }
+    
+    @IBAction func unwindAction(unwindSegue: UIStoryboardSegue) {
+        
     }
     
     
-    
-    // MARK: - func button
+    // MARK: - Action
     
     /// Кнопки от 0 до 9 и point
     @IBAction func numberButtonTap(_ sender: UIButton) {
@@ -91,8 +117,6 @@ class ViewController: UIViewController {
         }
     }
     
-    
-    
     @IBAction func operatingButtonTap(_ sender: UIButton) {
         sender.animationTap()
         sender.hapticSoftTap()
@@ -105,27 +129,16 @@ class ViewController: UIViewController {
         else { return }
         
         
-        if !isNewInput {
+        if !isNewInput || calculator.count == 0 {
             calculator.addNumber(labelNumber)
         }
         
-        if let button = currentOperationButton {
-            if button != sender {
-                currentOperationButton = sender
-            }
-        } else {
-            currentOperationButton = sender
-            
-            if isNewInput {
-                calculator.removeLastNumber()
-            }
-            
-        }
-        
-        
-        
-        
         calculator.addOperation(buttonOperation)
+        
+        currentOperationButton = sender
+        
+        print("Пример: \(textHistory(items: calculator.calculationHistory))")
+        
         calculateResult()
         
         isNewInput = true
@@ -140,25 +153,35 @@ class ViewController: UIViewController {
               let labelNumber = numberFormatter.number(from: labelText)?.doubleValue
         else { return }
         
-        if currentOperationButton == nil {
-            // Нажимают на равно
-            if !isNewInput {
-                // Нажали в первый раз
-                calculator.addNumber(labelNumber)
-            }
+        
+        // Нажал после того как нажал на действие. + или * в примере 5 + 2 +\*
+        // не срабатывает нажатия 5 + 2 + *
+        // Нажали сразу
+        // Нажимают несколько раз
+        
+        if !isNewInput {
+            calculator.addNumber(labelNumber)
         } else {
-            // Нажали после того как нажали опирацию
             calculator.removeLastOperation()
         }
         
+        print("= Пример: \(textHistory(items: calculator.calculationHistory))")
         calculateResult()
         
+        
         calculator.removeHistory { example in
-            print(example)
+            let text = self.textHistory(items: example)
+            if "" != text {
+                self.historyExample.append(text)
+                self.historyTableView.reloadData()
+                
+                let indexPath = IndexPath(row: self.historyExample.count - 1, section: 0)
+                self.historyTableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+            }
         }
         
-        currentOperationButton = nil
-        isNewInput = true
+        currentOperationButton = nil // Опирации нет
+        isNewInput = true // Новый ввод разрешён
     }
     
     
@@ -166,22 +189,38 @@ class ViewController: UIViewController {
         sender.hapticHeavyTap()
         sender.animationTap()
         calculator.removeHistory()
+        inputLabel.text = "0"
         currentOperationButton = nil
-        resetLabelText()
         isNewInput = true
     }
     
     
-    private func resetLabelText() {
-        inputLabel.text = "0"
+    
+    func textHistory(items: [CalculationHistoryItem]) -> String {
+        var text: String = ""
+        for item in items {
+            switch item{
+            case .number(let number):
+                text += self.numberFormatter.string(from: NSNumber(value: number))!
+            case .operation(let sign):
+                text += sign.rawValue
+            }
+        }
+        return text
     }
     
+    
+    
+    
+    
+    // MARK: - Calculate
     
     func calculateResult() {
         calculator.calculateResult { (number, error) in
             if let result = number {
                 self.inputLabel.text = self.numberFormatter.string(from: NSNumber(value: result))
             } else {
+                self.calculator.removeHistory()
                 self.inputLabel.text = "Ошибка!"
                 self.inputLabel.animationError()
             }
@@ -190,5 +229,26 @@ class ViewController: UIViewController {
     
 }
 
+
+// MARK: - UITableViewDelegate
+
+
+extension ViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        historyExample.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: HistoryCell.reuseId, for: indexPath) as! HistoryCell
+        cell.config(example: historyExample[indexPath.row])
+        return cell
+        
+    }
+ 
+    
+    
+    
+}
 
 
