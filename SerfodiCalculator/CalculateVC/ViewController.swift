@@ -46,7 +46,7 @@ class ViewController: UIViewController {
     
     let calculator = Calculator()
     
-    
+    // Перенести
     var historyExample: [String] = []
     
     
@@ -85,10 +85,15 @@ class ViewController: UIViewController {
     @IBAction func numberButtonTap(_ sender: UIButton) {
         sender.animationTap()
         sender.hapticLightTap()
-        currentOperationButton = nil
         
         guard let buttonText = sender.currentTitle else { return }
-        guard inputLabel.text!.count < 13 else { return }
+        guard inputLabel.text!.count < 13 || isNewInput else { return }
+        
+        if isNewInput && calculator.count == 0 {
+//            calculator.removeCurrentItem()
+            print("Новый вод после =")
+        }
+        
         switch buttonText {
         case ",":
             if isNewInput {
@@ -115,6 +120,9 @@ class ViewController: UIViewController {
                 inputLabel.text?.append(buttonText)
             }
         }
+        
+        currentOperationButton = nil
+//        isNewInput = false
     }
     
     @IBAction func operatingButtonTap(_ sender: UIButton) {
@@ -137,8 +145,6 @@ class ViewController: UIViewController {
         
         currentOperationButton = sender
         
-        print("Пример: \(textHistory(items: calculator.calculationHistory))")
-        
         calculateResult()
         
         isNewInput = true
@@ -154,29 +160,42 @@ class ViewController: UIViewController {
         else { return }
         
         
-        // Нажал после того как нажал на действие. + или * в примере 5 + 2 +\*
-        // не срабатывает нажатия 5 + 2 + *
-        // Нажали сразу
-        // Нажимают несколько раз
+        // MARK: Operation
         
-        if !isNewInput {
+        // = - 5 = -5
+        // = 5 = 05 = 5
+        // = - =
+        
+        if !isNewInput || calculator.count == 0 {
+            
             calculator.addNumber(labelNumber)
+            
         } else {
             calculator.removeLastOperation()
         }
         
-        print("= Пример: \(textHistory(items: calculator.calculationHistory))")
-        calculateResult()
+        if calculator.count == 1 && isNewInput {
+            // Добавить последнее действие.
+            calculator.repeatLastOperation()
+        }
         
         
-        calculator.removeHistory { example in
-            let text = self.textHistory(items: example)
-            if "" != text {
-                self.historyExample.append(text)
-                self.historyTableView.reloadData()
+        // MARK: Calculate Result
+        
+        calculator.calculateResult { (number, error) in
+            if let result = number {
                 
-                let indexPath = IndexPath(row: self.historyExample.count - 1, section: 0)
-                self.historyTableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+                self.inputLabel.text = self.numberFormatter.string(from: NSNumber(value: result))
+                
+                self.calculator.removeHistory { example in
+                    let text = self.textHistory(items: example) + "=" + self.numberFormatter.string(from: NSNumber(value: result))!
+                    self.addExample(text)
+                    print(text)
+                }
+                
+                
+            } else {
+                self.errorCalculate(error: error! as! CalculationError)
             }
         }
         
@@ -188,14 +207,11 @@ class ViewController: UIViewController {
     @IBAction func clearButtonTap(_ sender: UIButton) {
         sender.hapticHeavyTap()
         sender.animationTap()
-        calculator.removeHistory()
-        inputLabel.text = "0"
-        currentOperationButton = nil
-        isNewInput = true
+        resetCalculate()
     }
     
     
-    
+    // Перенести
     func textHistory(items: [CalculationHistoryItem]) -> String {
         var text: String = ""
         for item in items {
@@ -210,21 +226,51 @@ class ViewController: UIViewController {
     }
     
     
+    /// Добовляет новый пример в историю.
+    func addExample(_ text: String) {
+        guard text != "" else { return }
+        self.historyExample.append(text)
+        self.historyTableView.reloadData()
+        
+        let indexPath = IndexPath(row: self.historyExample.count - 1, section: 0)
+        self.historyTableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+    }
+    
+    func errorCalculate(error: CalculationError) {
+        switch error {
+        case .dividedByZero:
+            inputLabel.animationError()
+            resetCalculate(labelText: "Ошибка!")
+        case .fewOperations:
+            return
+        }
+    }
+    
+    
+    func resetCalculate(labelText: String = "0") {
+        calculator.removeAll()
+        inputLabel.text = labelText
+        currentOperationButton = nil
+        isNewInput = true
+    }
+    
+    
+    
     
     
     
     // MARK: - Calculate
     
     func calculateResult() {
+        
         calculator.calculateResult { (number, error) in
             if let result = number {
                 self.inputLabel.text = self.numberFormatter.string(from: NSNumber(value: result))
             } else {
-                self.calculator.removeHistory()
-                self.inputLabel.text = "Ошибка!"
-                self.inputLabel.animationError()
+                self.errorCalculate(error: error as! CalculationError)
             }
         }
+        
     }
     
 }

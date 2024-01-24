@@ -9,4 +9,5 @@ import Foundation
 
 enum CalculationError: Error {
     case dividedByZero
+    case fewOperations
 }

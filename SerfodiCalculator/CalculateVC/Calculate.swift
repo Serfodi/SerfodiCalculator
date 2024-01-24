@@ -52,20 +52,25 @@ enum CalculationHistoryItem {
 
 final class Calculator {
     
-    var calculationHistory: [CalculationHistoryItem] = []
+    // Изменить на приват
+    private var calculationHistory: [CalculationHistoryItem] = []
+    
     
     public var count: Int {
         calculationHistory.count
     }
     
-    public var lastOperation: Operation? {
+    private var currentOperation: Operation!
+    private var currentNumber: Double!
+    
+    private var lastOperation: Operation? {
         if case .operation(let operation) = calculationHistory.last {
             return operation
         }
         return nil
     }
     
-    public var lastNumber: Double? {
+    private var lastNumber: Double? {
         if case .number(let number) = calculationHistory.last {
             return number
         }
@@ -78,7 +83,7 @@ final class Calculator {
             let postfix = toPostfix(calculationHistory: calculationHistory)
             let result = try calculate(postfix: postfix)
             completion(result, nil)
-        } catch (let error) {
+        } catch let error {
             completion(nil, error)
         }
     }
@@ -119,6 +124,7 @@ final class Calculator {
     }
     
     private func calculate(postfix: [CalculationHistoryItem]) throws -> Double {
+        guard postfix.count >= 2 else { throw CalculationError.fewOperations }
         guard case .number(let lastNumber) = calculationHistory.first else { return 0 }
         var result = lastNumber
         
@@ -140,14 +146,30 @@ final class Calculator {
         guard let resultLast = stack.popLast() else { return result }
         result = resultLast
         
-        print("=\(result)")
         return result
     }
     
     
+    public func repeatLastOperation() {
+        if let lastNumber = currentNumber, let lastOperation = currentOperation {
+            addOperation(lastOperation)
+            addNumber(lastNumber)
+            print("Повтор операции: \(lastOperation.rawValue) \(lastNumber)")
+        }
+    }
+    
+    
     public func addNumber(_ number: Double) {
-        calculationHistory.append(.number(number))
-        print(number)
+        if let num = lastNumber {
+            if num != number {
+                removeLastNumber()
+                calculationHistory.append(.number(number))
+                print("\(num) -> \(number)")
+            }
+        } else {
+            calculationHistory.append(.number(number))
+            print("Добавили число: \(number)")
+        }
     }
     
     public func addOperation(_ operation: Operation) {
@@ -155,11 +177,13 @@ final class Calculator {
             if ope != operation {
                 removeLastOperation()
                 calculationHistory.append(.operation(operation))
+                currentOperation = operation
                 print("\(ope.rawValue) -> \(operation.rawValue)")
             }
         } else {
             calculationHistory.append(.operation(operation))
-            print(operation.rawValue)
+            currentOperation = operation
+            print("Добавили знак: \(operation.rawValue)")
         }
     }
     
@@ -170,7 +194,7 @@ final class Calculator {
         }
     }
     
-    public func removeLastNumber() {
+    private func removeLastNumber() {
         if let nn = lastNumber {
             calculationHistory.removeLast()
             print("Удалили число: \(nn)")
@@ -180,15 +204,21 @@ final class Calculator {
     
     public func removeHistory(completion: @escaping ([CalculationHistoryItem]) -> ()) {
         completion(calculationHistory)
-        calculationHistory.removeAll()
-        print("Удалили все.")
-    }
-    public func removeHistory() {
+        currentNumber = lastNumber
         calculationHistory.removeAll()
         print("Удалили все.")
     }
     
+    public func removeAll() {
+        calculationHistory.removeAll()
+        removeCurrentItem()
+        print("Сброс все.")
+    }
     
+    public func removeCurrentItem() {
+        currentNumber = nil
+        currentOperation = nil
+    }
     
     
 }
