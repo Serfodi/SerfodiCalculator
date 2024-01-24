@@ -9,7 +9,7 @@ import UIKit
 
 extension UIButton {
     
-    func animationTap() {
+    public func animationTap() {
         let scaleAnimation = CAKeyframeAnimation(keyPath: "transform.scale")
         scaleAnimation.values = [1, 0.9, 1]
         scaleAnimation.keyTimes = [0, 0.2, 1]
@@ -28,12 +28,12 @@ extension UIButton {
     
     // MARK: - FeedbackGenerator
     
-    func hapticLightTap() {
+    public func hapticLightTap() {
         let generator = UIImpactFeedbackGenerator(style: .light)
         generator.impactOccurred()
     }
     
-    func hapticMediumTap() {
+    public func hapticMediumTap() {
         let generator = UIImpactFeedbackGenerator(style: .medium)
         generator.impactOccurred()
     }
@@ -45,12 +45,12 @@ extension UIButton {
     }
     */
      
-    func hapticSoftTap() {
+    public func hapticSoftTap() {
         let generator = UIImpactFeedbackGenerator(style: .soft)
         generator.impactOccurred()
     }
     
-    func hapticHeavyTap() {
+    public func hapticHeavyTap() {
         let generator = UIImpactFeedbackGenerator(style: .heavy)
         generator.impactOccurred()
     }
