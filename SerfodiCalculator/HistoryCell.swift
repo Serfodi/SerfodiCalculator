@@ -18,6 +18,7 @@ class HistoryCell: UITableViewCell {
     func config(example: String) {
         self.example = example
         self.label.text = example
+        backgroundColor = .clear
     }
     
     required init?(coder: NSCoder) {

@@ -385,8 +385,43 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="dHe-wI-GON">
+                                <rect key="frame" x="57" y="103" width="321" height="205"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="historyCell" id="hzs-nX-iz9" customClass="HistoryCell" customModule="SerfodiCalculator" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="50" width="321" height="29.333333969116211"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hzs-nX-iz9" id="56j-kA-OCu">
+                                            <rect key="frame" x="0.0" y="0.0" width="321" height="29.333333969116211"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="123 + 45 + 67 = 235" textAlignment="right" lineBreakMode="headTruncation" baselineAdjustment="alignBaselines" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="S39-kk-ycZ">
+                                                    <rect key="frame" x="3" y="3" width="315" height="23.333333333333332"/>
+                                                    <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="20"/>
+                                                    <color key="textColor" white="0.25" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="S39-kk-ycZ" secondAttribute="bottom" constant="3" id="MrR-6Y-Wnd"/>
+                                                <constraint firstItem="S39-kk-ycZ" firstAttribute="leading" secondItem="56j-kA-OCu" secondAttribute="leading" constant="3" id="SoB-Oh-JDk"/>
+                                                <constraint firstItem="S39-kk-ycZ" firstAttribute="top" secondItem="56j-kA-OCu" secondAttribute="top" constant="3" id="eSv-4k-xAs"/>
+                                                <constraint firstAttribute="trailing" secondItem="S39-kk-ycZ" secondAttribute="trailing" constant="3" id="lu6-P4-fBK"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="label" destination="S39-kk-ycZ" id="Bjd-Ga-rkv"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="uLh-TE-vOn"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="BlB-xg-JHD"/>
+                                </connections>
+                            </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="999999999999" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="40" translatesAutoresizingMaskIntoConstraints="NO" id="oKN-Hv-xpk">
-                                <rect key="frame" x="30" y="303" width="333" height="80"/>
+                                <rect key="frame" x="30" y="313" width="333" height="80"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="80" id="xjJ-gM-wYy"/>
                                 </constraints>
@@ -412,56 +447,21 @@
                                     <segue destination="Nh7-E3-cUa" kind="show" identifier="HistoryVC" id="R6f-n6-2Gu"/>
                                 </connections>
                             </button>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="dHe-wI-GON">
-                                <rect key="frame" x="57" y="113" width="316" height="180"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="historyCell" id="hzs-nX-iz9" customClass="HistoryCell" customModule="SerfodiCalculator" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="50" width="316" height="29.333333969116211"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hzs-nX-iz9" id="56j-kA-OCu">
-                                            <rect key="frame" x="0.0" y="0.0" width="316" height="29.333333969116211"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="123 + 45 + 67 = 235" textAlignment="right" lineBreakMode="headTruncation" baselineAdjustment="alignBaselines" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="S39-kk-ycZ">
-                                                    <rect key="frame" x="3" y="3" width="310" height="23.333333333333332"/>
-                                                    <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="20"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="S39-kk-ycZ" secondAttribute="bottom" constant="3" id="MrR-6Y-Wnd"/>
-                                                <constraint firstItem="S39-kk-ycZ" firstAttribute="leading" secondItem="56j-kA-OCu" secondAttribute="leading" constant="3" id="SoB-Oh-JDk"/>
-                                                <constraint firstItem="S39-kk-ycZ" firstAttribute="top" secondItem="56j-kA-OCu" secondAttribute="top" constant="3" id="eSv-4k-xAs"/>
-                                                <constraint firstAttribute="trailing" secondItem="S39-kk-ycZ" secondAttribute="trailing" constant="3" id="lu6-P4-fBK"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="label" destination="S39-kk-ycZ" id="Bjd-Ga-rkv"/>
-                                        </connections>
-                                    </tableViewCell>
-                                </prototypes>
-                                <connections>
-                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="uLh-TE-vOn"/>
-                                    <outlet property="delegate" destination="BYZ-38-t0r" id="BlB-xg-JHD"/>
-                                </connections>
-                            </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="dHe-wI-GON" firstAttribute="leading" secondItem="4vP-MY-lyg" secondAttribute="trailing" constant="5" id="15q-5k-7Md"/>
-                            <constraint firstItem="g8v-Qr-J1c" firstAttribute="top" secondItem="oKN-Hv-xpk" secondAttribute="bottom" constant="30" id="2BM-XK-ogz"/>
+                            <constraint firstItem="g8v-Qr-J1c" firstAttribute="top" secondItem="oKN-Hv-xpk" secondAttribute="bottom" constant="20" id="2BM-XK-ogz"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="oKN-Hv-xpk" secondAttribute="trailing" constant="30" id="3Tr-fx-qSQ"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="dHe-wI-GON" secondAttribute="trailing" constant="20" id="DrK-Ls-Xkt"/>
-                            <constraint firstItem="oKN-Hv-xpk" firstAttribute="top" secondItem="dHe-wI-GON" secondAttribute="bottom" constant="10" id="Gzz-Jw-4CB"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="dHe-wI-GON" secondAttribute="trailing" constant="15" id="DrK-Ls-Xkt"/>
+                            <constraint firstItem="oKN-Hv-xpk" firstAttribute="top" secondItem="dHe-wI-GON" secondAttribute="bottom" constant="5" id="Gzz-Jw-4CB"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="g8v-Qr-J1c" secondAttribute="bottom" constant="15" id="H5m-w4-cfW"/>
                             <constraint firstItem="g8v-Qr-J1c" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="PId-B7-cX8"/>
                             <constraint firstItem="4vP-MY-lyg" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="SZc-zH-z89"/>
                             <constraint firstItem="oKN-Hv-xpk" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="30" id="l48-hB-bUt"/>
                             <constraint firstItem="4vP-MY-lyg" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="l5f-I0-DqD"/>
-                            <constraint firstItem="dHe-wI-GON" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="vlO-ka-9g3"/>
+                            <constraint firstItem="dHe-wI-GON" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="vlO-ka-9g3"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="1Zb-1K-SHK"/>

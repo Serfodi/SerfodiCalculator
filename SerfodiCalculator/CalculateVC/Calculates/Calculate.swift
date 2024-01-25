@@ -7,14 +7,6 @@
 
 import Foundation
 
-enum CalculationHistoryItem {
-    /// Число
-    case number(Double)
-    /// Опирация
-    case operation(Operation)
-    
-}
-
 final class Calculator {
     
     /// Содержит исторю добавления опираций и числе по правилу: Число, опирация…
