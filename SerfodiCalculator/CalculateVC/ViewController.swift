@@ -10,23 +10,13 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    @IBOutlet weak var inputLabel: UILabel!
+    @IBOutlet weak var inputLabel: DisplayLabel!
     @IBOutlet weak var clearButton: UIButton!
     @IBOutlet var operationButton: [UIButton]!
     @IBOutlet var numberButton: [UIButton]!
     @IBOutlet weak var numpadView: UIView!
     
     @IBOutlet weak var historyTableView: UITableView!
-    
-    
-    lazy var numberFormatter: NumberFormatter = {
-        let numberFormatter = NumberFormatter()
-        numberFormatter.usesGroupingSeparator = false
-        numberFormatter.locale = Locale(identifier: "ru_RU")
-        numberFormatter.numberStyle = .decimal
-        return numberFormatter
-    }()
-    
     
     var currentOperationButton: UIButton? = UIButton() {
         didSet {
@@ -50,34 +40,21 @@ class ViewController: UIViewController {
     
     let calculator = Calculator()
     
-    //    MARK: @FIX IT
-    
-    // @fix it Перенести
-    var historyExample: [String] = []
-    
-    var calculations: [(expression: [CalculationHistoryItem], result: Double)] = []
-    
     let calculationHistoryStorage = CalculationHistoryStorage()
-    let calculationHistoryStorageString = CalculationHistoryStorageString()
+    
+    //    MARK: @FIX It
+    var calculations: [Calculation] = []
     
     
     // MARK: - Live circle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        historyTableView.delegate = self
-        
-        historyExample = calculationHistoryStorageString.loadHistory()
-        historyTableView.reloadData()
-        
-        
-//    MARK: @FIX IT
-        
-//        let indexPath = IndexPath(row: self.historyExample.count - 1, section: 0)
-//        historyTableView.scrollToRow(at: indexPath, at: .top, animated: true)
-        
-        
         resetCalculate()
+        historyTableView.delegate = self
+        calculations = calculationHistoryStorage.load()
+        inputLabel.labelNumber = calculationHistoryStorage.load()
+        historyTableView.reloadData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -87,6 +64,17 @@ class ViewController: UIViewController {
         historyTableView.updateTableContentInset()
     }
     
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        historyTableView.showLastCell(animated: false)
+    }
+    
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        calculationHistoryStorage.setData(inputLabel.labelNumber)
+    }
     
     
     // MARK: - Transit
@@ -111,7 +99,7 @@ class ViewController: UIViewController {
         sender.hapticLightTap()
         
         guard let buttonText = sender.currentTitle else { return }
-        guard inputLabel.text!.count < 13 || isNewInput else { return }
+        guard inputLabel.text!.count < 11 || isNewInput else { return }
         
         switch buttonText {
         case ",":
@@ -123,6 +111,9 @@ class ViewController: UIViewController {
                 inputLabel.text?.append(buttonText)
             }
         case "0":
+            
+            
+            // MARK: @FIX IT
             if inputLabel.text != "0" {
                 if isNewInput {
                     inputLabel.text = buttonText
@@ -131,8 +122,10 @@ class ViewController: UIViewController {
                     inputLabel.text?.append(buttonText)
                 }
             }
+            //
+            
         default:
-            if isNewInput {
+            if isNewInput || inputLabel.text == "0" {
                 inputLabel.text = buttonText
                 isNewInput = false
             } else {
@@ -150,22 +143,21 @@ class ViewController: UIViewController {
         sender.animationTap()
         sender.hapticSoftTap()
         
+        guard let text = inputLabel.text else { return }
+        guard let _ = Double(text) else { return }
+        
         guard let buttonText = sender.currentTitle,
               let buttonOperation = Operation(rawValue: buttonText)
         else { return }
         
-        guard let labelText = inputLabel.text,
-              let labelNumber = numberFormatter.number(from: labelText)?.doubleValue
-        else { return }
-        
         if !isNewInput || calculator.count == 0 {
-            calculator.addNumber(labelNumber)
+            calculator.addNumber(inputLabel.labelNumber)
         }
         
         calculator.addOperation(buttonOperation)
         
         calculateResult { result in
-            inputLabel.text = numberFormatter.string(from: NSNumber(value: result))
+            inputLabel.labelNumber = result
         }
         
         currentOperationButton = sender
@@ -180,12 +172,11 @@ class ViewController: UIViewController {
         sender.hapticMediumTap()
         sender.animationTap()
         
-        guard let labelText = inputLabel.text,
-              let labelNumber = numberFormatter.number(from: labelText)?.doubleValue
-        else { return }
+        guard let text = inputLabel.text else { return }
+        guard let _ = Double(text) else { return }
         
         if !isNewInput || calculator.count == 0 {
-            calculator.addNumber(labelNumber)
+            calculator.addNumber(inputLabel.labelNumber)
         } else {
             calculator.removeLastOperation()
         }
@@ -195,20 +186,14 @@ class ViewController: UIViewController {
             calculator.addLastOperation()
         }
         
-        // Calculate Result
-                
         calculateResult { result in
-            // get history
             calculator.removeHistory { calculationItems in
-                // storage data
-//                let newCalculation = Calculation(expression: calculationItems, result: result)
-//                self.calculationHistoryStorage.setHistory(calculation: <#T##[Calculation]#>)
-                
-                // add in table
-                self.addExample(calculationItems, result: result)
-                
+                self.calculations.append(Calculation(expression: calculationItems, result: result))
+                self.historyTableView.reloadData()
+                self.historyTableView.showLastCell()
             }
-            inputLabel.text = self.numberFormatter.string(from: NSNumber(value: result))
+            calculationHistoryStorage.setData(calculations)
+            inputLabel.labelNumber = result
         }
         
         currentOperationButton = nil // Опирации нет
@@ -258,69 +243,40 @@ class ViewController: UIViewController {
         isNewInput = true
     }
     
+}
+
+
+// MARK: - UITableViewDelegate / UITableViewDataSource
+
+
+extension ViewController: UITableViewDelegate, UITableViewDataSource {
     
-    
-    //    MARK: @FIX IT
-    
-    /// fix it Добовляет новый пример в историю.
-    func addExample(_ items: [CalculationHistoryItem], result: Double) {
-        let text = self.textHistory(items: items) + "=" + self.numberFormatter.string(from: NSNumber(value: result))!
-        
-        guard text != "" else { return }
-        
-        self.historyExample.append(text)
-        self.historyTableView.reloadData()
-        
-        calculationHistoryStorageString.setHistory(calculation: historyExample)
-        
-        let indexPath = IndexPath(row: self.historyExample.count - 1, section: 0)
-        historyTableView.scrollToRow(at: indexPath, at: .top, animated: true)
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        calculations.count
     }
     
-    
-    // @fix it  Перенести
-    func textHistory(items: [CalculationHistoryItem]) -> String {
-        var text: String = ""
-        for item in items {
-            switch item{
-            case .number(let number):
-                text += self.numberFormatter.string(from: NSNumber(value: number))!
-            case .operation(let sign):
-                text += sign.rawValue
-            }
-        }
-        return text
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: HistoryCell.reuseId, for: indexPath) as! HistoryCell
+        cell.config(calculation: calculations[indexPath.row])
+        return cell
     }
     
-    
-    //    MARK: @FIX IT
-    
-    let bottomBlur = BlurGradientView()
+}
+
+
+// MARK: - BlurView
+
+
+extension ViewController {
     
     func addBlurView() {
-        
-        let topBlur = BlurGradientView()
-        
-        topBlur.locationsGradient = [0.55, 1]
-        topBlur.colors = [
-            CGColor(gray: 0, alpha: 1),
-            CGColor(gray: 0, alpha: 0)
-        ]
-        
-//        let bottomBlur = BlurGradientView()
-        bottomBlur.colors = [
+        let topBlur = BlurGradientView(location: [0.45, 1])
+        let bottomBlur = BlurGradientView(location: [0, 0.4, 0.55, 1], colors: [
             CGColor(gray: 0, alpha: 0),
             CGColor(gray: 0, alpha: 1),
             CGColor(gray: 0, alpha: 1),
             CGColor(gray: 0, alpha: 0)
-        ]
-        
-//        bottomBlur.backgroundColor = .red
-        
-        bottomBlur.locationsGradient = [0, 0.4, 0.55, 1]
-        
-        topBlur.isUserInteractionEnabled = false
-        bottomBlur.isUserInteractionEnabled = false
+        ])
         
         view.insertSubview(topBlur, belowSubview: inputLabel)
         view.insertSubview(bottomBlur, belowSubview: inputLabel)
@@ -328,15 +284,13 @@ class ViewController: UIViewController {
         topBlur.translatesAutoresizingMaskIntoConstraints = false
         bottomBlur.translatesAutoresizingMaskIntoConstraints = false
         
-        let height = getStatusBarFrame().size.height
-        
+        let height = UIApplication.shared.getStatusBarFrame().height
         NSLayoutConstraint.activate([
             topBlur.heightAnchor.constraint(equalToConstant: height + 20),
             topBlur.topAnchor.constraint(equalTo: view.topAnchor),
             topBlur.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             topBlur.leadingAnchor.constraint(equalTo: view.leadingAnchor)
         ])
-        
         NSLayoutConstraint.activate([
             bottomBlur.heightAnchor.constraint(equalToConstant: 40),
             bottomBlur.bottomAnchor.constraint(equalTo: historyTableView.bottomAnchor, constant: 20),
@@ -345,37 +299,4 @@ class ViewController: UIViewController {
         ])
     }
     
-    func getStatusBarFrame() -> CGRect {
-        var statusBarFrame: CGRect = .zero
-        let scenes = UIApplication.shared.connectedScenes
-        let windowScene = scenes.first as? UIWindowScene
-        let window = windowScene?.windows.first
-        statusBarFrame = window?.windowScene?.statusBarManager?.statusBarFrame ?? CGRect.zero
-        return statusBarFrame
-    }
-    
-    
-    
-    
-    
 }
-
-
-// MARK: - UITableViewDelegate
-
-
-extension ViewController: UITableViewDelegate, UITableViewDataSource {
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        historyExample.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: HistoryCell.reuseId, for: indexPath) as! HistoryCell
-        cell.config(example: historyExample[indexPath.row])
-        return cell
-    }
-    
-}
-
-

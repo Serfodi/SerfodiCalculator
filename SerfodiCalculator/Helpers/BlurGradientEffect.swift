@@ -8,40 +8,39 @@
 import Foundation
 
 import UIKit
+ 
 
-class BlurGradientView: UIVisualEffectView {
-
-    private let gradientLayer = CAGradientLayer()
+final class BlurGradientView: UIVisualEffectView {
     
-    var locationsGradient: [NSNumber] = [0, 1]
+    private var gradientLayer = CAGradientLayer()
     
-    var colors:[CGColor] = [UIColor.black.cgColor, UIColor.white.cgColor]
-        
-    override init(effect: UIVisualEffect?) {
-        super.init(effect: effect)
-        setup()
-    }
+    private var location: [NSNumber] = []
     
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        setup()
-    }
+    private var colors:[CGColor] = []
     
-    private func setup() {
-        effect = UIBlurEffect(style: .light)
-        
-        backgroundColor = .clear
-        
-        gradientLayer.locations = locationsGradient
-        gradientLayer.colors = colors
-        
-        layer.mask = gradientLayer
+    init (blur: UIBlurEffect.Style = .light, location: [NSNumber] = [0, 1], colors:[CGColor] = [CGColor(gray: 0, alpha: 1), CGColor(gray: 0, alpha: 0)]) {
+        super.init(effect: UIBlurEffect(style: blur))
+        self.colors = colors
+        self.location = location
+        configure()
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        gradientLayer.locations = locationsGradient
-        gradientLayer.colors = colors
         gradientLayer.frame = bounds
     }
+    
+    private func configure() {
+        backgroundColor = .clear
+        isUserInteractionEnabled = false
+        gradientLayer.locations = location
+        gradientLayer.colors = colors
+        layer.mask = gradientLayer
+    }
+    
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
 }

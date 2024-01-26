@@ -7,26 +7,35 @@
 
 import UIKit
 
-class HistoryCell: UITableViewCell {
-    
-    @IBOutlet weak var label: UILabel!
+final class HistoryCell: UITableViewCell {
     
     static let reuseId = "historyCell"
     
-    private var example: String = ""
+    private lazy var numberFormatter = NumberFormatter(locate: "ru_RU")
     
-    func config(example: String) {
-        self.example = example
-        self.label.text = example
+    @IBOutlet weak var label: UILabel!
+    
+    public func config(calculation: Calculation) {
         backgroundColor = .clear
+        label.text = expressionString(calculation)
     }
     
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
+    private func expressionString(_ calculation: Calculation) -> String {
+        var text: String = ""
+        for item in calculation.expression {
+            switch item{
+            case .number(let number):
+                text += numberFormatter.string(from: NSNumber(value: number))!
+            case .operation(let sign):
+                text += sign.rawValue
+            }
+        }
+        text += "=" + numberFormatter.string(from: NSNumber(value: calculation.result))!
+        return text
     }
     
     override func prepareForReuse() {
-        example = ""
+        label.text = ""
     }
     
 }

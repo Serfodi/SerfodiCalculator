@@ -386,7 +386,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="dHe-wI-GON">
-                                <rect key="frame" x="57" y="103" width="321" height="205"/>
+                                <rect key="frame" x="57" y="93" width="321" height="215"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="historyCell" id="hzs-nX-iz9" customClass="HistoryCell" customModule="SerfodiCalculator" customModuleProvider="target">
@@ -420,7 +420,7 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="BlB-xg-JHD"/>
                                 </connections>
                             </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="999999999999" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="40" translatesAutoresizingMaskIntoConstraints="NO" id="oKN-Hv-xpk">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="125,5" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="40" translatesAutoresizingMaskIntoConstraints="NO" id="oKN-Hv-xpk" customClass="DisplayLabel" customModule="SerfodiCalculator" customModuleProvider="target">
                                 <rect key="frame" x="30" y="313" width="333" height="80"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="80" id="xjJ-gM-wYy"/>
@@ -428,11 +428,6 @@
                                 <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="50"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="15"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4vP-MY-lyg">
                                 <rect key="frame" x="10" y="114" width="42" height="38.666666666666686"/>
@@ -459,9 +454,9 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="g8v-Qr-J1c" secondAttribute="bottom" constant="15" id="H5m-w4-cfW"/>
                             <constraint firstItem="g8v-Qr-J1c" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="PId-B7-cX8"/>
                             <constraint firstItem="4vP-MY-lyg" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="SZc-zH-z89"/>
-                            <constraint firstItem="oKN-Hv-xpk" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="30" id="l48-hB-bUt"/>
+                            <constraint firstItem="oKN-Hv-xpk" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="30" id="a1P-xX-XQU"/>
                             <constraint firstItem="4vP-MY-lyg" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="l5f-I0-DqD"/>
-                            <constraint firstItem="dHe-wI-GON" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="vlO-ka-9g3"/>
+                            <constraint firstItem="dHe-wI-GON" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="-10" id="vlO-ka-9g3"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="1Zb-1K-SHK"/>

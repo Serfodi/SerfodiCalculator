@@ -9,6 +9,9 @@ import UIKit
 
 extension UILabel {
     
+    public func textSize() -> CGSize {
+        (text! as NSString).size(withAttributes: [NSAttributedString.Key.font: self.font!])
+    }
     
     public func animationError() {
         let snake = CABasicAnimation(keyPath: "position")

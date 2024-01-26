@@ -20,8 +20,16 @@ extension UITableView {
                 break
             }
         }
-        contentInset = UIEdgeInsets(top: contentInsetTop, left: 0, bottom: 7, right: 0)
+        contentInset = UIEdgeInsets(top: contentInsetTop, left: 0, bottom: 10, right: 0)
         
     }
+    
+    func showLastCell(animated: Bool = true) {
+        let numRows = numberOfRows(inSection: 0)
+        guard numRows > 0 else { return }
+        let lastIndex = NSIndexPath(row: numRows - 1, section: 0)
+        scrollToRow(at: lastIndex as IndexPath, at: .bottom, animated: animated)
+    }
+    
     
 }

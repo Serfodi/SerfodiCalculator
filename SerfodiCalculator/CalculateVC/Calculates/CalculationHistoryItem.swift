@@ -16,6 +16,7 @@ enum CalculationHistoryItem {
     
 }
 
+
 // MARK: Codable
 
 extension CalculationHistoryItem: Codable {
@@ -53,3 +54,5 @@ extension CalculationHistoryItem: Codable {
     }
     
 }
+
+
