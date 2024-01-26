@@ -101,7 +101,8 @@ class ViewController: UIViewController {
         sender.hapticLightTap()
         
         guard let buttonText = sender.currentTitle else { return }
-        guard inputLabel.sizeToText() || isNewInput else { return }
+        guard let text = inputLabel.text else { return }
+        guard inputLabel.isFitTextInto(text + buttonText) || isNewInput else { return }
         
         switch buttonText {
         case ",":
@@ -112,20 +113,28 @@ class ViewController: UIViewController {
                 if inputLabel.text?.contains(",") == true { return }
                 inputLabel.text?.append(buttonText)
             }
-        default:
+        case "0":
             if isNewInput {
+                inputLabel.text = "0"
+                isNewInput = false
+            } else {
+                if inputLabel.text?.contains(",") == true || text != "0" {
+                    inputLabel.text?.append(buttonText)
+                }
+            }
+        default:
+            if isNewInput || text == "0" {
                 inputLabel.text = buttonText
                 isNewInput = false
             } else {
                 inputLabel.text?.append(buttonText)
             }
-            inputLabel.performFormattingLabel()
         }
+        
         
         if let number = inputLabel.getNumber  {
             calculationHistoryStorage.setData(number)
         }
-        
         currentOperationButton = nil
     }
     
@@ -208,6 +217,7 @@ class ViewController: UIViewController {
             let number = try calculator.calculateResult()
             result(number)
         } catch let error {
+            print(error)
             self.errorCalculate(error: error as! CalculationError)
         }
     }
@@ -255,6 +265,57 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
 }
+
+
+// MARK:
+
+/*
+extension ViewController {
+    
+    func animationShowNotification() {
+        
+        var viewNotification = UIView()
+        var labelNotification:UILabel!
+        
+        func creatureViewTwo() {
+            let view = UIView(frame: CGRect(x: 0, y: -60, width: 300, height: 60))
+            view.center.x = self.view.frame.width / 2
+            view.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+            view.layer.cornerRadius = 25
+            let label = UILabel(frame: CGRect(x: 20, y: 19, width: 260, height: 22))
+            label.font = UIFont(name: "OpenSans-Bold", size: 16)
+            label.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+            label.text = "Cоревновательный режим выключен"
+            label.textAlignment = .center
+            labelNotification = label
+            view.addSubview(labelNotification)
+            viewNotification = view
+            self.view.addSubview(viewNotification)
+            viewNotification.alpha = 0
+        }
+        
+        
+        func show() {
+            UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseOut, animations: {
+                
+                self.viewNotification.transform = CGAffineTransform(translationX: 0, y: 70)
+                print("Начало")
+                
+            }) { (true) in hied() }
+        }
+        func hied() {
+            let animator = UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.3, delay: 0.8, options: .curveEaseIn, animations: {
+                self.viewNotification.transform = .identity
+            }) { (state) in print("Конец") }
+            animationNotification = animator
+            animator.startAnimation()
+        }
+        show()
+    }
+    
+}
+*/
+
 
 
 // MARK:  BlurView

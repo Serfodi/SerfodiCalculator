@@ -386,7 +386,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="dHe-wI-GON">
-                                <rect key="frame" x="15" y="93" width="363" height="215"/>
+                                <rect key="frame" x="15" y="93" width="363" height="220"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="historyCell" id="hzs-nX-iz9" customClass="HistoryCell" customModule="SerfodiCalculator" customModuleProvider="target">
@@ -420,7 +420,7 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="BlB-xg-JHD"/>
                                 </connections>
                             </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100000000000" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.84999999999999998" translatesAutoresizingMaskIntoConstraints="NO" id="oKN-Hv-xpk" customClass="DisplayLabel" customModule="SerfodiCalculator" customModuleProvider="target">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1 000,000 ∞" textAlignment="right" lineBreakMode="clip" baselineAdjustment="alignBaselines" minimumScaleFactor="0.84999999999999998" translatesAutoresizingMaskIntoConstraints="NO" id="oKN-Hv-xpk" customClass="DisplayLabel" customModule="SerfodiCalculator" customModuleProvider="target">
                                 <rect key="frame" x="30" y="313" width="333" height="80"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="80" id="xjJ-gM-wYy"/>
@@ -436,7 +436,7 @@
                             <constraint firstItem="g8v-Qr-J1c" firstAttribute="top" secondItem="oKN-Hv-xpk" secondAttribute="bottom" constant="20" id="2BM-XK-ogz"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="oKN-Hv-xpk" secondAttribute="trailing" constant="30" id="3Tr-fx-qSQ"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="dHe-wI-GON" secondAttribute="trailing" constant="15" id="DrK-Ls-Xkt"/>
-                            <constraint firstItem="oKN-Hv-xpk" firstAttribute="top" secondItem="dHe-wI-GON" secondAttribute="bottom" constant="5" id="Gzz-Jw-4CB"/>
+                            <constraint firstItem="oKN-Hv-xpk" firstAttribute="top" secondItem="dHe-wI-GON" secondAttribute="bottom" id="Gzz-Jw-4CB"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="g8v-Qr-J1c" secondAttribute="bottom" constant="15" id="H5m-w4-cfW"/>
                             <constraint firstItem="g8v-Qr-J1c" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="PId-B7-cX8"/>
                             <constraint firstItem="oKN-Hv-xpk" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="30" id="a1P-xX-XQU"/>

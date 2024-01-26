@@ -14,19 +14,23 @@ enum Operation: String {
     case divide = "/"
     
     func calculate(_ number1: Double, _ number2: Double) throws -> Double {
+        try testOutRange(numbers: number1, number2)
+        var result: Double = number2
         switch self {
         case .add:
-            return number1 + number2
+            result = number1 + number2
         case .subtract:
-            return number1 - number2
+            result = number1 - number2
         case .multiply:
-            return number1 * number2
+            result = number1 * number2
         case .divide:
             if number2 == 0 {
                 throw CalculationError.dividedByZero
             }
-            return number1 / number2
+            result = number1 / number2
         }
+        try testOutRange(numbers: result)
+        return result
     }
     
     func priority() -> Int {
@@ -40,6 +44,16 @@ enum Operation: String {
     
 }
 
-//if number1 + number2 >= Double.greatestFiniteMagnitude || number1 + number2 <= Double.leastNonzeroMagnitude {
-//    throw CalculationError.outOfRang
-//}
+extension Operation {
+    
+    func testOutRange(numbers: Double...) throws {
+        var test = true
+        for number in numbers {
+            test = number < Double.greatestFiniteMagnitude && test
+            test = number > 5E-300  && test
+        }
+        if !test { throw CalculationError.outOfRang }
+    }
+    
+}
+

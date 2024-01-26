@@ -11,14 +11,18 @@ extension NumberFormatter {
     
     convenience init(locate: String = "ru_RU", style: NumberFormatter.Style = .decimal ) {
         self.init()
+        
         locale = Locale(identifier: locate)
         numberStyle = style
         usesGroupingSeparator = false
         
         minimumIntegerDigits = 1
-        maximumFractionDigits = 14
+        maximumFractionDigits = 15
+        
+//        usesSignificantDigits = true
         
         nilSymbol = "Нет числа!"
+        positiveInfinitySymbol = "∞ не придел!"
     }
     
     

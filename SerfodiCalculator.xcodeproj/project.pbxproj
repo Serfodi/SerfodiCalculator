@@ -30,6 +30,7 @@
 		B064E3192B62BFF400E56208 /* UIWindow + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B064E3182B62BFF400E56208 /* UIWindow + Extension.swift */; };
 		B064E31B2B62D8B000E56208 /* DisplayLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B064E31A2B62D8B000E56208 /* DisplayLabel.swift */; };
 		B064E31D2B64120300E56208 /* String + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B064E31C2B64120300E56208 /* String + Extension.swift */; };
+		B064E3202B6456D800E56208 /* CGSize + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B064E31F2B6456D800E56208 /* CGSize + Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +59,7 @@
 		B064E3182B62BFF400E56208 /* UIWindow + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIWindow + Extension.swift"; sourceTree = "<group>"; };
 		B064E31A2B62D8B000E56208 /* DisplayLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayLabel.swift; sourceTree = "<group>"; };
 		B064E31C2B64120300E56208 /* String + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String + Extension.swift"; sourceTree = "<group>"; };
+		B064E31F2B6456D800E56208 /* CGSize + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGSize + Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,10 +97,8 @@
 				B02EC6622B5D8D4E00CE0122 /* Main.storyboard */,
 				B064E30D2B626F5200E56208 /* Storage */,
 				B064E3002B60283C00E56208 /* CalculateVC */,
-				B064E2FE2B60280500E56208 /* CalculateHistoryVC.swift */,
-				B064E3012B6039A600E56208 /* HistoryCell.swift */,
+				B064E31E2B6446FB00E56208 /* HistoryVC */,
 				B064E3072B61819500E56208 /* Helpers */,
-				B064E2FD2B5EE64300E56208 /* Extension */,
 				B02EC6652B5D8D5200CE0122 /* Assets.xcassets */,
 				B02EC6672B5D8D5200CE0122 /* LaunchScreen.storyboard */,
 				B02EC66A2B5D8D5200CE0122 /* Info.plist */,
@@ -116,6 +116,7 @@
 				B064E2FB2B5ED4F000E56208 /* UILabel + Extension.swift */,
 				B064E3092B61822400E56208 /* UITableView + Extension.swift */,
 				B064E31C2B64120300E56208 /* String + Extension.swift */,
+				B064E31F2B6456D800E56208 /* CGSize + Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -123,8 +124,10 @@
 		B064E3002B60283C00E56208 /* CalculateVC */ = {
 			isa = PBXGroup;
 			children = (
+				B064E3212B646E4400E56208 /* Model */,
 				B02EC6602B5D8D4E00CE0122 /* ViewController.swift */,
 				B064E3082B6181BC00E56208 /* Calculates */,
+				B064E31A2B62D8B000E56208 /* DisplayLabel.swift */,
 			);
 			path = CalculateVC;
 			sourceTree = "<group>";
@@ -133,7 +136,8 @@
 			isa = PBXGroup;
 			children = (
 				B064E3052B6180FA00E56208 /* BlurGradientEffect.swift */,
-				B064E31A2B62D8B000E56208 /* DisplayLabel.swift */,
+				B064E2F52B5EB7AB00E56208 /* CalculationError.swift */,
+				B064E2FD2B5EE64300E56208 /* Extension */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -143,9 +147,6 @@
 			children = (
 				B064E2F72B5EB7D900E56208 /* Calculate.swift */,
 				B064E3032B61728000E56208 /* Operation.swift */,
-				B064E30E2B62707500E56208 /* CalculationHistoryItem.swift */,
-				B064E3122B62B62300E56208 /* Calculation.swift */,
-				B064E2F52B5EB7AB00E56208 /* CalculationError.swift */,
 			);
 			path = Calculates;
 			sourceTree = "<group>";
@@ -156,6 +157,24 @@
 				B064E30B2B626F4600E56208 /* Storage.swift */,
 			);
 			path = Storage;
+			sourceTree = "<group>";
+		};
+		B064E31E2B6446FB00E56208 /* HistoryVC */ = {
+			isa = PBXGroup;
+			children = (
+				B064E2FE2B60280500E56208 /* CalculateHistoryVC.swift */,
+				B064E3012B6039A600E56208 /* HistoryCell.swift */,
+			);
+			path = HistoryVC;
+			sourceTree = "<group>";
+		};
+		B064E3212B646E4400E56208 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B064E30E2B62707500E56208 /* CalculationHistoryItem.swift */,
+				B064E3122B62B62300E56208 /* Calculation.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -249,6 +268,7 @@
 				B02EC65D2B5D8D4E00CE0122 /* AppDelegate.swift in Sources */,
 				B064E3022B6039A600E56208 /* HistoryCell.swift in Sources */,
 				B02EC65F2B5D8D4E00CE0122 /* SceneDelegate.swift in Sources */,
+				B064E3202B6456D800E56208 /* CGSize + Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

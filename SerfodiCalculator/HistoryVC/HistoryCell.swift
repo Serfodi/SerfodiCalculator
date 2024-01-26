@@ -18,10 +18,10 @@ final class HistoryCell: UITableViewCell {
     
     public func config(calculation: Calculation) {
         backgroundColor = .clear
-        label.text = expressionString(calculation)
+        expressionString(calculation)
     }
     
-    private func expressionString(_ calculation: Calculation) -> String {
+    private func expressionString(_ calculation: Calculation) {
         var text: String = ""
         for item in calculation.expression {
             switch item{
@@ -36,13 +36,25 @@ final class HistoryCell: UITableViewCell {
             }
         }
         text += "="
+        let index = text.count
+        
+        var result = ""
         
         if calculation.result > 100000000000 {
-            text += numberFormatterE.string(from: NSNumber(value: calculation.result))!
+            result = numberFormatterE.string(from: NSNumber(value: calculation.result))!
         } else {
-            text += numberFormatterDec.string(from: NSNumber(value: calculation.result))!
+            result = numberFormatterDec.string(from: NSNumber(value: calculation.result))!
         }
-        return text
+        
+        text += result
+        
+        let attributedQuote = NSMutableAttributedString(string: text)
+        let range = NSRange(location: index, length: result.count)
+        attributedQuote.addAttribute(.foregroundColor, value: UIColor.numberButtonColor(), range: range)
+        
+        label.attributedText = attributedQuote
+        
+//        return attributedQuote
     }
     
     override func prepareForReuse() {

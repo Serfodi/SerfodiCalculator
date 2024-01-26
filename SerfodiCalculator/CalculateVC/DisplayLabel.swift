@@ -50,15 +50,7 @@ final class DisplayLabel: UILabel {
     override func layoutSubviews() {
         super.layoutSubviews()
         layer.cornerRadius = bounds.height / 4
-        
-        let textSize = textSize()
-        
-        resizeFocusView(textSize)
-        
-//        if let number = getNumber {
-//            setTextLabel(number: number)
-//        }
-        
+        resizeFocusView(textSize())
         
         // - @fix it
         if isFirstResponder {
@@ -68,12 +60,9 @@ final class DisplayLabel: UILabel {
         //
     }
     
-    
     private func configure() {
         setupFocusView()
     }
-
-
     
     /// Формотирует и устонавливает число в лейбел
     /// Вызыватся после того как получено число.
@@ -81,14 +70,31 @@ final class DisplayLabel: UILabel {
     public func setTextLabel(number: Double) {
         // Пытаемся преоброзовать к нормальному виду
         guard let numberDecText = numberFormatterDec.string(from: NSNumber(value: number)) else { return }
+        
+        
         // Проверяем влезает ли текст в лейбел или нет
-        if sizeToText(numberDecText) {
+        if isFitTextInto(numberDecText) {
             text = numberDecText
         } else {
-            // в случае если нет то делаем E
-            text = numberFormatterE.string(from: NSNumber(value: number))
+            // в случае если нет, то делаем E
+            
+            text = fitFormatter(number, numberFormatterE.maximumFractionDigits).string(from: NSNumber(value: number))
+            
         }
     }
+    
+    private func fitFormatter(_ number: Double, _ n: Int) -> NumberFormatter {
+        let formatter = numberFormatterE
+        formatter.maximumFractionDigits = n
+        let numberDecText = numberFormatterE.string(from: NSNumber(value: number))
+        if isFitTextInto(numberDecText) {
+            return formatter
+        } else {
+            return fitFormatter(number, n - 1)
+        }
+    }
+    
+    
     
     
     /// Выполянет формотирования текста.
@@ -219,3 +225,39 @@ extension DisplayLabel {
     
 }
 
+
+// MARK: - Animation Error
+
+
+extension DisplayLabel {
+    
+    public func animationError() {
+        let snake = CABasicAnimation(keyPath: "position")
+        snake.duration = 0.1
+        snake.repeatCount = 3
+        snake.autoreverses = true
+        
+        snake.fromValue = NSValue(cgPoint: CGPoint(x: center.x - 5, y: center.y))
+        snake.toValue = NSValue(cgPoint: CGPoint(x: center.x + 5, y: center.y))
+        
+        let colorAnimation = CABasicAnimation(keyPath: "backgroundColor")
+        colorAnimation.fromValue = UIColor.clear.cgColor
+        colorAnimation.toValue = #colorLiteral(red: 0.9568627477, green: 0.8265123661, blue: 0.7767734047, alpha: 1).cgColor
+        colorAnimation.duration = 0.4
+        colorAnimation.autoreverses = true
+        
+        let animationGroup = CAAnimationGroup()
+        animationGroup.duration = 0.8
+        animationGroup.animations = [colorAnimation, snake]
+        
+        layer.add(animationGroup, forKey: "groupAnimation")
+        
+        hapticSoftTap()
+    }
+    
+    private func hapticSoftTap() {
+        let generator = UINotificationFeedbackGenerator()
+        generator.notificationOccurred(.error)
+    }
+    
+}
