@@ -11,7 +11,8 @@ final class HistoryCell: UITableViewCell {
     
     static let reuseId = "historyCell"
     
-    private lazy var numberFormatter = NumberFormatter(locate: "ru_RU")
+    private lazy var numberFormatterDec = NumberFormatter(locate: "ru_RU")
+    private lazy var numberFormatterE = NumberFormatter(style: .scientific)
     
     @IBOutlet weak var label: UILabel!
     
@@ -25,12 +26,22 @@ final class HistoryCell: UITableViewCell {
         for item in calculation.expression {
             switch item{
             case .number(let number):
-                text += numberFormatter.string(from: NSNumber(value: number))!
+                if number > 100000000000 {
+                    text += numberFormatterE.string(from: NSNumber(value: number))!
+                } else {
+                    text += numberFormatterDec.string(from: NSNumber(value: number))!
+                }
             case .operation(let sign):
                 text += sign.rawValue
             }
         }
-        text += "=" + numberFormatter.string(from: NSNumber(value: calculation.result))!
+        text += "="
+        
+        if calculation.result > 100000000000 {
+            text += numberFormatterE.string(from: NSNumber(value: calculation.result))!
+        } else {
+            text += numberFormatterDec.string(from: NSNumber(value: calculation.result))!
+        }
         return text
     }
     

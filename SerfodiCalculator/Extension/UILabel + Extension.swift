@@ -9,9 +9,47 @@ import UIKit
 
 extension UILabel {
     
+    /// Размер текущего текста с учетом `minimumScaleFactor`
     public func textSize() -> CGSize {
-        (text! as NSString).size(withAttributes: [NSAttributedString.Key.font: self.font!])
+        let size = sizeText()
+        if size.width > self.bounds.width {
+            let hight = size.height * minimumScaleFactor
+            return CGSize(width: self.bounds.width, height: hight)
+        }
+        return size
     }
+    
+    /// Размер текста
+    public func sizeText() -> CGSize {
+        guard let text = text else { return CGSize.zero }
+        return text.size(font: font)
+    }
+    
+    /// Размер текста
+    public func sizeText(_ text: String) -> CGSize {
+        text.size(font: font)
+    }
+    
+    /// Влазиет ли текст.
+    ///
+    /// `true` - текст меньше.
+    ///
+    /// C учетом `minimumScaleFactor`
+    public func sizeToText() -> Bool {
+        (sizeText().width + "0".size(font: font).width) * minimumScaleFactor < self.bounds.width
+    }
+    
+    
+    /// Влазиет ли текст.
+    ///
+    /// `true` - текст меньше.
+    ///
+    /// C учетом `minimumScaleFactor`
+    public func sizeToText(_ text: String) -> Bool {
+        (sizeText(text).width) * minimumScaleFactor < self.bounds.width
+    }
+    
+    
     
     public func animationError() {
         let snake = CABasicAnimation(keyPath: "position")

@@ -46,6 +46,7 @@ class ViewController: UIViewController {
     var calculations: [Calculation] = []
     
     
+    
     // MARK: - Live circle
     
     override func viewDidLoad() {
@@ -53,7 +54,7 @@ class ViewController: UIViewController {
         resetCalculate()
         historyTableView.delegate = self
         calculations = calculationHistoryStorage.load()
-        inputLabel.labelNumber = calculationHistoryStorage.load()
+        inputLabel.setTextLabel(number: calculationHistoryStorage.load())
         historyTableView.reloadData()
     }
     
@@ -64,17 +65,18 @@ class ViewController: UIViewController {
         historyTableView.updateTableContentInset()
     }
     
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         historyTableView.showLastCell(animated: false)
     }
     
-    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        calculationHistoryStorage.setData(inputLabel.labelNumber)
+        if let number = inputLabel.getNumber  {
+            calculationHistoryStorage.setData(number)
+        }
     }
+    
     
     
     // MARK: - Transit
@@ -99,7 +101,7 @@ class ViewController: UIViewController {
         sender.hapticLightTap()
         
         guard let buttonText = sender.currentTitle else { return }
-        guard inputLabel.text!.count < 11 || isNewInput else { return }
+        guard inputLabel.sizeToText() || isNewInput else { return }
         
         switch buttonText {
         case ",":
@@ -110,27 +112,18 @@ class ViewController: UIViewController {
                 if inputLabel.text?.contains(",") == true { return }
                 inputLabel.text?.append(buttonText)
             }
-        case "0":
-            
-            
-            // MARK: @FIX IT
-            if inputLabel.text != "0" {
-                if isNewInput {
-                    inputLabel.text = buttonText
-                    isNewInput = false
-                } else {
-                    inputLabel.text?.append(buttonText)
-                }
-            }
-            //
-            
         default:
-            if isNewInput || inputLabel.text == "0" {
+            if isNewInput {
                 inputLabel.text = buttonText
                 isNewInput = false
             } else {
                 inputLabel.text?.append(buttonText)
             }
+            inputLabel.performFormattingLabel()
+        }
+        
+        if let number = inputLabel.getNumber  {
+            calculationHistoryStorage.setData(number)
         }
         
         currentOperationButton = nil
@@ -143,24 +136,23 @@ class ViewController: UIViewController {
         sender.animationTap()
         sender.hapticSoftTap()
         
-        guard let text = inputLabel.text else { return }
-        guard let _ = Double(text) else { return }
-        
         guard let buttonText = sender.currentTitle,
               let buttonOperation = Operation(rawValue: buttonText)
         else { return }
         
+        guard let labelNumber = inputLabel.getNumber else { return }
+        
         if !isNewInput || calculator.count == 0 {
-            calculator.addNumber(inputLabel.labelNumber)
+            calculator.addNumber(labelNumber)
         }
         
         calculator.addOperation(buttonOperation)
+        currentOperationButton = sender
         
         calculateResult { result in
-            inputLabel.labelNumber = result
+            inputLabel.setTextLabel(number: result)
         }
         
-        currentOperationButton = sender
         isNewInput = true
     }
     
@@ -172,11 +164,10 @@ class ViewController: UIViewController {
         sender.hapticMediumTap()
         sender.animationTap()
         
-        guard let text = inputLabel.text else { return }
-        guard let _ = Double(text) else { return }
+        guard let labelNumber = inputLabel.getNumber else { return }
         
         if !isNewInput || calculator.count == 0 {
-            calculator.addNumber(inputLabel.labelNumber)
+            calculator.addNumber(labelNumber)
         } else {
             calculator.removeLastOperation()
         }
@@ -193,7 +184,7 @@ class ViewController: UIViewController {
                 self.historyTableView.showLastCell()
             }
             calculationHistoryStorage.setData(calculations)
-            inputLabel.labelNumber = result
+            inputLabel.setTextLabel(number: result)
         }
         
         currentOperationButton = nil // Опирации нет
@@ -246,8 +237,10 @@ class ViewController: UIViewController {
 }
 
 
-// MARK: - UITableViewDelegate / UITableViewDataSource
+// MARK: -
 
+
+// MARK:  UITableViewDelegate / UITableViewDataSource
 
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
     
@@ -264,8 +257,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 
-// MARK: - BlurView
-
+// MARK:  BlurView
 
 extension ViewController {
     
@@ -297,6 +289,31 @@ extension ViewController {
             bottomBlur.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             bottomBlur.leadingAnchor.constraint(equalTo: view.leadingAnchor)
         ])
+    }
+    
+}
+
+
+// MARK: - SwiftUI Helper
+
+import SwiftUI
+
+struct ViewControllerProvider: PreviewProvider {
+    
+    static var previews: some View {
+        ContainerView().edgesIgnoringSafeArea(.all)
+    }
+    
+    struct ContainerView: UIViewControllerRepresentable {
+        
+        let viewController = ViewController()
+        
+        func makeUIViewController(context: Context) -> some UIViewController {
+            viewController
+        }
+        
+        func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {}
+        
     }
     
 }

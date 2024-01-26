@@ -9,11 +9,17 @@ import Foundation
 
 extension NumberFormatter {
     
-    convenience init(locate: String = "ru_RU") {
+    convenience init(locate: String = "ru_RU", style: NumberFormatter.Style = .decimal ) {
         self.init()
-        usesGroupingSeparator = false
         locale = Locale(identifier: locate)
-        numberStyle = .decimal
+        numberStyle = style
+        usesGroupingSeparator = false
+        
+        minimumIntegerDigits = 1
+        maximumFractionDigits = 14
+        
+        nilSymbol = "Нет числа!"
     }
+    
     
 }

@@ -16,26 +16,14 @@ enum Operation: String {
     func calculate(_ number1: Double, _ number2: Double) throws -> Double {
         switch self {
         case .add:
-            if number1 + number2 >= Double.greatestFiniteMagnitude || number1 + number2 <= Double.leastNonzeroMagnitude {
-                throw CalculationError.outOfRang
-            }
             return number1 + number2
         case .subtract:
-            if number1 - number2 >= Double.greatestFiniteMagnitude || number1 - number2 <= Double.leastNonzeroMagnitude {
-                throw CalculationError.outOfRang
-            }
             return number1 - number2
         case .multiply:
-            if number1 * number2 >= Double.greatestFiniteMagnitude || number1 * number2 <= Double.leastNonzeroMagnitude {
-                throw CalculationError.outOfRang
-            }
             return number1 * number2
         case .divide:
             if number2 == 0 {
                 throw CalculationError.dividedByZero
-            }
-            if number1 / number2 >= Double.greatestFiniteMagnitude || number1 / number2 <= Double.leastNonzeroMagnitude {
-                throw CalculationError.outOfRang
             }
             return number1 / number2
         }
@@ -51,3 +39,7 @@ enum Operation: String {
     }
     
 }
+
+//if number1 + number2 >= Double.greatestFiniteMagnitude || number1 + number2 <= Double.leastNonzeroMagnitude {
+//    throw CalculationError.outOfRang
+//}

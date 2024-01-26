@@ -29,6 +29,7 @@
 		B064E3172B62B9EE00E56208 /* NumberFormatter + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B064E3162B62B9EE00E56208 /* NumberFormatter + Extension.swift */; };
 		B064E3192B62BFF400E56208 /* UIWindow + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B064E3182B62BFF400E56208 /* UIWindow + Extension.swift */; };
 		B064E31B2B62D8B000E56208 /* DisplayLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B064E31A2B62D8B000E56208 /* DisplayLabel.swift */; };
+		B064E31D2B64120300E56208 /* String + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B064E31C2B64120300E56208 /* String + Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +57,7 @@
 		B064E3162B62B9EE00E56208 /* NumberFormatter + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NumberFormatter + Extension.swift"; sourceTree = "<group>"; };
 		B064E3182B62BFF400E56208 /* UIWindow + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIWindow + Extension.swift"; sourceTree = "<group>"; };
 		B064E31A2B62D8B000E56208 /* DisplayLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayLabel.swift; sourceTree = "<group>"; };
+		B064E31C2B64120300E56208 /* String + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String + Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +115,7 @@
 				B064E2F92B5ED38800E56208 /* UIButton + Extension.swift */,
 				B064E2FB2B5ED4F000E56208 /* UILabel + Extension.swift */,
 				B064E3092B61822400E56208 /* UITableView + Extension.swift */,
+				B064E31C2B64120300E56208 /* String + Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -228,6 +231,7 @@
 			files = (
 				B064E3042B61728000E56208 /* Operation.swift in Sources */,
 				B064E30C2B626F4600E56208 /* Storage.swift in Sources */,
+				B064E31D2B64120300E56208 /* String + Extension.swift in Sources */,
 				B064E2F82B5EB7D900E56208 /* Calculate.swift in Sources */,
 				B064E3192B62BFF400E56208 /* UIWindow + Extension.swift in Sources */,
 				B02EC6612B5D8D4E00CE0122 /* ViewController.swift in Sources */,

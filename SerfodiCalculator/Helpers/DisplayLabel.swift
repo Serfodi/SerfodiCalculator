@@ -19,21 +19,19 @@ final class DisplayLabel: UILabel {
     private var heightConstraint = NSLayoutConstraint()
     private var rightConstraint = NSLayoutConstraint()
     
-    private lazy var numberFormatter = NumberFormatter(locate: "ru_RU")
+    private lazy var numberFormatterDec = NumberFormatter(locate: "ru_RU")
+    private lazy var numberFormatterE = NumberFormatter(style: .scientific)
     
-    public var labelNumber: Double {
-        get {
-            (numberFormatter.number(from: text ?? "0") ?? 0).doubleValue
-        }
-        set {
-            text = numberFormatter.string(from: NSNumber(value: newValue))
-        }
-    }
     
     private var isErase: (CGFloat, Bool) = (0, false)
     
     override public var canBecomeFirstResponder: Bool { true }
     
+    /// Отоброжаемое чило
+    public var getNumber: Double? {
+        guard let text = text else { return nil }
+        return numberFormatterDec.number(from: text)?.doubleValue
+    }
     
     // MARK: init
     
@@ -51,8 +49,16 @@ final class DisplayLabel: UILabel {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        
         layer.cornerRadius = bounds.height / 4
+        
+        let textSize = textSize()
+        
+        resizeFocusView(textSize)
+        
+//        if let number = getNumber {
+//            setTextLabel(number: number)
+//        }
+        
         
         // - @fix it
         if isFirstResponder {
@@ -60,22 +66,43 @@ final class DisplayLabel: UILabel {
             UIMenuController.shared.hideMenu()
         }
         //
-        
-        let textSize = textSize()
-        let radius = bounds.height / 4
-        rightConstraint.constant = radius / 2
-        widthConstraint.constant = textSize.width + radius
-        heightConstraint.constant = textSize.height
-        focusView.layoutIfNeeded()
-        focusView.layer.cornerRadius = radius
     }
     
     
     private func configure() {
         setupFocusView()
     }
+
+
+    
+    /// Формотирует и устонавливает число в лейбел
+    /// Вызыватся после того как получено число.
+    /// В методах опираций или =
+    public func setTextLabel(number: Double) {
+        // Пытаемся преоброзовать к нормальному виду
+        guard let numberDecText = numberFormatterDec.string(from: NSNumber(value: number)) else { return }
+        // Проверяем влезает ли текст в лейбел или нет
+        if sizeToText(numberDecText) {
+            text = numberDecText
+        } else {
+            // в случае если нет то делаем E
+            text = numberFormatterE.string(from: NSNumber(value: number))
+        }
+    }
+    
+    
+    /// Выполянет формотирования текста.
+    /// Вызывается для формотирования ввода чисел.
+    /// Формат всегда `Dec`
+    public func performFormattingLabel() {
+        guard let text = text,
+              let numberText = numberFormatterDec.number(from: text)?.doubleValue
+        else { return }
+        self.text = numberFormatterDec.string(from: NSNumber(value: numberText))!
+    }
     
 }
+
 
 
 // MARK: - Touches Erase
@@ -91,6 +118,7 @@ extension DisplayLabel {
         guard let touchLocate = touches.first?.location(in: self) else { return }
         if !isErase.1 && touchLocate.x - isErase.0 > 20 {
             isErase.1 = true
+            // MARK:  @fix it
             if let text = text, text.count > 1 {
                 self.text!.removeLast()
             } else {
@@ -148,14 +176,21 @@ extension DisplayLabel {
 
 extension DisplayLabel {
     
+    private func resizeFocusView(_ textSize: CGSize) {
+        let radius = bounds.height / 4
+        rightConstraint.constant = radius / 2
+        widthConstraint.constant = textSize.width + radius
+        heightConstraint.constant = textSize.height + (radius * minimumScaleFactor)
+        focusView.layoutIfNeeded()
+        focusView.layer.cornerRadius = radius
+    }
+    
     private func setupFocusView() {
         addSubview(focusView)
         focusView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            focusView.topAnchor.constraint(equalTo: topAnchor),
-            focusView.bottomAnchor.constraint(equalTo: bottomAnchor)
-//            focusView.leftAnchor.constraint(lessThanOrEqualTo: leftAnchor)
-        ])
+                
+        focusView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        
         heightConstraint = NSLayoutConstraint(item: focusView,
                                              attribute: .height,
                                              relatedBy: .equal,
