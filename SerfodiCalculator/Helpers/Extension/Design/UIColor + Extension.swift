@@ -7,6 +7,8 @@
 
 import UIKit
 
+// MARK: - Main color
+
 extension UIColor {
     
     static func mainColor() -> UIColor {
@@ -27,6 +29,28 @@ extension UIColor {
     
     static func numpadButtonColor() -> UIColor {
         #colorLiteral(red: 0.9729686379, green: 0.9481814504, blue: 0.8923994303, alpha: 1)
+    }
+    
+}
+
+// MARK: - History Table Cell
+
+extension UIColor {
+    
+    static func exampleColorNumber() -> UIColor {
+        UIColor(white: 0.5, alpha: 0.70)
+    }
+    
+    static func exampleColorSign() -> UIColor {
+        UIColor(white: 0.25, alpha: 0.70)
+    }
+    
+    static func exampleColorEqual() -> UIColor {
+        UIColor(white: 0, alpha: 0.70)
+    }
+    
+    static func exampleColorResult() -> UIColor {
+        .black
     }
     
 }

@@ -52,10 +52,12 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         resetCalculate()
+        
         historyTableView.delegate = self
+        historyTableView.register(HistoryCell.self, forCellReuseIdentifier: HistoryCell.reuseId)
+        
         calculations = calculationHistoryStorage.load()
-        inputLabel.setTextLabel(number: calculationHistoryStorage.load())
-        historyTableView.reloadData()
+    
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -63,33 +65,36 @@ class ViewController: UIViewController {
         addBlurView()
         navigationController?.setNavigationBarHidden(true, animated: false)
         historyTableView.updateTableContentInset()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+        
+        historyTableView.reloadData()
         historyTableView.showLastCell(animated: false)
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        if let number = inputLabel.getNumber  {
-            calculationHistoryStorage.setData(number)
-        }
+//    override func viewDidLayoutSubviews() {
+//        super.viewDidLayoutSubviews()
+//        historyTableView.showLastCell(animated: false)
+//    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        inputLabel.setTextLabel(number: calculationHistoryStorage.load())
+//        historyTableView.reloadData()
+//        historyTableView.showLastCell(animated: false)
     }
+    
+    
+    
+//    override func viewWillDisappear(_ animated: Bool) {
+//        super.viewWillDisappear(animated)
+//        if let number = inputLabel.getNumber  {
+//            calculationHistoryStorage.setData(number)
+//        }
+//    }
     
     
     
     // MARK: - Transit
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        switch segue.identifier {
-        case "HistoryVC":
-            break
-        default: break
-        }
-    }
-    
-    @IBAction func unwindAction(unwindSegue: UIStoryboardSegue) {}
+
     
     
     
@@ -160,6 +165,7 @@ class ViewController: UIViewController {
         
         calculateResult { result in
             inputLabel.setTextLabel(number: result)
+            calculationHistoryStorage.setData(result)
         }
         
         isNewInput = true
@@ -194,6 +200,7 @@ class ViewController: UIViewController {
             }
             calculationHistoryStorage.setData(calculations)
             inputLabel.setTextLabel(number: result)
+            calculationHistoryStorage.setData(result)
         }
         
         currentOperationButton = nil // Опирации нет
@@ -264,7 +271,26 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        40
+//    }
+    
 }
+
+
+// MARK: touch
+
+extension ViewController {
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.inputLabel.endEditing(true)
+    }
+    
+}
+
+
+
+
 
 
 // MARK:
@@ -357,6 +383,8 @@ extension ViewController {
 
 // MARK: - SwiftUI Helper
 
+/*
+
 import SwiftUI
 
 struct ViewControllerProvider: PreviewProvider {
@@ -378,3 +406,5 @@ struct ViewControllerProvider: PreviewProvider {
     }
     
 }
+
+*/

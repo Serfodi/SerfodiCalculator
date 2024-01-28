@@ -50,8 +50,8 @@
                                                     <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9e1-CM-ga4">
                                                         <rect key="frame" x="225" y="0.0" width="60" height="60"/>
                                                         <color key="backgroundColor" red="0.95294117647058818" green="0.5725490196078431" blue="0.63921568627450975" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                                        <state key="normal" title="/">
+                                                        <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="36"/>
+                                                        <state key="normal" title="÷">
                                                             <color key="titleColor" white="0.33077375860000002" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </state>
                                                         <state key="selected">
@@ -125,8 +125,8 @@
                                                     <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y86-lH-O6Z">
                                                         <rect key="frame" x="225" y="0.0" width="60" height="60"/>
                                                         <color key="backgroundColor" red="0.95294117649999999" green="0.57254901960000004" blue="0.63921568630000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                        <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="30"/>
-                                                        <state key="normal" title="x">
+                                                        <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="34"/>
+                                                        <state key="normal" title="×">
                                                             <color key="titleColor" white="0.33077375860000002" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </state>
                                                         <state key="selected">
@@ -200,7 +200,7 @@
                                                     <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VQy-YL-jmy">
                                                         <rect key="frame" x="225" y="0.0" width="60" height="60"/>
                                                         <color key="backgroundColor" red="0.95294117649999999" green="0.57254901960000004" blue="0.63921568630000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                        <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="30"/>
+                                                        <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="34"/>
                                                         <state key="normal" title="+">
                                                             <color key="titleColor" white="0.33077375860000002" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </state>
@@ -275,7 +275,7 @@
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Pg-wl-K2B">
                                                         <rect key="frame" x="225" y="0.0" width="60" height="60"/>
                                                         <color key="backgroundColor" red="0.95294117649999999" green="0.57254901960000004" blue="0.63921568630000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                        <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="30"/>
+                                                        <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="34"/>
                                                         <state key="normal" title="-">
                                                             <color key="titleColor" white="0.33077375860000002" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </state>
@@ -341,7 +341,7 @@
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="60" id="eF2-xx-Eid"/>
                                                         </constraints>
-                                                        <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="30"/>
+                                                        <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="32"/>
                                                         <state key="normal" title="=">
                                                             <color key="titleColor" white="0.33077375860000002" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </state>
@@ -386,42 +386,15 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="dHe-wI-GON">
-                                <rect key="frame" x="15" y="93" width="363" height="220"/>
+                                <rect key="frame" x="5" y="93" width="373" height="230"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="historyCell" id="hzs-nX-iz9" customClass="HistoryCell" customModule="SerfodiCalculator" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="50" width="363" height="29.333333969116211"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hzs-nX-iz9" id="56j-kA-OCu">
-                                            <rect key="frame" x="0.0" y="0.0" width="363" height="29.333333969116211"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="123 + 45 + 67 = 235" textAlignment="right" lineBreakMode="headTruncation" baselineAdjustment="alignBaselines" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="S39-kk-ycZ">
-                                                    <rect key="frame" x="3" y="3" width="357" height="23.333333333333332"/>
-                                                    <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="20"/>
-                                                    <color key="textColor" white="0.25" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="S39-kk-ycZ" secondAttribute="bottom" constant="3" id="MrR-6Y-Wnd"/>
-                                                <constraint firstItem="S39-kk-ycZ" firstAttribute="leading" secondItem="56j-kA-OCu" secondAttribute="leading" constant="3" id="SoB-Oh-JDk"/>
-                                                <constraint firstItem="S39-kk-ycZ" firstAttribute="top" secondItem="56j-kA-OCu" secondAttribute="top" constant="3" id="eSv-4k-xAs"/>
-                                                <constraint firstAttribute="trailing" secondItem="S39-kk-ycZ" secondAttribute="trailing" constant="3" id="lu6-P4-fBK"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="label" destination="S39-kk-ycZ" id="Bjd-Ga-rkv"/>
-                                        </connections>
-                                    </tableViewCell>
-                                </prototypes>
                                 <connections>
                                     <outlet property="dataSource" destination="BYZ-38-t0r" id="uLh-TE-vOn"/>
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="BlB-xg-JHD"/>
                                 </connections>
                             </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1 000,000 ∞" textAlignment="right" lineBreakMode="clip" baselineAdjustment="alignBaselines" minimumScaleFactor="0.84999999999999998" translatesAutoresizingMaskIntoConstraints="NO" id="oKN-Hv-xpk" customClass="DisplayLabel" customModule="SerfodiCalculator" customModuleProvider="target">
-                                <rect key="frame" x="30" y="313" width="333" height="80"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="right" lineBreakMode="clip" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oKN-Hv-xpk" customClass="DisplayLabel" customModule="SerfodiCalculator" customModuleProvider="target">
+                                <rect key="frame" x="30" y="323" width="333" height="80"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="80" id="xjJ-gM-wYy"/>
                                 </constraints>
@@ -433,14 +406,14 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="g8v-Qr-J1c" firstAttribute="top" secondItem="oKN-Hv-xpk" secondAttribute="bottom" constant="20" id="2BM-XK-ogz"/>
+                            <constraint firstItem="g8v-Qr-J1c" firstAttribute="top" secondItem="oKN-Hv-xpk" secondAttribute="bottom" constant="10" id="2BM-XK-ogz"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="oKN-Hv-xpk" secondAttribute="trailing" constant="30" id="3Tr-fx-qSQ"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="dHe-wI-GON" secondAttribute="trailing" constant="15" id="DrK-Ls-Xkt"/>
                             <constraint firstItem="oKN-Hv-xpk" firstAttribute="top" secondItem="dHe-wI-GON" secondAttribute="bottom" id="Gzz-Jw-4CB"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="g8v-Qr-J1c" secondAttribute="bottom" constant="15" id="H5m-w4-cfW"/>
                             <constraint firstItem="g8v-Qr-J1c" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="PId-B7-cX8"/>
                             <constraint firstItem="oKN-Hv-xpk" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="30" id="a1P-xX-XQU"/>
-                            <constraint firstItem="dHe-wI-GON" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="15" id="hg0-TC-CrA"/>
+                            <constraint firstItem="dHe-wI-GON" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="5" id="hg0-TC-CrA"/>
                             <constraint firstItem="dHe-wI-GON" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="-10" id="vlO-ka-9g3"/>
                         </constraints>
                     </view>
@@ -471,22 +444,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1066.4122137404579" y="3.5211267605633805"/>
-        </scene>
-        <!--Calculate HistoryVC-->
-        <scene sceneID="sPN-Tr-5IT">
-            <objects>
-                <viewController id="Nh7-E3-cUa" customClass="CalculateHistoryVC" customModule="SerfodiCalculator" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="ZBy-1I-ELk">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="UOh-2D-Hk1"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="bC7-kK-PLA"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="N1a-hg-UVG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1927.4809160305342" y="3.5211267605633805"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="rwO-un-nsz">

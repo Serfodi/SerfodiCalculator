@@ -9,7 +9,8 @@ import UIKit
 
 extension UITableView {
     
-    func updateTableContentInset() {
+    /// Переворачивает таблицу
+    public func updateTableContentInset() {
         let numRows = numberOfRows(inSection: 0)
         var contentInsetTop = bounds.size.height
         for i in 0..<numRows {
@@ -21,10 +22,10 @@ extension UITableView {
             }
         }
         contentInset = UIEdgeInsets(top: contentInsetTop, left: 0, bottom: 10, right: 0)
-        
     }
     
-    func showLastCell(animated: Bool = true) {
+    /// Переворачивает таблицу показывает последнуюю ячейку
+    public func showLastCell(animated: Bool = true) {
         let numRows = numberOfRows(inSection: 0)
         guard numRows > 0 else { return }
         let lastIndex = NSIndexPath(row: numRows - 1, section: 0)

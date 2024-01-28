@@ -10,8 +10,8 @@ import Foundation
 enum Operation: String {
     case add = "+"
     case subtract = "-"
-    case multiply = "x"
-    case divide = "/"
+    case multiply = "×"
+    case divide = "÷"
     
     func calculate(_ number1: Double, _ number2: Double) throws -> Double {
         try testOutRange(numbers: number1, number2)
@@ -49,10 +49,13 @@ extension Operation {
     func testOutRange(numbers: Double...) throws {
         var test = true
         for number in numbers {
-            test = number < Double.greatestFiniteMagnitude && test
-            test = number > 5E-300  && test
+            if number == 0 { continue }
+            test = abs(number) < Double.greatestFiniteMagnitude && test
+            test = abs(number) > abs(5E-300)  && test
         }
-        if !test { throw CalculationError.outOfRang }
+        if !test {
+            throw CalculationError.outOfRang
+        }
     }
     
 }

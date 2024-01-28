@@ -18,9 +18,10 @@ final class DisplayLabel: UILabel {
     private var widthConstraint = NSLayoutConstraint()
     private var heightConstraint = NSLayoutConstraint()
     private var rightConstraint = NSLayoutConstraint()
+    private var centerYConstraint = NSLayoutConstraint()
     
-    private lazy var numberFormatterDec = NumberFormatter(locate: "ru_RU")
-    private lazy var numberFormatterE = NumberFormatter(style: .scientific)
+    
+    private var dynamicNumberFormatter = DynamicNumberFormatter()
     
     
     private var isErase: (CGFloat, Bool) = (0, false)
@@ -30,10 +31,12 @@ final class DisplayLabel: UILabel {
     /// Отоброжаемое чило
     public var getNumber: Double? {
         guard let text = text else { return nil }
-        return numberFormatterDec.number(from: text)?.doubleValue
+        return dynamicNumberFormatter.perform(text: text)
     }
     
-    // MARK: init
+    
+    
+    // MARK: - init
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -50,7 +53,6 @@ final class DisplayLabel: UILabel {
     override func layoutSubviews() {
         super.layoutSubviews()
         layer.cornerRadius = bounds.height / 4
-        resizeFocusView(textSize())
         
         // - @fix it
         if isFirstResponder {
@@ -60,58 +62,41 @@ final class DisplayLabel: UILabel {
         //
     }
     
+    
+    // MARK: func
+    
     private func configure() {
         setupFocusView()
     }
     
+    
+    
     /// Формотирует и устонавливает число в лейбел
+    /// 
     /// Вызыватся после того как получено число.
     /// В методах опираций или =
     public func setTextLabel(number: Double) {
-        // Пытаемся преоброзовать к нормальному виду
-        guard let numberDecText = numberFormatterDec.string(from: NSNumber(value: number)) else { return }
-        
-        
-        // Проверяем влезает ли текст в лейбел или нет
-        if isFitTextInto(numberDecText) {
-            text = numberDecText
-        } else {
-            // в случае если нет, то делаем E
-            
-            text = fitFormatter(number, numberFormatterE.maximumFractionDigits).string(from: NSNumber(value: number))
-            
-        }
-    }
-    
-    private func fitFormatter(_ number: Double, _ n: Int) -> NumberFormatter {
-        let formatter = numberFormatterE
-        formatter.maximumFractionDigits = n
-        let numberDecText = numberFormatterE.string(from: NSNumber(value: number))
-        if isFitTextInto(numberDecText) {
-            return formatter
-        } else {
-            return fitFormatter(number, n - 1)
+        text = dynamicNumberFormatter.fitInBounds(number: NSNumber(value: number)) { numberText in
+            return isFitTextInto(numberText)
         }
     }
     
     
-    
-    
-    /// Выполянет формотирования текста.
-    /// Вызывается для формотирования ввода чисел.
-    /// Формат всегда `Dec`
-    public func performFormattingLabel() {
-        guard let text = text,
-              let numberText = numberFormatterDec.number(from: text)?.doubleValue
-        else { return }
-        self.text = numberFormatterDec.string(from: NSNumber(value: numberText))!
+    override func resignFirstResponder() -> Bool {
+        super.resignFirstResponder()
+        focusView.isHidden = true
+        return true
     }
+    
     
 }
 
 
 
-// MARK: - Touches Erase
+// MARK: - Extension
+
+
+// MARK: Touches Erase
 
 extension DisplayLabel {
     
@@ -125,7 +110,7 @@ extension DisplayLabel {
         if !isErase.1 && touchLocate.x - isErase.0 > 20 {
             isErase.1 = true
             // MARK:  @fix it
-            if let text = text, text.count > 1 {
+            if let text = text, text.count > 1, !text.contains(dynamicNumberFormatter.exponentSymbol) {
                 self.text!.removeLast()
             } else {
                 text = "0"
@@ -144,7 +129,7 @@ extension DisplayLabel {
 }
 
 
-// MARK: - shared Init / copy
+// MARK:  shared Init / copy
 
 extension DisplayLabel {
     
@@ -167,6 +152,7 @@ extension DisplayLabel {
         let menu = UIMenuController.shared
         if !menu.isMenuVisible {
             menu.showMenu(from: self, rect: focusView.frame)
+            resizeFocusView()
             focusView.isHidden = false
         }
     }
@@ -178,15 +164,32 @@ extension DisplayLabel {
 }
 
 
-// MARK: - Focus View
+// MARK:  Focus View
 
 extension DisplayLabel {
     
-    private func resizeFocusView(_ textSize: CGSize) {
+    private func resizeFocusView() {
+        let textSize = textSize()
+        
+        var width: CGFloat = textSize.width
+        var hight: CGFloat = textSize.height
+        
         let radius = bounds.height / 4
+        
+//        if textSize.width > bounds.width {
+//            width = bounds.width + (radius * scale())
+//            hight = bounds.height * scale() // без + radius
+//            centerYConstraint.constant = (1 - scale()) * 10
+//        } else {
+//            width = textSize.width + radius
+//            hight = textSize.height + radius
+//        }
+        
+        widthConstraint.constant = width + radius
+        heightConstraint.constant = hight + radius
+        
         rightConstraint.constant = radius / 2
-        widthConstraint.constant = textSize.width + radius
-        heightConstraint.constant = textSize.height + (radius * minimumScaleFactor)
+        
         focusView.layoutIfNeeded()
         focusView.layer.cornerRadius = radius
     }
@@ -194,9 +197,13 @@ extension DisplayLabel {
     private func setupFocusView() {
         addSubview(focusView)
         focusView.translatesAutoresizingMaskIntoConstraints = false
-                
-        focusView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        
+        centerYConstraint = NSLayoutConstraint(item: focusView,
+                                               attribute: .centerY,
+                                             relatedBy: .equal,
+                                             toItem: self,
+                                             attribute: .centerY,
+                                             multiplier: 1,
+                                             constant: 0)
         heightConstraint = NSLayoutConstraint(item: focusView,
                                              attribute: .height,
                                              relatedBy: .equal,
@@ -221,13 +228,13 @@ extension DisplayLabel {
         rightConstraint.isActive = true
         heightConstraint.isActive = true
         widthConstraint.isActive = true
+        centerYConstraint.isActive = true
     }
     
 }
 
 
-// MARK: - Animation Error
-
+// MARK:  Animation Error
 
 extension DisplayLabel {
     
@@ -261,3 +268,6 @@ extension DisplayLabel {
     }
     
 }
+
+
+

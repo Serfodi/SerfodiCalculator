@@ -13,6 +13,8 @@ final class CalculationHistoryStorage {
     static let calculationHistoryKey = "calculationHistoryKey"
     static let lastInputKey = "lastInputKey"
     
+    // FIXME: use type(_) in switch
+    
     func setData(_ data: Double) {
         UserDefaults.standard.set(data, forKey: CalculationHistoryStorage.lastInputKey)
     }

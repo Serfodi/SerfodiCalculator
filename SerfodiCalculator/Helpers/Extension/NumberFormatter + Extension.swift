@@ -8,22 +8,16 @@
 import Foundation
 
 extension NumberFormatter {
-    
-    convenience init(locate: String = "ru_RU", style: NumberFormatter.Style = .decimal ) {
+
+    convenience init(style: NumberFormatter.Style) {
         self.init()
-        
-        locale = Locale(identifier: locate)
+        locale = Locale(identifier: "ru_RU")
         numberStyle = style
+        
         usesGroupingSeparator = false
-        
-        minimumIntegerDigits = 1
-        maximumFractionDigits = 15
-        
-//        usesSignificantDigits = true
-        
+
         nilSymbol = "Нет числа!"
         positiveInfinitySymbol = "∞ не придел!"
     }
-    
-    
+
 }
