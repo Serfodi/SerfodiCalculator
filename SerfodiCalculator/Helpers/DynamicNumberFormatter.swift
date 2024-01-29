@@ -12,6 +12,7 @@ final class DynamicNumberFormatter {
     
     private lazy var numberFormatterDec = {
        let formatter = NumberFormatter(style: .decimal)
+        formatter.usesGroupingSeparator = true
         formatter.usesSignificantDigits = true
         formatter.minimumSignificantDigits = 1
         formatter.maximumSignificantDigits = 17
@@ -21,6 +22,7 @@ final class DynamicNumberFormatter {
     private var numberFormattersE: NumberFormatter = {
         let formatter = NumberFormatter(style: .scientific)
         formatter.usesSignificantDigits = true
+        formatter.exponentSymbol = "e"
         formatter.minimumSignificantDigits = 1
         formatter.maximumSignificantDigits = 17
         return formatter
@@ -28,6 +30,14 @@ final class DynamicNumberFormatter {
     
     public var exponentSymbol: String {
         numberFormattersE.exponentSymbol
+    }
+    
+    public var point: String {
+        numberFormatterDec.currencyDecimalSeparator
+    }
+    
+    public var separator: String {
+        numberFormatterDec.currencyGroupingSeparator
     }
     
     /// Функция  подбирает формат числа под заданную рамку.

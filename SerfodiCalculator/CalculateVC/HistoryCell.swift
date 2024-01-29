@@ -25,9 +25,7 @@ final class HistoryCell: UITableViewCell {
     
     static let reuseId = "historyCell"
     
-    
     private var dynamicNumberFormatter = DynamicNumberFormatter()
-    
     
     private let numberLabel: UILabel = {
         let label = UILabel()
@@ -35,11 +33,13 @@ final class HistoryCell: UITableViewCell {
         label.textAlignment = .right
         label.lineBreakMode = .byTruncatingTail
         label.numberOfLines = 4
-//        label.minimumScaleFactor = 
         label.textColor = .exampleColorNumber()
         return label
     }()
     
+    private var calculation: Calculation!
+    
+//    private var maxWidth: Int = 21
     
     // MARK: init
     
@@ -49,9 +49,11 @@ final class HistoryCell: UITableViewCell {
         clipsToBounds = false
         setupNumberLabel()
     }
-
+    
     override func prepareForReuse() {
         numberLabel.text = ""
+        calculation = nil
+//        maxWidth = 22
     }
     
     required init?(coder: NSCoder) {
@@ -60,26 +62,31 @@ final class HistoryCell: UITableViewCell {
     
     /// Функция настройки из контролера
     public func config(calculation: Calculation) {
-        expressionString(calculation)
+        self.calculation = calculation
+        expressionString(calculation, lengthLine: maximumDigitsInLine())
     }
     
+//    override func layoutSubviews() {
+//        super.layoutSubviews()
+//        maxWidth = maximumDigitsInLine()
+//    }
     
     // MARK: func
     
     
     /// Возврощяет максимальное кол-во символов в строке
     private func maximumDigitsInLine() -> Int {
-        let oneDigitWidth = numberLabel.size("0").width
-        return Int( frame.size.width / oneDigitWidth)
+        let oneDigitWidth = numberLabel.size(text: "0").width
+        let lengthLine = Int( bounds.width / oneDigitWidth)
+        return lengthLine > 6 ? lengthLine : 22
     }
     
     
     
-    private func expressionString(_ calculation: Calculation) {
+    private func expressionString(_ calculation: Calculation, lengthLine: Int ) {
         let text = NSMutableAttributedString()
         
-        let maxWidth = maximumDigitsInLine()
-//        print(maxWidth)
+        let maxWidth = lengthLine
         
         /*
          

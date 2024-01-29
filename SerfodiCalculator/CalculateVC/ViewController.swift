@@ -107,39 +107,21 @@ class ViewController: UIViewController {
         
         guard let buttonText = sender.currentTitle else { return }
         guard let text = inputLabel.text else { return }
-        guard inputLabel.isFitTextInto(text + buttonText) || isNewInput else { return }
+        guard inputLabel.isFitTextInto(text + "0", scale: inputLabel.minimumScaleFactor) || isNewInput else { return }
         
-        switch buttonText {
-        case ",":
-            if isNewInput {
-                inputLabel.text = "0,"
-                isNewInput = false
-            } else {
-                if inputLabel.text?.contains(",") == true { return }
-                inputLabel.text?.append(buttonText)
-            }
-        case "0":
-            if isNewInput {
-                inputLabel.text = "0"
-                isNewInput = false
-            } else {
-                if inputLabel.text?.contains(",") == true || text != "0" {
-                    inputLabel.text?.append(buttonText)
-                }
-            }
-        default:
-            if isNewInput || text == "0" {
-                inputLabel.text = buttonText
-                isNewInput = false
-            } else {
-                inputLabel.text?.append(buttonText)
-            }
+        if isNewInput {
+            isNewInput = !isNewInput
+            inputLabel.text = ""
         }
+        
+        inputLabel.text?.append(buttonText)
+        inputLabel.performFormatting()
         
         
         if let number = inputLabel.getNumber  {
             calculationHistoryStorage.setData(number)
         }
+        
         currentOperationButton = nil
     }
     
@@ -254,10 +236,9 @@ class ViewController: UIViewController {
 }
 
 
-// MARK: -
 
 
-// MARK:  UITableViewDelegate / UITableViewDataSource
+// MARK: - UITableViewDelegate / UITableViewDataSource
 
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
     
@@ -278,7 +259,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 
-// MARK: touch
+// MARK: - touch
 
 extension ViewController {
     

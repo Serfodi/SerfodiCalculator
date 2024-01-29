@@ -7,26 +7,32 @@
 
 import UIKit
 
+
 final class DisplayLabel: UILabel {
     
+    override public var canBecomeFirstResponder: Bool { true }
+    
+    /// View для фокусирования выдиления.
     private let focusView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(white: 0, alpha: 0.05)
         view.isHidden = true
         return view
     }()
+    /// Width Constraint для `focusView`
     private var widthConstraint = NSLayoutConstraint()
+    /// Height Constraint для `focusView`
     private var heightConstraint = NSLayoutConstraint()
+    /// Right Constraint для `focusView`
     private var rightConstraint = NSLayoutConstraint()
+    /// CenterY Constraint для `focusView`
     private var centerYConstraint = NSLayoutConstraint()
     
-    
-    private var dynamicNumberFormatter = DynamicNumberFormatter()
-    
-    
+    /// Картеж для `Cтирание касанием`
+    ///  1. Точка по x первого нажатия
     private var isErase: (CGFloat, Bool) = (0, false)
     
-    override public var canBecomeFirstResponder: Bool { true }
+    private var dynamicNumberFormatter = DynamicNumberFormatter()
     
     /// Отоброжаемое чило
     public var getNumber: Double? {
@@ -54,46 +60,58 @@ final class DisplayLabel: UILabel {
         super.layoutSubviews()
         layer.cornerRadius = bounds.height / 4
         
-        // - @fix it
+    // MARK: FIXME
         if isFirstResponder {
             focusView.isHidden = true
             UIMenuController.shared.hideMenu()
         }
-        //
     }
-    
-    
-    // MARK: func
     
     private func configure() {
+//        font = UIFont.mainDisplay()
+        adjustsFontSizeToFitWidth = true
+        minimumScaleFactor = 0.9
         setupFocusView()
     }
-    
-    
     
     /// Формотирует и устонавливает число в лейбел
     /// 
     /// Вызыватся после того как получено число.
     /// В методах опираций или =
     public func setTextLabel(number: Double) {
-        text = dynamicNumberFormatter.fitInBounds(number: NSNumber(value: number)) { numberText in
-            return isFitTextInto(numberText)
+        let nsNumber = number as NSNumber
+        text = dynamicNumberFormatter.fitInBounds(number: nsNumber) { numberText in
+            isFitTextInto(numberText, scale: minimumScaleFactor)
         }
     }
     
     
-    override func resignFirstResponder() -> Bool {
-        super.resignFirstResponder()
-        focusView.isHidden = true
-        return true
+    public func performFormatting() {
+        
+        guard !(text?.contains(dynamicNumberFormatter.exponentSymbol))! else { return }
+        
+        if (text?.contains(dynamicNumberFormatter.point))! {
+            
+            if text?.count == 1 {
+                text = "0" + dynamicNumberFormatter.point
+            }
+            if (text?.filter { $0 == Character(dynamicNumberFormatter.point) }.count)! > 1 {
+                text?.removeLast()
+            }
+            
+            return
+        }
+        
+        text = text!.replacingOccurrences(of: dynamicNumberFormatter.separator, with: "")
+        
+        text = dynamicNumberFormatter.perform(number: getNumber! as NSNumber)
+        
     }
+    
     
     
 }
 
-
-
-// MARK: - Extension
 
 
 // MARK: Touches Erase
@@ -107,13 +125,17 @@ extension DisplayLabel {
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touchLocate = touches.first?.location(in: self) else { return }
+        
+        guard let text = text else { return }
+        guard !text.contains(dynamicNumberFormatter.exponentSymbol) else { return }
+        
         if !isErase.1 && touchLocate.x - isErase.0 > 20 {
             isErase.1 = true
-            // MARK:  @fix it
-            if let text = text, text.count > 1, !text.contains(dynamicNumberFormatter.exponentSymbol) {
+            if text.count > 1 {
                 self.text!.removeLast()
+                self.performFormatting()
             } else {
-                text = "0"
+                self.text = "0"
             }
         }
     }
@@ -151,14 +173,26 @@ extension DisplayLabel {
         becomeFirstResponder()
         let menu = UIMenuController.shared
         if !menu.isMenuVisible {
-            menu.showMenu(from: self, rect: focusView.frame)
             resizeFocusView()
+            menu.showMenu(from: self, rect: focusView.frame)
             focusView.isHidden = false
         }
     }
     
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
         return (action == #selector(copy(_:)))
+    }
+    
+    override func endEditing(_ force: Bool) -> Bool {
+        super.endEditing(force)
+        focusView.isHidden = true
+        return true
+    }
+    
+    override func resignFirstResponder() -> Bool {
+        super.resignFirstResponder()
+        focusView.isHidden = true
+        return true
     }
     
 }
@@ -169,6 +203,7 @@ extension DisplayLabel {
 extension DisplayLabel {
     
     private func resizeFocusView() {
+        
         let textSize = textSize()
         
         var width: CGFloat = textSize.width
@@ -176,17 +211,17 @@ extension DisplayLabel {
         
         let radius = bounds.height / 4
         
-//        if textSize.width > bounds.width {
-//            width = bounds.width + (radius * scale())
-//            hight = bounds.height * scale() // без + radius
-//            centerYConstraint.constant = (1 - scale()) * 10
-//        } else {
-//            width = textSize.width + radius
-//            hight = textSize.height + radius
-//        }
+        if textSize.width > bounds.width {
+            hight = bounds.height * minimumScaleFactor
+            width = bounds.width + hight / 4 * minimumScaleFactor
+            centerYConstraint.constant = (1 - minimumScaleFactor) * 10
+        } else {
+            width = textSize.width + radius
+            hight = textSize.height + radius
+        }
         
-        widthConstraint.constant = width + radius
-        heightConstraint.constant = hight + radius
+        widthConstraint.constant = width
+        heightConstraint.constant = hight
         
         rightConstraint.constant = radius / 2
         
