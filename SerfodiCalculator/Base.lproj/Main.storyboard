@@ -4,12 +4,14 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
         <array key="SF-Pro.ttf">
+            <string>SFPro-Medium</string>
             <string>SFPro-Regular</string>
         </array>
     </customFonts>
@@ -28,16 +30,17 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="D2c-yJ-c57">
                                         <rect key="frame" x="15" y="15" width="285" height="360"/>
                                         <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="w4w-d6-hdO">
+                                            <stackView opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" distribution="equalSpacing" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="w4w-d6-hdO">
                                                 <rect key="frame" x="0.0" y="0.0" width="285" height="60"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Iu-Iv-IGr">
-                                                        <rect key="frame" x="0.0" y="0.0" width="210" height="60"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="135" height="60"/>
                                                         <color key="backgroundColor" red="0.96310228109999996" green="0.82622557880000003" blue="0.61172550920000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="width" constant="210" id="6Fn-zb-Q6p"/>
+                                                            <constraint firstAttribute="height" constant="60" id="cmi-ST-5Ym"/>
+                                                            <constraint firstAttribute="width" constant="135" id="oXK-xt-vNd"/>
                                                         </constraints>
-                                                        <fontDescription key="fontDescription" name="Menlo-Bold" family="Menlo" pointSize="30"/>
+                                                        <fontDescription key="fontDescription" name="SFPro-Medium" family="SF Pro" pointSize="30"/>
                                                         <inset key="titleEdgeInsets" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                         <state key="normal" title="C">
                                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -52,10 +55,43 @@
                                                             <action selector="clearButtonTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fT1-tm-A0p"/>
                                                         </connections>
                                                     </button>
+                                                    <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wmJ-Ms-KS3">
+                                                        <rect key="frame" x="150" y="0.0" width="60" height="60"/>
+                                                        <color key="backgroundColor" red="0.96310228109999996" green="0.82622557880000003" blue="0.61172550920000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="60" id="LgM-G6-K6a"/>
+                                                            <constraint firstAttribute="width" constant="60" id="SfD-JZ-Mtx"/>
+                                                            <constraint firstAttribute="width" secondItem="wmJ-Ms-KS3" secondAttribute="height" multiplier="1:1" id="jCt-gK-FrX"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" name="SFPro-Medium" family="SF Pro" pointSize="35"/>
+                                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <state key="normal">
+                                                            <color key="titleColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <imageReference key="image" image="plus.slash.minus" catalog="system" symbolScale="small" variableValue="5.5511151231257827e-17"/>
+                                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="30" scale="medium" weight="medium"/>
+                                                        </state>
+                                                        <state key="selected">
+                                                            <color key="titleColor" red="0.90196078430000004" green="0.58823529409999997" blue="0.64313725489999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                        </state>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                                <integer key="value" value="30"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="addMinus:" destination="BYZ-38-t0r" eventType="touchUpInside" id="2XU-8r-FOc"/>
+                                                            <action selector="operatingButtonTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="1ss-W8-74g"/>
+                                                        </connections>
+                                                    </button>
                                                     <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9e1-CM-ga4">
                                                         <rect key="frame" x="225" y="0.0" width="60" height="60"/>
                                                         <color key="backgroundColor" red="0.95294117647058818" green="0.5725490196078431" blue="0.63921568627450975" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                        <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="36"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="60" id="fhK-DA-I9b"/>
+                                                            <constraint firstAttribute="width" constant="60" id="hWJ-Vn-SK9"/>
+                                                            <constraint firstAttribute="width" secondItem="9e1-CM-ga4" secondAttribute="height" multiplier="1:1" id="rFv-7R-8Ar"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" name="SFPro-Medium" family="SF Pro" pointSize="35"/>
                                                         <state key="normal" title="÷">
                                                             <color key="titleColor" white="0.33077375860000002" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </state>
@@ -82,7 +118,7 @@
                                                     <button opaque="NO" tag="7" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fJp-ke-fyp">
                                                         <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
                                                         <color key="backgroundColor" red="0.63028472660000001" green="0.80890929700000003" blue="0.97649246450000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                        <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="30"/>
+                                                        <fontDescription key="fontDescription" name="SFPro-Medium" family="SF Pro" pointSize="30"/>
                                                         <state key="normal" title="7">
                                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </state>
@@ -98,7 +134,7 @@
                                                     <button opaque="NO" tag="8" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="im2-jJ-wHW">
                                                         <rect key="frame" x="75" y="0.0" width="60" height="60"/>
                                                         <color key="backgroundColor" red="0.63028472660000001" green="0.80890929700000003" blue="0.97649246450000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                        <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="30"/>
+                                                        <fontDescription key="fontDescription" name="SFPro-Medium" family="SF Pro" pointSize="30"/>
                                                         <state key="normal" title="8">
                                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </state>
@@ -114,7 +150,7 @@
                                                     <button opaque="NO" tag="9" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c2G-g7-XKt">
                                                         <rect key="frame" x="150" y="0.0" width="60" height="60"/>
                                                         <color key="backgroundColor" red="0.63028472660000001" green="0.80890929700000003" blue="0.97649246450000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                        <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="30"/>
+                                                        <fontDescription key="fontDescription" name="SFPro-Medium" family="SF Pro" pointSize="30"/>
                                                         <state key="normal" title="9">
                                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </state>
@@ -130,7 +166,7 @@
                                                     <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y86-lH-O6Z">
                                                         <rect key="frame" x="225" y="0.0" width="60" height="60"/>
                                                         <color key="backgroundColor" red="0.95294117649999999" green="0.57254901960000004" blue="0.63921568630000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                        <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="34"/>
+                                                        <fontDescription key="fontDescription" name="SFPro-Medium" family="SF Pro" pointSize="30"/>
                                                         <state key="normal" title="×">
                                                             <color key="titleColor" white="0.33077375860000002" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </state>
@@ -157,7 +193,7 @@
                                                     <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZvU-IB-lff">
                                                         <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
                                                         <color key="backgroundColor" red="0.63028472660000001" green="0.80890929700000003" blue="0.97649246450000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                        <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="30"/>
+                                                        <fontDescription key="fontDescription" name="SFPro-Medium" family="SF Pro" pointSize="30"/>
                                                         <state key="normal" title="4">
                                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </state>
@@ -173,7 +209,7 @@
                                                     <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0w0-Ku-Hbs">
                                                         <rect key="frame" x="75" y="0.0" width="60" height="60"/>
                                                         <color key="backgroundColor" red="0.63028472660000001" green="0.80890929700000003" blue="0.97649246450000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                        <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="30"/>
+                                                        <fontDescription key="fontDescription" name="SFPro-Medium" family="SF Pro" pointSize="30"/>
                                                         <state key="normal" title="5">
                                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </state>
@@ -189,7 +225,7 @@
                                                     <button opaque="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kcd-jv-eax">
                                                         <rect key="frame" x="150" y="0.0" width="60" height="60"/>
                                                         <color key="backgroundColor" red="0.63028472660000001" green="0.80890929700000003" blue="0.97649246450000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                        <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="30"/>
+                                                        <fontDescription key="fontDescription" name="SFPro-Medium" family="SF Pro" pointSize="30"/>
                                                         <state key="normal" title="6">
                                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </state>
@@ -205,7 +241,7 @@
                                                     <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VQy-YL-jmy">
                                                         <rect key="frame" x="225" y="0.0" width="60" height="60"/>
                                                         <color key="backgroundColor" red="0.95294117649999999" green="0.57254901960000004" blue="0.63921568630000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                        <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="34"/>
+                                                        <fontDescription key="fontDescription" name="SFPro-Medium" family="SF Pro" pointSize="30"/>
                                                         <state key="normal" title="+">
                                                             <color key="titleColor" white="0.33077375860000002" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </state>
@@ -232,7 +268,7 @@
                                                     <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Eo-PM-wB1">
                                                         <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
                                                         <color key="backgroundColor" red="0.63028472660000001" green="0.80890929700000003" blue="0.97649246450000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                        <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="30"/>
+                                                        <fontDescription key="fontDescription" name="SFPro-Medium" family="SF Pro" pointSize="30"/>
                                                         <state key="normal" title="1">
                                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </state>
@@ -248,7 +284,7 @@
                                                     <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oGj-sA-CzH">
                                                         <rect key="frame" x="75" y="0.0" width="60" height="60"/>
                                                         <color key="backgroundColor" red="0.63028472660000001" green="0.80890929700000003" blue="0.97649246450000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                        <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="30"/>
+                                                        <fontDescription key="fontDescription" name="SFPro-Medium" family="SF Pro" pointSize="30"/>
                                                         <state key="normal" title="2">
                                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </state>
@@ -264,7 +300,7 @@
                                                     <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="haZ-xM-ovp">
                                                         <rect key="frame" x="150" y="0.0" width="60" height="60"/>
                                                         <color key="backgroundColor" red="0.63028472660000001" green="0.80890929700000003" blue="0.97649246450000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                        <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="30"/>
+                                                        <fontDescription key="fontDescription" name="SFPro-Medium" family="SF Pro" pointSize="30"/>
                                                         <state key="normal" title="3">
                                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </state>
@@ -280,8 +316,8 @@
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Pg-wl-K2B">
                                                         <rect key="frame" x="225" y="0.0" width="60" height="60"/>
                                                         <color key="backgroundColor" red="0.95294117649999999" green="0.57254901960000004" blue="0.63921568630000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                        <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="34"/>
-                                                        <state key="normal" title="-">
+                                                        <fontDescription key="fontDescription" name="SFPro-Medium" family="SF Pro" pointSize="35"/>
+                                                        <state key="normal" title="–">
                                                             <color key="titleColor" white="0.33077375860000002" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </state>
                                                         <state key="selected">
@@ -307,7 +343,7 @@
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="alG-hA-Ef7">
                                                         <rect key="frame" x="0.0" y="0.0" width="135" height="60"/>
                                                         <color key="backgroundColor" red="0.63028472660000001" green="0.80890929700000003" blue="0.97649246450000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                        <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="30"/>
+                                                        <fontDescription key="fontDescription" name="SFPro-Medium" family="SF Pro" pointSize="30"/>
                                                         <inset key="titleEdgeInsets" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                         <state key="normal" title="0">
                                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -327,7 +363,7 @@
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="60" id="4zb-7x-77m"/>
                                                         </constraints>
-                                                        <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="30"/>
+                                                        <fontDescription key="fontDescription" name="SFPro-Medium" family="SF Pro" pointSize="36"/>
                                                         <state key="normal" title=",">
                                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </state>
@@ -346,7 +382,7 @@
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="60" id="eF2-xx-Eid"/>
                                                         </constraints>
-                                                        <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="32"/>
+                                                        <fontDescription key="fontDescription" name="SFPro-Medium" family="SF Pro" pointSize="32"/>
                                                         <state key="normal" title="=">
                                                             <color key="titleColor" white="0.33077375860000002" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </state>
@@ -391,19 +427,19 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="dHe-wI-GON">
-                                <rect key="frame" x="5" y="93" width="373" height="240"/>
+                                <rect key="frame" x="15" y="93" width="363" height="235"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <connections>
                                     <outlet property="dataSource" destination="BYZ-38-t0r" id="uLh-TE-vOn"/>
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="BlB-xg-JHD"/>
                                 </connections>
                             </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="right" lineBreakMode="clip" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="oKN-Hv-xpk" customClass="DisplayLabel" customModule="SerfodiCalculator" customModuleProvider="target">
-                                <rect key="frame" x="30" y="333" width="333" height="80"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="right" lineBreakMode="clip" baselineAdjustment="alignBaselines" minimumScaleFactor="1" translatesAutoresizingMaskIntoConstraints="NO" id="oKN-Hv-xpk" customClass="DisplayLabel" customModule="SerfodiCalculator" customModuleProvider="target">
+                                <rect key="frame" x="30" y="328" width="333" height="80"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="80" id="xjJ-gM-wYy"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="SFPro-Regular" family="SF Pro" pointSize="50"/>
+                                <fontDescription key="fontDescription" name="SFPro-Regular" family="SF Pro" pointSize="55"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -411,14 +447,14 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="g8v-Qr-J1c" firstAttribute="top" secondItem="oKN-Hv-xpk" secondAttribute="bottom" constant="5" id="2BM-XK-ogz"/>
+                            <constraint firstItem="g8v-Qr-J1c" firstAttribute="top" secondItem="oKN-Hv-xpk" secondAttribute="bottom" constant="10" id="2BM-XK-ogz"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="oKN-Hv-xpk" secondAttribute="trailing" constant="30" id="3Tr-fx-qSQ"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="dHe-wI-GON" secondAttribute="trailing" constant="15" id="DrK-Ls-Xkt"/>
                             <constraint firstItem="oKN-Hv-xpk" firstAttribute="top" secondItem="dHe-wI-GON" secondAttribute="bottom" id="Gzz-Jw-4CB"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="g8v-Qr-J1c" secondAttribute="bottom" constant="10" id="H5m-w4-cfW"/>
                             <constraint firstItem="g8v-Qr-J1c" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="PId-B7-cX8"/>
                             <constraint firstItem="oKN-Hv-xpk" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="30" id="a1P-xX-XQU"/>
-                            <constraint firstItem="dHe-wI-GON" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="5" id="hg0-TC-CrA"/>
+                            <constraint firstItem="dHe-wI-GON" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="15" id="hg0-TC-CrA"/>
                             <constraint firstItem="dHe-wI-GON" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="-10" id="vlO-ka-9g3"/>
                         </constraints>
                     </view>
@@ -472,6 +508,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="plus.slash.minus" catalog="system" width="128" height="115"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

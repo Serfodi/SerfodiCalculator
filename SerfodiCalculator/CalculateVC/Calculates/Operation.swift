@@ -9,12 +9,22 @@ import Foundation
 
 enum Operation: String {
     case add = "+"
-    case subtract = "-"
+    case subtract = "–"
     case multiply = "×"
     case divide = "÷"
     
+    func priority() -> Int {
+        switch self{
+        case .add: return 1
+        case .subtract: return 1
+        case .multiply: return 2
+        case .divide: return 2
+        }
+    }
+    
     func calculate(_ number1: Double, _ number2: Double) throws -> Double {
         try testOutRange(numbers: number1, number2)
+        
         var result: Double = number2
         switch self {
         case .add:
@@ -29,19 +39,10 @@ enum Operation: String {
             }
             result = number1 / number2
         }
+        
         try testOutRange(numbers: result)
         return result
     }
-    
-    func priority() -> Int {
-        switch self{
-        case .add: return 1
-        case .subtract: return 1
-        case .multiply: return 2
-        case .divide: return 2
-        }
-    }
-    
 }
 
 extension Operation {

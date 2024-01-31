@@ -18,7 +18,10 @@ final class BlurGradientView: UIVisualEffectView {
     
     private var colors:[CGColor] = []
     
-    init (blur: UIBlurEffect.Style = .light, location: [NSNumber] = [0, 1], colors:[CGColor] = [CGColor(gray: 0, alpha: 1), CGColor(gray: 0, alpha: 0)]) {
+    init (blur: UIBlurEffect.Style = .light,
+          location: [NSNumber] = [0, 1],
+          colors:[CGColor] = [CGColor(gray: 0, alpha: 1), CGColor(gray: 0, alpha: 0)])
+    {
         super.init(effect: UIBlurEffect(style: blur))
         self.colors = colors
         self.location = location

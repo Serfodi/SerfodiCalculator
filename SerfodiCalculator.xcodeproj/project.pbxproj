@@ -34,6 +34,8 @@
 		B064E3262B6583AD00E56208 /* DynamicNumberFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B064E3252B6583AD00E56208 /* DynamicNumberFormatter.swift */; };
 		B064E3282B6712C600E56208 /* SF-Pro.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B064E3272B670FC500E56208 /* SF-Pro.ttf */; };
 		B064E32A2B6713A300E56208 /* SF-Pro-Text-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = B064E3292B6713A300E56208 /* SF-Pro-Text-Regular.otf */; };
+		B099E0C02B698690000670CE /* HistoryTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B099E0BF2B698690000670CE /* HistoryTableView.swift */; };
+		B099E0C22B6AA1F1000670CE /* DynamicCalculate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B099E0C12B6AA1F1000670CE /* DynamicCalculate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,6 +68,8 @@
 		B064E3252B6583AD00E56208 /* DynamicNumberFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicNumberFormatter.swift; sourceTree = "<group>"; };
 		B064E3272B670FC500E56208 /* SF-Pro.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro.ttf"; sourceTree = "<group>"; };
 		B064E3292B6713A300E56208 /* SF-Pro-Text-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Regular.otf"; sourceTree = "<group>"; };
+		B099E0BF2B698690000670CE /* HistoryTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableView.swift; sourceTree = "<group>"; };
+		B099E0C12B6AA1F1000670CE /* DynamicCalculate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicCalculate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,8 +109,7 @@
 				B064E3002B60283C00E56208 /* CalculateVC */,
 				B064E31E2B6446FB00E56208 /* HistoryVC */,
 				B064E3072B61819500E56208 /* Helpers */,
-				B02EC6652B5D8D5200CE0122 /* Assets.xcassets */,
-				B064E32B2B67186300E56208 /* Font */,
+				B099E0BE2B6984DA000670CE /* Design */,
 				B02EC6672B5D8D5200CE0122 /* LaunchScreen.storyboard */,
 				B02EC66A2B5D8D5200CE0122 /* Info.plist */,
 			);
@@ -116,6 +119,7 @@
 		B064E2FD2B5EE64300E56208 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				B064E3242B65812200E56208 /* Design */,
 				B064E3182B62BFF400E56208 /* UIWindow + Extension.swift */,
 				B064E3162B62B9EE00E56208 /* NumberFormatter + Extension.swift */,
 				B064E2F92B5ED38800E56208 /* UIButton + Extension.swift */,
@@ -132,8 +136,7 @@
 				B064E3212B646E4400E56208 /* Model */,
 				B02EC6602B5D8D4E00CE0122 /* ViewController.swift */,
 				B064E3082B6181BC00E56208 /* Calculates */,
-				B064E31A2B62D8B000E56208 /* DisplayLabel.swift */,
-				B064E3012B6039A600E56208 /* HistoryCell.swift */,
+				B099E0C52B6AA64C000670CE /* View */,
 			);
 			path = CalculateVC;
 			sourceTree = "<group>";
@@ -141,11 +144,8 @@
 		B064E3072B61819500E56208 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				B064E3252B6583AD00E56208 /* DynamicNumberFormatter.swift */,
-				B064E3052B6180FA00E56208 /* BlurGradientEffect.swift */,
 				B064E2F52B5EB7AB00E56208 /* CalculationError.swift */,
 				B064E2FD2B5EE64300E56208 /* Extension */,
-				B064E3242B65812200E56208 /* Design */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -154,6 +154,7 @@
 			isa = PBXGroup;
 			children = (
 				B064E2F72B5EB7D900E56208 /* Calculate.swift */,
+				B099E0C12B6AA1F1000670CE /* DynamicCalculate.swift */,
 				B064E3032B61728000E56208 /* Operation.swift */,
 			);
 			path = Calculates;
@@ -200,6 +201,43 @@
 				B064E3292B6713A300E56208 /* SF-Pro-Text-Regular.otf */,
 			);
 			path = Font;
+			sourceTree = "<group>";
+		};
+		B099E0BE2B6984DA000670CE /* Design */ = {
+			isa = PBXGroup;
+			children = (
+				B02EC6652B5D8D5200CE0122 /* Assets.xcassets */,
+				B064E32B2B67186300E56208 /* Font */,
+			);
+			path = Design;
+			sourceTree = "<group>";
+		};
+		B099E0C32B6AA600000670CE /* HistoryTabel */ = {
+			isa = PBXGroup;
+			children = (
+				B064E3012B6039A600E56208 /* HistoryCell.swift */,
+				B099E0BF2B698690000670CE /* HistoryTableView.swift */,
+			);
+			path = HistoryTabel;
+			sourceTree = "<group>";
+		};
+		B099E0C42B6AA63B000670CE /* DisplayLabel */ = {
+			isa = PBXGroup;
+			children = (
+				B064E31A2B62D8B000E56208 /* DisplayLabel.swift */,
+				B064E3252B6583AD00E56208 /* DynamicNumberFormatter.swift */,
+			);
+			path = DisplayLabel;
+			sourceTree = "<group>";
+		};
+		B099E0C52B6AA64C000670CE /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B099E0C42B6AA63B000670CE /* DisplayLabel */,
+				B064E3052B6180FA00E56208 /* BlurGradientEffect.swift */,
+				B099E0C32B6AA600000670CE /* HistoryTabel */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -278,6 +316,7 @@
 				B064E3042B61728000E56208 /* Operation.swift in Sources */,
 				B064E30C2B626F4600E56208 /* Storage.swift in Sources */,
 				B064E2F82B5EB7D900E56208 /* Calculate.swift in Sources */,
+				B099E0C02B698690000670CE /* HistoryTableView.swift in Sources */,
 				B064E3192B62BFF400E56208 /* UIWindow + Extension.swift in Sources */,
 				B02EC6612B5D8D4E00CE0122 /* ViewController.swift in Sources */,
 				B064E3062B6180FA00E56208 /* BlurGradientEffect.swift in Sources */,
@@ -286,6 +325,7 @@
 				B064E30A2B61822400E56208 /* UITableView + Extension.swift in Sources */,
 				B064E2FF2B60280500E56208 /* CalculateHistoryVC.swift in Sources */,
 				B064E30F2B62707500E56208 /* CalculationHistoryItem.swift in Sources */,
+				B099E0C22B6AA1F1000670CE /* DynamicCalculate.swift in Sources */,
 				B064E3232B65807E00E56208 /* UIFount + Extension.swift in Sources */,
 				B064E2F42B5E9DD800E56208 /* UIColor + Extension.swift in Sources */,
 				B064E2FA2B5ED38800E56208 /* UIButton + Extension.swift in Sources */,

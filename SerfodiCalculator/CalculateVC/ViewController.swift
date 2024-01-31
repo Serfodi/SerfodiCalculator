@@ -18,6 +18,7 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var historyTableView: UITableView!
     
+    
     var currentOperationButton: UIButton? = UIButton() {
         didSet {
             guard let button = oldValue else { return }
@@ -36,11 +37,11 @@ class ViewController: UIViewController {
     /// Индикатор для сигнализации о новом вводе:
     /// `true` – Разрешён новый ввод числа
     /// `false` – Ввод числа завершен
-    var isNewInput = true
+    private var isNewInput = true
     
-    let calculator = Calculator()
+    private let calculator = Calculator()
     
-    let calculationHistoryStorage = CalculationHistoryStorage()
+    var calculationHistoryStorage = CalculationHistoryStorage()
     
     //    MARK: @FIX It
     var calculations: [Calculation] = []
@@ -56,45 +57,21 @@ class ViewController: UIViewController {
         historyTableView.delegate = self
         historyTableView.register(HistoryCell.self, forCellReuseIdentifier: HistoryCell.reuseId)
         
-        calculations = calculationHistoryStorage.load()
-    
+        calculations = calculationHistoryStorage.load().suffix(20)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        historyTableView.updateTableContentInset()
         addBlurView()
         navigationController?.setNavigationBarHidden(true, animated: false)
-        historyTableView.updateTableContentInset()
-        
-        historyTableView.reloadData()
-        historyTableView.showLastCell(animated: false)
     }
-    
-//    override func viewDidLayoutSubviews() {
-//        super.viewDidLayoutSubviews()
-//        historyTableView.showLastCell(animated: false)
-//    }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        historyTableView.showLastCell(animated: false)
         inputLabel.setTextLabel(number: calculationHistoryStorage.load())
-//        historyTableView.reloadData()
-//        historyTableView.showLastCell(animated: false)
     }
-    
-    
-    
-//    override func viewWillDisappear(_ animated: Bool) {
-//        super.viewWillDisappear(animated)
-//        if let number = inputLabel.getNumber  {
-//            calculationHistoryStorage.setData(number)
-//        }
-//    }
-    
-    
-    
-    // MARK: - Transit
-
     
     
     
@@ -102,41 +79,50 @@ class ViewController: UIViewController {
     
     /// Добавляет символ в строчку ввода числа.
     @IBAction func numberButtonTap(_ sender: UIButton) {
+        guard let buttonText = sender.currentTitle,
+              let _ = inputLabel.text
+        else { return }
         sender.animationTap()
         sender.hapticLightTap()
         
-        guard let buttonText = sender.currentTitle else { return }
-        guard let text = inputLabel.text else { return }
-        guard inputLabel.isFitTextInto(text + "0", scale: inputLabel.minimumScaleFactor) || isNewInput else { return }
-        
+        guard inputLabel.isCanAddDigit(new: buttonText) || isNewInput else { return }
         if isNewInput {
             isNewInput = !isNewInput
-            inputLabel.text = ""
+            inputLabel.text = "0"
         }
+        let _ = inputLabel.inputDigit(add: buttonText)
         
-        inputLabel.text?.append(buttonText)
-        inputLabel.performFormatting()
-        
-        
-        if let number = inputLabel.getNumber  {
+        inputLabel.formattingInput { number in
             calculationHistoryStorage.setData(number)
         }
-        
         currentOperationButton = nil
     }
+    
+    
+    @IBAction func addMinus(_ sender: UIButton) {
+        sender.animationTap()
+        sender.hapticLightTap()
+        guard let _ = inputLabel.getNumber() else { return }
+        if inputLabel.text!.contains("-") {
+            inputLabel.text!.removeFirst()
+        } else {
+            inputLabel.text!.insert("-", at: inputLabel.text!.startIndex)
+        }
+    }
+    
     
     /// Выполняет фиксацию введеного числа и операции.
     /// Операцию можно менять до нового ввода.
     /// Вычисление текущего результата `calculateResult` происходит после каждого нажатия на кнопаку
     @IBAction func operatingButtonTap(_ sender: UIButton) {
-        sender.animationTap()
-        sender.hapticSoftTap()
-        
         guard let buttonText = sender.currentTitle,
               let buttonOperation = Operation(rawValue: buttonText)
         else { return }
         
-        guard let labelNumber = inputLabel.getNumber else { return }
+        sender.animationTap()
+        sender.hapticSoftTap()
+        
+        guard let labelNumber = inputLabel.getNumber() else { return }
         
         if !isNewInput || calculator.count == 0 {
             calculator.addNumber(labelNumber)
@@ -161,7 +147,7 @@ class ViewController: UIViewController {
         sender.hapticMediumTap()
         sender.animationTap()
         
-        guard let labelNumber = inputLabel.getNumber else { return }
+        guard let labelNumber = inputLabel.getNumber() else { return }
         
         if !isNewInput || calculator.count == 0 {
             calculator.addNumber(labelNumber)
@@ -206,7 +192,6 @@ class ViewController: UIViewController {
             let number = try calculator.calculateResult()
             result(number)
         } catch let error {
-            print(error)
             self.errorCalculate(error: error as! CalculationError)
         }
     }
@@ -216,29 +201,40 @@ class ViewController: UIViewController {
         switch error {
         case .dividedByZero:
             inputLabel.animationError()
-            resetCalculate(labelText: "Ошибка!")
+            resetCalculate(clearLabel: false)
+            errorText()
         case .fewOperations:
             return
         case .outOfRang:
             inputLabel.animationError()
-            resetCalculate(labelText: "Ошибка!")
+            resetCalculate(clearLabel: false)
+            errorText()
         }
     }
     
     /// Полный сброс калькулятора и вычислений.
-    func resetCalculate(labelText: String = "0") {
+    func resetCalculate(clearLabel: Bool = true) {
         calculator.removeAll()
-        inputLabel.text = labelText
         currentOperationButton = nil
         isNewInput = true
+        if clearLabel {
+            inputLabel.text = "0"
+        }
     }
+    
+    func errorText(labelText: String = "Ошибка!") {
+        let attributedString = NSMutableAttributedString(string: labelText)
+        attributedString.addAttribute(NSAttributedString.Key.kern, value: CGFloat(50.0), range: NSRange(location: labelText.count - 1, length: 1))
+        inputLabel.attributedText = attributedString
+    }
+    
     
 }
 
 
 
 
-// MARK: - UITableViewDelegate / UITableViewDataSource
+// MARK: - UITableViewDelegate && UITableViewDataSource
 
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
     
@@ -252,77 +248,11 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        40
-//    }
-    
-}
-
-
-// MARK: - touch
-
-extension ViewController {
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.inputLabel.endEditing(true)
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        scrollView.isScrollEnabled = calculations.count > 3
     }
     
 }
-
-
-
-
-
-
-// MARK:
-
-/*
-extension ViewController {
-    
-    func animationShowNotification() {
-        
-        var viewNotification = UIView()
-        var labelNotification:UILabel!
-        
-        func creatureViewTwo() {
-            let view = UIView(frame: CGRect(x: 0, y: -60, width: 300, height: 60))
-            view.center.x = self.view.frame.width / 2
-            view.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-            view.layer.cornerRadius = 25
-            let label = UILabel(frame: CGRect(x: 20, y: 19, width: 260, height: 22))
-            label.font = UIFont(name: "OpenSans-Bold", size: 16)
-            label.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-            label.text = "Cоревновательный режим выключен"
-            label.textAlignment = .center
-            labelNotification = label
-            view.addSubview(labelNotification)
-            viewNotification = view
-            self.view.addSubview(viewNotification)
-            viewNotification.alpha = 0
-        }
-        
-        
-        func show() {
-            UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseOut, animations: {
-                
-                self.viewNotification.transform = CGAffineTransform(translationX: 0, y: 70)
-                print("Начало")
-                
-            }) { (true) in hied() }
-        }
-        func hied() {
-            let animator = UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.3, delay: 0.8, options: .curveEaseIn, animations: {
-                self.viewNotification.transform = .identity
-            }) { (state) in print("Конец") }
-            animationNotification = animator
-            animator.startAnimation()
-        }
-        show()
-    }
-    
-}
-*/
-
 
 
 // MARK:  BlurView

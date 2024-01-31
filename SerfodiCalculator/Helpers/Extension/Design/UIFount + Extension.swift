@@ -12,11 +12,11 @@ import UIKit
 extension UIFont {
     
     static func mainDisplay() -> UIFont {
-        UIFont(name: "SFPro-Regular", size: 50)!
+        UIFont(name: "SFPro-Medium", size: 50)!
     }
     
     static func example26() -> UIFont {
-        UIFont(name: "SFPro-Regular", size: 26)!
+        UIFont(name: "SFPro-Medium", size: 26)!
     }
     
     

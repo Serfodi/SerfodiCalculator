@@ -15,6 +15,10 @@ extension UIColor {
         .white
     }
     
+    static func focusColor() -> UIColor {
+        UIColor(white: 0, alpha: 0.05)
+    }
+    
     static func operatingButtonColor() -> UIColor {
         #colorLiteral(red: 1, green: 0.5486019254, blue: 0.635882616, alpha: 1)
     }

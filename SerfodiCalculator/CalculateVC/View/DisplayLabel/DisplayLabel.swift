@@ -15,7 +15,7 @@ final class DisplayLabel: UILabel {
     /// View для фокусирования выдиления.
     private let focusView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(white: 0, alpha: 0.05)
+        view.backgroundColor = UIColor.focusColor()
         view.isHidden = true
         return view
     }()
@@ -33,12 +33,6 @@ final class DisplayLabel: UILabel {
     private var isErase: (CGFloat, Bool) = (0, false)
     
     private var dynamicNumberFormatter = DynamicNumberFormatter()
-    
-    /// Отоброжаемое чило
-    public var getNumber: Double? {
-        guard let text = text else { return nil }
-        return dynamicNumberFormatter.perform(text: text)
-    }
     
     
     
@@ -60,6 +54,8 @@ final class DisplayLabel: UILabel {
         super.layoutSubviews()
         layer.cornerRadius = bounds.height / 4
         
+        resizeFocusView()
+        
     // MARK: FIXME
         if isFirstResponder {
             focusView.isHidden = true
@@ -67,48 +63,103 @@ final class DisplayLabel: UILabel {
         }
     }
     
+    
     private func configure() {
-//        font = UIFont.mainDisplay()
+        font = UIFont.mainDisplay()
         adjustsFontSizeToFitWidth = true
         minimumScaleFactor = 0.9
         setupFocusView()
     }
     
-    /// Формотирует и устонавливает число в лейбел
-    /// 
-    /// Вызыватся после того как получено число.
-    /// В методах опираций или =
+    /// Пытается преоброзовать текст `UILabel` в число  `Double?`
+    public func getNumber() -> Double? {
+        dynamicNumberFormatter.perform(text: text!)
+    }
+    
+    /// Форматирует число и обновляет `text`
+    ///
+    /// В случае успеха преоброзования выводит результат на экран.
+    /// ````
+    /// text = try! dynamicNumberFormatter.fitInBounds(number: nsNumber) { numberText in
+    ///     isFitTextInto(numberText, scale: minimumScaleFactor)
+    /// }
+    /// ````
+    /// - Note: Вызывайте его если хотите отформатировать вывод числа с динамическим форматом.
+    ///
     public func setTextLabel(number: Double) {
         let nsNumber = number as NSNumber
-        text = dynamicNumberFormatter.fitInBounds(number: nsNumber) { numberText in
+        text = try! dynamicNumberFormatter.fitInBounds(number: nsNumber) { numberText in
             isFitTextInto(numberText, scale: minimumScaleFactor)
         }
     }
     
-    
-    public func performFormatting() {
-        
+    /// Форматирует и пытается преоброзовать текст `UILabel` к числу  `Double`.
+    ///
+    /// В случае успеха преоброзования отпровляет callback с числом. Выводит результат на экран.
+    /// ````
+    /// text = dynamicNumberFormatter.perform(number: number as NSNumber)
+    /// ````
+    /// - Attention: Если в строке есть `exponentSymbol или point` то ничего не делает.
+    /// - Requires: Поле `text` не должно быть пустым.
+    /// - Note: Вызывайте его если хотите отформатировать пользовательский ввод числа. Он убирает пробелы в строке и форматирует число под `Dec` формат.
+    /// - Remark: Вызывайте после изменения строки ввода.
+    ///
+    public func formattingInput(considerPoint: Bool = false, successful: (Double) -> ()) {
         guard !(text?.contains(dynamicNumberFormatter.exponentSymbol))! else { return }
-        
-        if (text?.contains(dynamicNumberFormatter.point))! {
-            
-            if text?.count == 1 {
-                text = "0" + dynamicNumberFormatter.point
-            }
-            if (text?.filter { $0 == Character(dynamicNumberFormatter.point) }.count)! > 1 {
-                text?.removeLast()
-            }
-            
-            return
-        }
+        guard !(text?.contains(dynamicNumberFormatter.point))! || considerPoint else { return }
         
         text = text!.replacingOccurrences(of: dynamicNumberFormatter.separator, with: "")
         
-        text = dynamicNumberFormatter.perform(number: getNumber! as NSNumber)
-        
+        if let number = getNumber() {
+            text = dynamicNumberFormatter.perform(number: number as NSNumber)
+            successful(number)
+        }
     }
     
+    /// Добавляет "цифру" к `text`
+    ///
+    /// - Parameter digit Один введеный символ.
+    /// - Returns: `true` если получилось добавить новое число. `False` если не получилось (символ нарушает правила ввода числа).
+    /// - Note: Следит за правельностью набора строки.
+    ///
+    public func inputDigit(add digit: String) -> Bool {
+        // Запрет на форматирования текста когда есть `exponent`.
+        guard !(text?.contains(dynamicNumberFormatter.exponentSymbol))! else { return false }
+        switch digit {
+        case dynamicNumberFormatter.point:
+            guard !(text?.contains(dynamicNumberFormatter.point))! else { return false }
+            text?.append(digit)
+            return true
+        default:
+            text?.append(digit)
+            return true
+        }
+    }
     
+    /// Справшивает `Label` можно ли добавить еще одну цифру.
+    public func isCanAddDigit(new digit: String) -> Bool {
+        
+        /*
+         1. Доболяем в текст
+         2. Преоброзовываем в число
+         3. Снова форматируем
+         4. Смотрим. Если влазиет то true
+         */
+        
+        isFitTextInto(text! + "0", scale: minimumScaleFactor)
+    }
+    
+    /// Удаляет последнуюю цифру в `text`
+    private func removeLastDigit() {
+        guard let text = text else { return }
+        guard !text.contains(dynamicNumberFormatter.exponentSymbol) else { return }
+        if text.count > 1 {
+            self.text!.removeLast()
+            self.formattingInput(considerPoint: true) { _ in }
+        } else {
+            self.text = "0"
+        }
+    }
     
 }
 
@@ -119,24 +170,25 @@ final class DisplayLabel: UILabel {
 extension DisplayLabel {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        guard let touchLocate = touches.first?.location(in: self) else { return }
+        guard let touch = touches.first else { return }
+        
+        let touchLocate = touch.location(in: self)
         isErase.0 = touchLocate.x
+        
+        if touch.view != focusView {
+            hideCopyMenu()
+        }
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touchLocate = touches.first?.location(in: self) else { return }
-        
-        guard let text = text else { return }
-        guard !text.contains(dynamicNumberFormatter.exponentSymbol) else { return }
-        
-        if !isErase.1 && touchLocate.x - isErase.0 > 20 {
-            isErase.1 = true
-            if text.count > 1 {
-                self.text!.removeLast()
-                self.performFormatting()
-            } else {
-                self.text = "0"
+        if let _ = getNumber() {
+            if !isErase.1 && touchLocate.x - isErase.0 > 20 {
+                isErase.1 = true
+                removeLastDigit()
             }
+        } else {
+            text = "0"
         }
     }
     
@@ -155,7 +207,12 @@ extension DisplayLabel {
 
 extension DisplayLabel {
     
+    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+        return (action == #selector(copy(_:)))
+    }
+    
     private func sharedInit() {
+        NotificationCenter.default.addObserver(self, selector: #selector(hideFocusView), name: UIMenuController.willHideMenuNotification, object: nil)
         isUserInteractionEnabled = true
         addGestureRecognizer(UILongPressGestureRecognizer(
             target: self,
@@ -165,35 +222,30 @@ extension DisplayLabel {
     
     override func copy(_ sender: Any?) {
         UIPasteboard.general.string = text
-        UIMenuController.shared.hideMenu()
-        focusView.isHidden = true
+        hideCopyMenu()
     }
     
     @objc func showMenu(sender: Any?) {
         becomeFirstResponder()
+        resizeFocusView()
+        focusView.isHidden = false
         let menu = UIMenuController.shared
         if !menu.isMenuVisible {
-            resizeFocusView()
             menu.showMenu(from: self, rect: focusView.frame)
-            focusView.isHidden = false
         }
     }
     
-    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
-        return (action == #selector(copy(_:)))
+    @objc private func hideFocusView() {
+        focusView.isHidden = true
     }
     
-    override func endEditing(_ force: Bool) -> Bool {
-        super.endEditing(force)
-        focusView.isHidden = true
-        return true
+    private func hideCopyMenu() {
+        let menu = UIMenuController.shared
+        if menu.isMenuVisible {
+            menu.hideMenu()
+        }
     }
     
-    override func resignFirstResponder() -> Bool {
-        super.resignFirstResponder()
-        focusView.isHidden = true
-        return true
-    }
     
 }
 
@@ -215,15 +267,15 @@ extension DisplayLabel {
             hight = bounds.height * minimumScaleFactor
             width = bounds.width + hight / 4 * minimumScaleFactor
             centerYConstraint.constant = (1 - minimumScaleFactor) * 10
+            rightConstraint.constant = radius / 2 * minimumScaleFactor
         } else {
             width = textSize.width + radius
             hight = textSize.height + radius
+            rightConstraint.constant = radius / 2
         }
         
         widthConstraint.constant = width
         heightConstraint.constant = hight
-        
-        rightConstraint.constant = radius / 2
         
         focusView.layoutIfNeeded()
         focusView.layer.cornerRadius = radius
@@ -271,7 +323,7 @@ extension DisplayLabel {
 
 // MARK:  Animation Error
 
-extension DisplayLabel {
+extension DisplayLabel: CAAnimationDelegate {
     
     public func animationError() {
         let snake = CABasicAnimation(keyPath: "position")
@@ -288,9 +340,14 @@ extension DisplayLabel {
         colorAnimation.duration = 0.4
         colorAnimation.autoreverses = true
         
+        
         let animationGroup = CAAnimationGroup()
         animationGroup.duration = 0.8
         animationGroup.animations = [colorAnimation, snake]
+        
+//        animationGroup.stop
+        
+        animationGroup.delegate = self
         
         layer.add(animationGroup, forKey: "groupAnimation")
         
@@ -300,6 +357,15 @@ extension DisplayLabel {
     private func hapticSoftTap() {
         let generator = UINotificationFeedbackGenerator()
         generator.notificationOccurred(.error)
+    }
+ 
+    
+    func animationDidStart(_ anim: CAAnimation) {
+      
+    }
+    
+    func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
+    
     }
     
 }

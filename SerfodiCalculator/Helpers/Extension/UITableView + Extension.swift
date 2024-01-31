@@ -24,13 +24,12 @@ extension UITableView {
         contentInset = UIEdgeInsets(top: contentInsetTop, left: 0, bottom: 10, right: 0)
     }
     
-    /// Переворачивает таблицу показывает последнуюю ячейку
+    /// Показывает последнуюю ячейку
     public func showLastCell(animated: Bool = true) {
         let numRows = numberOfRows(inSection: 0)
         guard numRows > 0 else { return }
         let lastIndex = NSIndexPath(row: numRows - 1, section: 0)
         scrollToRow(at: lastIndex as IndexPath, at: .bottom, animated: animated)
     }
-    
-    
+        
 }

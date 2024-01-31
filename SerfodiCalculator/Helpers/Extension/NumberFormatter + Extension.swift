@@ -15,7 +15,10 @@ extension NumberFormatter {
         numberStyle = style
         
         usesGroupingSeparator = false
-
+        minusSign = "-"
+        
+//        roundingMode = .floor
+        
         nilSymbol = "Нет числа!"
         positiveInfinitySymbol = "∞ не придел!"
     }

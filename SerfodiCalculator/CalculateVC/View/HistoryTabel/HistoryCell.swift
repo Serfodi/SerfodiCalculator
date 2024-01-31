@@ -39,26 +39,25 @@ final class HistoryCell: UITableViewCell {
     
     private var calculation: Calculation!
     
-//    private var maxWidth: Int = 21
     
     // MARK: init
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         backgroundColor = .clear
-        clipsToBounds = false
+        setupNumberLabel()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
         setupNumberLabel()
     }
     
     override func prepareForReuse() {
         numberLabel.text = ""
         calculation = nil
-//        maxWidth = 22
     }
     
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-    }
     
     /// Функция настройки из контролера
     public func config(calculation: Calculation) {
@@ -66,59 +65,36 @@ final class HistoryCell: UITableViewCell {
         expressionString(calculation, lengthLine: maximumDigitsInLine())
     }
     
-//    override func layoutSubviews() {
-//        super.layoutSubviews()
-//        maxWidth = maximumDigitsInLine()
-//    }
-    
-    // MARK: func
-    
-    
     /// Возврощяет максимальное кол-во символов в строке
     private func maximumDigitsInLine() -> Int {
-        let oneDigitWidth = numberLabel.size(text: "0").width
-        let lengthLine = Int( bounds.width / oneDigitWidth)
-        return lengthLine > 6 ? lengthLine : 22
+        let oneDigitWidth = numberLabel.size(text: "2").width
+        let roundWidth = round(oneDigitWidth * 10) / 10
+        let lengthLine = Int( bounds.width / roundWidth)
+        return lengthLine
     }
     
     
+    // MARK: @FIX IT
     
     private func expressionString(_ calculation: Calculation, lengthLine: Int ) {
         let text = NSMutableAttributedString()
         
         let maxWidth = lengthLine
-        
-        /*
-         
-         1. Форматируем число.
-         
-         2. Проверяем можно ли его вставить в строку. С учетом знака
-         
-         3. да -> вставляем | нет -> переходим на новую строчку.
-         
-         */
-        
         var currentWidth = maxWidth
         
         for item in calculation.expression {
             switch item{
             case .number(let number):
                 // 1. Форматируем число.
-                guard let numberText = formatText(number: number, width: maxWidth - 1) else { return }
+                let numberText = formatText(number: number, width: maxWidth - 1)
                 
                 if currentWidth - numberText.count < 2 {
-                    
                     let textS: String = text.string
                     let last = String(textS.suffix(1))
-                    
                     text.append(NSAttributedString(string: "\n"))
-                    
                     let testSign = createAtt(text: last, color: .exampleColorSign())
-                    
                     text.append(testSign)
-                    
-                    currentWidth = maxWidth
-                    
+                    currentWidth = maxWidth - 1
                 }
                 
                 let textAS = NSAttributedString(string: numberText)
@@ -126,42 +102,30 @@ final class HistoryCell: UITableViewCell {
                 
                 currentWidth -= numberText.count
                 
-                
             case .operation(let sign):
                 let testSign = createAtt(text: sign.rawValue, color: .exampleColorSign())
                 text.append(testSign)
                 currentWidth -= 1
+                
                 if currentWidth - sign.rawValue.count == 0 {
-                    
                     text.append(NSAttributedString(string: "\n"))
                     text.append(testSign)
-                    
                     currentWidth = maxWidth
                 }
             }
         }
         
+        let numberText = formatText(number: calculation.result, width: maxWidth - 1)
         
-        guard let numberText = formatText(number: calculation.result, width: maxWidth - 1) else {
-            print("Ошибка форматера")
-            return
-        }
-        
-        
-        
-        if currentWidth - numberText.count < 2  {
+        if currentWidth - numberText.count < 0  {
             text.append(createAtt(text: "=", color: .exampleColorEqual()))
             text.append(NSAttributedString(string: "\n"))
         }
         
-//        print(currentWidth - numberText.count)
-        
         text.append(createAtt(text: "=", color: .exampleColorEqual()))
         text.append(createAtt(text: numberText, color: .exampleColorResult()))
         
-         
         numberLabel.attributedText = text
-        
     }
     
     
@@ -171,14 +135,10 @@ final class HistoryCell: UITableViewCell {
     
     
     /// Форматирует число
-    private func formatText(number: Double, width: Int ) -> String? {
-        var text: String?
-        text = dynamicNumberFormatter.fitInBounds(number: number as NSNumber) { numberText in
-            let isFit = isFitNumber(inLine: width, forText: numberText)
-//            text = numberText
-            return isFit
+    private func formatText(number: Double, width: Int ) -> String {
+        try! dynamicNumberFormatter.fitInBounds(number: number as NSNumber) { numberText in
+            isFitNumber(inLine: width, forText: numberText)
         }
-        return text
     }
     
     /// Накидывает атрибуты
