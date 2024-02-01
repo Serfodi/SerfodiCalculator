@@ -35,7 +35,7 @@
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Iu-Iv-IGr">
                                                         <rect key="frame" x="0.0" y="0.0" width="135" height="60"/>
-                                                        <color key="backgroundColor" red="0.96310228109999996" green="0.82622557880000003" blue="0.61172550920000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                        <color key="backgroundColor" red="0.96470588235294119" green="0.82745098039215681" blue="0.61176470588235299" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="60" id="cmi-ST-5Ym"/>
                                                             <constraint firstAttribute="width" constant="135" id="oXK-xt-vNd"/>
@@ -93,7 +93,7 @@
                                                         </constraints>
                                                         <fontDescription key="fontDescription" name="SFPro-Medium" family="SF Pro" pointSize="35"/>
                                                         <state key="normal" title="÷">
-                                                            <color key="titleColor" white="0.33077375860000002" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <color key="titleColor" red="0.41960784313725491" green="0.15294117647058825" blue="0.21568627450980393" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                         </state>
                                                         <state key="selected">
                                                             <color key="titleColor" red="0.90196078431372551" green="0.58823529411764708" blue="0.64313725490196072" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -168,7 +168,7 @@
                                                         <color key="backgroundColor" red="0.95294117649999999" green="0.57254901960000004" blue="0.63921568630000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                         <fontDescription key="fontDescription" name="SFPro-Medium" family="SF Pro" pointSize="30"/>
                                                         <state key="normal" title="×">
-                                                            <color key="titleColor" white="0.33077375860000002" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <color key="titleColor" red="0.41960784309999999" green="0.1529411765" blue="0.2156862745" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                         </state>
                                                         <state key="selected">
                                                             <color key="titleColor" red="0.90461021659999996" green="0.58760350939999995" blue="0.64313787219999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -243,7 +243,7 @@
                                                         <color key="backgroundColor" red="0.95294117649999999" green="0.57254901960000004" blue="0.63921568630000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                         <fontDescription key="fontDescription" name="SFPro-Medium" family="SF Pro" pointSize="30"/>
                                                         <state key="normal" title="+">
-                                                            <color key="titleColor" white="0.33077375860000002" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <color key="titleColor" red="0.41960784309999999" green="0.1529411765" blue="0.2156862745" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                         </state>
                                                         <state key="selected">
                                                             <color key="titleColor" red="0.90461021659999996" green="0.58760350939999995" blue="0.64313787219999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -267,7 +267,7 @@
                                                 <subviews>
                                                     <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Eo-PM-wB1">
                                                         <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
-                                                        <color key="backgroundColor" red="0.63028472660000001" green="0.80890929700000003" blue="0.97649246450000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                        <color key="backgroundColor" red="0.63137254901960782" green="0.80784313725490198" blue="0.97647058823529409" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                         <fontDescription key="fontDescription" name="SFPro-Medium" family="SF Pro" pointSize="30"/>
                                                         <state key="normal" title="1">
                                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -318,7 +318,7 @@
                                                         <color key="backgroundColor" red="0.95294117649999999" green="0.57254901960000004" blue="0.63921568630000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                         <fontDescription key="fontDescription" name="SFPro-Medium" family="SF Pro" pointSize="35"/>
                                                         <state key="normal" title="–">
-                                                            <color key="titleColor" white="0.33077375860000002" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <color key="titleColor" red="0.41960784309999999" green="0.1529411765" blue="0.2156862745" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                         </state>
                                                         <state key="selected">
                                                             <color key="titleColor" red="0.90461021659999996" green="0.58760350939999995" blue="0.64313787219999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -384,7 +384,7 @@
                                                         </constraints>
                                                         <fontDescription key="fontDescription" name="SFPro-Medium" family="SF Pro" pointSize="32"/>
                                                         <state key="normal" title="=">
-                                                            <color key="titleColor" white="0.33077375860000002" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <color key="titleColor" red="0.41960784309999999" green="0.1529411765" blue="0.2156862745" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                         </state>
                                                         <state key="selected">
                                                             <color key="titleColor" red="0.90461021659999996" green="0.58760350939999995" blue="0.64313787219999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -429,10 +429,6 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="dHe-wI-GON">
                                 <rect key="frame" x="15" y="93" width="363" height="235"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <connections>
-                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="uLh-TE-vOn"/>
-                                    <outlet property="delegate" destination="BYZ-38-t0r" id="BlB-xg-JHD"/>
-                                </connections>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="right" lineBreakMode="clip" baselineAdjustment="alignBaselines" minimumScaleFactor="1" translatesAutoresizingMaskIntoConstraints="NO" id="oKN-Hv-xpk" customClass="DisplayLabel" customModule="SerfodiCalculator" customModuleProvider="target">
                                 <rect key="frame" x="30" y="328" width="333" height="80"/>

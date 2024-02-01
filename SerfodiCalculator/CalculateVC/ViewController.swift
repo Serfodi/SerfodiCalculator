@@ -40,11 +40,8 @@ class ViewController: UIViewController {
     private var isNewInput = true
     
     private let calculator = Calculator()
-    
-    var calculationHistoryStorage = CalculationHistoryStorage()
-    
-    //    MARK: @FIX It
-    var calculations: [Calculation] = []
+        
+    var dataProvider: DataProvider!
     
     
     
@@ -54,23 +51,29 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         resetCalculate()
         
-        historyTableView.delegate = self
-        historyTableView.register(HistoryCell.self, forCellReuseIdentifier: HistoryCell.reuseId)
+        let historyManager = HistoryManager()
+        dataProvider = DataProvider()
         
-        calculations = calculationHistoryStorage.load().suffix(20)
+        dataProvider.historyManager = historyManager
+        
+        historyTableView.register(HistoryCell.self, forCellReuseIdentifier: HistoryCell.reuseId)
+        historyTableView.dataSource = dataProvider
+        historyTableView.delegate = dataProvider
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         historyTableView.updateTableContentInset()
         addBlurView()
+        historyTableView.reloadData()
         navigationController?.setNavigationBarHidden(true, animated: false)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         historyTableView.showLastCell(animated: false)
-        inputLabel.setTextLabel(number: calculationHistoryStorage.load())
+        let lastResult = SettingManager.shared.getLastResult
+        inputLabel.setTextLabel(number: lastResult)
     }
     
     
@@ -93,8 +96,9 @@ class ViewController: UIViewController {
         let _ = inputLabel.inputDigit(add: buttonText)
         
         inputLabel.formattingInput { number in
-            calculationHistoryStorage.setData(number)
+            SettingManager.shared.saveLastResult(result: number)
         }
+        
         currentOperationButton = nil
     }
     
@@ -133,7 +137,7 @@ class ViewController: UIViewController {
         
         calculateResult { result in
             inputLabel.setTextLabel(number: result)
-            calculationHistoryStorage.setData(result)
+            SettingManager.shared.saveLastResult(result: result)
         }
         
         isNewInput = true
@@ -162,13 +166,13 @@ class ViewController: UIViewController {
         
         calculateResult { result in
             calculator.removeHistory { calculationItems in
-                self.calculations.append(Calculation(expression: calculationItems, result: result))
+                let calculation = Calculation(expression: calculationItems, result: result)
+                self.dataProvider.historyManager?.add(calculation: calculation)
                 self.historyTableView.reloadData()
                 self.historyTableView.showLastCell()
             }
-            calculationHistoryStorage.setData(calculations)
             inputLabel.setTextLabel(number: result)
-            calculationHistoryStorage.setData(result)
+            SettingManager.shared.saveLastResult(result: result)
         }
         
         currentOperationButton = nil // Опирации нет
@@ -232,29 +236,6 @@ class ViewController: UIViewController {
 }
 
 
-
-
-// MARK: - UITableViewDelegate && UITableViewDataSource
-
-extension ViewController: UITableViewDelegate, UITableViewDataSource {
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        calculations.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: HistoryCell.reuseId, for: indexPath) as! HistoryCell
-        cell.config(calculation: calculations[indexPath.row])
-        return cell
-    }
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        scrollView.isScrollEnabled = calculations.count > 3
-    }
-    
-}
-
-
 // MARK:  BlurView
 
 extension ViewController {
@@ -290,32 +271,3 @@ extension ViewController {
     }
     
 }
-
-
-// MARK: - SwiftUI Helper
-
-/*
-
-import SwiftUI
-
-struct ViewControllerProvider: PreviewProvider {
-    
-    static var previews: some View {
-        ContainerView().edgesIgnoringSafeArea(.all)
-    }
-    
-    struct ContainerView: UIViewControllerRepresentable {
-        
-        let viewController = ViewController()
-        
-        func makeUIViewController(context: Context) -> some UIViewController {
-            viewController
-        }
-        
-        func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {}
-        
-    }
-    
-}
-
-*/

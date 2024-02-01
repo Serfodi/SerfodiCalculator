@@ -8,20 +8,23 @@
 import Foundation
 
 
-final class CalculationHistoryStorage {
+final class CalculationSettingStorage {
     
-    static let calculationHistoryKey = "calculationHistoryKey"
     static let lastInputKey = "lastInputKey"
     
-    // FIXME: use type(_) in switch
-    
     func setData(_ data: Double) {
-        UserDefaults.standard.set(data, forKey: CalculationHistoryStorage.lastInputKey)
+        UserDefaults.standard.set(data, forKey: CalculationSettingStorage.lastInputKey)
     }
     
     func load() -> Double {
-        UserDefaults.standard.double(forKey: CalculationHistoryStorage.lastInputKey)
+        UserDefaults.standard.double(forKey: CalculationSettingStorage.lastInputKey)
     }
+    
+}
+
+final class CalculationHistoryStorage {
+    
+    static let calculationHistoryKey = "calculationHistoryKey"
     
     func setData(_ data: [Calculation]) {
         if let encoder = try? JSONEncoder().encode(data) {
