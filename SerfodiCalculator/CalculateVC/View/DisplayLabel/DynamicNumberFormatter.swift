@@ -37,6 +37,9 @@ final class DynamicNumberFormatter {
     public var separator: String {
         numberFormatterDec.currencyGroupingSeparator
     }
+    public var minusSign: String {
+        numberFormatterDec.minusSign
+    }
     
     
     /// Функция  подбирает формат числа под заданную рамку.

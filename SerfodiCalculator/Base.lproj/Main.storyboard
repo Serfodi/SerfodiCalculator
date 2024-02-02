@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="l6H-Ci-raV">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -24,6 +24,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="clF-G7-Q18" customClass="HistoryTableView" customModule="SerfodiCalculator" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="348"/>
+                                <color key="backgroundColor" systemColor="systemGray5Color"/>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g8v-Qr-J1c">
                                 <rect key="frame" x="39" y="418" width="315" height="390"/>
                                 <subviews>
@@ -426,10 +430,6 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="dHe-wI-GON">
-                                <rect key="frame" x="15" y="93" width="363" height="235"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                            </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="right" lineBreakMode="clip" baselineAdjustment="alignBaselines" minimumScaleFactor="1" translatesAutoresizingMaskIntoConstraints="NO" id="oKN-Hv-xpk" customClass="DisplayLabel" customModule="SerfodiCalculator" customModuleProvider="target">
                                 <rect key="frame" x="30" y="328" width="333" height="80"/>
                                 <constraints>
@@ -443,21 +443,21 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="clF-G7-Q18" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="1cr-j1-bST"/>
                             <constraint firstItem="g8v-Qr-J1c" firstAttribute="top" secondItem="oKN-Hv-xpk" secondAttribute="bottom" constant="10" id="2BM-XK-ogz"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="oKN-Hv-xpk" secondAttribute="trailing" constant="30" id="3Tr-fx-qSQ"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="dHe-wI-GON" secondAttribute="trailing" constant="15" id="DrK-Ls-Xkt"/>
-                            <constraint firstItem="oKN-Hv-xpk" firstAttribute="top" secondItem="dHe-wI-GON" secondAttribute="bottom" id="Gzz-Jw-4CB"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="g8v-Qr-J1c" secondAttribute="bottom" constant="10" id="H5m-w4-cfW"/>
                             <constraint firstItem="g8v-Qr-J1c" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="PId-B7-cX8"/>
+                            <constraint firstItem="clF-G7-Q18" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="Rsd-aE-g4W"/>
                             <constraint firstItem="oKN-Hv-xpk" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="30" id="a1P-xX-XQU"/>
-                            <constraint firstItem="dHe-wI-GON" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="15" id="hg0-TC-CrA"/>
-                            <constraint firstItem="dHe-wI-GON" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="-10" id="vlO-ka-9g3"/>
+                            <constraint firstItem="oKN-Hv-xpk" firstAttribute="top" secondItem="clF-G7-Q18" secondAttribute="bottom" constant="-20" id="qrQ-r8-rOw"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="clF-G7-Q18" secondAttribute="trailing" id="rLe-ic-Uiu"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="1Zb-1K-SHK"/>
                     <connections>
                         <outlet property="clearButton" destination="5Iu-Iv-IGr" id="J0f-EA-Sgz"/>
-                        <outlet property="historyTableView" destination="dHe-wI-GON" id="nFA-B9-1Sm"/>
+                        <outlet property="historyTableView" destination="clF-G7-Q18" id="9T7-fQ-bvJ"/>
                         <outlet property="inputLabel" destination="oKN-Hv-xpk" id="Jeu-Jk-BwO"/>
                         <outlet property="numpadView" destination="g8v-Qr-J1c" id="PKG-Lr-icN"/>
                         <outletCollection property="numberButton" destination="alG-hA-Ef7" collectionClass="NSMutableArray" id="H9O-FO-zTs"/>
@@ -482,31 +482,14 @@
             </objects>
             <point key="canvasLocation" x="1066.4122137404579" y="3.5211267605633805"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="rwO-un-nsz">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="l6H-Ci-raV" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="kix-FN-GW8">
-                        <rect key="frame" x="0.0" y="59" width="393" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <color key="tintColor" red="0.63028472660000001" green="0.80890929700000003" blue="0.97649246450000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                        <navigationBarAppearance key="standardAppearance" backgroundEffect="systemUltraThinMaterial"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="HTm-1D-5Tn"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Ddk-xs-7La" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="139.69465648854961" y="3.5211267605633805"/>
-        </scene>
     </scenes>
     <resources>
         <image name="plus.slash.minus" catalog="system" width="128" height="115"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGray5Color">
+            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

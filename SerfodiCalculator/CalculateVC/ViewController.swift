@@ -15,8 +15,7 @@ class ViewController: UIViewController {
     @IBOutlet var operationButton: [UIButton]!
     @IBOutlet var numberButton: [UIButton]!
     @IBOutlet weak var numpadView: UIView!
-    
-    @IBOutlet weak var historyTableView: UITableView!
+    @IBOutlet weak var historyTableView: HistoryTableView!
     
     
     var currentOperationButton: UIButton? = UIButton() {
@@ -49,6 +48,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         resetCalculate()
         
         let historyManager = HistoryManager()
@@ -56,25 +56,40 @@ class ViewController: UIViewController {
         
         dataProvider.historyManager = historyManager
         
-        historyTableView.register(HistoryCell.self, forCellReuseIdentifier: HistoryCell.reuseId)
-        historyTableView.dataSource = dataProvider
-        historyTableView.delegate = dataProvider
+        inputLabel.delegate = self
+        historyTableView.tableView.dataSource = dataProvider
+        historyTableView.tableView.delegate = dataProvider
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        historyTableView.updateTableContentInset()
-        addBlurView()
-        historyTableView.reloadData()
-        navigationController?.setNavigationBarHidden(true, animated: false)
+        
+    }
+    
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        // Нужно обновить представления лейбла.
+        // Обновить предстовления табличек.
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        historyTableView.showLastCell(animated: false)
+        
+        
+        historyTableView.tableView.showLastCell(animated: false)
         let lastResult = SettingManager.shared.getLastResult
-        inputLabel.setTextLabel(number: lastResult)
+        
+        inputLabel.setTextLabel(number: lastResult) // fix it
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if let number = inputLabel.getNumber() {
+            SettingManager.shared.saveLastResult(result: number)
+        }
+    }
+    
     
     
     
@@ -85,17 +100,18 @@ class ViewController: UIViewController {
         guard let buttonText = sender.currentTitle,
               let _ = inputLabel.text
         else { return }
+        
         sender.animationTap()
         sender.hapticLightTap()
         
         guard inputLabel.isCanAddDigit(new: buttonText) || isNewInput else { return }
+        
         if isNewInput {
             isNewInput = !isNewInput
             inputLabel.text = "0"
         }
-        let _ = inputLabel.inputDigit(add: buttonText)
         
-        inputLabel.formattingInput { number in
+        inputLabel.inputDigit(add: buttonText) { number in
             SettingManager.shared.saveLastResult(result: number)
         }
         
@@ -106,12 +122,8 @@ class ViewController: UIViewController {
     @IBAction func addMinus(_ sender: UIButton) {
         sender.animationTap()
         sender.hapticLightTap()
-        guard let _ = inputLabel.getNumber() else { return }
-        if inputLabel.text!.contains("-") {
-            inputLabel.text!.removeFirst()
-        } else {
-            inputLabel.text!.insert("-", at: inputLabel.text!.startIndex)
-        }
+        inputLabel.addMinusNumber()
+        SettingManager.shared.saveLastResult(result: inputLabel.getNumber()!)
     }
     
     
@@ -168,11 +180,10 @@ class ViewController: UIViewController {
             calculator.removeHistory { calculationItems in
                 let calculation = Calculation(expression: calculationItems, result: result)
                 self.dataProvider.historyManager?.add(calculation: calculation)
-                self.historyTableView.reloadData()
-                self.historyTableView.showLastCell()
+                self.historyTableView.tableView.reloadData()
+                self.historyTableView.tableView.showLastCell()
             }
             inputLabel.setTextLabel(number: result)
-            SettingManager.shared.saveLastResult(result: result)
         }
         
         currentOperationButton = nil // Опирации нет
@@ -228,46 +239,24 @@ class ViewController: UIViewController {
     
     func errorText(labelText: String = "Ошибка!") {
         let attributedString = NSMutableAttributedString(string: labelText)
-        attributedString.addAttribute(NSAttributedString.Key.kern, value: CGFloat(50.0), range: NSRange(location: labelText.count - 1, length: 1))
+        attributedString.addAttribute(NSAttributedString.Key.kern, value: CGFloat(10.0), range: NSRange(location: labelText.count - 1, length: 1))
         inputLabel.attributedText = attributedString
     }
     
     
 }
 
-
-// MARK:  BlurView
-
-extension ViewController {
+extension ViewController: RemoveLastDigit {
     
-    func addBlurView() {
-        let topBlur = BlurGradientView(location: [0.45, 1])
-        let bottomBlur = BlurGradientView(location: [0, 0.4, 0.55, 1], colors: [
-            CGColor(gray: 0, alpha: 0),
-            CGColor(gray: 0, alpha: 1),
-            CGColor(gray: 0, alpha: 1),
-            CGColor(gray: 0, alpha: 0)
-        ])
-        
-        view.insertSubview(topBlur, belowSubview: inputLabel)
-        view.insertSubview(bottomBlur, belowSubview: inputLabel)
-        
-        topBlur.translatesAutoresizingMaskIntoConstraints = false
-        bottomBlur.translatesAutoresizingMaskIntoConstraints = false
-        
-        let height = UIApplication.shared.getStatusBarFrame().height
-        NSLayoutConstraint.activate([
-            topBlur.heightAnchor.constraint(equalToConstant: height + 20),
-            topBlur.topAnchor.constraint(equalTo: view.topAnchor),
-            topBlur.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            topBlur.leadingAnchor.constraint(equalTo: view.leadingAnchor)
-        ])
-        NSLayoutConstraint.activate([
-            bottomBlur.heightAnchor.constraint(equalToConstant: 40),
-            bottomBlur.bottomAnchor.constraint(equalTo: historyTableView.bottomAnchor, constant: 20),
-            bottomBlur.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            bottomBlur.leadingAnchor.constraint(equalTo: view.leadingAnchor)
-        ])
+    func removeLastDigit() {
+        if let _ = inputLabel.getNumber() {
+            inputLabel.removeLastDigit()
+        } else {
+            inputLabel.text = "0"
+        }
+        if let number = inputLabel.getNumber() {
+            SettingManager.shared.saveLastResult(result: number)
+        }
     }
     
 }

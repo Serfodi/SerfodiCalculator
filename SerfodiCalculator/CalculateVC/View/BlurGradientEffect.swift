@@ -35,7 +35,6 @@ final class BlurGradientView: UIVisualEffectView {
     
     private func configure() {
         backgroundColor = .clear
-        isUserInteractionEnabled = false
         gradientLayer.locations = location
         gradientLayer.colors = colors
         layer.mask = gradientLayer

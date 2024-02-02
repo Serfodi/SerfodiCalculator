@@ -8,6 +8,14 @@
 import UIKit
 
 
+@objc protocol RemoveLastDigit: AnyObject {
+    @objc optional func removeLastDigit()
+}
+
+
+/// - Important: Вы ни когда не должны использовать `Label.text` для добавления или изменения строки в label.
+///              Для этого использйте
+///
 final class DisplayLabel: UILabel {
     
     override public var canBecomeFirstResponder: Bool { true }
@@ -32,6 +40,8 @@ final class DisplayLabel: UILabel {
     ///  1. Точка по x первого нажатия
     private var isErase: (CGFloat, Bool) = (0, false)
     
+    weak var delegate: RemoveLastDigit?
+    
     private var dynamicNumberFormatter = DynamicNumberFormatter()
     
     
@@ -53,16 +63,8 @@ final class DisplayLabel: UILabel {
     override func layoutSubviews() {
         super.layoutSubviews()
         layer.cornerRadius = bounds.height / 4
-        
         resizeFocusView()
-        
-    // MARK: FIXME
-        if isFirstResponder {
-            focusView.isHidden = true
-            UIMenuController.shared.hideMenu()
-        }
     }
-    
     
     private func configure() {
         font = UIFont.mainDisplay()
@@ -70,6 +72,7 @@ final class DisplayLabel: UILabel {
         minimumScaleFactor = 0.9
         setupFocusView()
     }
+    
     
     /// Пытается преоброзовать текст `UILabel` в число  `Double?`
     public func getNumber() -> Double? {
@@ -122,42 +125,50 @@ final class DisplayLabel: UILabel {
     /// - Returns: `true` если получилось добавить новое число. `False` если не получилось (символ нарушает правила ввода числа).
     /// - Note: Следит за правельностью набора строки.
     ///
-    public func inputDigit(add digit: String) -> Bool {
-        // Запрет на форматирования текста когда есть `exponent`.
-        guard !(text?.contains(dynamicNumberFormatter.exponentSymbol))! else { return false }
+    public func inputDigit(add digit: String, successful: (Double) -> ()) {
         switch digit {
         case dynamicNumberFormatter.point:
-            guard !(text?.contains(dynamicNumberFormatter.point))! else { return false }
+            guard !(text?.contains(dynamicNumberFormatter.point))! else { return }
             text?.append(digit)
-            return true
         default:
             text?.append(digit)
-            return true
+        }
+        
+        formattingInput { number in
+            successful(number)
         }
     }
     
     /// Справшивает `Label` можно ли добавить еще одну цифру.
     public func isCanAddDigit(new digit: String) -> Bool {
-        
         /*
          1. Доболяем в текст
          2. Преоброзовываем в число
          3. Снова форматируем
          4. Смотрим. Если влазиет то true
          */
-        
         isFitTextInto(text! + "0", scale: minimumScaleFactor)
     }
     
     /// Удаляет последнуюю цифру в `text`
-    private func removeLastDigit() {
-        guard let text = text else { return }
-        guard !text.contains(dynamicNumberFormatter.exponentSymbol) else { return }
-        if text.count > 1 {
-            self.text!.removeLast()
-            self.formattingInput(considerPoint: true) { _ in }
+    public func removeLastDigit() {
+        guard !text!.contains(dynamicNumberFormatter.exponentSymbol) else { return }
+        
+        
+        if text!.count > 2 || (!text!.contains(dynamicNumberFormatter.minusSign) && text!.count > 1) {
+            text!.removeLast()
         } else {
-            self.text = "0"
+            text! = "0"
+        }
+        formattingInput(considerPoint: true) { _ in }
+    }
+    
+    public func addMinusNumber() {
+        guard let _ = getNumber() else { return }
+        if text!.contains(dynamicNumberFormatter.minusSign) {
+            text!.removeFirst()
+        } else {
+            text?.insert(dynamicNumberFormatter.minusSign.first!, at: text!.startIndex)
         }
     }
     
@@ -182,13 +193,10 @@ extension DisplayLabel {
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touchLocate = touches.first?.location(in: self) else { return }
-        if let _ = getNumber() {
-            if !isErase.1 && touchLocate.x - isErase.0 > 20 {
-                isErase.1 = true
-                removeLastDigit()
-            }
-        } else {
-            text = "0"
+        
+        if !isErase.1 && touchLocate.x - isErase.0 > 20 {
+            isErase.1 = true
+            delegate?.removeLastDigit?()
         }
     }
     
