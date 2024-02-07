@@ -17,8 +17,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var numpadView: UIView!
     @IBOutlet weak var historyTableView: HistoryTableView!
     
-    
-    var currentOperationButton: UIButton? = UIButton() {
+    private var currentOperationButton: UIButton? = UIButton() {
         didSet {
             guard let button = oldValue else { return }
             guard button != currentOperationButton else { return }
@@ -33,14 +32,15 @@ class ViewController: UIViewController {
         }
     }
     
+    private let calculator = Calculator()
+    
+    public var dataProvider: DataProvider!
+    
     /// Индикатор для сигнализации о новом вводе:
     /// `true` – Разрешён новый ввод числа
     /// `false` – Ввод числа завершен
     private var isNewInput = true
     
-    private let calculator = Calculator()
-        
-    var dataProvider: DataProvider!
     
     
     
@@ -60,23 +60,9 @@ class ViewController: UIViewController {
         historyTableView.tableView.dataSource = dataProvider
         historyTableView.tableView.delegate = dataProvider
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
         
-    }
-    
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        // Нужно обновить представления лейбла.
-        // Обновить предстовления табличек.
-    }
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        
         historyTableView.tableView.showLastCell(animated: false)
         let lastResult = SettingManager.shared.getLastResult
         
@@ -89,8 +75,6 @@ class ViewController: UIViewController {
             SettingManager.shared.saveLastResult(result: number)
         }
     }
-    
-    
     
     
     // MARK: - Action

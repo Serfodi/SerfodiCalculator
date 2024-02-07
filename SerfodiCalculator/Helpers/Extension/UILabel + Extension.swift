@@ -14,6 +14,8 @@ extension UILabel {
     
     /// Размер текста в `UILabel`
     ///
+    /// - Parameter text: Текст для проверки `String?`. Если `nil`, то вернет `.zero`
+    ///
     /// - Requires: `font != nil`
     ///
     /// - Attention: `NSAttributedString`: для вычисления размера  учитывает только __`UIFont`__.

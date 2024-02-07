@@ -13,6 +13,8 @@
 		B02EC6642B5D8D4E00CE0122 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B02EC6622B5D8D4E00CE0122 /* Main.storyboard */; };
 		B02EC6662B5D8D5200CE0122 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B02EC6652B5D8D5200CE0122 /* Assets.xcassets */; };
 		B02EC6692B5D8D5200CE0122 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B02EC6672B5D8D5200CE0122 /* LaunchScreen.storyboard */; };
+		B04BFDCC2B736E7200ED7099 /* NumpadButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04BFDCB2B736E7200ED7099 /* NumpadButton.swift */; };
+		B04BFDCE2B7373A800ED7099 /* NumpadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04BFDCD2B7373A800ED7099 /* NumpadView.swift */; };
 		B064E2F42B5E9DD800E56208 /* UIColor + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B064E2F32B5E9DD800E56208 /* UIColor + Extension.swift */; };
 		B064E2F62B5EB7AB00E56208 /* CalculationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B064E2F52B5EB7AB00E56208 /* CalculationError.swift */; };
 		B064E2F82B5EB7D900E56208 /* Calculate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B064E2F72B5EB7D900E56208 /* Calculate.swift */; };
@@ -51,6 +53,8 @@
 		B02EC6652B5D8D5200CE0122 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B02EC6682B5D8D5200CE0122 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B02EC66A2B5D8D5200CE0122 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B04BFDCB2B736E7200ED7099 /* NumpadButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumpadButton.swift; sourceTree = "<group>"; };
+		B04BFDCD2B7373A800ED7099 /* NumpadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumpadView.swift; sourceTree = "<group>"; };
 		B064E2F32B5E9DD800E56208 /* UIColor + Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor + Extension.swift"; sourceTree = "<group>"; };
 		B064E2F52B5EB7AB00E56208 /* CalculationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculationError.swift; sourceTree = "<group>"; };
 		B064E2F72B5EB7D900E56208 /* Calculate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calculate.swift; sourceTree = "<group>"; };
@@ -238,6 +242,8 @@
 				B099E0C42B6AA63B000670CE /* DisplayLabel */,
 				B064E3052B6180FA00E56208 /* BlurGradientEffect.swift */,
 				B099E0C32B6AA600000670CE /* HistoryTabel */,
+				B04BFDCB2B736E7200ED7099 /* NumpadButton.swift */,
+				B04BFDCD2B7373A800ED7099 /* NumpadView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -332,6 +338,7 @@
 				B099E0C02B698690000670CE /* HistoryTableView.swift in Sources */,
 				B064E3192B62BFF400E56208 /* UIWindow + Extension.swift in Sources */,
 				B02EC6612B5D8D4E00CE0122 /* ViewController.swift in Sources */,
+				B04BFDCE2B7373A800ED7099 /* NumpadView.swift in Sources */,
 				B099E0C92B6BF86F000670CE /* HistoryManager.swift in Sources */,
 				B064E3062B6180FA00E56208 /* BlurGradientEffect.swift in Sources */,
 				B099E0CB2B6C03DA000670CE /* SettingManager.swift in Sources */,
@@ -343,6 +350,7 @@
 				B099E0C22B6AA1F1000670CE /* DynamicCalculate.swift in Sources */,
 				B064E3232B65807E00E56208 /* UIFount + Extension.swift in Sources */,
 				B064E2F42B5E9DD800E56208 /* UIColor + Extension.swift in Sources */,
+				B04BFDCC2B736E7200ED7099 /* NumpadButton.swift in Sources */,
 				B064E2FA2B5ED38800E56208 /* UIButton + Extension.swift in Sources */,
 				B064E3172B62B9EE00E56208 /* NumberFormatter + Extension.swift in Sources */,
 				B099E0C72B6BF016000670CE /* DataProvider.swift in Sources */,

@@ -108,13 +108,15 @@ final class DisplayLabel: UILabel {
     /// - Remark: Вызывайте после изменения строки ввода.
     ///
     public func formattingInput(considerPoint: Bool = false, successful: (Double) -> ()) {
-        guard !(text?.contains(dynamicNumberFormatter.exponentSymbol))! else { return }
-        guard !(text?.contains(dynamicNumberFormatter.point))! || considerPoint else { return }
+        guard !dynamicNumberFormatter.isContainExponentSymbol(text!) else { return }
+        guard !dynamicNumberFormatter.isContainPoint(text!) || considerPoint else { return }
         
         text = text!.replacingOccurrences(of: dynamicNumberFormatter.separator, with: "")
         
         if let number = getNumber() {
+            print(number as NSNumber)
             text = dynamicNumberFormatter.perform(number: number as NSNumber)
+            print(text!)
             successful(number)
         }
     }
@@ -127,8 +129,8 @@ final class DisplayLabel: UILabel {
     ///
     public func inputDigit(add digit: String, successful: (Double) -> ()) {
         switch digit {
-        case dynamicNumberFormatter.point:
-            guard !(text?.contains(dynamicNumberFormatter.point))! else { return }
+        case NumberFormatter.getPoint():
+            guard !dynamicNumberFormatter.isContainPoint(text!) else { return }
             text?.append(digit)
         default:
             text?.append(digit)
