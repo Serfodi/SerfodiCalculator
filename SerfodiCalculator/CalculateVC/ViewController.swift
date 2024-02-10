@@ -15,11 +15,9 @@ class ViewController: UIViewController {
     @IBOutlet var operationButton: [UIButton]!
     @IBOutlet var numberButton: [UIButton]!
     @IBOutlet weak var numpadView: UIView!
+    @IBOutlet weak var historyTableView: HistoryTableView!
     
-    @IBOutlet weak var historyTableView: UITableView!
-    
-    
-    var currentOperationButton: UIButton? = UIButton() {
+    private var currentOperationButton: UIButton? = UIButton() {
         didSet {
             guard let button = oldValue else { return }
             guard button != currentOperationButton else { return }
@@ -29,22 +27,20 @@ class ViewController: UIViewController {
         willSet {
             guard let button = newValue else { return }
             guard button != currentOperationButton else { return }
-            button.backgroundColor = UIColor.mainColor()
+            button.backgroundColor = UIColor.operatingSelectedButtonColor()
             button.isSelected = true
         }
     }
+    
+    private let calculator = Calculator()
+    
+    public var dataProvider: DataProvider!
     
     /// Индикатор для сигнализации о новом вводе:
     /// `true` – Разрешён новый ввод числа
     /// `false` – Ввод числа завершен
     private var isNewInput = true
     
-    private let calculator = Calculator()
-    
-    var calculationHistoryStorage = CalculationHistoryStorage()
-    
-    //    MARK: @FIX It
-    var calculations: [Calculation] = []
     
     
     
@@ -52,27 +48,39 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         resetCalculate()
         
-        historyTableView.delegate = self
-        historyTableView.register(HistoryCell.self, forCellReuseIdentifier: HistoryCell.reuseId)
+        let historyManager = HistoryManager()
+        dataProvider = DataProvider()
         
-        calculations = calculationHistoryStorage.load().suffix(20)
+        dataProvider.historyManager = historyManager
+        
+        inputLabel.delegate = self
+        historyTableView.tableView.dataSource = dataProvider
+        historyTableView.tableView.delegate = dataProvider
     }
+        
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        historyTableView.updateTableContentInset()
-        addBlurView()
-        navigationController?.setNavigationBarHidden(true, animated: false)
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        historyTableView.setNeedsDisplay()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        historyTableView.showLastCell(animated: false)
-        inputLabel.setTextLabel(number: calculationHistoryStorage.load())
+        historyTableView.tableView.showLastCell(animated: false)
+        let lastResult = SettingManager.shared.getLastResult
+        
+        inputLabel.setTextLabel(number: lastResult) // fix it
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if let number = inputLabel.getNumber() {
+            SettingManager.shared.saveLastResult(result: number)
+        }
+    }
     
     
     // MARK: - Action
@@ -82,19 +90,21 @@ class ViewController: UIViewController {
         guard let buttonText = sender.currentTitle,
               let _ = inputLabel.text
         else { return }
+        
         sender.animationTap()
         sender.hapticLightTap()
         
         guard inputLabel.isCanAddDigit(new: buttonText) || isNewInput else { return }
+        
         if isNewInput {
             isNewInput = !isNewInput
             inputLabel.text = "0"
         }
-        let _ = inputLabel.inputDigit(add: buttonText)
         
-        inputLabel.formattingInput { number in
-            calculationHistoryStorage.setData(number)
+        inputLabel.inputDigit(add: buttonText) { number in
+            SettingManager.shared.saveLastResult(result: number)
         }
+        
         currentOperationButton = nil
     }
     
@@ -102,12 +112,8 @@ class ViewController: UIViewController {
     @IBAction func addMinus(_ sender: UIButton) {
         sender.animationTap()
         sender.hapticLightTap()
-        guard let _ = inputLabel.getNumber() else { return }
-        if inputLabel.text!.contains("-") {
-            inputLabel.text!.removeFirst()
-        } else {
-            inputLabel.text!.insert("-", at: inputLabel.text!.startIndex)
-        }
+        inputLabel.addMinusNumber()
+        SettingManager.shared.saveLastResult(result: inputLabel.getNumber()!)
     }
     
     
@@ -133,7 +139,7 @@ class ViewController: UIViewController {
         
         calculateResult { result in
             inputLabel.setTextLabel(number: result)
-            calculationHistoryStorage.setData(result)
+            SettingManager.shared.saveLastResult(result: result)
         }
         
         isNewInput = true
@@ -162,13 +168,12 @@ class ViewController: UIViewController {
         
         calculateResult { result in
             calculator.removeHistory { calculationItems in
-                self.calculations.append(Calculation(expression: calculationItems, result: result))
-                self.historyTableView.reloadData()
-                self.historyTableView.showLastCell()
+                let calculation = Calculation(expression: calculationItems, result: result)
+                self.dataProvider.historyManager?.add(calculation: calculation)
+                self.historyTableView.tableView.reloadData()
+                self.historyTableView.tableView.showLastCell()
             }
-            calculationHistoryStorage.setData(calculations)
             inputLabel.setTextLabel(number: result)
-            calculationHistoryStorage.setData(result)
         }
         
         currentOperationButton = nil // Опирации нет
@@ -224,98 +229,24 @@ class ViewController: UIViewController {
     
     func errorText(labelText: String = "Ошибка!") {
         let attributedString = NSMutableAttributedString(string: labelText)
-        attributedString.addAttribute(NSAttributedString.Key.kern, value: CGFloat(50.0), range: NSRange(location: labelText.count - 1, length: 1))
+        attributedString.addAttribute(NSAttributedString.Key.kern, value: CGFloat(10.0), range: NSRange(location: labelText.count - 1, length: 1))
         inputLabel.attributedText = attributedString
     }
     
     
 }
 
-
-
-
-// MARK: - UITableViewDelegate && UITableViewDataSource
-
-extension ViewController: UITableViewDelegate, UITableViewDataSource {
+extension ViewController: RemoveLastDigit {
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        calculations.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: HistoryCell.reuseId, for: indexPath) as! HistoryCell
-        cell.config(calculation: calculations[indexPath.row])
-        return cell
-    }
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        scrollView.isScrollEnabled = calculations.count > 3
-    }
-    
-}
-
-
-// MARK:  BlurView
-
-extension ViewController {
-    
-    func addBlurView() {
-        let topBlur = BlurGradientView(location: [0.45, 1])
-        let bottomBlur = BlurGradientView(location: [0, 0.4, 0.55, 1], colors: [
-            CGColor(gray: 0, alpha: 0),
-            CGColor(gray: 0, alpha: 1),
-            CGColor(gray: 0, alpha: 1),
-            CGColor(gray: 0, alpha: 0)
-        ])
-        
-        view.insertSubview(topBlur, belowSubview: inputLabel)
-        view.insertSubview(bottomBlur, belowSubview: inputLabel)
-        
-        topBlur.translatesAutoresizingMaskIntoConstraints = false
-        bottomBlur.translatesAutoresizingMaskIntoConstraints = false
-        
-        let height = UIApplication.shared.getStatusBarFrame().height
-        NSLayoutConstraint.activate([
-            topBlur.heightAnchor.constraint(equalToConstant: height + 20),
-            topBlur.topAnchor.constraint(equalTo: view.topAnchor),
-            topBlur.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            topBlur.leadingAnchor.constraint(equalTo: view.leadingAnchor)
-        ])
-        NSLayoutConstraint.activate([
-            bottomBlur.heightAnchor.constraint(equalToConstant: 40),
-            bottomBlur.bottomAnchor.constraint(equalTo: historyTableView.bottomAnchor, constant: 20),
-            bottomBlur.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            bottomBlur.leadingAnchor.constraint(equalTo: view.leadingAnchor)
-        ])
-    }
-    
-}
-
-
-// MARK: - SwiftUI Helper
-
-/*
-
-import SwiftUI
-
-struct ViewControllerProvider: PreviewProvider {
-    
-    static var previews: some View {
-        ContainerView().edgesIgnoringSafeArea(.all)
-    }
-    
-    struct ContainerView: UIViewControllerRepresentable {
-        
-        let viewController = ViewController()
-        
-        func makeUIViewController(context: Context) -> some UIViewController {
-            viewController
+    func removeLastDigit() {
+        if let _ = inputLabel.getNumber() {
+            inputLabel.removeLastDigit()
+        } else {
+            inputLabel.text = "0"
         }
-        
-        func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {}
-        
+        if let number = inputLabel.getNumber() {
+            SettingManager.shared.saveLastResult(result: number)
+        }
     }
     
 }
-
-*/

@@ -17,10 +17,18 @@ extension NumberFormatter {
         usesGroupingSeparator = false
         minusSign = "-"
         
-//        roundingMode = .floor
-        
         nilSymbol = "Нет числа!"
         positiveInfinitySymbol = "∞ не придел!"
     }
 
+    
+    static func getPoint() -> String {
+        let formatter = self.init()
+        formatter.locale = Locale(identifier: "ru_RU")
+        formatter.numberStyle = .decimal
+        return formatter.currencyDecimalSeparator
+    }
+    
+    
+    
 }

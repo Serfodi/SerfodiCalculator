@@ -10,13 +10,23 @@ import UIKit
 
 final class HistoryTableView: UIView {
     
-    var tableView: UITableView = {
+    let tableView: UITableView = {
         let table = UITableView(frame: .zero, style: .plain)
         table.showsHorizontalScrollIndicator = false
         table.showsVerticalScrollIndicator = false
         table.backgroundColor = .clear
+        table.tintColor = .clear
+        table.allowsSelection = false
         return table
     }()
+    
+    private let topBlur = BlurGradientView(location: [0.45, 1])
+    private let bottomBlur = BlurGradientView(location: [0, 0.4, 0.5, 1], colors: [
+        CGColor(gray: 0, alpha: 0),
+        CGColor(gray: 0, alpha: 1),
+        CGColor(gray: 0, alpha: 1),
+        CGColor(gray: 0, alpha: 0)
+    ])
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -28,59 +38,74 @@ final class HistoryTableView: UIView {
         configure()
     }
     
-    private func configure() {
-//        tableView.register(nil, forCellWithReuseIdentifier: HistoryCell.reuseId)b
-        backgroundColor = .clear
-        addSubview(tableView)
-        setupTableConstraints()
+    override func layoutIfNeeded() {
+        super.layoutIfNeeded()
+        
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        tableView.updateTableContentInset()
+        tableView.separatorStyle = .none
+    }
     
-    func setupTableConstraints() {
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: topAnchor),
-            tableView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            tableView.leadingAnchor.constraint(equalTo: leadingAnchor)
-        ])
+    private func configure() {
+        
+        tableView.register(HistoryCell.self, forCellReuseIdentifier: HistoryCell.reuseId)
+        backgroundColor = .clear
+        
+//        tableView.separatorStyle = .none
+//        tableView.separatorColor = .clear
+        
+        topBlur.isUserInteractionEnabled = false
+        bottomBlur.isUserInteractionEnabled = false
+        
+        addSubview(tableView)
+        setupTableConstraints()
+        addSubview(topBlur)
+        addSubview(bottomBlur)
+        setupBlurConstraints()
     }
     
 }
 
 
-// MARK:  BlurView
+// MARK:  Constraints
 
-//extension HistoryTableView {
-//
-//    func addBlurView() {
-//        let topBlur = BlurGradientView(location: [0.45, 1])
-//        let bottomBlur = BlurGradientView(location: [0, 0.4, 0.55, 1], colors: [
-//            CGColor(gray: 0, alpha: 0),
-//            CGColor(gray: 0, alpha: 1),
-//            CGColor(gray: 0, alpha: 1),
-//            CGColor(gray: 0, alpha: 0)
-//        ])
-//
-//        view.insertSubview(topBlur, belowSubview: inputLabel)
-//        view.insertSubview(bottomBlur, belowSubview: inputLabel)
-//
-//        topBlur.translatesAutoresizingMaskIntoConstraints = false
-//        bottomBlur.translatesAutoresizingMaskIntoConstraints = false
-//
-//        let height = UIApplication.shared.getStatusBarFrame().height
-//        NSLayoutConstraint.activate([
-//            topBlur.heightAnchor.constraint(equalToConstant: height + 20),
-//            topBlur.topAnchor.constraint(equalTo: view.topAnchor),
-//            topBlur.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-//            topBlur.leadingAnchor.constraint(equalTo: view.leadingAnchor)
-//        ])
-//        NSLayoutConstraint.activate([
-//            bottomBlur.heightAnchor.constraint(equalToConstant: 40),
-//            bottomBlur.bottomAnchor.constraint(equalTo: historyTableView.bottomAnchor, constant: 20),
-//            bottomBlur.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-//            bottomBlur.leadingAnchor.constraint(equalTo: view.leadingAnchor)
-//        ])
-//    }
-//
-//}
+extension HistoryTableView {
+
+    func setupTableConstraints() {
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        
+        let height = UIApplication.shared.getStatusBarFrame().height
+        
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: topAnchor, constant: height * 0.5),
+            tableView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20),
+            tableView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+            tableView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15)
+        ])
+    }
+    
+    func setupBlurConstraints() {
+        topBlur.translatesAutoresizingMaskIntoConstraints = false
+        bottomBlur.translatesAutoresizingMaskIntoConstraints = false
+
+        let height = UIApplication.shared.getStatusBarFrame().height
+        
+        NSLayoutConstraint.activate([
+            topBlur.heightAnchor.constraint(equalToConstant: height + 20),
+            topBlur.topAnchor.constraint(equalTo: topAnchor),
+            topBlur.trailingAnchor.constraint(equalTo: trailingAnchor),
+            topBlur.leadingAnchor.constraint(equalTo: leadingAnchor)
+        ])
+        NSLayoutConstraint.activate([
+            bottomBlur.heightAnchor.constraint(equalToConstant: 40),
+            bottomBlur.bottomAnchor.constraint(equalTo: bottomAnchor),
+            bottomBlur.trailingAnchor.constraint(equalTo: trailingAnchor),
+            bottomBlur.leadingAnchor.constraint(equalTo: leadingAnchor)
+        ])
+    }
+
+}
+

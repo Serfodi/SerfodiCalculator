@@ -6,7 +6,6 @@
 //
 
 import Foundation
-
 import UIKit
  
 
@@ -16,13 +15,15 @@ final class BlurGradientView: UIVisualEffectView {
     
     private var location: [NSNumber] = []
     
+    /// Цвет не влияет на блюр. Играет роль толька alpha.
     private var colors:[CGColor] = []
     
-    init (blur: UIBlurEffect.Style = .light,
-          location: [NSNumber] = [0, 1],
+    private var style: UIBlurEffect.Style = .light
+    
+    init (location: [NSNumber] = [0, 1],
           colors:[CGColor] = [CGColor(gray: 0, alpha: 1), CGColor(gray: 0, alpha: 0)])
     {
-        super.init(effect: UIBlurEffect(style: blur))
+        super.init(effect: UIBlurEffect(style: .regular))
         self.colors = colors
         self.location = location
         configure()
@@ -34,8 +35,13 @@ final class BlurGradientView: UIVisualEffectView {
     }
     
     private func configure() {
-        backgroundColor = .clear
-        isUserInteractionEnabled = false
+        
+        if let vfxSubView = self.subviews.first(where: {
+            String(describing: type(of: $0)) == "_UIVisualEffectSubview"
+        }) {
+            vfxSubView.backgroundColor = .blurColor()
+        }
+        
         gradientLayer.locations = location
         gradientLayer.colors = colors
         layer.mask = gradientLayer
@@ -46,4 +52,15 @@ final class BlurGradientView: UIVisualEffectView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        if let vfxSubView = self.subviews.first(where: {
+            String(describing: type(of: $0)) == "_UIVisualEffectSubview"
+        }) {
+            vfxSubView.backgroundColor = .blurColor()
+        }
+    }
+    
 }
+

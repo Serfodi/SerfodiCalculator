@@ -14,12 +14,21 @@ extension UIApplication {
         return windowScene?.windows.first?.getStatusBarFrame() ?? .zero
     }
     
+    func getStyle() -> UIUserInterfaceStyle {
+        let windowScene = connectedScenes.first as? UIWindowScene
+        return windowScene!.windows.first!.getStyle()
+    }
+    
 }
 
 extension UIWindow {
     
     func getStatusBarFrame() -> CGRect {
         self.windowScene?.statusBarManager?.statusBarFrame ?? .zero
+    }
+    
+    func getStyle() -> UIUserInterfaceStyle {
+        overrideUserInterfaceStyle
     }
     
 }

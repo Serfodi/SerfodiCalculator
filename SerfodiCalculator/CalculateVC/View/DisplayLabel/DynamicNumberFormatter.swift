@@ -8,7 +8,9 @@
 import UIKit
 
 
-
+/// Форматирует число.
+///
+/// Может изменять стиль форматирования и подстраивать его под оприделеные ограничения.
 final class DynamicNumberFormatter {
     
     private var numberFormatterDec = {
@@ -19,6 +21,7 @@ final class DynamicNumberFormatter {
         formatter.maximumSignificantDigits = 15
         return formatter
     }()
+    
     private var numberFormatterE: NumberFormatter = {
         let formatter = NumberFormatter(style: .scientific)
         formatter.usesSignificantDigits = true
@@ -37,7 +40,18 @@ final class DynamicNumberFormatter {
     public var separator: String {
         numberFormatterDec.currencyGroupingSeparator
     }
+    public var minusSign: String {
+        numberFormatterDec.minusSign
+    }
     
+    /// Проверяет есть ли точка в записи числа
+    public func isContainPoint(_ text: String) -> Bool {
+        text.contains(point)
+    }
+    /// Проверяет есть ли експонетна в записи числа
+    public func isContainExponentSymbol(_ text: String) -> Bool {
+        text.contains(exponentSymbol)
+    }
     
     /// Функция  подбирает формат числа под заданную рамку.
     ///
@@ -46,50 +60,45 @@ final class DynamicNumberFormatter {
     /// size размер рамки
     ///
     public func fitInBounds(number: NSNumber, isFit textInto: (String) -> Bool ) throws -> String {
-        
-        let numberText = perform(formatter: numberFormatterDec, number: number)
-        guard !textInto(numberText) else { return numberText }
-        
-        if number.doubleValue.truncatingRemainder(dividingBy: 1) != 0 {
-            // Уменьшения точности после точки
-            if let text = lessPrecise(number, numberFormatterDec, textInto) {
-                return text
-            }
+        if let text = lessPrecise(number, numberFormatterDec, textInto) {
+            return text
         }
-        
         if let text = lessPrecise(number, numberFormatterE, textInto) {
             return text
         }
-        
         throw DynamicNumberFormatterError.fitFormattingFailure(number: number)
     }
     
+    
     /// Функция уменьшения точности для форматера
-    private func lessPrecise(_ number: NSNumber, _ formatter: NumberFormatter, _ textInto: (String) -> Bool) -> String? {
-        let form = formatter
-        var numberText: String?
-        let max = form.maximumSignificantDigits
-        for i in 1..<max {
-            numberText = perform(formatter: formatter, number: number)
-            if textInto(numberText!) {
-                return numberText
-            } else {
-                form.maximumSignificantDigits = max - i
+    ///
+    /// Это нужно что можно было увместить число на экран, если появлются переодичная дробь или очень большое число.
+    private func lessPrecise(_ number: NSNumber,
+                             _ formatter: NumberFormatter,
+                             _ textInto: (String) -> Bool) -> String?
+    {
+        let max = formatter.maximumSignificantDigits
+        for i in 1...max {
+            let text = perform(formatter: formatter, number: number)
+            if textInto(text) {
+                return text
             }
+            formatter.maximumSignificantDigits = max - i
+        }
+        defer {
+            formatter.maximumSignificantDigits = max
         }
         return nil
     }
-    
     
     private func perform(formatter: NumberFormatter, number: NSNumber) -> String {
         formatter.string(from: number)!
     }
     
-    
-    
     /// Выполняет форматирование текста. Использует `numberFormatterDec`
     public func perform(number: NSNumber) -> String {
-        numberFormatterDec.string(from: number)!
+        print(numberFormatterDec.maximumSignificantDigits)
+        return numberFormatterDec.string(from: number)!
     }
     
     /// Пробует выполнить преоброзование текста  через `numberFormatterDec`  в число.
