@@ -14,7 +14,7 @@ final class HistoryTableView: UIView {
         let table = UITableView(frame: .zero, style: .plain)
         table.showsHorizontalScrollIndicator = false
         table.showsVerticalScrollIndicator = false
-        table.backgroundColor = .black
+        table.backgroundColor = .clear
         table.tintColor = .clear
         table.allowsSelection = false
         return table

@@ -27,7 +27,7 @@ class ViewController: UIViewController {
         willSet {
             guard let button = newValue else { return }
             guard button != currentOperationButton else { return }
-            button.backgroundColor = UIColor.mainColor()
+            button.backgroundColor = UIColor.operatingSelectedButtonColor()
             button.isSelected = true
         }
     }
@@ -61,6 +61,12 @@ class ViewController: UIViewController {
         historyTableView.tableView.delegate = dataProvider
     }
         
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        historyTableView.setNeedsDisplay()
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         historyTableView.tableView.showLastCell(animated: false)
