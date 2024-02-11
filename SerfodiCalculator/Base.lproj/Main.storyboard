@@ -4,7 +4,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
-        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -12,7 +11,6 @@
     </dependencies>
     <customFonts key="customFonts">
         <array key="SF-Pro.ttf">
-            <string>SFPro-Medium</string>
             <string>SFPro-Regular</string>
         </array>
     </customFonts>
@@ -29,408 +27,6 @@
                                 <rect key="frame" x="0.0" y="0.0" width="393" height="348"/>
                                 <color key="backgroundColor" systemColor="systemGray5Color"/>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g8v-Qr-J1c">
-                                <rect key="frame" x="39" y="418" width="315" height="390"/>
-                                <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="D2c-yJ-c57">
-                                        <rect key="frame" x="15" y="15" width="285" height="360"/>
-                                        <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" distribution="equalSpacing" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="w4w-d6-hdO">
-                                                <rect key="frame" x="0.0" y="0.0" width="285" height="60"/>
-                                                <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Iu-Iv-IGr">
-                                                        <rect key="frame" x="0.0" y="0.0" width="135" height="60"/>
-                                                        <color key="backgroundColor" name="serviceButton"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="60" id="cmi-ST-5Ym"/>
-                                                            <constraint firstAttribute="width" constant="135" id="oXK-xt-vNd"/>
-                                                        </constraints>
-                                                        <fontDescription key="fontDescription" name="SFPro-Medium" family="SF Pro" pointSize="30"/>
-                                                        <inset key="titleEdgeInsets" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                                        <state key="normal" title="C">
-                                                            <color key="titleColor" name="serviceText"/>
-                                                        </state>
-                                                        <state key="selected" title="C"/>
-                                                        <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                                <integer key="value" value="30"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                        </userDefinedRuntimeAttributes>
-                                                        <connections>
-                                                            <action selector="clearButtonTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fT1-tm-A0p"/>
-                                                        </connections>
-                                                    </button>
-                                                    <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wmJ-Ms-KS3">
-                                                        <rect key="frame" x="150" y="0.0" width="60" height="60"/>
-                                                        <color key="backgroundColor" name="serviceButton"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="60" id="LgM-G6-K6a"/>
-                                                            <constraint firstAttribute="width" constant="60" id="SfD-JZ-Mtx"/>
-                                                            <constraint firstAttribute="width" secondItem="wmJ-Ms-KS3" secondAttribute="height" multiplier="1:1" id="jCt-gK-FrX"/>
-                                                        </constraints>
-                                                        <fontDescription key="fontDescription" name="SFPro-Medium" family="SF Pro" pointSize="35"/>
-                                                        <color key="tintColor" name="serviceText"/>
-                                                        <state key="normal">
-                                                            <color key="titleColor" name="serviceText"/>
-                                                            <imageReference key="image" image="plus.slash.minus" catalog="system" symbolScale="small" variableValue="5.5511151231257827e-17"/>
-                                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="30" scale="medium" weight="medium"/>
-                                                        </state>
-                                                        <state key="selected">
-                                                            <color key="titleColor" red="0.90196078430000004" green="0.58823529409999997" blue="0.64313725489999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                        </state>
-                                                        <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                                <integer key="value" value="30"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                        </userDefinedRuntimeAttributes>
-                                                        <connections>
-                                                            <action selector="addMinus:" destination="BYZ-38-t0r" eventType="touchUpInside" id="2XU-8r-FOc"/>
-                                                            <action selector="operatingButtonTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="1ss-W8-74g"/>
-                                                        </connections>
-                                                    </button>
-                                                    <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9e1-CM-ga4">
-                                                        <rect key="frame" x="225" y="0.0" width="60" height="60"/>
-                                                        <color key="backgroundColor" name="operatingButton"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="60" id="fhK-DA-I9b"/>
-                                                            <constraint firstAttribute="width" constant="60" id="hWJ-Vn-SK9"/>
-                                                            <constraint firstAttribute="width" secondItem="9e1-CM-ga4" secondAttribute="height" multiplier="1:1" id="rFv-7R-8Ar"/>
-                                                        </constraints>
-                                                        <fontDescription key="fontDescription" name="SFPro-Medium" family="SF Pro" pointSize="35"/>
-                                                        <state key="normal" title="÷">
-                                                            <color key="titleColor" name="operatingText"/>
-                                                        </state>
-                                                        <state key="selected">
-                                                            <color key="titleColor" red="0.90196078431372551" green="0.58823529411764708" blue="0.64313725490196072" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                        </state>
-                                                        <state key="highlighted">
-                                                            <color key="titleColor" name="operatingText"/>
-                                                        </state>
-                                                        <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                                <integer key="value" value="30"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                        </userDefinedRuntimeAttributes>
-                                                        <connections>
-                                                            <action selector="operatingButtonTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="uoz-YJ-L23"/>
-                                                        </connections>
-                                                    </button>
-                                                </subviews>
-                                            </stackView>
-                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="Pr4-4v-AHn">
-                                                <rect key="frame" x="0.0" y="75" width="285" height="60"/>
-                                                <subviews>
-                                                    <button opaque="NO" tag="7" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fJp-ke-fyp">
-                                                        <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
-                                                        <color key="backgroundColor" name="numberButton"/>
-                                                        <fontDescription key="fontDescription" name="SFPro-Medium" family="SF Pro" pointSize="30"/>
-                                                        <state key="normal" title="7">
-                                                            <color key="titleColor" name="numberText"/>
-                                                        </state>
-                                                        <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                                <integer key="value" value="30"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                        </userDefinedRuntimeAttributes>
-                                                        <connections>
-                                                            <action selector="numberButtonTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="dvb-FY-i7J"/>
-                                                        </connections>
-                                                    </button>
-                                                    <button opaque="NO" tag="8" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="im2-jJ-wHW">
-                                                        <rect key="frame" x="75" y="0.0" width="60" height="60"/>
-                                                        <color key="backgroundColor" name="numberButton"/>
-                                                        <fontDescription key="fontDescription" name="SFPro-Medium" family="SF Pro" pointSize="30"/>
-                                                        <state key="normal" title="8">
-                                                            <color key="titleColor" name="numberText"/>
-                                                        </state>
-                                                        <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                                <integer key="value" value="30"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                        </userDefinedRuntimeAttributes>
-                                                        <connections>
-                                                            <action selector="numberButtonTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="NrQ-Si-N1o"/>
-                                                        </connections>
-                                                    </button>
-                                                    <button opaque="NO" tag="9" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c2G-g7-XKt">
-                                                        <rect key="frame" x="150" y="0.0" width="60" height="60"/>
-                                                        <color key="backgroundColor" name="numberButton"/>
-                                                        <fontDescription key="fontDescription" name="SFPro-Medium" family="SF Pro" pointSize="30"/>
-                                                        <state key="normal" title="9">
-                                                            <color key="titleColor" name="numberText"/>
-                                                        </state>
-                                                        <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                                <integer key="value" value="30"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                        </userDefinedRuntimeAttributes>
-                                                        <connections>
-                                                            <action selector="numberButtonTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="18U-m1-9YE"/>
-                                                        </connections>
-                                                    </button>
-                                                    <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y86-lH-O6Z">
-                                                        <rect key="frame" x="225" y="0.0" width="60" height="60"/>
-                                                        <color key="backgroundColor" name="operatingButton"/>
-                                                        <fontDescription key="fontDescription" name="SFPro-Medium" family="SF Pro" pointSize="30"/>
-                                                        <state key="normal" title="×">
-                                                            <color key="titleColor" name="operatingText"/>
-                                                        </state>
-                                                        <state key="selected">
-                                                            <color key="titleColor" red="0.90461021659999996" green="0.58760350939999995" blue="0.64313787219999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                        </state>
-                                                        <state key="highlighted">
-                                                            <color key="titleColor" red="0.90461021659999996" green="0.45230510829999998" blue="0.53154152639999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                        </state>
-                                                        <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                                <integer key="value" value="30"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                        </userDefinedRuntimeAttributes>
-                                                        <connections>
-                                                            <action selector="operatingButtonTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="6uk-fg-sYY"/>
-                                                        </connections>
-                                                    </button>
-                                                </subviews>
-                                            </stackView>
-                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="nIU-HE-T9o">
-                                                <rect key="frame" x="0.0" y="150" width="285" height="60"/>
-                                                <subviews>
-                                                    <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZvU-IB-lff">
-                                                        <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
-                                                        <color key="backgroundColor" name="numberButton"/>
-                                                        <fontDescription key="fontDescription" name="SFPro-Medium" family="SF Pro" pointSize="30"/>
-                                                        <state key="normal" title="4">
-                                                            <color key="titleColor" name="numberText"/>
-                                                        </state>
-                                                        <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                                <integer key="value" value="30"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                        </userDefinedRuntimeAttributes>
-                                                        <connections>
-                                                            <action selector="numberButtonTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="3Ng-Ma-z2v"/>
-                                                        </connections>
-                                                    </button>
-                                                    <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0w0-Ku-Hbs">
-                                                        <rect key="frame" x="75" y="0.0" width="60" height="60"/>
-                                                        <color key="backgroundColor" name="numberButton"/>
-                                                        <fontDescription key="fontDescription" name="SFPro-Medium" family="SF Pro" pointSize="30"/>
-                                                        <state key="normal" title="5">
-                                                            <color key="titleColor" name="numberText"/>
-                                                        </state>
-                                                        <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                                <integer key="value" value="30"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                        </userDefinedRuntimeAttributes>
-                                                        <connections>
-                                                            <action selector="numberButtonTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="U5b-kI-X2q"/>
-                                                        </connections>
-                                                    </button>
-                                                    <button opaque="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kcd-jv-eax">
-                                                        <rect key="frame" x="150" y="0.0" width="60" height="60"/>
-                                                        <color key="backgroundColor" name="numberButton"/>
-                                                        <fontDescription key="fontDescription" name="SFPro-Medium" family="SF Pro" pointSize="30"/>
-                                                        <state key="normal" title="6">
-                                                            <color key="titleColor" name="numberText"/>
-                                                        </state>
-                                                        <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                                <integer key="value" value="30"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                        </userDefinedRuntimeAttributes>
-                                                        <connections>
-                                                            <action selector="numberButtonTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="IL5-gd-9mr"/>
-                                                        </connections>
-                                                    </button>
-                                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VQy-YL-jmy">
-                                                        <rect key="frame" x="225" y="0.0" width="60" height="60"/>
-                                                        <color key="backgroundColor" name="operatingButton"/>
-                                                        <fontDescription key="fontDescription" name="SFPro-Medium" family="SF Pro" pointSize="30"/>
-                                                        <state key="normal" title="+">
-                                                            <color key="titleColor" name="operatingText"/>
-                                                        </state>
-                                                        <state key="selected">
-                                                            <color key="titleColor" red="0.90461021659999996" green="0.58760350939999995" blue="0.64313787219999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                        </state>
-                                                        <state key="highlighted">
-                                                            <color key="titleColor" red="0.90461021659999996" green="0.45230510829999998" blue="0.53154152639999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                        </state>
-                                                        <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                                <integer key="value" value="30"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                        </userDefinedRuntimeAttributes>
-                                                        <connections>
-                                                            <action selector="operatingButtonTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="DX5-9o-Vly"/>
-                                                        </connections>
-                                                    </button>
-                                                </subviews>
-                                            </stackView>
-                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="lTn-8O-4xn">
-                                                <rect key="frame" x="0.0" y="225" width="285" height="60"/>
-                                                <subviews>
-                                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Eo-PM-wB1">
-                                                        <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
-                                                        <color key="backgroundColor" name="numberButton"/>
-                                                        <fontDescription key="fontDescription" name="SFPro-Medium" family="SF Pro" pointSize="30"/>
-                                                        <state key="normal" title="1">
-                                                            <color key="titleColor" name="numberText"/>
-                                                        </state>
-                                                        <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                                <integer key="value" value="30"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                        </userDefinedRuntimeAttributes>
-                                                        <connections>
-                                                            <action selector="numberButtonTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="oib-fV-mJS"/>
-                                                        </connections>
-                                                    </button>
-                                                    <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oGj-sA-CzH">
-                                                        <rect key="frame" x="75" y="0.0" width="60" height="60"/>
-                                                        <color key="backgroundColor" name="numberButton"/>
-                                                        <fontDescription key="fontDescription" name="SFPro-Medium" family="SF Pro" pointSize="30"/>
-                                                        <state key="normal" title="2">
-                                                            <color key="titleColor" name="numberText"/>
-                                                        </state>
-                                                        <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                                <integer key="value" value="30"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                        </userDefinedRuntimeAttributes>
-                                                        <connections>
-                                                            <action selector="numberButtonTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="2Q2-bt-OHu"/>
-                                                        </connections>
-                                                    </button>
-                                                    <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="haZ-xM-ovp">
-                                                        <rect key="frame" x="150" y="0.0" width="60" height="60"/>
-                                                        <color key="backgroundColor" name="numberButton"/>
-                                                        <fontDescription key="fontDescription" name="SFPro-Medium" family="SF Pro" pointSize="30"/>
-                                                        <state key="normal" title="3">
-                                                            <color key="titleColor" name="numberText"/>
-                                                        </state>
-                                                        <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                                <integer key="value" value="30"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                        </userDefinedRuntimeAttributes>
-                                                        <connections>
-                                                            <action selector="numberButtonTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="CN9-Ur-8s2"/>
-                                                        </connections>
-                                                    </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Pg-wl-K2B">
-                                                        <rect key="frame" x="225" y="0.0" width="60" height="60"/>
-                                                        <color key="backgroundColor" name="operatingButton"/>
-                                                        <fontDescription key="fontDescription" name="SFPro-Medium" family="SF Pro" pointSize="35"/>
-                                                        <state key="normal" title="–">
-                                                            <color key="titleColor" name="operatingText"/>
-                                                        </state>
-                                                        <state key="selected">
-                                                            <color key="titleColor" red="0.90461021659999996" green="0.58760350939999995" blue="0.64313787219999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                        </state>
-                                                        <state key="highlighted">
-                                                            <color key="titleColor" red="0.90461021659999996" green="0.45230510829999998" blue="0.53154152639999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                        </state>
-                                                        <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                                <integer key="value" value="30"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                        </userDefinedRuntimeAttributes>
-                                                        <connections>
-                                                            <action selector="operatingButtonTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="E3X-OY-lke"/>
-                                                        </connections>
-                                                    </button>
-                                                </subviews>
-                                            </stackView>
-                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="2hj-p9-ePO">
-                                                <rect key="frame" x="0.0" y="300" width="285" height="60"/>
-                                                <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="alG-hA-Ef7">
-                                                        <rect key="frame" x="0.0" y="0.0" width="135" height="60"/>
-                                                        <color key="backgroundColor" name="numberButton"/>
-                                                        <fontDescription key="fontDescription" name="SFPro-Medium" family="SF Pro" pointSize="30"/>
-                                                        <inset key="titleEdgeInsets" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                                        <state key="normal" title="0">
-                                                            <color key="titleColor" name="numberText"/>
-                                                        </state>
-                                                        <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                                <integer key="value" value="30"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                        </userDefinedRuntimeAttributes>
-                                                        <connections>
-                                                            <action selector="numberButtonTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="M8j-GS-3vc"/>
-                                                        </connections>
-                                                    </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IUr-sc-SrU">
-                                                        <rect key="frame" x="150" y="0.0" width="60" height="60"/>
-                                                        <color key="backgroundColor" name="numberButton"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="width" constant="60" id="4zb-7x-77m"/>
-                                                        </constraints>
-                                                        <fontDescription key="fontDescription" name="SFPro-Medium" family="SF Pro" pointSize="36"/>
-                                                        <state key="normal" title=",">
-                                                            <color key="titleColor" name="numberText"/>
-                                                        </state>
-                                                        <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                                <integer key="value" value="30"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                        </userDefinedRuntimeAttributes>
-                                                        <connections>
-                                                            <action selector="numberButtonTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="UjO-KQ-14b"/>
-                                                        </connections>
-                                                    </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IPO-KK-qV4">
-                                                        <rect key="frame" x="225" y="0.0" width="60" height="60"/>
-                                                        <color key="backgroundColor" name="operatingButton"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="width" constant="60" id="eF2-xx-Eid"/>
-                                                        </constraints>
-                                                        <fontDescription key="fontDescription" name="SFPro-Medium" family="SF Pro" pointSize="32"/>
-                                                        <state key="normal" title="=">
-                                                            <color key="titleColor" name="operatingText"/>
-                                                        </state>
-                                                        <state key="selected">
-                                                            <color key="titleColor" red="0.90461021659999996" green="0.58760350939999995" blue="0.64313787219999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                        </state>
-                                                        <state key="highlighted">
-                                                            <color key="titleColor" red="0.90461021659999996" green="0.45230510829999998" blue="0.53154152639999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                        </state>
-                                                        <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                                <integer key="value" value="30"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                        </userDefinedRuntimeAttributes>
-                                                        <connections>
-                                                            <action selector="equallyButtonTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ViR-ap-2hl"/>
-                                                        </connections>
-                                                    </button>
-                                                </subviews>
-                                            </stackView>
-                                        </subviews>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="30"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                    </stackView>
-                                </subviews>
-                                <color key="backgroundColor" name="numpadView"/>
-                                <constraints>
-                                    <constraint firstItem="D2c-yJ-c57" firstAttribute="leading" secondItem="g8v-Qr-J1c" secondAttribute="leading" constant="15" id="COq-JO-LuM"/>
-                                    <constraint firstAttribute="trailing" secondItem="D2c-yJ-c57" secondAttribute="trailing" constant="15" id="OrS-fA-htO"/>
-                                    <constraint firstAttribute="bottom" secondItem="D2c-yJ-c57" secondAttribute="bottom" constant="15" id="X3p-Xd-0oN"/>
-                                    <constraint firstItem="D2c-yJ-c57" firstAttribute="top" secondItem="g8v-Qr-J1c" secondAttribute="top" constant="15" id="jXQ-hA-TxT"/>
-                                    <constraint firstAttribute="height" constant="390" id="oBL-4K-wWO"/>
-                                    <constraint firstAttribute="width" constant="315" id="qVr-c4-Pgz"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="45"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="right" lineBreakMode="clip" baselineAdjustment="alignBaselines" minimumScaleFactor="1" translatesAutoresizingMaskIntoConstraints="NO" id="oKN-Hv-xpk" customClass="DisplayLabel" customModule="SerfodiCalculator" customModuleProvider="target">
                                 <rect key="frame" x="30" y="328" width="333" height="80"/>
                                 <constraints>
@@ -440,43 +36,34 @@
                                 <color key="textColor" name="TextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OrW-TW-rpN" customClass="NumpadView" customModule="SerfodiCalculator" customModuleProvider="target">
+                                <rect key="frame" x="39" y="418" width="315" height="390"/>
+                                <color key="backgroundColor" systemColor="tintColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="315" id="5ml-Bw-IPa"/>
+                                    <constraint firstAttribute="height" constant="390" id="ueM-zl-8ig"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="clF-G7-Q18" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="1cr-j1-bST"/>
-                            <constraint firstItem="g8v-Qr-J1c" firstAttribute="top" secondItem="oKN-Hv-xpk" secondAttribute="bottom" constant="10" id="2BM-XK-ogz"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="oKN-Hv-xpk" secondAttribute="trailing" constant="30" id="3Tr-fx-qSQ"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="g8v-Qr-J1c" secondAttribute="bottom" constant="10" id="H5m-w4-cfW"/>
-                            <constraint firstItem="g8v-Qr-J1c" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="PId-B7-cX8"/>
                             <constraint firstItem="clF-G7-Q18" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="Rsd-aE-g4W"/>
                             <constraint firstItem="oKN-Hv-xpk" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="30" id="a1P-xX-XQU"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="OrW-TW-rpN" secondAttribute="bottom" constant="10" id="a4b-44-dCA"/>
+                            <constraint firstItem="OrW-TW-rpN" firstAttribute="top" secondItem="oKN-Hv-xpk" secondAttribute="bottom" constant="10" id="cNN-LO-ae8"/>
                             <constraint firstItem="oKN-Hv-xpk" firstAttribute="top" secondItem="clF-G7-Q18" secondAttribute="bottom" constant="-20" id="qrQ-r8-rOw"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="clF-G7-Q18" secondAttribute="trailing" id="rLe-ic-Uiu"/>
+                            <constraint firstItem="OrW-TW-rpN" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="z0P-IS-U8K"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="1Zb-1K-SHK"/>
                     <connections>
-                        <outlet property="clearButton" destination="5Iu-Iv-IGr" id="J0f-EA-Sgz"/>
                         <outlet property="historyTableView" destination="clF-G7-Q18" id="9T7-fQ-bvJ"/>
                         <outlet property="inputLabel" destination="oKN-Hv-xpk" id="Jeu-Jk-BwO"/>
-                        <outlet property="numpadView" destination="g8v-Qr-J1c" id="PKG-Lr-icN"/>
-                        <outletCollection property="numberButton" destination="alG-hA-Ef7" collectionClass="NSMutableArray" id="H9O-FO-zTs"/>
-                        <outletCollection property="numberButton" destination="haZ-xM-ovp" collectionClass="NSMutableArray" id="ejk-bU-Nw7"/>
-                        <outletCollection property="numberButton" destination="oGj-sA-CzH" collectionClass="NSMutableArray" id="KQH-xR-dqY"/>
-                        <outletCollection property="numberButton" destination="6Eo-PM-wB1" collectionClass="NSMutableArray" id="VuJ-sG-EvH"/>
-                        <outletCollection property="numberButton" destination="kcd-jv-eax" collectionClass="NSMutableArray" id="bx0-R0-iSi"/>
-                        <outletCollection property="numberButton" destination="0w0-Ku-Hbs" collectionClass="NSMutableArray" id="TOR-JM-moN"/>
-                        <outletCollection property="numberButton" destination="ZvU-IB-lff" collectionClass="NSMutableArray" id="JcU-8B-Vby"/>
-                        <outletCollection property="numberButton" destination="c2G-g7-XKt" collectionClass="NSMutableArray" id="0nv-kO-99n"/>
-                        <outletCollection property="numberButton" destination="im2-jJ-wHW" collectionClass="NSMutableArray" id="kab-he-r7L"/>
-                        <outletCollection property="numberButton" destination="fJp-ke-fyp" collectionClass="NSMutableArray" id="kvm-CQ-jrO"/>
-                        <outletCollection property="operationButton" destination="9e1-CM-ga4" collectionClass="NSMutableArray" id="csq-0q-ySQ"/>
-                        <outletCollection property="operationButton" destination="y86-lH-O6Z" collectionClass="NSMutableArray" id="UOb-1v-gnu"/>
-                        <outletCollection property="operationButton" destination="VQy-YL-jmy" collectionClass="NSMutableArray" id="7sh-qV-Lbb"/>
-                        <outletCollection property="operationButton" destination="8Pg-wl-K2B" collectionClass="NSMutableArray" id="1mG-xV-8tK"/>
-                        <outletCollection property="operationButton" destination="IPO-KK-qV4" collectionClass="NSMutableArray" id="ecc-Ag-yfT"/>
-                        <outletCollection property="numberButton" destination="IUr-sc-SrU" collectionClass="NSMutableArray" id="5Pk-cM-Sg9"/>
+                        <outlet property="numpadView" destination="OrW-TW-rpN" id="pFG-nG-s3G"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -485,36 +72,17 @@
         </scene>
     </scenes>
     <resources>
-        <image name="plus.slash.minus" catalog="system" width="128" height="115"/>
         <namedColor name="TextColor">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="numberButton">
-            <color red="0.58039215686274515" green="0.81568627450980391" blue="0.99215686274509807" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="numberText">
-            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="numpadView">
-            <color red="0.9686274528503418" green="0.9490196704864502" blue="0.89803922176361084" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="operatingButton">
-            <color red="0.95294117647058818" green="0.5725490196078431" blue="0.63921568627450975" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="operatingText">
-            <color red="0.45490196078431372" green="0.12941176470588237" blue="0.21176470588235294" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="serviceButton">
-            <color red="0.99215686274509807" green="0.81960784313725488" blue="0.58039215686274515" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="serviceText">
-            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGray5Color">
             <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="tintColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

@@ -8,73 +8,88 @@
 import UIKit
 
 protocol NumpadDelegate: AnyObject {
-    func number(_ sender: NumpadButton)
-    func operating(_ sender: NumpadButton)
-    func equal()
-    func reset()
+    func number(_ sender: UIButton)
+    func minusNum(_ sender: UIButton)
+    func operating(_ sender: UIButton)
+    func equal(_ sender: UIButton)
+    func reset(_ sender: UIButton)
 }
 
+//@IBDesignable
+final class NumpadView: UIView {
 
-class NumpadView: UIView {
+    var delegate: NumpadDelegate?
 
-    private let buttonSize = CGSize(width: 60, height: 60)
-    private let padding: CGFloat = 15
+    @IBOutlet var numpadButtons: [UIButton]!
+    @IBOutlet var padView: UIView!
     
-    weak var delegate: NumpadDelegate?
-    
-    private let numberButton: [NumpadButton] = [
-        NumpadButton(buttonStyle: .number(NumberFormatter.getPoint())),
-        NumpadButton(buttonStyle: .number("0")),
-        NumpadButton(buttonStyle: .number("1")),
-        NumpadButton(buttonStyle: .number("2")),
-        NumpadButton(buttonStyle: .number("3")),
-        NumpadButton(buttonStyle: .number("4")),
-        NumpadButton(buttonStyle: .number("5")),
-        NumpadButton(buttonStyle: .number("6")),
-        NumpadButton(buttonStyle: .number("7")),
-        NumpadButton(buttonStyle: .number("8")),
-        NumpadButton(buttonStyle: .number("9"))
-    ]
-    
-    override init(frame: CGRect) {
-        let size = CGSize(width: 315, height: 390)
-        let frame = CGRect(origin: .zero, size: size)
-        super.init(frame: frame)
-        configure()
+    private var currentOperationButton: UIButton? = UIButton() {
+        didSet {
+            guard let button = oldValue else { return }
+            guard button != currentOperationButton else { return }
+            button.backgroundColor = UIColor.operatingButtonColor()
+            button.isSelected = false
+        }
+        willSet {
+            guard let button = newValue else { return }
+            guard button != currentOperationButton else { return }
+            button.backgroundColor = UIColor.operatingSelectedButtonColor()
+            button.isSelected = true
+        }
     }
     
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder)
+        configure()
     }
     
     private func configure() {
-        backgroundColor = .numpadColor()
-        layer.cornerRadius = buttonSize.height / 2 + padding
+        backgroundColor = .clear
+        
+        guard let view = loadViewFromXib() else { return }
+        
+        view.layer.cornerRadius = 45
+        view.backgroundColor = .numpadColor()
+        
+        addSubview(view)
+    }
+        
+    private func loadViewFromXib() -> UIView? {
+        Bundle.main.loadNibNamed("NumpadView", owner: self, options: nil)?.first as? UIView
     }
     
-    private func setTarget() {
-        
-        
-        
-    }
-    
-    
-    @objc func numberTap(_ sender: NumpadButton) {
+    @IBAction func numberTap(_ sender: UIButton) {
         sender.animationTap()
         sender.hapticLightTap()
+        currentOperationButton = nil
         delegate?.number(sender)
     }
     
-    @objc func operatingTap(_ sender: NumpadButton) {
+    @IBAction func minusTap(_ sender: UIButton) {
+        sender.animationTap()
+        sender.hapticLightTap()
+        delegate?.minusNum(sender)
+    }
+    
+    @IBAction func operatingTap(_ sender: UIButton) {
+        sender.animationTap()
+        sender.hapticSoftTap()
+        currentOperationButton = sender
         delegate?.operating(sender)
     }
     
-    @objc func equalTap() {
-        delegate?.equal()
+    @IBAction func equalTap(_ sender: UIButton) {
+        sender.hapticMediumTap()
+        sender.animationTap()
+        currentOperationButton = nil
+        delegate?.equal(sender)
     }
     
-    @objc func resetTap() {
-        delegate?.reset()
+    @IBAction func resetTap(_ sender: UIButton) {
+        sender.hapticHeavyTap()
+        sender.animationTap()
+        currentOperationButton = nil
+        delegate?.reset(sender)
     }
     
 }

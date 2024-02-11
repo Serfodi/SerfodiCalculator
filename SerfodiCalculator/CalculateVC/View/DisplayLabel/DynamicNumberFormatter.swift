@@ -97,8 +97,7 @@ final class DynamicNumberFormatter {
     
     /// Выполняет форматирование текста. Использует `numberFormatterDec`
     public func perform(number: NSNumber) -> String {
-        print(numberFormatterDec.maximumSignificantDigits)
-        return numberFormatterDec.string(from: number)!
+        numberFormatterDec.string(from: number)!
     }
     
     /// Пробует выполнить преоброзование текста  через `numberFormatterDec`  в число.

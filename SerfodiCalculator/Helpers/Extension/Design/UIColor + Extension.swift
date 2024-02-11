@@ -29,9 +29,9 @@ extension UIColor {
         return UIColor.init {
             switch $0.userInterfaceStyle {
             case .light, .unspecified:
-                return  UIColor(white: 0, alpha: 0.05)
+                return  UIColor(white: 0, alpha: 0.07)
             case .dark:
-                return  UIColor(white: 1, alpha: 0.05)
+                return  UIColor(white: 1, alpha: 0.25)
             @unknown default:
                 assertionFailure("Unknown userInterfaceStyle: \($0.userInterfaceStyle)")
                 return .white

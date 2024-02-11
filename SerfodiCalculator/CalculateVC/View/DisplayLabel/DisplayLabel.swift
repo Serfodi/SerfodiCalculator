@@ -114,9 +114,7 @@ final class DisplayLabel: UILabel {
         text = text!.replacingOccurrences(of: dynamicNumberFormatter.separator, with: "")
         
         if let number = getNumber() {
-            print(number as NSNumber)
             text = dynamicNumberFormatter.perform(number: number as NSNumber)
-            print(text!)
             successful(number)
         }
     }
