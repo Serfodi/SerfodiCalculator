@@ -31,7 +31,21 @@ extension UIColor {
             case .light, .unspecified:
                 return  UIColor(white: 0, alpha: 0.07)
             case .dark:
-                return  UIColor(white: 1, alpha: 0.25)
+                return  UIColor(white: 1, alpha: 0.2)
+            @unknown default:
+                assertionFailure("Unknown userInterfaceStyle: \($0.userInterfaceStyle)")
+                return .white
+            }
+        }
+    }
+    
+    static func pullHighlightedButton() -> UIColor {
+        return UIColor.init {
+            switch $0.userInterfaceStyle {
+            case .light, .unspecified:
+                return  UIColor(white: 0, alpha: 0.04)
+            case .dark:
+                return  UIColor(white: 1, alpha: 0.3)
             @unknown default:
                 assertionFailure("Unknown userInterfaceStyle: \($0.userInterfaceStyle)")
                 return .white
@@ -45,7 +59,7 @@ extension UIColor {
             case .light, .unspecified:
                 return .white
             case .dark:
-                return #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+                return .black
             @unknown default:
                 assertionFailure("Unknown userInterfaceStyle: \($0.userInterfaceStyle)")
                 return .white
@@ -153,7 +167,7 @@ extension UIColor {
             case .light, .unspecified:
                 return #colorLiteral(red: 0.1294117647, green: 0.3058823529, blue: 0.2039215686, alpha: 1)
             case .dark:
-                return #colorLiteral(red: 0.537254902, green: 0.3333333333, blue: 0.4588235294, alpha: 1)
+                return #colorLiteral(red: 0.7882352941, green: 0.7137254902, blue: 0.7450980392, alpha: 1)
             @unknown default:
                 assertionFailure("Unknown userInterfaceStyle: \($0.userInterfaceStyle)")
                 return .white

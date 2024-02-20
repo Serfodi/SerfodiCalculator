@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B00257B72B7F7BE100311188 /* SecondNumpad.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00257B62B7F7BE100311188 /* SecondNumpad.swift */; };
+		B00257B92B7FC05C00311188 /* PullButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00257B82B7FC05C00311188 /* PullButton.swift */; };
+		B00257BB2B8488D000311188 /* NumpadController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00257BA2B8488CF00311188 /* NumpadController.swift */; };
 		B02EC65D2B5D8D4E00CE0122 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02EC65C2B5D8D4E00CE0122 /* AppDelegate.swift */; };
 		B02EC65F2B5D8D4E00CE0122 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02EC65E2B5D8D4E00CE0122 /* SceneDelegate.swift */; };
 		B02EC6612B5D8D4E00CE0122 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02EC6602B5D8D4E00CE0122 /* ViewController.swift */; };
@@ -46,6 +49,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B00257B62B7F7BE100311188 /* SecondNumpad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondNumpad.swift; sourceTree = "<group>"; };
+		B00257B82B7FC05C00311188 /* PullButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullButton.swift; sourceTree = "<group>"; };
+		B00257BA2B8488CF00311188 /* NumpadController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumpadController.swift; sourceTree = "<group>"; };
 		B02EC6592B5D8D4E00CE0122 /* SerfodiCalculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SerfodiCalculator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B02EC65C2B5D8D4E00CE0122 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B02EC65E2B5D8D4E00CE0122 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -97,6 +103,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B00257B42B793F3C00311188 /* NumpadView */ = {
+			isa = PBXGroup;
+			children = (
+				B04BFDCD2B7373A800ED7099 /* NumpadView.swift */,
+				B04BFDCF2B77EA3F00ED7099 /* NumpadView.xib */,
+			);
+			path = NumpadView;
+			sourceTree = "<group>";
+		};
+		B00257B52B795D6900311188 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				B099E0CA2B6C03DA000670CE /* SettingManager.swift */,
+				B099E0C82B6BF86F000670CE /* HistoryManager.swift */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
 		B02EC6502B5D8D4E00CE0122 = {
 			isa = PBXGroup;
 			children = (
@@ -119,8 +143,8 @@
 				B02EC65C2B5D8D4E00CE0122 /* AppDelegate.swift */,
 				B02EC65E2B5D8D4E00CE0122 /* SceneDelegate.swift */,
 				B02EC6622B5D8D4E00CE0122 /* Main.storyboard */,
-				B099E0CA2B6C03DA000670CE /* SettingManager.swift */,
-				B099E0C82B6BF86F000670CE /* HistoryManager.swift */,
+				B00257B52B795D6900311188 /* Manager */,
+				B099E0C62B6BF016000670CE /* DataProvider.swift */,
 				B064E30D2B626F5200E56208 /* Storage */,
 				B064E3002B60283C00E56208 /* CalculateVC */,
 				B064E31E2B6446FB00E56208 /* HistoryVC */,
@@ -148,8 +172,8 @@
 		B064E3002B60283C00E56208 /* CalculateVC */ = {
 			isa = PBXGroup;
 			children = (
-				B064E3212B646E4400E56208 /* Model */,
 				B02EC6602B5D8D4E00CE0122 /* ViewController.swift */,
+				B064E3212B646E4400E56208 /* Model */,
 				B064E3082B6181BC00E56208 /* Calculates */,
 				B099E0C52B6AA64C000670CE /* View */,
 			);
@@ -222,31 +246,24 @@
 		B099E0C32B6AA600000670CE /* HistoryTabel */ = {
 			isa = PBXGroup;
 			children = (
-				B099E0C62B6BF016000670CE /* DataProvider.swift */,
 				B064E3012B6039A600E56208 /* HistoryCell.swift */,
 				B099E0BF2B698690000670CE /* HistoryTableView.swift */,
 			);
 			path = HistoryTabel;
 			sourceTree = "<group>";
 		};
-		B099E0C42B6AA63B000670CE /* DisplayLabel */ = {
-			isa = PBXGroup;
-			children = (
-				B064E31A2B62D8B000E56208 /* DisplayLabel.swift */,
-				B064E3252B6583AD00E56208 /* DynamicNumberFormatter.swift */,
-			);
-			path = DisplayLabel;
-			sourceTree = "<group>";
-		};
 		B099E0C52B6AA64C000670CE /* View */ = {
 			isa = PBXGroup;
 			children = (
-				B099E0C42B6AA63B000670CE /* DisplayLabel */,
+				B064E3252B6583AD00E56208 /* DynamicNumberFormatter.swift */,
+				B064E31A2B62D8B000E56208 /* DisplayLabel.swift */,
 				B064E3052B6180FA00E56208 /* BlurGradientEffect.swift */,
-				B099E0C32B6AA600000670CE /* HistoryTabel */,
 				B04BFDCB2B736E7200ED7099 /* NumpadButton.swift */,
-				B04BFDCD2B7373A800ED7099 /* NumpadView.swift */,
-				B04BFDCF2B77EA3F00ED7099 /* NumpadView.xib */,
+				B00257B62B7F7BE100311188 /* SecondNumpad.swift */,
+				B00257BA2B8488CF00311188 /* NumpadController.swift */,
+				B00257B42B793F3C00311188 /* NumpadView */,
+				B099E0C32B6AA600000670CE /* HistoryTabel */,
+				B00257B82B7FC05C00311188 /* PullButton.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -336,9 +353,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				B064E3042B61728000E56208 /* Operation.swift in Sources */,
+				B00257B72B7F7BE100311188 /* SecondNumpad.swift in Sources */,
 				B099E0CF2B6C3983000670CE /* InputNumber.swift in Sources */,
 				B064E30C2B626F4600E56208 /* Storage.swift in Sources */,
+				B00257B92B7FC05C00311188 /* PullButton.swift in Sources */,
 				B064E2F82B5EB7D900E56208 /* Calculate.swift in Sources */,
+				B00257BB2B8488D000311188 /* NumpadController.swift in Sources */,
 				B099E0C02B698690000670CE /* HistoryTableView.swift in Sources */,
 				B064E3192B62BFF400E56208 /* UIWindow + Extension.swift in Sources */,
 				B02EC6612B5D8D4E00CE0122 /* ViewController.swift in Sources */,

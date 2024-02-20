@@ -22,24 +22,31 @@ final class DynamicCalculate: Calculate {
     /// - Returns: Вычиселнное число для  текующий последовательности опираций и чисел
     ///
     private func calculating(items: [CalculationHistoryItem]) throws -> Double {
-        guard items.count >= 2 else { throw CalculationError.fewOperations }
         
         var result: Double = 0
         var stack = [Double]()
         
         for index in items {
             switch index {
+                
             case .number(let number):
                 stack.append(number)
+                
             case .operation(let operation):
-                switch operation {
-                case .add, .subtract, .multiply, .divide:
+                
+                switch operation.type() {
+                case .binary:
                     guard let two = stack.popLast(), let one = stack.popLast() else { break }
                     result = try operation.calculate(one, two)
+                case .unary:
+                    guard let one = stack.popLast() else { break }
+                    result = try operation.calculate(one)
                 }
+                
                 stack.append(result)
             }
         }
+        
         guard let resultLast = stack.popLast() else { return result }
         result = resultLast
         
@@ -61,8 +68,10 @@ final class DynamicCalculate: Calculate {
         var lastInputSign: Operation!
         
         if case .operation(let operation) = items.last {
-            items.removeLast()
-            lastInputSign = operation
+            if operation.type() == .binary {
+                items.removeLast()
+                lastInputSign = operation
+            }
         }
         
         var stack = [CalculationHistoryItem]()

@@ -12,7 +12,6 @@ import Foundation
 /// Ошибки связанные с вычислениями
 enum CalculationError: Error {
     case dividedByZero
-    case fewOperations
     case outOfRang
 }
 

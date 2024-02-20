@@ -61,6 +61,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="1Zb-1K-SHK"/>
                     <connections>
+                        <outlet property="centerNumpadConstraint" destination="z0P-IS-U8K" id="xEf-TC-jAe"/>
                         <outlet property="historyTableView" destination="clF-G7-Q18" id="9T7-fQ-bvJ"/>
                         <outlet property="inputLabel" destination="oKN-Hv-xpk" id="Jeu-Jk-BwO"/>
                         <outlet property="numpadView" destination="OrW-TW-rpN" id="pFG-nG-s3G"/>

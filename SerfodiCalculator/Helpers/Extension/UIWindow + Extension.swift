@@ -9,6 +9,11 @@ import UIKit
 
 extension UIApplication {
     
+    func getWindow() -> UIWindow {
+        let windowScene = connectedScenes.first as? UIWindowScene
+        return (windowScene?.windows.first!)!
+    }
+    
     func getStatusBarFrame() -> CGRect {
         let windowScene = connectedScenes.first as? UIWindowScene
         return windowScene?.windows.first?.getStatusBarFrame() ?? .zero

@@ -53,6 +53,20 @@ final class DynamicNumberFormatter {
         text.contains(exponentSymbol)
     }
     
+    /// Выполняет форматирование текста. Использует `numberFormatterDec`
+    public func perform(number: NSNumber) -> String {
+        numberFormatterDec.string(from: number)!
+    }
+    
+    /// Пробует выполнить преоброзование текста  через `numberFormatterDec`  в число.
+    public func perform(text: String) -> Double? {
+        numberFormatterDec.number(from: text)?.doubleValue
+    }
+    
+    private func perform(formatter: NumberFormatter, number: NSNumber) -> String {
+        formatter.string(from: number)!
+    }
+    
     /// Функция  подбирает формат числа под заданную рамку.
     ///
     /// - Parameters:
@@ -80,9 +94,7 @@ final class DynamicNumberFormatter {
         let max = formatter.maximumSignificantDigits
         for i in 1...max {
             let text = perform(formatter: formatter, number: number)
-            if textInto(text) {
-                return text
-            }
+            if textInto(text) { return text }
             formatter.maximumSignificantDigits = max - i
         }
         defer {
@@ -91,19 +103,7 @@ final class DynamicNumberFormatter {
         return nil
     }
     
-    private func perform(formatter: NumberFormatter, number: NSNumber) -> String {
-        formatter.string(from: number)!
-    }
     
-    /// Выполняет форматирование текста. Использует `numberFormatterDec`
-    public func perform(number: NSNumber) -> String {
-        numberFormatterDec.string(from: number)!
-    }
-    
-    /// Пробует выполнить преоброзование текста  через `numberFormatterDec`  в число.
-    public func perform(text: String) -> Double? {
-        numberFormatterDec.number(from: text)?.doubleValue
-    }
     
 }
 

@@ -105,7 +105,10 @@ final class HistoryCell: UITableViewCell {
                 currentWidth -= numberText.count
                 
             case .operation(let sign):
-                let testSign = createAtt(text: sign.rawValue, color: .exampleColorSign())
+                
+                let symbolSign = getSign(sign)
+                let testSign = createAtt(text: symbolSign, color: .exampleColorSign())
+                
                 text.append(testSign)
                 currentWidth -= 1
                 
@@ -152,6 +155,21 @@ final class HistoryCell: UITableViewCell {
     
 }
 
+// MARK: Draw sign
+
+extension HistoryCell {
+    
+    private func getSign(_ sign: Operation ) -> String {
+        switch sign {
+        case .pow2:
+            return "²"
+        default:
+            return sign.rawValue
+        }
+    }
+    
+}
+
 
 
 // MARK: - Constraint
@@ -170,3 +188,5 @@ extension HistoryCell {
     }
     
 }
+
+

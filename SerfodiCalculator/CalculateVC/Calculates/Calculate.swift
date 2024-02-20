@@ -65,11 +65,20 @@ final class Calculator {
     /// Добалвяет новоы знак в массив: "calculationHistory"
     public func addOperation(_ operation: Operation) {
         if let sign = lastOperation {
-            if sign != operation {
-                calculationHistory.removeLast()
+            
+            if sign.type() == .binary {
+                
+                if sign != operation {
+                    calculationHistory.removeLast()
+                    calculationHistory.append(.operation(operation))
+                    currentOperation = operation
+                }
+                
+            } else {
                 calculationHistory.append(.operation(operation))
                 currentOperation = operation
             }
+            
         } else {
             calculationHistory.append(.operation(operation))
             currentOperation = operation

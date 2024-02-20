@@ -13,9 +13,6 @@ import UIKit
 }
 
 
-/// - Important: Вы ни когда не должны использовать `Label.text` для добавления или изменения строки в label.
-///              Для этого использйте
-///
 final class DisplayLabel: UILabel {
     
     override public var canBecomeFirstResponder: Bool { true }
@@ -74,27 +71,79 @@ final class DisplayLabel: UILabel {
     }
     
     
+    
+    // MARK: -
+    
     /// Пытается преоброзовать текст `UILabel` в число  `Double?`
     public func getNumber() -> Double? {
         dynamicNumberFormatter.perform(text: text!)
     }
     
     /// Форматирует число и обновляет `text`
-    ///
     /// В случае успеха преоброзования выводит результат на экран.
-    /// ````
-    /// text = try! dynamicNumberFormatter.fitInBounds(number: nsNumber) { numberText in
-    ///     isFitTextInto(numberText, scale: minimumScaleFactor)
-    /// }
-    /// ````
-    /// - Note: Вызывайте его если хотите отформатировать вывод числа с динамическим форматом.
-    ///
     public func setTextLabel(number: Double) {
         let nsNumber = number as NSNumber
         text = try! dynamicNumberFormatter.fitInBounds(number: nsNumber) { numberText in
             isFitTextInto(numberText, scale: minimumScaleFactor)
         }
     }
+    
+    /// Добавляет "цифру" к `text` и форматирует его.
+    public func inputDigit(add digit: String, successful: (Double) -> ()) {
+        switch digit {
+        case NumberFormatter.getPoint():
+            guard !dynamicNumberFormatter.isContainPoint(text!) else { return }
+            text?.append(digit)
+        default:
+            text?.append(digit)
+        }
+        formattingInput { number in
+            successful(number)
+        }
+    }
+    
+    /// Справшивает `Label` можно ли добавить еще одну цифру.
+    public func isCanAddDigit(new digit: String) -> Bool {
+        /*
+         1. Доболяем в текст
+         2. Преоброзовываем в число
+         3. Снова форматируем
+         4. Смотрим. Если влазиет то true
+         */
+        isFitTextInto(text! + "0", scale: minimumScaleFactor)
+    }
+    
+    public func removeLastDigit() {
+        guard !text!.contains(dynamicNumberFormatter.exponentSymbol) else { return }
+        if text!.count > 2 || (!text!.contains(dynamicNumberFormatter.minusSign) && text!.count > 1) {
+            text!.removeLast()
+        } else {
+            text! = "0"
+        }
+        formattingInput(considerPoint: true) { _ in }
+    }
+    
+    public func addMinusNumber() {
+        guard let _ = getNumber() else { return }
+        if text!.contains(dynamicNumberFormatter.minusSign) {
+            text!.removeFirst()
+        } else {
+            text?.insert(dynamicNumberFormatter.minusSign.first!, at: text!.startIndex)
+        }
+    }
+    
+    public func showError(labelText: String = "Ошибка!") {
+        let attributedString = NSMutableAttributedString(string: labelText)
+        attributedString.addAttribute(NSAttributedString.Key.kern, value: CGFloat(10.0), range: NSRange(location: labelText.count - 1, length: 1))
+        attributedText = attributedString
+        animationError()
+    }
+    
+}
+
+// MARK: - Formatting input
+
+extension DisplayLabel {
     
     /// Форматирует и пытается преоброзовать текст `UILabel` к числу  `Double`.
     ///
@@ -119,61 +168,7 @@ final class DisplayLabel: UILabel {
         }
     }
     
-    /// Добавляет "цифру" к `text`
-    ///
-    /// - Parameter digit Один введеный символ.
-    /// - Returns: `true` если получилось добавить новое число. `False` если не получилось (символ нарушает правила ввода числа).
-    /// - Note: Следит за правельностью набора строки.
-    ///
-    public func inputDigit(add digit: String, successful: (Double) -> ()) {
-        switch digit {
-        case NumberFormatter.getPoint():
-            guard !dynamicNumberFormatter.isContainPoint(text!) else { return }
-            text?.append(digit)
-        default:
-            text?.append(digit)
-        }
-        
-        formattingInput { number in
-            successful(number)
-        }
-    }
-    
-    /// Справшивает `Label` можно ли добавить еще одну цифру.
-    public func isCanAddDigit(new digit: String) -> Bool {
-        /*
-         1. Доболяем в текст
-         2. Преоброзовываем в число
-         3. Снова форматируем
-         4. Смотрим. Если влазиет то true
-         */
-        isFitTextInto(text! + "0", scale: minimumScaleFactor)
-    }
-    
-    /// Удаляет последнуюю цифру в `text`
-    public func removeLastDigit() {
-        guard !text!.contains(dynamicNumberFormatter.exponentSymbol) else { return }
-        
-        
-        if text!.count > 2 || (!text!.contains(dynamicNumberFormatter.minusSign) && text!.count > 1) {
-            text!.removeLast()
-        } else {
-            text! = "0"
-        }
-        formattingInput(considerPoint: true) { _ in }
-    }
-    
-    public func addMinusNumber() {
-        guard let _ = getNumber() else { return }
-        if text!.contains(dynamicNumberFormatter.minusSign) {
-            text!.removeFirst()
-        } else {
-            text?.insert(dynamicNumberFormatter.minusSign.first!, at: text!.startIndex)
-        }
-    }
-    
 }
-
 
 
 // MARK: Touches Erase
@@ -334,31 +329,28 @@ extension DisplayLabel {
 extension DisplayLabel: CAAnimationDelegate {
     
     public func animationError() {
+        let durationColor = 0.5
+        
         let snake = CABasicAnimation(keyPath: "position")
         snake.duration = 0.1
         snake.repeatCount = 3
         snake.autoreverses = true
         
-        snake.fromValue = NSValue(cgPoint: CGPoint(x: center.x - 5, y: center.y))
-        snake.toValue = NSValue(cgPoint: CGPoint(x: center.x + 5, y: center.y))
+        snake.fromValue = NSValue(cgPoint: CGPoint(x: center.x - 3, y: center.y))
+        snake.toValue = NSValue(cgPoint: CGPoint(x: center.x + 3, y: center.y))
         
         let colorAnimation = CABasicAnimation(keyPath: "backgroundColor")
         colorAnimation.fromValue = UIColor.clear.cgColor
         colorAnimation.toValue = #colorLiteral(red: 0.9568627477, green: 0.8265123661, blue: 0.7767734047, alpha: 1).cgColor
-        colorAnimation.duration = 0.4
+        colorAnimation.duration = durationColor
         colorAnimation.autoreverses = true
         
         
         let animationGroup = CAAnimationGroup()
-        animationGroup.duration = 0.8
+        animationGroup.duration = durationColor * 2 + 0.1 * 3
         animationGroup.animations = [colorAnimation, snake]
         
-//        animationGroup.stop
-        
-        animationGroup.delegate = self
-        
         layer.add(animationGroup, forKey: "groupAnimation")
-        
         hapticSoftTap()
     }
     
@@ -367,15 +359,6 @@ extension DisplayLabel: CAAnimationDelegate {
         generator.notificationOccurred(.error)
     }
  
-    
-    func animationDidStart(_ anim: CAAnimation) {
-      
-    }
-    
-    func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
-    
-    }
-    
 }
 
 

@@ -23,6 +23,9 @@ extension UIFont {
         UIFont(name: "SFPro-Medium", size: 35)!
     }
     
+    static func numpad(size: Int) -> UIFont {
+        UIFont(name: "SFPro-Medium", size: CGFloat(size))!
+    }
     
 }
 
