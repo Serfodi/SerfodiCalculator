@@ -41,6 +41,11 @@ final class NumpadView: UIView {
         }
     }
     
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        configure()
+    }
+    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         configure()
@@ -49,14 +54,8 @@ final class NumpadView: UIView {
     private func configure() {
         backgroundColor = .clear
         
-//        addGesture()
-        
-        longPressGesture.delegate = self
-//        swipeGesture.delegate = self
-        
         guard let view = loadViewFromXib() else { return }
         
-//        view.addGestureRecognizer(pressesGesture)
         view.layer.cornerRadius = 45
         view.backgroundColor = .numpadColor()
         
@@ -105,6 +104,8 @@ final class NumpadView: UIView {
 
 // Touch
 
+/*
+
 extension NumpadView: UIGestureRecognizerDelegate {
     
     private func addGesture() {
@@ -145,12 +146,4 @@ extension NumpadView: UIGestureRecognizerDelegate {
     
 }
 
-
-extension NumpadView {
-    
-    public func hapticMediumTap() {
-        let generator = UIImpactFeedbackGenerator(style: .medium)
-        generator.impactOccurred()
-    }
-    
-}
+*/

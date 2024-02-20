@@ -10,6 +10,7 @@
 		B00257B72B7F7BE100311188 /* SecondNumpad.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00257B62B7F7BE100311188 /* SecondNumpad.swift */; };
 		B00257B92B7FC05C00311188 /* PullButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00257B82B7FC05C00311188 /* PullButton.swift */; };
 		B00257BB2B8488D000311188 /* NumpadController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00257BA2B8488CF00311188 /* NumpadController.swift */; };
+		B00257BD2B848C7200311188 /* InstantPanGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00257BC2B848C7200311188 /* InstantPanGestureRecognizer.swift */; };
 		B02EC65D2B5D8D4E00CE0122 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02EC65C2B5D8D4E00CE0122 /* AppDelegate.swift */; };
 		B02EC65F2B5D8D4E00CE0122 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02EC65E2B5D8D4E00CE0122 /* SceneDelegate.swift */; };
 		B02EC6612B5D8D4E00CE0122 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02EC6602B5D8D4E00CE0122 /* ViewController.swift */; };
@@ -52,6 +53,7 @@
 		B00257B62B7F7BE100311188 /* SecondNumpad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondNumpad.swift; sourceTree = "<group>"; };
 		B00257B82B7FC05C00311188 /* PullButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullButton.swift; sourceTree = "<group>"; };
 		B00257BA2B8488CF00311188 /* NumpadController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumpadController.swift; sourceTree = "<group>"; };
+		B00257BC2B848C7200311188 /* InstantPanGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstantPanGestureRecognizer.swift; sourceTree = "<group>"; };
 		B02EC6592B5D8D4E00CE0122 /* SerfodiCalculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SerfodiCalculator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B02EC65C2B5D8D4E00CE0122 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B02EC65E2B5D8D4E00CE0122 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -119,6 +121,19 @@
 				B099E0C82B6BF86F000670CE /* HistoryManager.swift */,
 			);
 			path = Manager;
+			sourceTree = "<group>";
+		};
+		B00257BE2B84BC2000311188 /* Numpad */ = {
+			isa = PBXGroup;
+			children = (
+				B00257B82B7FC05C00311188 /* PullButton.swift */,
+				B00257BC2B848C7200311188 /* InstantPanGestureRecognizer.swift */,
+				B00257B42B793F3C00311188 /* NumpadView */,
+				B00257B62B7F7BE100311188 /* SecondNumpad.swift */,
+				B00257BA2B8488CF00311188 /* NumpadController.swift */,
+				B04BFDCB2B736E7200ED7099 /* NumpadButton.swift */,
+			);
+			path = Numpad;
 			sourceTree = "<group>";
 		};
 		B02EC6502B5D8D4E00CE0122 = {
@@ -258,12 +273,8 @@
 				B064E3252B6583AD00E56208 /* DynamicNumberFormatter.swift */,
 				B064E31A2B62D8B000E56208 /* DisplayLabel.swift */,
 				B064E3052B6180FA00E56208 /* BlurGradientEffect.swift */,
-				B04BFDCB2B736E7200ED7099 /* NumpadButton.swift */,
-				B00257B62B7F7BE100311188 /* SecondNumpad.swift */,
-				B00257BA2B8488CF00311188 /* NumpadController.swift */,
-				B00257B42B793F3C00311188 /* NumpadView */,
+				B00257BE2B84BC2000311188 /* Numpad */,
 				B099E0C32B6AA600000670CE /* HistoryTabel */,
-				B00257B82B7FC05C00311188 /* PullButton.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -375,6 +386,7 @@
 				B064E3232B65807E00E56208 /* UIFount + Extension.swift in Sources */,
 				B064E2F42B5E9DD800E56208 /* UIColor + Extension.swift in Sources */,
 				B04BFDCC2B736E7200ED7099 /* NumpadButton.swift in Sources */,
+				B00257BD2B848C7200311188 /* InstantPanGestureRecognizer.swift in Sources */,
 				B064E2FA2B5ED38800E56208 /* UIButton + Extension.swift in Sources */,
 				B064E3172B62B9EE00E56208 /* NumberFormatter + Extension.swift in Sources */,
 				B099E0C72B6BF016000670CE /* DataProvider.swift in Sources */,

@@ -38,11 +38,6 @@ final class HistoryTableView: UIView {
         configure()
     }
     
-    override func layoutIfNeeded() {
-        super.layoutIfNeeded()
-        
-    }
-    
     override func layoutSubviews() {
         super.layoutSubviews()
         tableView.updateTableContentInset()
@@ -53,9 +48,6 @@ final class HistoryTableView: UIView {
         
         tableView.register(HistoryCell.self, forCellReuseIdentifier: HistoryCell.reuseId)
         backgroundColor = .clear
-        
-//        tableView.separatorStyle = .none
-//        tableView.separatorColor = .clear
         
         topBlur.isUserInteractionEnabled = false
         bottomBlur.isUserInteractionEnabled = false

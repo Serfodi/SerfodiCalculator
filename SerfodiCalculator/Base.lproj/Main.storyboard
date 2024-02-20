@@ -36,11 +36,10 @@
                                 <color key="textColor" name="TextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OrW-TW-rpN" customClass="NumpadView" customModule="SerfodiCalculator" customModuleProvider="target">
-                                <rect key="frame" x="39" y="418" width="315" height="390"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OrW-TW-rpN" customClass="NumpadController" customModule="SerfodiCalculator" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="418" width="393" height="390"/>
                                 <color key="backgroundColor" systemColor="tintColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="315" id="5ml-Bw-IPa"/>
                                     <constraint firstAttribute="height" constant="390" id="ueM-zl-8ig"/>
                                 </constraints>
                             </view>
@@ -50,21 +49,22 @@
                         <constraints>
                             <constraint firstItem="clF-G7-Q18" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="1cr-j1-bST"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="oKN-Hv-xpk" secondAttribute="trailing" constant="30" id="3Tr-fx-qSQ"/>
+                            <constraint firstItem="OrW-TW-rpN" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="LNc-jr-fgl"/>
+                            <constraint firstItem="OrW-TW-rpN" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Ppz-AG-cqS"/>
                             <constraint firstItem="clF-G7-Q18" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="Rsd-aE-g4W"/>
                             <constraint firstItem="oKN-Hv-xpk" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="30" id="a1P-xX-XQU"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="OrW-TW-rpN" secondAttribute="bottom" constant="10" id="a4b-44-dCA"/>
+                            <constraint firstItem="OrW-TW-rpN" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="b6d-ju-LL7"/>
                             <constraint firstItem="OrW-TW-rpN" firstAttribute="top" secondItem="oKN-Hv-xpk" secondAttribute="bottom" constant="10" id="cNN-LO-ae8"/>
                             <constraint firstItem="oKN-Hv-xpk" firstAttribute="top" secondItem="clF-G7-Q18" secondAttribute="bottom" constant="-20" id="qrQ-r8-rOw"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="clF-G7-Q18" secondAttribute="trailing" id="rLe-ic-Uiu"/>
-                            <constraint firstItem="OrW-TW-rpN" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="z0P-IS-U8K"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="1Zb-1K-SHK"/>
                     <connections>
-                        <outlet property="centerNumpadConstraint" destination="z0P-IS-U8K" id="xEf-TC-jAe"/>
                         <outlet property="historyTableView" destination="clF-G7-Q18" id="9T7-fQ-bvJ"/>
                         <outlet property="inputLabel" destination="oKN-Hv-xpk" id="Jeu-Jk-BwO"/>
-                        <outlet property="numpadView" destination="OrW-TW-rpN" id="pFG-nG-s3G"/>
+                        <outlet property="numpadController" destination="OrW-TW-rpN" id="MpF-vA-pd7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
