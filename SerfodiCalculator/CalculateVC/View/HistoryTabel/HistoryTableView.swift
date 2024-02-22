@@ -16,7 +16,7 @@ final class HistoryTableView: UIView {
         table.showsVerticalScrollIndicator = false
         table.backgroundColor = .clear
         table.tintColor = .clear
-        table.allowsSelection = false
+//        table.allowsSelection = false
         return table
     }()
     
@@ -45,7 +45,6 @@ final class HistoryTableView: UIView {
     }
     
     private func configure() {
-        
         tableView.register(HistoryCell.self, forCellReuseIdentifier: HistoryCell.reuseId)
         backgroundColor = .clear
         
@@ -58,6 +57,8 @@ final class HistoryTableView: UIView {
         addSubview(bottomBlur)
         setupBlurConstraints()
     }
+    
+    
     
 }
 

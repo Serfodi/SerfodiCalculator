@@ -121,11 +121,11 @@ extension NumpadController: NumpadDelegate {
 extension NumpadController {
     
     @objc private func swipeL() {
-        animateTransitionIfNeeded(to: .second, duration: 0.7)
+        animateTransitionIfNeeded(to: .second, duration: 0.45)
     }
     
     @objc private func swipeR() {
-        animateTransitionIfNeeded(to: .general, duration: 0.7)
+        animateTransitionIfNeeded(to: .general, duration: 0.45)
     }
     
     @objc private func dragSwipe(recognizer: UIPanGestureRecognizer) {

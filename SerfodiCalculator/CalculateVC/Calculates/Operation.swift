@@ -182,10 +182,10 @@ extension Operation {
             }
             result = pow(numbers[0], 1 / 3)
         case .sqrtYX:
-            if numbers[0] < 0 {
+            if numbers[1] < 0 {
                 throw CalculationError.dividedByZero
             }
-            result = pow(numbers[0], numbers[1])
+            result = pow(numbers[0], 1 / numbers[1])
         case .pow3:
             if numbers[0] < 0 {
                 throw CalculationError.dividedByZero

@@ -37,7 +37,7 @@ class ViewController: UIViewController {
         inputLabel.delegate = self
         
         historyTableView.tableView.dataSource = dataProvider
-        historyTableView.tableView.delegate = dataProvider
+        historyTableView.tableView.delegate = self
         
         resetCalculate()
     }
@@ -58,7 +58,7 @@ class ViewController: UIViewController {
     }
     
     
-    func addNewExample(_ example: Calculation) {
+    private func addNewExample(_ example: Calculation) {
         self.dataProvider.historyManager?.add(calculation: example)
         self.historyTableView.tableView.reloadData()
         self.historyTableView.tableView.showLastCell()
@@ -199,6 +199,33 @@ extension ViewController: NumpadDelegate {
     
     func reset(_ sender: UIButton) {
         resetCalculate()
+    }
+    
+}
+
+
+// MARK: - Table View delegate
+
+extension ViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        if let cell = tableView.cellForRow(at: indexPath) {
+            cell.contentView.backgroundColor = .clear
+        }
+        
+        goToSecondViewController()
+        
+    }
+    
+    func goToSecondViewController() {
+        let storyboard = UIStoryboard(name: "HistoryStoryboard", bundle: nil)
+        let nextViewController = storyboard.instantiateViewController(
+            withIdentifier: String(describing: HistoryTableViewController.self)) as! HistoryTableViewController
+        nextViewController.dataProvider = dataProvider
+        
+        show(nextViewController, sender: nil)
+        
     }
     
 }
