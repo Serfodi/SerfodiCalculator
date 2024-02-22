@@ -44,7 +44,7 @@ extension CalculationHistoryItem: Codable {
             return
         }
         
-        if let rawOperation = try container.decodeIfPresent(String.self, forKey: .operation),
+        if let rawOperation = try container.decodeIfPresent(Int.self, forKey: .operation),
         let operation = Operation(rawValue: rawOperation) {
             self = .operation(operation)
             return

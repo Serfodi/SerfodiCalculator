@@ -33,7 +33,18 @@ final class NumpadController: UIView {
     
     private var centerNumpadConstraint: NSLayoutConstraint!
     
-    
+    private lazy var swipeLRecognizer: UISwipeGestureRecognizer = {
+        let recognizer = UISwipeGestureRecognizer()
+        recognizer.addTarget(self, action: #selector(swipeL))
+        recognizer.direction = .right
+        return recognizer
+    }()
+    private lazy var swipeRRecognizer: UISwipeGestureRecognizer = {
+        let recognizer = UISwipeGestureRecognizer()
+        recognizer.addTarget(self, action: #selector(swipeR))
+        recognizer.direction = .left
+        return recognizer
+    }()
     
     private lazy var panRecognizer: InstantPanGestureRecognizer = {
         let recognizer = InstantPanGestureRecognizer()
@@ -65,6 +76,9 @@ final class NumpadController: UIView {
         backgroundColor = .clear
         
         setupConstrains()
+        
+        numpadView.addGestureRecognizer(swipeLRecognizer)
+        secondNumpadView.addGestureRecognizer(swipeRRecognizer)
         
         pullButton.addGestureRecognizer(panRecognizer)
         
@@ -105,6 +119,14 @@ extension NumpadController: NumpadDelegate {
 // MARK: Touch
 
 extension NumpadController {
+    
+    @objc private func swipeL() {
+        animateTransitionIfNeeded(to: .second, duration: 0.7)
+    }
+    
+    @objc private func swipeR() {
+        animateTransitionIfNeeded(to: .general, duration: 0.7)
+    }
     
     @objc private func dragSwipe(recognizer: UIPanGestureRecognizer) {
         

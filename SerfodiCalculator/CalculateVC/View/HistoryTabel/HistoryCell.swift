@@ -84,10 +84,13 @@ final class HistoryCell: UITableViewCell {
         let maxWidth = lengthLine
         var currentWidth = maxWidth
         
+        // 14 + 4
+        // sin45 
+        
         for item in calculation.expression {
             switch item{
             case .number(let number):
-                // 1. Форматируем число.
+                
                 let numberText = formatText(number: number, width: maxWidth - 1)
                 
                 if currentWidth - numberText.count < 2 {
@@ -112,7 +115,7 @@ final class HistoryCell: UITableViewCell {
                 text.append(testSign)
                 currentWidth -= 1
                 
-                if currentWidth - sign.rawValue.count == 0 {
+                if currentWidth - sign.getLiterallySymbol().count == 0 {
                     text.append(NSAttributedString(string: "\n"))
                     text.append(testSign)
                     currentWidth = maxWidth
@@ -163,8 +166,12 @@ extension HistoryCell {
         switch sign {
         case .pow2:
             return "²"
+        case .pow3:
+            return "³"
+        case .factX:
+            return "!"
         default:
-            return sign.rawValue
+            return sign.getLiterallySymbol()
         }
     }
     

@@ -96,6 +96,7 @@ extension ViewController {
             resetCalculate(clearLabel: false)
             inputLabel.showError()
         }
+        
     }
     
     /// Полный сброс калькулятора и вычислений.
@@ -148,10 +149,7 @@ extension ViewController: NumpadDelegate {
 
     
     func operating(_ sender: UIButton) {
-        guard let buttonText = sender.currentTitle,
-              let buttonOperation = Operation(rawValue: buttonText)
-        else { return }
-        
+        guard let buttonOperation = Operation(rawValue: sender.tag) else { return }
         guard let labelNumber = inputLabel.getNumber() else { return }
         
         if !isNewInput || calculator.count == 0 {
@@ -163,21 +161,15 @@ extension ViewController: NumpadDelegate {
         calculateResult { result in
             inputLabel.setTextLabel(number: result)
             SettingManager.shared.saveLastResult(result: result)
-            
             if buttonOperation.type() == .unary {
-                
                 calculator.removeHistory { calculationItems in
                     let calculation = Calculation(expression: calculationItems, result: result)
                     self.addNewExample(calculation)
                 }
-                
             }
-            
         }
-        
         isNewInput = true
     }
-
     
     func equal(_ sender: UIButton) {
         guard let labelNumber = inputLabel.getNumber() else { return }
