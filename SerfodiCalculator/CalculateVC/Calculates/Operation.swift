@@ -60,14 +60,14 @@ extension Operation {
     
     var priority: Int {
         switch self {
-        case .precent, .pow2, .pow3, .powEX, .pow10X, .pow2X,
-                .divisionByOne, .root2, .root3, .lnX, .log10X, .logY, .log2X, .factorial,
-                .sinX, .cosX, .tanX, .sinhX, .coshX, .tanhX, .powXY, .powYX, .rootYX:
-            return 0
         case .add, .subtract:
             return 1
         case .multiply, .divide:
             return 2
+        case .precent, .pow2, .pow3, .powEX, .pow10X, .pow2X,
+                .divisionByOne, .root2, .root3, .lnX, .log10X, .logY, .log2X, .factorial,
+                .sinX, .cosX, .tanX, .sinhX, .coshX, .tanhX, .powXY, .powYX, .rootYX:
+            return 3
         }
     }
     

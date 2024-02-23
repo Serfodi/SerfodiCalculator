@@ -6,8 +6,9 @@
 //
 
 import Foundation
+import UIKit
 
-extension Array where Element: Numeric {
+extension Array {
     
     /// [1, 2, 3] pop(2) -> [3, 2]
     mutating func pop(_ numberPopLast: Int) -> [Element]? {

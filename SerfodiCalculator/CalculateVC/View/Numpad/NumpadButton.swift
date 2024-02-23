@@ -46,6 +46,9 @@ final class NumpadButton: UIButton {
         switch buttonStyle {
         case .secondOperation(let operation):
             setTitle(operation.symbol(), for: .normal)
+            
+            
+            
             tag = operation.rawValue
         }
         

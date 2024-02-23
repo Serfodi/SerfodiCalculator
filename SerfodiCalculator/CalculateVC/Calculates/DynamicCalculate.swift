@@ -10,7 +10,7 @@ import Foundation
 final class DynamicCalculate: Calculate {
     
     public func calculate(items: [CalculationHistoryItem]) throws -> Double {
-        let postfix = toPostfix(calculationHistory: items)
+        let postfix = DynamicCalculate.toPostfix(calculationHistory: items)
         return try calculating(items: postfix)
     }
     
@@ -55,7 +55,7 @@ final class DynamicCalculate: Calculate {
     ///
     /// - Returns: Массив чисел и опираций в постфиксной нотации.
     ///
-    private func toPostfix(calculationHistory: [CalculationHistoryItem]) -> [CalculationHistoryItem] {
+    public static func toPostfix(calculationHistory: [CalculationHistoryItem]) -> [CalculationHistoryItem] {
         var items = calculationHistory
         var lastInputSign: Operation!
         
