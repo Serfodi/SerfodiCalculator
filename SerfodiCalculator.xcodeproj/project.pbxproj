@@ -22,6 +22,7 @@
 		B04BFDD02B77EA3F00ED7099 /* NumpadView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B04BFDCF2B77EA3F00ED7099 /* NumpadView.xib */; };
 		B059F1D82B878B360079EFFA /* HistoryStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B059F1D72B878B360079EFFA /* HistoryStoryboard.storyboard */; };
 		B059F1DA2B878D380079EFFA /* HistoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B059F1D92B878D380079EFFA /* HistoryTableViewController.swift */; };
+		B059F1E62B88FD8F0079EFFA /* Array + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B059F1E52B88FD8F0079EFFA /* Array + Extension.swift */; };
 		B064E2F42B5E9DD800E56208 /* UIColor + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B064E2F32B5E9DD800E56208 /* UIColor + Extension.swift */; };
 		B064E2F62B5EB7AB00E56208 /* CalculationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B064E2F52B5EB7AB00E56208 /* CalculationError.swift */; };
 		B064E2F82B5EB7D900E56208 /* Calculate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B064E2F72B5EB7D900E56208 /* Calculate.swift */; };
@@ -68,6 +69,7 @@
 		B04BFDCF2B77EA3F00ED7099 /* NumpadView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NumpadView.xib; sourceTree = "<group>"; };
 		B059F1D72B878B360079EFFA /* HistoryStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = HistoryStoryboard.storyboard; sourceTree = "<group>"; };
 		B059F1D92B878D380079EFFA /* HistoryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableViewController.swift; sourceTree = "<group>"; };
+		B059F1E52B88FD8F0079EFFA /* Array + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array + Extension.swift"; sourceTree = "<group>"; };
 		B064E2F32B5E9DD800E56208 /* UIColor + Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor + Extension.swift"; sourceTree = "<group>"; };
 		B064E2F52B5EB7AB00E56208 /* CalculationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculationError.swift; sourceTree = "<group>"; };
 		B064E2F72B5EB7D900E56208 /* Calculate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calculate.swift; sourceTree = "<group>"; };
@@ -181,6 +183,7 @@
 				B064E2FB2B5ED4F000E56208 /* UILabel + Extension.swift */,
 				B064E3092B61822400E56208 /* UITableView + Extension.swift */,
 				B064E31F2B6456D800E56208 /* CGSize + Extension.swift */,
+				B059F1E52B88FD8F0079EFFA /* Array + Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -377,6 +380,7 @@
 				B099E0C02B698690000670CE /* HistoryTableView.swift in Sources */,
 				B059F1DA2B878D380079EFFA /* HistoryTableViewController.swift in Sources */,
 				B064E3192B62BFF400E56208 /* UIWindow + Extension.swift in Sources */,
+				B059F1E62B88FD8F0079EFFA /* Array + Extension.swift in Sources */,
 				B02EC6612B5D8D4E00CE0122 /* ViewController.swift in Sources */,
 				B04BFDCE2B7373A800ED7099 /* NumpadView.swift in Sources */,
 				B099E0C92B6BF86F000670CE /* HistoryManager.swift in Sources */,

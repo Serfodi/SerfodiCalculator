@@ -66,7 +66,7 @@ final class Calculator {
     public func addOperation(_ operation: Operation) {
         if let sign = lastOperation {
             
-            if sign.type() == .binary {
+            if sign.type == .binary {
                 
                 if sign != operation {
                     calculationHistory.removeLast()

@@ -119,7 +119,7 @@ final class HistoryCell: UITableViewCell {
                 text.append(testSign)
                 currentWidth -= 1
                 
-                if currentWidth - sign.getLiterallySymbol().count == 0 {
+                if currentWidth - sign.symbol().count == 0 {
                     text.append(NSAttributedString(string: "\n"))
                     text.append(testSign)
                     currentWidth = maxWidth
@@ -172,10 +172,10 @@ extension HistoryCell {
             return "²"
         case .pow3:
             return "³"
-        case .factX:
+        case .factorial:
             return "!"
         default:
-            return sign.getLiterallySymbol()
+            return sign.symbol()
         }
     }
     

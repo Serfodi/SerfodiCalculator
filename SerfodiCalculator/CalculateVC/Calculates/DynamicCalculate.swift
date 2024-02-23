@@ -33,16 +33,8 @@ final class DynamicCalculate: Calculate {
                 stack.append(number)
                 
             case .operation(let operation):
-                
-                switch operation.type() {
-                case .binary:
-                    guard let two = stack.popLast(), let one = stack.popLast() else { break }
-                    result = try operation.calculate(one, two)
-                case .unary:
-                    guard let one = stack.popLast() else { break }
-                    result = try operation.calculate(one)
-                }
-                
+                guard let numbers = stack.pop(operation.type.rawValue) else { break }
+                result = try operation.calculate(numbers)
                 stack.append(result)
             }
         }
@@ -68,7 +60,7 @@ final class DynamicCalculate: Calculate {
         var lastInputSign: Operation!
         
         if case .operation(let operation) = items.last {
-            if operation.type() == .binary {
+            if operation.type == .binary {
                 items.removeLast()
                 lastInputSign = operation
             }
@@ -82,7 +74,7 @@ final class DynamicCalculate: Calculate {
             case .number(_):
                 output.append(index)
             case .operation(let operation):
-                while let last = stack.last, case .operation(let lastOp) = last, operation.priority() <= lastOp.priority() {
+                while let last = stack.last, case .operation(let lastOp) = last, operation.priority <= lastOp.priority {
                     output.append(stack.removeLast())
                 }
                 stack.append(index)
@@ -92,7 +84,7 @@ final class DynamicCalculate: Calculate {
                 
         if let lastSign = lastInputSign {
             if case .operation(let operation) = output.last {
-                if lastSign.priority() > operation.priority(), !output.isEmpty {
+                if lastSign.priority > operation.priority, !output.isEmpty {
                     output.removeLast()
                 }
             }

@@ -13,11 +13,11 @@ final class SecondNumpad: UIView, NumpadDelegate {
     public var delegate: NumpadDelegate?
         
     public let numpadButtons: [[NumpadButton]] = [
-        [NumpadButton(.secondOperation(.pow2)),    NumpadButton(.secondOperation(.sqrt2x)),  NumpadButton(.secondOperation(.cosX)),  NumpadButton(.secondOperation(.sinX))],
-        [NumpadButton(.secondOperation(.pow3)),    NumpadButton(.secondOperation(.sqrt3x)),  NumpadButton(.secondOperation(.tanX)),  NumpadButton(.secondOperation(.tanhX))],
-        [NumpadButton(.secondOperation(.powXY)),   NumpadButton(.secondOperation(.sqrtYX)),  NumpadButton(.secondOperation(.sinhX)), NumpadButton(.secondOperation(.coshX))],
-        [NumpadButton(.secondOperation(.x10)),     NumpadButton(.secondOperation(.precent)), NumpadButton(.secondOperation(.tanhX)), NumpadButton(.secondOperation(.x10))],
-        [NumpadButton(.secondOperation(.divide1)), NumpadButton(.secondOperation(.factX)),   NumpadButton(.secondOperation(.lnX)),   NumpadButton(.secondOperation(.log2X))]
+        [NumpadButton(.secondOperation(.pow2)),    NumpadButton(.secondOperation(.root2)),  NumpadButton(.secondOperation(.cosX)),  NumpadButton(.secondOperation(.sinX))],
+        [NumpadButton(.secondOperation(.pow3)),    NumpadButton(.secondOperation(.root3)),  NumpadButton(.secondOperation(.tanX)),  NumpadButton(.secondOperation(.tanhX))],
+        [NumpadButton(.secondOperation(.powXY)),   NumpadButton(.secondOperation(.rootYX)),  NumpadButton(.secondOperation(.sinhX)), NumpadButton(.secondOperation(.coshX))],
+        [NumpadButton(.secondOperation(.pow10X)),     NumpadButton(.secondOperation(.precent)), NumpadButton(.secondOperation(.tanhX)), NumpadButton(.secondOperation(.pow10X))],
+        [NumpadButton(.secondOperation(.divisionByOne)), NumpadButton(.secondOperation(.factorial)),   NumpadButton(.secondOperation(.lnX)),   NumpadButton(.secondOperation(.log2X))]
     ]
     
     private var mainVerticalStackView = UIStackView()

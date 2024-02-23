@@ -7,74 +7,75 @@
 
 import Foundation
 
-enum TypeOperation {
-    case binary
-    case unary
+enum TypeOperation: Int {
+    case binary = 2
+    case unary = 1
 }
 
 enum Operation: Int {
-    
+    // binary
     case add = 1
     case subtract = 2
     case multiply = 3
     case divide = 4
-    case precent = 5
+    case powXY = 5
+    case powYX = 6
+    case rootYX = 7
     
-    case pow2 = 101
-    case pow3 = 102
-    case powXY = 103
-    case powYX = 104
-    case powEX = 105
-    case x10 = 106
-    case x2 = 107
-    
-    case divide1 = 200
-    case sqrt2x = 201
-    case sqrt3x = 202
-    case sqrtYX = 203
-    
-    case lnX = 301
-    case log10X = 302
-    case logY = 303
-    case log2X = 304
-    
-    case factX = 400
-    
-    case sinX = 501
-    case cosX = 502
-    case tanX = 503
-    case sinhX = 504
-    case coshX = 505
-    case tanhX = 506
-    
+    // unary
+    case precent = 8
+    case pow2 = 9
+    case pow3 = 10
+    case powEX = 11
+    case pow10X = 12
+    case pow2X = 13
+    case divisionByOne = 14
+    case root2 = 16
+    case root3 = 15
+    case lnX = 17
+    case log10X = 18
+    case logY = 19
+    case log2X = 20
+    case factorial = 21
+    case sinX = 22
+    case cosX = 23
+    case tanX = 24
+    case sinhX = 25
+    case coshX = 26
+    case tanhX = 27
 }
 
 extension Operation {
     
-    func type() -> TypeOperation {
+    var type: TypeOperation {
         switch self {
-        case .add, .subtract, .multiply, .divide, .powXY, .powYX, .sqrtYX:
+        case .add, .subtract, .multiply, .divide, .powXY, .powYX, .rootYX:
             return .binary
-        default:
+        case .precent, .pow2, .pow3, .powEX, .pow10X, .pow2X,
+                .divisionByOne, .root2, .root3, .lnX, .log10X, .logY, .log2X, .factorial,
+                .sinX, .cosX, .tanX, .sinhX, .coshX, .tanhX:
             return .unary
         }
     }
     
-    func priority() -> Int {
+    var priority: Int {
         switch self {
-        case .add, .subtract: return 1
-        case .multiply, .divide: return 2
-        default:
+        case .precent, .pow2, .pow3, .powEX, .pow10X, .pow2X,
+                .divisionByOne, .root2, .root3, .lnX, .log10X, .logY, .log2X, .factorial,
+                .sinX, .cosX, .tanX, .sinhX, .coshX, .tanhX, .powXY, .powYX, .rootYX:
             return 0
+        case .add, .subtract:
+            return 1
+        case .multiply, .divide:
+            return 2
         }
     }
     
 }
 
-
 extension Operation {
     
-    func getLiterallySymbol() -> String {
+    func symbol() -> String {
         switch self {
             
         case .add:
@@ -98,18 +99,18 @@ extension Operation {
             return "yˣ"
         case .powEX:
             return "eˣ"
-        case .x10:
+        case .pow10X:
             return "10ˣ"
-        case .x2:
+        case .pow2X:
             return "2ˣ"
         
-        case .divide1:
+        case .divisionByOne:
             return "1/x"
-        case .sqrt2x:
+        case .root2:
             return "√x"
-        case .sqrt3x:
+        case .root3:
             return "∛x"
-        case .sqrtYX:
+        case .rootYX:
             return "ʸ√x"
             
         case .lnX:
@@ -121,7 +122,7 @@ extension Operation {
         case .log2X:
             return "log₂"
             
-        case .factX:
+        case .factorial:
             return "!x"
             
         case .sinX:
@@ -147,7 +148,7 @@ extension Operation {
 
 extension Operation {
     
-    func calculate(_ numbers: Double...) throws -> Double {
+    func calculate(_ numbers: [Double]) throws -> Double {
         try testOutRange(numbers: numbers)
         
         var result: Double = numbers[0]
@@ -170,18 +171,18 @@ extension Operation {
         case .pow2:
             result = pow(numbers[0], 2)
             
-        case .sqrt2x:
+        case .root2:
             if numbers[0] < 0 {
                 throw CalculationError.dividedByZero
             }
             result = pow(numbers[0], 0.5)
             
-        case .sqrt3x:
+        case .root3:
             if numbers[0] < 0 {
                 throw CalculationError.dividedByZero
             }
             result = pow(numbers[0], 1 / 3)
-        case .sqrtYX:
+        case .rootYX:
             if numbers[1] < 0 {
                 throw CalculationError.dividedByZero
             }
@@ -203,11 +204,11 @@ extension Operation {
             result = pow(numbers[1], numbers[0])
         case .powEX:
             result = pow(exp(1), numbers[0])
-        case .x10:
+        case .pow10X:
             result = pow(10, numbers[0])
-        case .x2:
+        case .pow2X:
             result = pow(2, numbers[0])
-        case .divide1:
+        case .divisionByOne:
             result = 1 / numbers[0]
             
         case .lnX:
@@ -219,7 +220,7 @@ extension Operation {
         case .log2X:
             result = log2(numbers[0])
             
-        case .factX:
+        case .factorial:
             
             if numbers[0].truncatingRemainder(dividingBy: 1) == 0 {
                 result = Double( factorial(Int(numbers[0])) )
@@ -289,3 +290,9 @@ extension Operation {
     
 }
 
+/*
+ 
+ sign.type == .binary
+ operation.priority <= lastOp.priority
+ 
+ */
