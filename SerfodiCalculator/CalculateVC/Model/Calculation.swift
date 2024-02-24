@@ -12,5 +12,4 @@ struct Calculation {
     let result: Double
 }
 
-
 extension Calculation: Codable {}

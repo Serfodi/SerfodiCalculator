@@ -50,7 +50,6 @@
 		B099E0C72B6BF016000670CE /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B099E0C62B6BF016000670CE /* DataProvider.swift */; };
 		B099E0C92B6BF86F000670CE /* HistoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B099E0C82B6BF86F000670CE /* HistoryManager.swift */; };
 		B099E0CB2B6C03DA000670CE /* SettingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B099E0CA2B6C03DA000670CE /* SettingManager.swift */; };
-		B099E0CF2B6C3983000670CE /* InputNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = B099E0CE2B6C3983000670CE /* InputNumber.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -99,7 +98,6 @@
 		B099E0C62B6BF016000670CE /* DataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProvider.swift; sourceTree = "<group>"; };
 		B099E0C82B6BF86F000670CE /* HistoryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryManager.swift; sourceTree = "<group>"; };
 		B099E0CA2B6C03DA000670CE /* SettingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingManager.swift; sourceTree = "<group>"; };
-		B099E0CE2B6C3983000670CE /* InputNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputNumber.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -219,7 +217,6 @@
 			children = (
 				B064E2F72B5EB7D900E56208 /* Calculate.swift */,
 				B099E0C12B6AA1F1000670CE /* DynamicCalculate.swift */,
-				B064E3032B61728000E56208 /* Operation.swift */,
 			);
 			path = Calculates;
 			sourceTree = "<group>";
@@ -244,9 +241,9 @@
 		B064E3212B646E4400E56208 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				B064E30E2B62707500E56208 /* CalculationHistoryItem.swift */,
 				B064E3122B62B62300E56208 /* Calculation.swift */,
-				B099E0CE2B6C3983000670CE /* InputNumber.swift */,
+				B064E30E2B62707500E56208 /* CalculationHistoryItem.swift */,
+				B064E3032B61728000E56208 /* Operation.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -378,7 +375,6 @@
 			files = (
 				B064E3042B61728000E56208 /* Operation.swift in Sources */,
 				B00257B72B7F7BE100311188 /* SecondNumpad.swift in Sources */,
-				B099E0CF2B6C3983000670CE /* InputNumber.swift in Sources */,
 				B064E30C2B626F4600E56208 /* Storage.swift in Sources */,
 				B00257B92B7FC05C00311188 /* PullButton.swift in Sources */,
 				B064E2F82B5EB7D900E56208 /* Calculate.swift in Sources */,
