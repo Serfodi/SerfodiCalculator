@@ -70,14 +70,12 @@ extension Operation {
             return 3
         }
     }
-    
 }
 
 extension Operation {
     
     func symbol() -> String {
         switch self {
-            
         case .add:
             return "+"
         case .subtract:
@@ -139,10 +137,7 @@ extension Operation {
             return "tanh"
         }
     }
-    
 }
-
-
 
 // MARK: Calculate
 
@@ -287,7 +282,6 @@ extension Operation {
             throw CalculationError.outOfRang
         }
     }
-    
 }
 
 /*

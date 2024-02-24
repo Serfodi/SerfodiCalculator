@@ -33,6 +33,8 @@ final class HistoryCell: UITableViewCell {
         label.textAlignment = .right
         label.lineBreakMode = .byTruncatingTail
         label.numberOfLines = 4
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.95
         label.textColor = .exampleColorNumber()
         return label
     }()
@@ -52,6 +54,7 @@ final class HistoryCell: UITableViewCell {
         selectedBackgroundView = bgColorView
         
         setupNumberLabel()
+        numberLabel.frame = self.frame
     }
     
     required init?(coder: NSCoder) {
@@ -68,48 +71,35 @@ final class HistoryCell: UITableViewCell {
     /// Функция настройки из контролера
     public func config(calculation: Calculation) {
         self.calculation = calculation
-        expressionString(calculation, lengthLine: maximumDigitsInLine())
+        expressionString(calculation)
     }
-    
-    /// Возврощяет максимальное кол-во символов в строке
-    private func maximumDigitsInLine() -> Int {
-        let oneDigitWidth = numberLabel.size(text: "2").width
-        let roundWidth = round(oneDigitWidth * 10) / 10
-        let lengthLine = Int( bounds.width / roundWidth)
-        return lengthLine
-    }
-    
     
     // MARK: @FIX IT
     
-    private func expressionString(_ calculation: Calculation, lengthLine: Int ) {
+    private func expressionString(_ calculation: Calculation) {
         let text = NSMutableAttributedString()
         
-        let maxWidth = lengthLine
-        var currentWidth = maxWidth
-        
-        // 14 + 4
-        // sin45 
+        var currentLine = ""
         
         for item in calculation.expression {
             switch item{
             case .number(let number):
                 
-                let numberText = formatText(number: number, width: maxWidth - 1)
+                let numberText = formatText(number: number, currentLineText: "0")
                 
-                if currentWidth - numberText.count < 2 {
+                if !isFitText(currentLineText: currentLine, addingText: numberText) {
                     let textS: String = text.string
                     let last = String(textS.suffix(1))
                     text.append(NSAttributedString(string: "\n"))
                     let testSign = createAtt(text: last, color: .exampleColorSign())
                     text.append(testSign)
-                    currentWidth = maxWidth - 1
+                    currentLine = last
                 }
                 
                 let textAS = NSAttributedString(string: numberText)
                 text.append(textAS)
                 
-                currentWidth -= numberText.count
+                currentLine.append(numberText)
                 
             case .operation(let sign):
                 
@@ -117,19 +107,19 @@ final class HistoryCell: UITableViewCell {
                 let testSign = createAtt(text: symbolSign, color: .exampleColorSign())
                 
                 text.append(testSign)
-                currentWidth -= 1
+                currentLine.append(symbolSign)
                 
-                if currentWidth - sign.symbol().count == 0 {
-                    text.append(NSAttributedString(string: "\n"))
-                    text.append(testSign)
-                    currentWidth = maxWidth
-                }
+//                if currentWidth - sign.symbol().count == 0 {
+//                    text.append(NSAttributedString(string: "\n"))
+//                    text.append(testSign)
+//                    currentWidth = maxWidth
+//                }
             }
         }
         
-        let numberText = formatText(number: calculation.result, width: maxWidth - 1)
+        let numberText = formatText(number: calculation.result, currentLineText: "0")
         
-        if currentWidth - numberText.count < 0  {
+        if !isFitText(currentLineText: currentLine, addingText: numberText)  {
             text.append(createAtt(text: "=", color: .exampleColorEqual()))
             text.append(NSAttributedString(string: "\n"))
         }
@@ -140,16 +130,15 @@ final class HistoryCell: UITableViewCell {
         numberLabel.attributedText = text
     }
     
-    
-    private func isFitNumber(inLine width: Int, forText number: String) -> Bool {
-        width - number.count > 0
+    private func isFitText(currentLineText: String, addingText: String) -> Bool {
+        let text = currentLineText + addingText
+        return self.numberLabel.isFitTextInto(text)
     }
     
-    
     /// Форматирует число
-    private func formatText(number: Double, width: Int ) -> String {
+    private func formatText(number: Double, currentLineText: String) -> String {
         try! dynamicNumberFormatter.fitInBounds(number: number as NSNumber) { numberText in
-            isFitNumber(inLine: width, forText: numberText)
+            isFitText(currentLineText: currentLineText, addingText: numberText)
         }
     }
     

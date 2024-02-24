@@ -83,7 +83,6 @@ final class DynamicNumberFormatter {
         throw DynamicNumberFormatterError.fitFormattingFailure(number: number)
     }
     
-    
     /// Функция уменьшения точности для форматера
     ///
     /// Это нужно что можно было увместить число на экран, если появлются переодичная дробь или очень большое число.
@@ -103,64 +102,48 @@ final class DynamicNumberFormatter {
         return nil
     }
     
-    
-    
 }
 
-
-/**
- 
- Производит деление с форматированием периодической дроби
- ````
- func convert(num: 1, denominator: 3) -> 0.(3)
- ````
-  - Note: Нужно знать делимое
- 
- */
-/*
 extension DynamicNumberFormatter {
     
-    private func convert(num: Double, denominator: Double) {
-        var numerator = num
-        
-        let integer_part = "\( Int((numerator / denominator).rounded(.towardZero)) )"
-        
-        var ans = ""
-        var l: [Double] = []
-        
-        numerator = numerator.truncatingRemainder(dividingBy: denominator)
-        
-        l.append(numerator)
-        
-        
-        if numerator == 0 {
-            print(integer_part)
-            return
+    /// Функция  подбирает формат числа под заданную рамку.
+    ///
+    /// - Parameters:
+    /// number число которое будет форматироваться
+    /// size размер рамки
+    ///
+    public func fitInBounds(number: NSNumber, isFit textInto: (NSAttributedString) -> Bool ) throws -> NSAttributedString {
+        if let text = lessPrecise(number, numberFormatterDec, textInto) {
+            return text
         }
-        
-        while true {
-            
-            if numerator == 0 {
-                print("\(integer_part).\(ans)")
-                return
-            }
-            
-            let digit = (numerator * 10.0 / denominator).rounded(.towardZero)
-            numerator = (numerator * 10.0).truncatingRemainder(dividingBy: denominator)
-            
-            ans += "\(Int(digit))"
-            
-            if !l.contains(numerator) {
-                l.append(numerator)
-            } else {
-                print("\(integer_part).(\(ans))")
-                print(l)
-                return
-            }
+        if let text = lessPrecise(number, numberFormatterE, textInto) {
+            return text
         }
+        throw DynamicNumberFormatterError.fitFormattingFailure(number: number)
     }
     
+    /// Функция уменьшения точности для форматера
+    ///
+    /// Это нужно что можно было увместить число на экран, если появлются переодичная дробь или очень большое число.
+    private func lessPrecise(_ number: NSNumber,
+                             _ formatter: NumberFormatter,
+                             _ textInto: (NSAttributedString) -> Bool) -> NSAttributedString?
+    {
+        let max = formatter.maximumSignificantDigits
+        for i in 1...max {
+            let text = performAtt(formatter: formatter, number: number)
+            if textInto(text) { return text }
+            formatter.maximumSignificantDigits = max - i
+        }
+        defer {
+            formatter.maximumSignificantDigits = max
+        }
+        return nil
+    }
+    
+    private func performAtt(formatter: NumberFormatter, number: NSNumber) -> NSAttributedString {
+        let text = formatter.string(from: number)!
+        return NSAttributedString(string: text)
+    }
     
 }
-*/
-
