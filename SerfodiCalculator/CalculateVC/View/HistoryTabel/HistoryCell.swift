@@ -12,8 +12,6 @@ final class HistoryCell: UITableViewCell {
     
     static let reuseId = "historyCell"
     
-    private var dynamicNumberFormatter = DynamicNumberFormatter()
-    
     private let numberLabel = ExpressionLabel()
     
     private var calculation: Calculation!

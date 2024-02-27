@@ -25,6 +25,7 @@
 		B059F1E62B88FD8F0079EFFA /* Array + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B059F1E52B88FD8F0079EFFA /* Array + Extension.swift */; };
 		B059F1E82B891CA10079EFFA /* ExpressionLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B059F1E72B891CA10079EFFA /* ExpressionLabel.swift */; };
 		B059F1EA2B8A0A500079EFFA /* NSAttributedString + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B059F1E92B8A0A500079EFFA /* NSAttributedString + Extension.swift */; };
+		B059F1EC2B8C98C10079EFFA /* ExpressionStringAttribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = B059F1EB2B8C98C10079EFFA /* ExpressionStringAttribute.swift */; };
 		B064E2F42B5E9DD800E56208 /* UIColor + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B064E2F32B5E9DD800E56208 /* UIColor + Extension.swift */; };
 		B064E2F62B5EB7AB00E56208 /* CalculationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B064E2F52B5EB7AB00E56208 /* CalculationError.swift */; };
 		B064E2F82B5EB7D900E56208 /* Calculate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B064E2F72B5EB7D900E56208 /* Calculate.swift */; };
@@ -73,6 +74,7 @@
 		B059F1E52B88FD8F0079EFFA /* Array + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array + Extension.swift"; sourceTree = "<group>"; };
 		B059F1E72B891CA10079EFFA /* ExpressionLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpressionLabel.swift; sourceTree = "<group>"; };
 		B059F1E92B8A0A500079EFFA /* NSAttributedString + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAttributedString + Extension.swift"; sourceTree = "<group>"; };
+		B059F1EB2B8C98C10079EFFA /* ExpressionStringAttribute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpressionStringAttribute.swift; sourceTree = "<group>"; };
 		B064E2F32B5E9DD800E56208 /* UIColor + Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor + Extension.swift"; sourceTree = "<group>"; };
 		B064E2F52B5EB7AB00E56208 /* CalculationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculationError.swift; sourceTree = "<group>"; };
 		B064E2F72B5EB7D900E56208 /* Calculate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calculate.swift; sourceTree = "<group>"; };
@@ -270,6 +272,7 @@
 			isa = PBXGroup;
 			children = (
 				B059F1E72B891CA10079EFFA /* ExpressionLabel.swift */,
+				B059F1EB2B8C98C10079EFFA /* ExpressionStringAttribute.swift */,
 				B064E3012B6039A600E56208 /* HistoryCell.swift */,
 				B099E0BF2B698690000670CE /* HistoryTableView.swift */,
 			);
@@ -398,6 +401,7 @@
 				B04BFDCC2B736E7200ED7099 /* NumpadButton.swift in Sources */,
 				B00257BD2B848C7200311188 /* InstantPanGestureRecognizer.swift in Sources */,
 				B064E2FA2B5ED38800E56208 /* UIButton + Extension.swift in Sources */,
+				B059F1EC2B8C98C10079EFFA /* ExpressionStringAttribute.swift in Sources */,
 				B064E3172B62B9EE00E56208 /* NumberFormatter + Extension.swift in Sources */,
 				B099E0C72B6BF016000670CE /* DataProvider.swift in Sources */,
 				B064E3132B62B62300E56208 /* Calculation.swift in Sources */,

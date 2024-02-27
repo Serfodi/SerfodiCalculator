@@ -161,12 +161,15 @@ extension ViewController: NumpadDelegate {
         calculateResult { result in
             inputLabel.setTextLabel(number: result)
             SettingManager.shared.saveLastResult(result: result)
+            
             if buttonOperation.type == .unary {
                 calculator.removeHistory { calculationItems in
+                    
                     let calculation = Calculation(expression: calculationItems, result: result)
                     self.addNewExample(calculation)
                 }
             }
+            
         }
         isNewInput = true
     }

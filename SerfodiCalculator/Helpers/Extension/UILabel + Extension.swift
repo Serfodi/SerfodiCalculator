@@ -64,11 +64,17 @@ extension UILabel {
         return size <= bounds.size
     }
     
+    public func isFitTextInto(_ text: NSAttributedString) -> Bool {
+        return text.size() <= bounds.size
+    }
+    
+    
     /// Можно ли записать текст в `UILabel`
     public func isFitTextInto(_ text: String?, scale width: CGFloat = 1.0, _ height: CGFloat = 1.0) -> Bool {
         let size = size(text: text, scale: width, height)
         return size <= bounds.size
     }
+    
     
     
 }

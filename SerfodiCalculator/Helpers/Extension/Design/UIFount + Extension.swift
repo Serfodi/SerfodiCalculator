@@ -19,6 +19,10 @@ extension UIFont {
         UIFont(name: "SFPro-Medium", size: 26)!
     }
     
+    static func exampleScript() -> UIFont {
+        UIFont(name: "SFPro-Medium", size: 14)!
+    }
+    
     static func numpad35() -> UIFont {
         UIFont(name: "SFPro-Medium", size: 35)!
     }

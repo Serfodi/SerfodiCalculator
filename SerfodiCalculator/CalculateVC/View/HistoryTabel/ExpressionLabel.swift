@@ -9,6 +9,8 @@ import UIKit
 
 class ExpressionLabel: UILabel {
 
+    private var dynamicNumberFormatter = DynamicNumberFormatter()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         configure()
@@ -25,7 +27,7 @@ class ExpressionLabel: UILabel {
         numberOfLines = 4
         font = .example26()
         adjustsFontSizeToFitWidth = true
-        minimumScaleFactor = 0.95
+        minimumScaleFactor = 0.5
         textColor = .exampleColorNumber()
     }
    
@@ -38,33 +40,30 @@ extension ExpressionLabel {
     /// Устонавливает прмер в Label
     public func expression(_ expression: Calculation) {
         let postfix = DynamicCalculate.toPostfix(calculationHistory: expression.expression)
-        // add style text
-        let textArray = parsing(items: postfix)
-        let array = addResult(expression.result, in: textArray)
-        // output text
-        outputLabel(expression: array)
+        let textArray = parsing(Calculation(expression: postfix, result: expression.result))
+        
+        outputLabel(expression: textArray)
     }
+    
     
     /// Парсит опирации и числа.
     /// Накладывает на них стиль. В зависимости от опирации.
     /// Банарные опирации: сложения, вычитания, умнжения, деления игнорирует. Просто накладывает атрибуты текста.
-    private func parsing(items: [CalculationHistoryItem]) -> [String] {
-        
+    private func parsing(_ calculate: Calculation) -> [String] {
         var result: String = ""
         var stack = [String]()
-        
-        for index in items {
+        for index in calculate.expression {
             switch index {
-                
             case .number(let number):
                 
-                let numberText = String(number)
-                stack.append(numberText)
+                if let sign = calculate.firstOperation {
+                    let signText = symbol(["0"], operation: sign)
+                    let numberText = formatText(number: number, currentLineText: signText + "===")
+                    stack.append(numberText)
+                }
                 
             case .operation(let operation):
-                
                 guard let items = stack.pop(operation.type.rawValue) else { break }
-                              
                 switch operation {
                 case .add, .multiply, .divide, .subtract:
                     stack.append(items[0])
@@ -74,21 +73,14 @@ extension ExpressionLabel {
                     result = symbol(items, operation: operation)
                     stack.append(result)
                 }
-                
             }
         }
-        
+        stack.append("=")
+        let numberText = formatText(number: calculate.result, currentLineText: "=")
+        stack.append(numberText)
         return stack
     }
     
-    /// Накадывает отрибуты на равно и ответ.
-    private func addResult(_ result: Double, in current: [String]) -> [String] {
-        var array = current
-        array.append("=")
-        let resultText = String( result )
-        array.append(resultText)
-        return array
-    }
     
     /// Выводит массив текста на экран.
     ///
@@ -98,7 +90,6 @@ extension ExpressionLabel {
     ///
     private func outputLabel(expression: [String]) {
         var expression = expression
-        
         var text = String()
         var currentLineText = String()
         var last = String()
@@ -110,25 +101,26 @@ extension ExpressionLabel {
             
             currentLineText.append(item)
             
-            if !isFitTextInto(currentLineText) {
+            if !isFitTextInto(currentLineText, scale: 0.9) {
                 
                 text.append("\n")
                 text.append(last)
-
+                
                 currentLineText = ""
                 currentLineText.append(item)
                 currentLineText.append(last)
             }
+            
             last = item
             
             text.append(item)
         }
-        
         self.text = text
     }
     
 }
 
+// MARK: operation
 
 extension ExpressionLabel {
     
@@ -136,7 +128,7 @@ extension ExpressionLabel {
         switch operation {
             
         case .add, .subtract, .multiply, .divide:
-            return ""
+            return operation.symbol()
         case .powXY:
             return numbers[0] + "^" + numbers[1]
         case .powYX:
@@ -198,25 +190,35 @@ extension ExpressionLabel {
 }
 
 
-//enum Script: Int {
-//        case non = 0
-//        case superscripts = 1
-//        case subscripts = -1
-//    }
-//
-//    func addAtt(_ text: String) -> NSAttributedString {
-//        NSAttributedString(string: text)
-//    }
-//
-//    func addAtt(_ text: String, font: UIFont, color: UIColor, script: Script = .non) -> NSAttributedString {
-//        let att: [NSAttributedString.Key : Any] = [
-//            .font: font,
-//            .foregroundColor: color,
-//            .baselineOffset: font.lineHeight * CGFloat( script.rawValue )
-//        ]
-//        return NSAttributedString(string: text, attributes: att)
-//    }
+// MARK: - Formatting
 
+extension ExpressionLabel {
+    
+    private func formatText(number: Double, currentLineText: String) -> String {
+        try! dynamicNumberFormatter.fitInBounds(number: number as NSNumber) { numberText in
+            isFitTextInto(numberText + currentLineText)
+        }
+    }
+    
+    /// Форматирует число
+    private func formattingNumber(число: Double, текущяяСтрока: String, форматирование: (Double, String) -> String, аттрибуты: (String) -> NSAttributedString  ) -> NSAttributedString   {
+        аттрибуты(форматирование(число, текущяяСтрока))
+    }
+    
+    func addAtt(_ text: String, script: Script) -> NSAttributedString {
+        let att: [NSAttributedString.Key : Any] = [
+            .font: UIFont.exampleScript(),
+            .baselineOffset: UIFont.exampleScript().pointSize / 2 * CGFloat( script.rawValue )
+        ]
+        return NSAttributedString(string: text, attributes: att)
+    }
+    
+    enum Script: Int {
+        case superscripts = 1
+        case subscripts = -1
+    }
+    
+}
 
 
 /*
