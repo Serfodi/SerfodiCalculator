@@ -27,8 +27,8 @@ class ExpressionLabel: UILabel {
         numberOfLines = 4
         font = .example26()
         adjustsFontSizeToFitWidth = true
-        minimumScaleFactor = 0.5
-        textColor = .exampleColorNumber()
+        minimumScaleFactor = 0.9
+        textColor = .exampleColorEqual()
     }
    
 }
@@ -52,7 +52,9 @@ extension ExpressionLabel {
     private func parsing(_ calculate: Calculation) -> [String] {
         var result: String = ""
         var stack = [String]()
+        
         for index in calculate.expression {
+            
             switch index {
             case .number(let number):
                 
@@ -64,23 +66,25 @@ extension ExpressionLabel {
                 
             case .operation(let operation):
                 guard let items = stack.pop(operation.type.rawValue) else { break }
+                
                 switch operation {
                 case .add, .multiply, .divide, .subtract:
                     stack.append(items[0])
                     stack.append(operation.symbol())
                     stack.append(items[1])
+                    
                 default:
                     result = symbol(items, operation: operation)
                     stack.append(result)
                 }
             }
         }
+        
         stack.append("=")
         let numberText = formatText(number: calculate.result, currentLineText: "=")
         stack.append(numberText)
         return stack
     }
-    
     
     /// Выводит массив текста на экран.
     ///
@@ -101,7 +105,7 @@ extension ExpressionLabel {
             
             currentLineText.append(item)
             
-            if !isFitTextInto(currentLineText, scale: 0.9) {
+            if !isFitTextInto(currentLineText, scale: 0.99) {
                 
                 text.append("\n")
                 text.append(last)
@@ -120,13 +124,92 @@ extension ExpressionLabel {
     
 }
 
+/*
+
+extension ExpressionLabel {
+    
+    /// Парсит опирации и числа.
+    /// Накладывает на них стиль. В зависимости от опирации.
+    /// Банарные опирации: сложения, вычитания, умнжения, деления игнорирует. Просто накладывает атрибуты текста.
+    private func parsing2(_ calculate: Calculation) -> [NSAttributedString] {
+        var result = NSAttributedString()
+        var stack = [NSAttributedString]()
+        
+        for index in calculate.expression {
+            
+            switch index {
+            case .number(let number):
+                
+                if let sign = calculate.firstOperation {
+                    let signText = symbol(["0", "0"], operation: sign)
+                    let numberText = formatText(number: number, currentLineText: signText + "===")
+                    
+                    stack.append(NSAttributedString(string: numberText))
+                }
+                
+            case .operation(let operation):
+                guard let items = stack.pop(operation.type.rawValue) else { break }
+                result = symbol(items, operation: operation)
+                stack.append(result)
+            }
+        }
+        
+        stack.append(NSAttributedString(string: "="))
+        let numberText = formatText(number: calculate.result, currentLineText: "=")
+        stack.append(NSAttributedString(string: numberText))
+        
+        return stack
+    }
+    
+    
+    /// Выводит массив текста на экран.
+    ///
+    /// - Note: Опирации бинарного типа можно разделить на две строчки. Уранрные операнды разделять на строчки нельзя.
+    ///
+    /// - Parameter expression Это массив из отфармотированных чисел и бинарных опираций
+    ///
+    private func outputLabel(expression: [NSAttributedString]) {
+        var expression = expression
+        let text = NSMutableAttributedString()
+        var currentLineText = NSMutableAttributedString()
+        var last = NSAttributedString()
+        
+        while !expression.isEmpty {
+            
+            let item = expression.first!
+            expression.removeFirst()
+            
+            currentLineText.append(item)
+            
+            if !isFitTextInto(currentLineText) {
+                
+                text.append(NSAttributedString(string: "\n"))
+                text.append(last)
+                
+                currentLineText = NSMutableAttributedString()
+                currentLineText.append(item)
+                currentLineText.append(last)
+            }
+            
+            last = item
+            
+            text.append(item)
+        }
+        
+        self.attributedText = text
+    }
+    
+}
+*/
+
+
+
 // MARK: operation
 
 extension ExpressionLabel {
     
     private func symbol(_ numbers: [String], operation: Operation) -> String {
         switch operation {
-            
         case .add, .subtract, .multiply, .divide:
             return operation.symbol()
         case .powXY:
@@ -144,7 +227,6 @@ extension ExpressionLabel {
             return numbers[0] + "²"
         case .pow3:
             return numbers[0] + "³"
-            
             
         case .powEX:
             return "e" + "^" + numbers[0]
@@ -184,9 +266,94 @@ extension ExpressionLabel {
         case .tanhX:
             return "tanh(" + numbers[0] + ")"
         }
-        
     }
     
+    /*
+    
+    // fix it
+    private func symbol(_ numbers: [NSAttributedString], operation: Operation) -> NSMutableAttributedString {
+        let result = NSMutableAttributedString()
+        switch operation {
+        case .add:
+            result.append(numbers[0])
+            result.append(NSAttributedString(string: "+"))
+            result.append(numbers[1])
+        case .subtract:
+            result.append(numbers[0])
+            result.append(NSAttributedString(string: "-"))
+            result.append(numbers[1])
+        case .multiply:
+            result.append(numbers[0])
+            result.append(NSAttributedString(string: "×"))
+            result.append(numbers[1])
+        case .divide:
+            result.append(numbers[0])
+            result.append(NSAttributedString(string: "÷"))
+            result.append(numbers[1])
+        case .powXY:
+            result.append(numbers[0])
+            result.append(addAtt(numbers[1].string, script: .superscripts))
+        case .powYX:
+            result.append(numbers[1])
+            result.append(addAtt(numbers[0].string, script: .superscripts))
+        case .rootYX:
+            result.append(addAtt(numbers[0].string, script: .non))
+            result.append(NSAttributedString(string: "√"))
+            result.append(numbers[1])
+        case .precent:
+            result.append(numbers[0])
+            result.append(NSAttributedString(string: "%"))
+        case .pow2:
+            result.append(numbers[0])
+            result.append(addAtt("2", script: .superscripts))
+        case .pow3:
+            result.append(numbers[0])
+            result.append(addAtt("3", script: .superscripts))
+        case .powEX:
+            result.append(NSAttributedString(string: "E"))
+            result.append(addAtt(numbers[0].string, script: .superscripts))
+        case .pow10X:
+            result.append(NSAttributedString(string: "10"))
+            result.append(addAtt(numbers[0].string, script: .superscripts))
+        case .pow2X:
+            result.append(NSAttributedString(string: "2"))
+            result.append(addAtt(numbers[0].string, script: .superscripts))
+        case .divisionByOne:
+            ()
+        case .root2:
+            result.append(NSAttributedString(string: "√"))
+            result.append(numbers[0])
+        case .root3:
+            result.append(addAtt("3", script: .non))
+            result.append(NSAttributedString(string: "√"))
+            result.append(numbers[1])
+        case .lnX:
+            ()
+        case .log10X:
+            ()
+        case .logY:
+            ()
+        case .log2X:
+            ()
+        case .factorial:
+            ()
+        case .sinX:
+            ()
+        case .cosX:
+            ()
+        case .tanX:
+            ()
+        case .sinhX:
+            ()
+        case .coshX:
+            ()
+        case .tanhX:
+            ()
+        }
+        return result
+    }
+    
+    */
 }
 
 
@@ -200,24 +367,43 @@ extension ExpressionLabel {
         }
     }
     
-    /// Форматирует число
-    private func formattingNumber(число: Double, текущяяСтрока: String, форматирование: (Double, String) -> String, аттрибуты: (String) -> NSAttributedString  ) -> NSAttributedString   {
-        аттрибуты(форматирование(число, текущяяСтрока))
+    /*
+    
+    private func formatText(number: Double, currentLineText: NSMutableAttributedString, att: (String) -> NSAttributedString) -> NSAttributedString {
+        let numberText = try! dynamicNumberFormatter.fitInBounds(number: number as NSNumber)
+        { numberText in
+            let line = NSMutableAttributedString()
+            let textAtt = att(numberText)
+            line.append(textAtt)
+            line.append(currentLineText)
+            return isFitTextInto(line)
+        }
+        return att(numberText)
     }
     
-    func addAtt(_ text: String, script: Script) -> NSAttributedString {
+    private func addAtt(_ text: String, script: Script) -> NSAttributedString {
         let att: [NSAttributedString.Key : Any] = [
             .font: UIFont.exampleScript(),
-            .baselineOffset: UIFont.exampleScript().pointSize / 2 * CGFloat( script.rawValue )
+            .baselineOffset: UIFont.exampleScript().pointSize * script.rawValue
         ]
         return NSAttributedString(string: text, attributes: att)
     }
     
-    enum Script: Int {
+    private func addAttNumber(_ numberText: String) -> NSAttributedString {
+        let attributes = [NSAttributedString.Key.foregroundColor: UIColor.black,
+                          .font: UIFont.example26()]
+        let attributedQuote = NSAttributedString(string: numberText, attributes: attributes)
+        return attributedQuote
+    }
+    
+    private enum Script: CGFloat {
+        case non = 0.6
         case superscripts = 1
         case subscripts = -1
     }
-    
+ 
+     */
+     
 }
 
 
