@@ -1,45 +1,38 @@
 //
-//  TableViewController.swift
+//  HistoryTableViewController.swift
 //  SerfodiCalculator
 //
-//  Created by Сергей Насыбуллин on 22.02.2024.
+//  Created by Сергей Насыбуллин on 10.03.2024.
 //
 
 import UIKit
 
 class HistoryTableViewController: UITableViewController {
 
-//    static let 
-    
-    
-    public var dataProvider: DataProvider!
+    public var topBar: UINavigationBar {
+        get {
+            navigationController!.navigationBar
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        configure()
         
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        navigationController?.navigationBar.topItem?.title = "История"
+        navigationController?.navigationBar.prefersLargeTitles = true
+        
+        self.tableView.contentInsetAdjustmentBehavior = .never
+        
+        tableView = HistoryTableView()
+        
     }
 
-    private func configure() {
-        tableView.register(HistoryCell.self, forCellReuseIdentifier: HistoryCell.reuseId)
-        tableView.dataSource = dataProvider
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        navigationController?.navigationBar.alpha = 0
+        navigationController?.isNavigationBarHidden = true
+        
     }
     
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

@@ -15,18 +15,14 @@
         </array>
     </customFonts>
     <scenes>
-        <!--View Controller-->
+        <!--История-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="SerfodiCalculator" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ViewController" id="BYZ-38-t0r" customClass="ViewController" customModule="SerfodiCalculator" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="clF-G7-Q18" customClass="HistoryTableView" customModule="SerfodiCalculator" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="393" height="348"/>
-                                <color key="backgroundColor" systemColor="systemGray5Color"/>
-                            </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="right" lineBreakMode="clip" baselineAdjustment="alignBaselines" minimumScaleFactor="1" translatesAutoresizingMaskIntoConstraints="NO" id="oKN-Hv-xpk" customClass="DisplayLabel" customModule="SerfodiCalculator" customModuleProvider="target">
                                 <rect key="frame" x="30" y="328" width="333" height="80"/>
                                 <constraints>
@@ -47,40 +43,40 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="clF-G7-Q18" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="1cr-j1-bST"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="oKN-Hv-xpk" secondAttribute="trailing" constant="30" id="3Tr-fx-qSQ"/>
                             <constraint firstItem="OrW-TW-rpN" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="LNc-jr-fgl"/>
                             <constraint firstItem="OrW-TW-rpN" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Ppz-AG-cqS"/>
-                            <constraint firstItem="clF-G7-Q18" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="Rsd-aE-g4W"/>
                             <constraint firstItem="oKN-Hv-xpk" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="30" id="a1P-xX-XQU"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="OrW-TW-rpN" secondAttribute="bottom" constant="10" id="a4b-44-dCA"/>
                             <constraint firstItem="OrW-TW-rpN" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="b6d-ju-LL7"/>
                             <constraint firstItem="OrW-TW-rpN" firstAttribute="top" secondItem="oKN-Hv-xpk" secondAttribute="bottom" constant="10" id="cNN-LO-ae8"/>
-                            <constraint firstItem="oKN-Hv-xpk" firstAttribute="top" secondItem="clF-G7-Q18" secondAttribute="bottom" constant="-20" id="qrQ-r8-rOw"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="clF-G7-Q18" secondAttribute="trailing" id="rLe-ic-Uiu"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="1Zb-1K-SHK"/>
+                    <navigationItem key="navigationItem" title="История" largeTitleDisplayMode="never" id="1Zb-1K-SHK">
+                        <barButtonItem key="leftBarButtonItem" image="gearshape.fill" catalog="system" id="SDE-18-fJa">
+                            <color key="tintColor" systemColor="opaqueSeparatorColor"/>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
-                        <outlet property="historyTableView" destination="clF-G7-Q18" id="9T7-fQ-bvJ"/>
                         <outlet property="inputLabel" destination="oKN-Hv-xpk" id="Jeu-Jk-BwO"/>
                         <outlet property="numpadController" destination="OrW-TW-rpN" id="MpF-vA-pd7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1066.4122137404579" y="3.5211267605633805"/>
+            <point key="canvasLocation" x="2919.8473282442746" y="3.5211267605633805"/>
         </scene>
     </scenes>
     <resources>
+        <image name="gearshape.fill" catalog="system" width="128" height="123"/>
         <namedColor name="TextColor">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <systemColor name="opaqueSeparatorColor">
+            <color red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemGray5Color">
-            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="tintColor">
             <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

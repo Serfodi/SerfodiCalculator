@@ -11,13 +11,21 @@ import UIKit
 class ViewController: UIViewController {
     
     @IBOutlet weak var inputLabel: DisplayLabel!
-    @IBOutlet weak var historyTableView: HistoryTableView!
     @IBOutlet weak var numpadController: NumpadController!
+    
+    var historyTableViewController : HistoryViewController!
+    var historyTableBottomConstraint: NSLayoutConstraint!
     
     public var dataProvider: DataProvider!
     private let calculator = Calculator()
     
-    
+    private let blurBG: UIVisualEffectView = {
+        let blur = UIVisualEffectView(effect: UIBlurEffect(style: .regular))
+        blur.alpha = 0
+        blur.isUserInteractionEnabled = true
+        return blur
+    }()
+     
     /// Индикатор для сигнализации о новом вводе:
     /// `true` – Разрешён новый ввод числа
     /// `false` – Ввод числа завершен
@@ -33,21 +41,31 @@ class ViewController: UIViewController {
         dataProvider = DataProvider()
         dataProvider.historyManager = historyManager
         
+        view.addSubview(blurBG)
+        setupBlurBGConstraints()
+        
+        historyTableViewController = HistoryViewController()
+        
+        addChild(historyTableViewController)
+        view.addSubview(historyTableViewController.view)
+        setupTableViewConstraints(historyTableViewController.view)
+        didMove(toParent: self)
+        
+        historyTableViewController.table.dataSource =  dataProvider
+        historyTableViewController.table.delegate = self
+        
         numpadController.delegate = self
         inputLabel.delegate = self
-        
-        historyTableView.tableView.dataSource = dataProvider
-        historyTableView.tableView.delegate = self
         
         resetCalculate()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        historyTableView.tableView.showLastCell(animated: false)
         let lastResult = SettingManager.shared.getLastResult
         inputLabel.setTextLabel(number: lastResult)
+        historyTableViewController.table.reloadData()
+        historyTableViewController.table.showLastCell(animated: false)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -57,13 +75,11 @@ class ViewController: UIViewController {
         }
     }
     
-    
     private func addNewExample(_ example: Calculation) {
         self.dataProvider.historyManager?.add(calculation: example)
-        self.historyTableView.tableView.reloadData()
-        self.historyTableView.tableView.showLastCell()
+        historyTableViewController.table.reloadData()
+        historyTableViewController.table.showLastCell(animated: true)
     }
-    
     
 }
 
@@ -210,22 +226,76 @@ extension ViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        if let cell = tableView.cellForRow(at: indexPath) {
-            cell.contentView.backgroundColor = .clear
-        }
+        tableView.deselectRow(at: indexPath, animated: true)
         
-        goToSecondViewController()
-        
+        animationTableController(indexPath)
     }
     
-    func goToSecondViewController() {
-        let storyboard = UIStoryboard(name: "HistoryStoryboard", bundle: nil)
-        let nextViewController = storyboard.instantiateViewController(
-            withIdentifier: String(describing: HistoryTableViewController.self)) as! HistoryTableViewController
-        nextViewController.dataProvider = dataProvider
-        
-        show(nextViewController, sender: nil)
-        
+    func animationTableController(_ indexPath: IndexPath) {
+        switch historyTableViewController.isOpen {
+        case true:
+            
+            UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut) {
+                self.historyTableBottomConstraint.constant = self.view.bounds.height - self.historyTableViewController.view.bounds.height + 20
+                self.view.layoutIfNeeded()
+                self.blurBG.alpha = 0
+                self.historyTableViewController.tableViewController.topBar.alpha = 0
+                self.historyTableViewController.tableViewController.navigationController?.setNavigationBarHidden(true, animated: true)
+                self.historyTableViewController.table.scrollToRow(at: indexPath, at: .bottom, animated: true)
+            }
+            
+            
+        case false:
+            
+            
+            UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut) {
+                self.historyTableBottomConstraint.constant = self.view.bounds.height - self.historyTableViewController.view.bounds.height + 20
+                self.view.layoutIfNeeded()
+                self.blurBG.alpha = 1
+                self.historyTableViewController.tableViewController.topBar.alpha = 1
+                
+                self.historyTableViewController.table.scrollToRow(at: indexPath, at: .top, animated: false)
+                self.historyTableViewController.tableViewController.navigationController?.setNavigationBarHidden(false, animated: true)
+            }
+            
+            
+        }
+
+        historyTableViewController.isOpen = !historyTableViewController.isOpen
+    }
+    
+}
+
+
+// MARK:  Constraints
+
+extension ViewController {
+    
+    private func setupBlurBGConstraints() {
+        blurBG.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            blurBG.topAnchor.constraint(equalTo: view.topAnchor),
+            blurBG.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            blurBG.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            blurBG.leadingAnchor.constraint(equalTo: view.leadingAnchor)
+        ])
+    }
+    
+    private func setupTableViewConstraints(_ view: UIView) {
+        view.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            view.topAnchor.constraint(equalTo: self.view.topAnchor),
+            view.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            view.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
+        ])
+        historyTableBottomConstraint = NSLayoutConstraint(item: view,
+                                              attribute: .bottom,
+                                              relatedBy: .equal,
+                                              toItem: inputLabel,
+                                              attribute: .top,
+                                              multiplier: 1,
+                                              constant: 20)
+        historyTableBottomConstraint.isActive = true
     }
     
 }

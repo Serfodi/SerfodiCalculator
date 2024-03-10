@@ -51,12 +51,16 @@ final class HistoryCell: UITableViewCell {
         bgColorView.layer.cornerRadius = 4
         selectedBackgroundView = bgColorView
         
+        print(bounds)
+        
+        addSubview(numberLabel)
+        
         setupNumberLabel()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        setupNumberLabel()
+//        setupNumberLabel()
     }
     
     override func prepareForReuse() {
@@ -188,7 +192,6 @@ extension HistoryCell {
 extension HistoryCell {
     
     private func setupNumberLabel() {
-        addSubview(numberLabel)
         numberLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             numberLabel.topAnchor.constraint(equalTo: topAnchor, constant: 4),
