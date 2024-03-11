@@ -96,7 +96,7 @@
                                         <action selector="minusTap:" destination="-1" eventType="touchUpInside" id="YHd-lK-gNd"/>
                                     </connections>
                                 </button>
-                                <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xSk-bb-bd2">
+                                <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xSk-bb-bd2">
                                     <rect key="frame" x="225" y="0.0" width="60" height="60"/>
                                     <color key="backgroundColor" name="operatingButton"/>
                                     <constraints>
@@ -176,7 +176,7 @@
                                         <action selector="numberTap:" destination="-1" eventType="touchUpInside" id="ynM-GY-17e"/>
                                     </connections>
                                 </button>
-                                <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="icp-ph-S3V">
+                                <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="icp-ph-S3V">
                                     <rect key="frame" x="225" y="0.0" width="60" height="60"/>
                                     <color key="backgroundColor" name="operatingButton"/>
                                     <fontDescription key="fontDescription" name="SFPro-Medium" family="SF Pro" pointSize="30"/>
@@ -326,7 +326,7 @@
                                         <action selector="numberTap:" destination="-1" eventType="touchUpInside" id="mcR-jo-gaQ"/>
                                     </connections>
                                 </button>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3o8-uG-2Hw">
+                                <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3o8-uG-2Hw">
                                     <rect key="frame" x="225" y="0.0" width="60" height="60"/>
                                     <color key="backgroundColor" name="operatingButton"/>
                                     <fontDescription key="fontDescription" name="SFPro-Medium" family="SF Pro" pointSize="35"/>
@@ -451,13 +451,13 @@
             <color red="0.9686274528503418" green="0.9490196704864502" blue="0.89803922176361084" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="operatingButton">
-            <color red="0.95294117647058818" green="0.5725490196078431" blue="0.63921568627450975" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.90196078431372551" green="0.58431372549019611" blue="0.64313725490196083" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="operatingText">
             <color red="0.45490196078431372" green="0.12941176470588237" blue="0.21176470588235294" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="operatingTextHiglit">
-            <color red="0.90461021659999996" green="0.45230510829999998" blue="0.53154152639999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+            <color red="0.90196078431372551" green="0.45098039215686275" blue="0.52941176470588236" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="operatingTextSelectedButton">
             <color red="0.95294117647058818" green="0.5725490196078431" blue="0.63921568627450975" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

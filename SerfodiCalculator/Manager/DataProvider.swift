@@ -14,7 +14,7 @@ final class DataProvider: NSObject {
     
 }
 
-extension DataProvider: UITableViewDataSource, UITableViewDelegate {
+extension DataProvider: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         1

@@ -95,6 +95,21 @@ extension UIColor {
         }
     }
     
+    static func operatingSelectedSecondButtonColor() -> UIColor {
+        return UIColor.init {
+            switch $0.userInterfaceStyle {
+            case .light, .unspecified:
+                return .white
+            case .dark:
+                return .black
+            @unknown default:
+                assertionFailure("Unknown userInterfaceStyle: \($0.userInterfaceStyle)")
+                return .white
+            }
+        }
+    }
+    
+    
     
     static func numberButtonColor() -> UIColor {
         return UIColor.init {

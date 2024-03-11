@@ -45,10 +45,11 @@ final class NumpadButton: UIButton {
         
         switch buttonStyle {
         case .secondOperation(let operation):
-            setTitle(operation.rawValue, for: .normal)
+            setTitle(operation.symbol(), for: .normal)
+            tag = operation.rawValue
         }
         
-        self.titleLabel?.font = .numpad(size: 30)
+        self.titleLabel?.font = .numpad(size: 22)
     }
     
 }

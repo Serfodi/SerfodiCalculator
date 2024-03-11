@@ -9,19 +9,10 @@ import UIKit
 
 class PullButton: UIButton {
 
-    
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
     override func draw(_ rect: CGRect) {
         // Drawing code
         
         let _ = setStyle(in: rect, color: .focusColor())
-        
-        configure()
-    }
-    
-    private func configure() {
-       
     }
     
     
@@ -45,13 +36,5 @@ class PullButton: UIButton {
         path.fill()
         return path
     }
-    
-//    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-//        <#code#>
-//    }
-//    
-//    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-//        <#code#>
-//    }
     
 }

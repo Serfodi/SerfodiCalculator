@@ -33,7 +33,18 @@ final class NumpadController: UIView {
     
     private var centerNumpadConstraint: NSLayoutConstraint!
     
-    
+    private lazy var swipeLRecognizer: UISwipeGestureRecognizer = {
+        let recognizer = UISwipeGestureRecognizer()
+        recognizer.addTarget(self, action: #selector(swipeL))
+        recognizer.direction = .right
+        return recognizer
+    }()
+    private lazy var swipeRRecognizer: UISwipeGestureRecognizer = {
+        let recognizer = UISwipeGestureRecognizer()
+        recognizer.addTarget(self, action: #selector(swipeR))
+        recognizer.direction = .left
+        return recognizer
+    }()
     
     private lazy var panRecognizer: InstantPanGestureRecognizer = {
         let recognizer = InstantPanGestureRecognizer()
@@ -65,6 +76,9 @@ final class NumpadController: UIView {
         backgroundColor = .clear
         
         setupConstrains()
+        
+        numpadView.addGestureRecognizer(swipeLRecognizer)
+        secondNumpadView.addGestureRecognizer(swipeRRecognizer)
         
         pullButton.addGestureRecognizer(panRecognizer)
         
@@ -105,6 +119,14 @@ extension NumpadController: NumpadDelegate {
 // MARK: Touch
 
 extension NumpadController {
+    
+    @objc private func swipeL() {
+        animateTransitionIfNeeded(to: .second, duration: 0.45)
+    }
+    
+    @objc private func swipeR() {
+        animateTransitionIfNeeded(to: .general, duration: 0.45)
+    }
     
     @objc private func dragSwipe(recognizer: UIPanGestureRecognizer) {
         
@@ -245,15 +267,20 @@ extension NumpadController {
             constant: 0)
         centerNumpadConstraint.isActive = true
         
+        let width = (self.bounds.width - 315) / 2
+        
         NSLayoutConstraint.activate([
-            pullButton.leadingAnchor.constraint(equalTo: secondNumpadView.trailingAnchor),
             pullButton.trailingAnchor.constraint(equalTo: numpadView.leadingAnchor),
+            pullButton.leadingAnchor.constraint(equalTo: secondNumpadView.trailingAnchor),
+            pullButton.widthAnchor.constraint(equalToConstant: width),
             pullButton.centerYAnchor.constraint(equalTo: centerYAnchor),
             pullButton.heightAnchor.constraint(equalToConstant: 200)
         ])
-
+        
+        
         secondNumpadView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
         secondNumpadView.trailingAnchor.constraint(equalTo: pullButton.leadingAnchor).isActive = true
+        
     }
     
 }
