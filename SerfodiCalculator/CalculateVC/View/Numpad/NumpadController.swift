@@ -267,15 +267,20 @@ extension NumpadController {
             constant: 0)
         centerNumpadConstraint.isActive = true
         
+        let width = (self.bounds.width - 315) / 2
+        
         NSLayoutConstraint.activate([
-            pullButton.leadingAnchor.constraint(equalTo: secondNumpadView.trailingAnchor),
             pullButton.trailingAnchor.constraint(equalTo: numpadView.leadingAnchor),
+            pullButton.leadingAnchor.constraint(equalTo: secondNumpadView.trailingAnchor),
+            pullButton.widthAnchor.constraint(equalToConstant: width),
             pullButton.centerYAnchor.constraint(equalTo: centerYAnchor),
             pullButton.heightAnchor.constraint(equalToConstant: 200)
         ])
-
+        
+        
         secondNumpadView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
         secondNumpadView.trailingAnchor.constraint(equalTo: pullButton.leadingAnchor).isActive = true
+        
     }
     
 }

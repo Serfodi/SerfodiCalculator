@@ -11,7 +11,7 @@ final class HistoryViewController: UIViewController {
     
     public var isOpen: Bool = false
     
-    public var table : UITableView {
+    public var table: UITableView {
         get {
             self.tableViewController.tableView
         }

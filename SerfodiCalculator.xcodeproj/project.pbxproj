@@ -41,6 +41,7 @@
 		B064E3262B6583AD00E56208 /* DynamicNumberFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B064E3252B6583AD00E56208 /* DynamicNumberFormatter.swift */; };
 		B064E3282B6712C600E56208 /* SF-Pro.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B064E3272B670FC500E56208 /* SF-Pro.ttf */; };
 		B064E32A2B6713A300E56208 /* SF-Pro-Text-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = B064E3292B6713A300E56208 /* SF-Pro-Text-Regular.otf */; };
+		B079A5402B9E0B0500D1EC16 /* ExpressionLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B079A53F2B9E0B0500D1EC16 /* ExpressionLabel.swift */; };
 		B099E0C22B6AA1F1000670CE /* DynamicCalculate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B099E0C12B6AA1F1000670CE /* DynamicCalculate.swift */; };
 		B099E0C72B6BF016000670CE /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B099E0C62B6BF016000670CE /* DataProvider.swift */; };
 		B099E0C92B6BF86F000670CE /* HistoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B099E0C82B6BF86F000670CE /* HistoryManager.swift */; };
@@ -89,6 +90,7 @@
 		B064E3252B6583AD00E56208 /* DynamicNumberFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicNumberFormatter.swift; sourceTree = "<group>"; };
 		B064E3272B670FC500E56208 /* SF-Pro.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro.ttf"; sourceTree = "<group>"; };
 		B064E3292B6713A300E56208 /* SF-Pro-Text-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Regular.otf"; sourceTree = "<group>"; };
+		B079A53F2B9E0B0500D1EC16 /* ExpressionLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpressionLabel.swift; sourceTree = "<group>"; };
 		B0899CFE2B9CA9DB00C12D7C /* HistoryTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HistoryTableView.swift; path = SerfodiCalculator/HistoryVC/HistoryTableView.swift; sourceTree = SOURCE_ROOT; };
 		B099E0BF2B698690000670CE /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
 		B099E0C12B6AA1F1000670CE /* DynamicCalculate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicCalculate.swift; sourceTree = "<group>"; };
@@ -235,6 +237,7 @@
 				B0FEF0482B9DD38A001C1792 /* HistoryTableViewController.swift */,
 				B0899CFE2B9CA9DB00C12D7C /* HistoryTableView.swift */,
 				B064E3012B6039A600E56208 /* HistoryCell.swift */,
+				B079A53F2B9E0B0500D1EC16 /* ExpressionLabel.swift */,
 			);
 			path = HistoryVC;
 			sourceTree = "<group>";
@@ -376,6 +379,7 @@
 				B099E0CF2B6C3983000670CE /* InputNumber.swift in Sources */,
 				B064E30C2B626F4600E56208 /* Storage.swift in Sources */,
 				B00257B92B7FC05C00311188 /* PullButton.swift in Sources */,
+				B079A5402B9E0B0500D1EC16 /* ExpressionLabel.swift in Sources */,
 				B064E2F82B5EB7D900E56208 /* Calculate.swift in Sources */,
 				B00257BB2B8488D000311188 /* NumpadController.swift in Sources */,
 				B064E3192B62BFF400E56208 /* UIWindow + Extension.swift in Sources */,

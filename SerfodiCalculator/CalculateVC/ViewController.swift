@@ -46,10 +46,12 @@ class ViewController: UIViewController {
         
         historyTableViewController = HistoryViewController()
         
+        
         addChild(historyTableViewController)
-        view.addSubview(historyTableViewController.view)
+        view.insertSubview(historyTableViewController.view, belowSubview: inputLabel)
         setupTableViewConstraints(historyTableViewController.view)
         didMove(toParent: self)
+        
         
         historyTableViewController.table.dataSource =  dataProvider
         historyTableViewController.table.delegate = self
@@ -225,9 +227,7 @@ extension ViewController: NumpadDelegate {
 extension ViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         tableView.deselectRow(at: indexPath, animated: true)
-        
         animationTableController(indexPath)
     }
     
@@ -235,18 +235,29 @@ extension ViewController: UITableViewDelegate {
         switch historyTableViewController.isOpen {
         case true:
             
+            UIView.animate(withDuration: 0.2) {
+                self.historyTableViewController.bottomBlur.alpha = 0
+            }
+            
             UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut) {
                 self.historyTableBottomConstraint.constant = self.view.bounds.height - self.historyTableViewController.view.bounds.height + 20
                 self.view.layoutIfNeeded()
                 self.blurBG.alpha = 0
+                
+                self.historyTableViewController.topBlur.alpha = 1
+                self.historyTableViewController.bottomBlur.alpha = 1
+                
                 self.historyTableViewController.tableViewController.topBar.alpha = 0
                 self.historyTableViewController.tableViewController.navigationController?.setNavigationBarHidden(true, animated: true)
                 self.historyTableViewController.table.scrollToRow(at: indexPath, at: .bottom, animated: true)
+            } completion: { _ in
+                self.view.sendSubviewToBack(self.historyTableViewController.view)
             }
             
             
         case false:
             
+            self.view.bringSubviewToFront(historyTableViewController.view)
             
             UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut) {
                 self.historyTableBottomConstraint.constant = self.view.bounds.height - self.historyTableViewController.view.bounds.height + 20
@@ -254,8 +265,17 @@ extension ViewController: UITableViewDelegate {
                 self.blurBG.alpha = 1
                 self.historyTableViewController.tableViewController.topBar.alpha = 1
                 
+                self.historyTableViewController.topBlur.alpha = 0
+                self.historyTableViewController.bottomBlur.alpha = 0
+                
                 self.historyTableViewController.table.scrollToRow(at: indexPath, at: .top, animated: false)
                 self.historyTableViewController.tableViewController.navigationController?.setNavigationBarHidden(false, animated: true)
+            } completion: { _ in
+                
+                UIView.animate(withDuration: 0.2) {
+                    self.historyTableViewController.bottomBlur.alpha = 1
+                }
+                
             }
             
             
