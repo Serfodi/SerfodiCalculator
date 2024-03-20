@@ -10,7 +10,11 @@ import UIKit
 
 final class DataProvider: NSObject {
     
-    public var historyManager: HistoryManager?
+    var historyManager: HistoryManager?
+    
+    init(historyManager: HistoryManager? = nil) {
+        self.historyManager = historyManager
+    }
     
 }
 

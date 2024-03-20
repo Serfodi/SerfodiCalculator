@@ -8,41 +8,36 @@
 import Foundation
 import UIKit
 
-struct Setting: Codable {
-    
-    var lastResult: Double!
-    
-}
-
 /// Отвечает за состояние всего приложение.
 ///
-/// Набор настроек.
+/// Набор настроек приложения
 final class SettingManager {
-    
-    static let shared = SettingManager()
     
     private let storage = CalculationSettingStorage()
     
-    public var setting: Setting = Setting() // fix it
+    private var setting: Setting!
+    
+    // MARK: init
     
     init() {
         NotificationCenter.default.addObserver(self, selector: #selector(save), name: UIApplication.willResignActiveNotification, object: nil)
-        setting.lastResult = storage.load()
+        setting = storage.load()
     }
     deinit {
         save()
     }
     
-    public var getLastResult: Double {
-        setting.lastResult
+    @objc public func save() {
+        storage.setData(setting)
     }
     
-    public func saveLastResult(result: Double) {
-        setting.lastResult = result
+    public func setSetting(_ setting: Setting) {
+        self.setting = setting
+        save()
     }
     
-    @objc private func save() {
-        storage.setData(setting.lastResult)
+    public func getSetting() -> Setting {
+        self.setting
     }
     
 }

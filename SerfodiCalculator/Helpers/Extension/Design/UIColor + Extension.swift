@@ -289,3 +289,49 @@ extension UIColor {
     }
     
 }
+
+
+// MARK: - Setting Controller
+
+extension UIColor {
+    
+    static func cellButtonColor() -> UIColor {
+        return UIColor.init {
+            switch $0.userInterfaceStyle {
+            case .light, .unspecified:
+                return #colorLiteral(red: 0.2941176471, green: 0.6509803922, blue: 0.9764705882, alpha: 1)
+            case .dark:
+                return #colorLiteral(red: 0.2941176471, green: 0.6509803922, blue: 0.9764705882, alpha: 1)
+            @unknown default:
+                assertionFailure("Unknown userInterfaceStyle: \($0.userInterfaceStyle)")
+                return .white
+            }
+        }
+    }
+    
+    static func cellButtonTextColor() -> UIColor {
+        return UIColor.init {
+            switch $0.userInterfaceStyle {
+            case .light, .unspecified:
+                return .white
+            case .dark:
+                return .white
+            @unknown default:
+                assertionFailure("Unknown userInterfaceStyle: \($0.userInterfaceStyle)")
+                return .white
+            }
+        }
+    }
+    
+}
+
+
+// MARK: - HELPS
+
+extension UIColor {
+    
+    convenience init(rgb: UInt32) {
+        self.init(red: CGFloat((rgb >> 16) & 0xff) / 255.0, green: CGFloat((rgb >> 8) & 0xff) / 255.0, blue: CGFloat(rgb & 0xff) / 255.0, alpha: 1.0)
+    }
+    
+}

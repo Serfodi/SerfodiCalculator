@@ -17,23 +17,23 @@ final class HistoryViewController: UIViewController {
         }
     }
     
+    public var castomNavigationController: NavigationController!
+    
     public let tableViewController = HistoryTableViewController()
     
     
-    public let topBlur = BlurGradientView(location: [0.45, 1])
-    public let bottomBlur = BlurGradientView(location: [0, 0.4, 0.5, 1], colors: [
-        CGColor(gray: 0, alpha: 0),
-        CGColor(gray: 0, alpha: 1),
-        CGColor(gray: 0, alpha: 1),
-        CGColor(gray: 0, alpha: 0)
-    ])
+    public let topBlur = BlurView(styleGradient: .linear(.up(0.45)))
+    public let bottomBlur = BlurView(styleGradient: .doubleLine(0.4, 0.5))
     
     
     // MARK: init
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         let navigationController = UINavigationController(rootViewController: tableViewController)
+        
+//        castomNavigationController = NavigationController(rootViewController: tableViewController)
         
         addChild(navigationController)
         self.view.addSubview(navigationController.view)

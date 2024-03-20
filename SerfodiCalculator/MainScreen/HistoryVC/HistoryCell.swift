@@ -33,10 +33,8 @@ final class HistoryCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         backgroundColor = .clear
         
-        addSubview(numberLabel)
-        
         numberLabel.frame = self.bounds
-        
+        addSubview(numberLabel)
         setupNumberLabel()
     }
     
@@ -47,11 +45,11 @@ final class HistoryCell: UITableViewCell {
     
     /// Функция настройки из контролера
     public func config(calculation: Calculation) {
-        numberLabel.setExpression(calculation: calculation)
+        numberLabel.setExpression(calculation)
     }
     
     override func prepareForReuse() {
-        numberLabel.text = ""
+        numberLabel.attributedText = nil
     }
     
 }
@@ -70,17 +68,6 @@ extension HistoryCell {
             numberLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -16)
         ])
     }
-    
-//    private func setupBgView() {
-//        bgView.translatesAutoresizingMaskIntoConstraints = false
-//
-//        NSLayoutConstraint.activate([
-//            bgView.topAnchor.constraint(equalTo: topAnchor, constant: 4),
-//            bgView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -4),
-//            bgView.leftAnchor.constraint(equalTo: leftAnchor, constant: 12),
-//            bgView.rightAnchor.constraint(equalTo: rightAnchor, constant: -12)
-//        ])
-//    }
     
 }
 

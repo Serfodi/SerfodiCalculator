@@ -16,7 +16,7 @@ import UIKit
  4. Загружает.
  */
 final class HistoryManager {
-    
+        
     private let storage = CalculationHistoryStorage()
     
     private var calculations: [Calculation] = []
@@ -24,6 +24,8 @@ final class HistoryManager {
     public var calculationsCount: Int {
         calculations.count
     }
+    
+    // MARK: init
     
     init() {
         NotificationCenter.default.addObserver(self, selector: #selector(save), name: UIApplication.willResignActiveNotification, object: nil)
@@ -34,6 +36,7 @@ final class HistoryManager {
     }
     
     @objc private func save() {
+        // Подумать над асинхронном сохранении данных
         storage.setData(calculations)
     }
     
@@ -43,10 +46,12 @@ final class HistoryManager {
     
     public func add(calculation: Calculation) {
         calculations.append(calculation)
+        save()
     }
     
-    public func removeAll() {
+    public func removeAllDataHistory() {
         calculations.removeAll()
+        storage.removeAllHistory()
     }
     
 }
