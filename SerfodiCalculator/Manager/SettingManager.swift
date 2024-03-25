@@ -13,6 +13,7 @@ import UIKit
 /// Набор настроек приложения
 final class SettingManager {
     
+    // Репозиторий настроект
     private let storage = CalculationSettingStorage()
     
     private var setting: Setting!
@@ -38,6 +39,16 @@ final class SettingManager {
     
     public func getSetting() -> Setting {
         self.setting
+    }
+    
+    
+    public func isSaveHistoryData(_ isSave: Bool) {
+        setting.isSaveHistoryData = isSave
+        save()
+    }
+    
+    public func getIsSaveHistoryData() -> Bool {
+        setting.isSaveHistoryData
     }
     
 }

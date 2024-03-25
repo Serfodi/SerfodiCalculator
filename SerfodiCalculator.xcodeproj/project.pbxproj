@@ -17,12 +17,17 @@
 		B02EC6642B5D8D4E00CE0122 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B02EC6622B5D8D4E00CE0122 /* Main.storyboard */; };
 		B02EC6662B5D8D5200CE0122 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B02EC6652B5D8D5200CE0122 /* Assets.xcassets */; };
 		B02EC6692B5D8D5200CE0122 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B02EC6672B5D8D5200CE0122 /* LaunchScreen.storyboard */; };
+		B03037F82BAF1A5900CA1DC6 /* SwitchCellListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03037F72BAF1A5800CA1DC6 /* SwitchCellListCell.swift */; };
+		B03037FB2BAF1ED200CA1DC6 /* LabelCellListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03037FA2BAF1ED200CA1DC6 /* LabelCellListCell.swift */; };
+		B03037FE2BAF3E9A00CA1DC6 /* SettingCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03037FD2BAF3E9A00CA1DC6 /* SettingCollectionView.swift */; };
+		B03038012BAF47EB00CA1DC6 /* UINavigationItem + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03038002BAF47EB00CA1DC6 /* UINavigationItem + Extension.swift */; };
+		B04053F22BADC02B00EB217B /* UIView + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04053F12BADC02B00EB217B /* UIView + Extension.swift */; };
+		B04053F52BADDBC400EB217B /* GeneralSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04053F42BADDBC400EB217B /* GeneralSettingViewController.swift */; };
 		B04BFDCC2B736E7200ED7099 /* NumpadButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04BFDCB2B736E7200ED7099 /* NumpadButton.swift */; };
 		B04BFDCE2B7373A800ED7099 /* NumpadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04BFDCD2B7373A800ED7099 /* NumpadView.swift */; };
 		B04BFDD02B77EA3F00ED7099 /* NumpadView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B04BFDCF2B77EA3F00ED7099 /* NumpadView.xib */; };
 		B050E2512B9F73DD00D48DFE /* ExpressionLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B050E2502B9F73DD00D48DFE /* ExpressionLabel.swift */; };
 		B050E2532B9F762B00D48DFE /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B050E2522B9F762B00D48DFE /* SettingViewController.swift */; };
-		B050E2552B9F83FD00D48DFE /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B050E2542B9F83FD00D48DFE /* NavigationController.swift */; };
 		B059F1E62B88FD8F0079EFFA /* Array + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B059F1E52B88FD8F0079EFFA /* Array + Extension.swift */; };
 		B064E2F42B5E9DD800E56208 /* UIColor + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B064E2F32B5E9DD800E56208 /* UIColor + Extension.swift */; };
 		B064E2F62B5EB7AB00E56208 /* CalculationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B064E2F52B5EB7AB00E56208 /* CalculationError.swift */; };
@@ -45,7 +50,6 @@
 		B064E3282B6712C600E56208 /* SF-Pro.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B064E3272B670FC500E56208 /* SF-Pro.ttf */; };
 		B064E32A2B6713A300E56208 /* SF-Pro-Text-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = B064E3292B6713A300E56208 /* SF-Pro-Text-Regular.otf */; };
 		B069C2BC2BA08A2200503FEB /* HistoryDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B069C2BB2BA08A2200503FEB /* HistoryDataController.swift */; };
-		B069C2C02BA0A87600503FEB /* Storyboard + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B069C2BF2BA0A87600503FEB /* Storyboard + Extension.swift */; };
 		B069C2C62BA190FE00503FEB /* ButtonCellContentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = B069C2C52BA190FE00503FEB /* ButtonCellContentConfiguration.swift */; };
 		B069C2D22BA371CE00503FEB /* ButtonCellListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B069C2D12BA371CE00503FEB /* ButtonCellListCell.swift */; };
 		B069C2D42BA371F700503FEB /* ButtonCellContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B069C2D32BA371F700503FEB /* ButtonCellContentView.swift */; };
@@ -73,12 +77,17 @@
 		B02EC6652B5D8D5200CE0122 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B02EC6682B5D8D5200CE0122 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B02EC66A2B5D8D5200CE0122 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B03037F72BAF1A5800CA1DC6 /* SwitchCellListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchCellListCell.swift; sourceTree = "<group>"; };
+		B03037FA2BAF1ED200CA1DC6 /* LabelCellListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelCellListCell.swift; sourceTree = "<group>"; };
+		B03037FD2BAF3E9A00CA1DC6 /* SettingCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCollectionView.swift; sourceTree = "<group>"; };
+		B03038002BAF47EB00CA1DC6 /* UINavigationItem + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationItem + Extension.swift"; sourceTree = "<group>"; };
+		B04053F12BADC02B00EB217B /* UIView + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView + Extension.swift"; sourceTree = "<group>"; };
+		B04053F42BADDBC400EB217B /* GeneralSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralSettingViewController.swift; sourceTree = "<group>"; };
 		B04BFDCB2B736E7200ED7099 /* NumpadButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumpadButton.swift; sourceTree = "<group>"; };
 		B04BFDCD2B7373A800ED7099 /* NumpadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumpadView.swift; sourceTree = "<group>"; };
 		B04BFDCF2B77EA3F00ED7099 /* NumpadView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NumpadView.xib; sourceTree = "<group>"; };
 		B050E2502B9F73DD00D48DFE /* ExpressionLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpressionLabel.swift; sourceTree = "<group>"; };
 		B050E2522B9F762B00D48DFE /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
-		B050E2542B9F83FD00D48DFE /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		B059F1D92B878D380079EFFA /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		B059F1E52B88FD8F0079EFFA /* Array + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array + Extension.swift"; sourceTree = "<group>"; };
 		B064E2F32B5E9DD800E56208 /* UIColor + Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor + Extension.swift"; sourceTree = "<group>"; };
@@ -102,13 +111,12 @@
 		B064E3272B670FC500E56208 /* SF-Pro.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro.ttf"; sourceTree = "<group>"; };
 		B064E3292B6713A300E56208 /* SF-Pro-Text-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Regular.otf"; sourceTree = "<group>"; };
 		B069C2BB2BA08A2200503FEB /* HistoryDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryDataController.swift; sourceTree = "<group>"; };
-		B069C2BF2BA0A87600503FEB /* Storyboard + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Storyboard + Extension.swift"; sourceTree = "<group>"; };
 		B069C2C52BA190FE00503FEB /* ButtonCellContentConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonCellContentConfiguration.swift; sourceTree = "<group>"; };
 		B069C2D12BA371CE00503FEB /* ButtonCellListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonCellListCell.swift; sourceTree = "<group>"; };
 		B069C2D32BA371F700503FEB /* ButtonCellContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonCellContentView.swift; sourceTree = "<group>"; };
 		B069C2D52BA4728E00503FEB /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		B069C2D82BA47E3000503FEB /* SettingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingModel.swift; sourceTree = "<group>"; };
-		B0899CFE2B9CA9DB00C12D7C /* HistoryTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HistoryTableView.swift; path = SerfodiCalculator/MainScreen/HistoryVC/HistoryTableView.swift; sourceTree = SOURCE_ROOT; };
+		B0899CFE2B9CA9DB00C12D7C /* HistoryTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HistoryTableView.swift; path = SerfodiCalculator/MainScreen/HistoryVC/View/HistoryTableView.swift; sourceTree = SOURCE_ROOT; };
 		B099E0BF2B698690000670CE /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
 		B099E0C12B6AA1F1000670CE /* DynamicCalculate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicCalculate.swift; sourceTree = "<group>"; };
 		B099E0C62B6BF016000670CE /* DataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProvider.swift; sourceTree = "<group>"; };
@@ -184,7 +192,7 @@
 				B069C2C42BA18FBF00503FEB /* AppDelegate */,
 				B00257B52B795D6900311188 /* Manager */,
 				B069C2D72BA47D8B00503FEB /* MainScreen */,
-				B069C2C32BA18F9A00503FEB /* SettingController */,
+				B069C2C32BA18F9A00503FEB /* SettingControllers */,
 				B064E3072B61819500E56208 /* Helpers */,
 				B02EC66A2B5D8D5200CE0122 /* Info.plist */,
 				B099E0CC2B6C25B2000670CE /* Resources */,
@@ -192,18 +200,56 @@
 			path = SerfodiCalculator;
 			sourceTree = "<group>";
 		};
+		B03037F92BAF1A6000CA1DC6 /* SwitchCell */ = {
+			isa = PBXGroup;
+			children = (
+				B03037F72BAF1A5800CA1DC6 /* SwitchCellListCell.swift */,
+			);
+			path = SwitchCell;
+			sourceTree = "<group>";
+		};
+		B03037FC2BAF1EFC00CA1DC6 /* SecondLabelCell */ = {
+			isa = PBXGroup;
+			children = (
+				B03037FA2BAF1ED200CA1DC6 /* LabelCellListCell.swift */,
+			);
+			path = SecondLabelCell;
+			sourceTree = "<group>";
+		};
+		B03037FF2BAF409300CA1DC6 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B03037FD2BAF3E9A00CA1DC6 /* SettingCollectionView.swift */,
+				B03037FC2BAF1EFC00CA1DC6 /* SecondLabelCell */,
+				B03037F92BAF1A6000CA1DC6 /* SwitchCell */,
+				B069C2DB2BA480AE00503FEB /* ButtonCell */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		B04053F32BADD6B500EB217B /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B0899CFE2B9CA9DB00C12D7C /* HistoryTableView.swift */,
+				B064E3012B6039A600E56208 /* HistoryCell.swift */,
+				B050E2502B9F73DD00D48DFE /* ExpressionLabel.swift */,
+				B03038002BAF47EB00CA1DC6 /* UINavigationItem + Extension.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		B064E2FD2B5EE64300E56208 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
 				B064E3242B65812200E56208 /* Design */,
 				B064E3182B62BFF400E56208 /* UIWindow + Extension.swift */,
+				B04053F12BADC02B00EB217B /* UIView + Extension.swift */,
 				B064E3162B62B9EE00E56208 /* NumberFormatter + Extension.swift */,
 				B064E2F92B5ED38800E56208 /* UIButton + Extension.swift */,
 				B064E2FB2B5ED4F000E56208 /* UILabel + Extension.swift */,
 				B064E3092B61822400E56208 /* UITableView + Extension.swift */,
 				B064E31F2B6456D800E56208 /* CGSize + Extension.swift */,
 				B059F1E52B88FD8F0079EFFA /* Array + Extension.swift */,
-				B069C2BF2BA0A87600503FEB /* Storyboard + Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -251,10 +297,7 @@
 			children = (
 				B059F1D92B878D380079EFFA /* HistoryViewController.swift */,
 				B0FEF0482B9DD38A001C1792 /* HistoryTableViewController.swift */,
-				B0899CFE2B9CA9DB00C12D7C /* HistoryTableView.swift */,
-				B064E3012B6039A600E56208 /* HistoryCell.swift */,
-				B050E2502B9F73DD00D48DFE /* ExpressionLabel.swift */,
-				B050E2542B9F83FD00D48DFE /* NavigationController.swift */,
+				B04053F32BADD6B500EB217B /* View */,
 			);
 			path = HistoryVC;
 			sourceTree = "<group>";
@@ -287,13 +330,15 @@
 			path = Font;
 			sourceTree = "<group>";
 		};
-		B069C2C32BA18F9A00503FEB /* SettingController */ = {
+		B069C2C32BA18F9A00503FEB /* SettingControllers */ = {
 			isa = PBXGroup;
 			children = (
 				B050E2522B9F762B00D48DFE /* SettingViewController.swift */,
+				B04053F42BADDBC400EB217B /* GeneralSettingViewController.swift */,
 				B069C2C72BA1913900503FEB /* HistoryData */,
+				B03037FF2BAF409300CA1DC6 /* View */,
 			);
-			path = SettingController;
+			path = SettingControllers;
 			sourceTree = "<group>";
 		};
 		B069C2C42BA18FBF00503FEB /* AppDelegate */ = {
@@ -309,7 +354,6 @@
 			isa = PBXGroup;
 			children = (
 				B069C2BB2BA08A2200503FEB /* HistoryDataController.swift */,
-				B069C2DB2BA480AE00503FEB /* ButtonCell */,
 			);
 			path = HistoryData;
 			sourceTree = "<group>";
@@ -450,12 +494,12 @@
 				B00257B72B7F7BE100311188 /* SecondNumpad.swift in Sources */,
 				B064E30C2B626F4600E56208 /* Storage.swift in Sources */,
 				B00257B92B7FC05C00311188 /* PullButton.swift in Sources */,
+				B03038012BAF47EB00CA1DC6 /* UINavigationItem + Extension.swift in Sources */,
 				B050E2512B9F73DD00D48DFE /* ExpressionLabel.swift in Sources */,
 				B064E2F82B5EB7D900E56208 /* Calculate.swift in Sources */,
 				B069C2D22BA371CE00503FEB /* ButtonCellListCell.swift in Sources */,
 				B069C2D42BA371F700503FEB /* ButtonCellContentView.swift in Sources */,
 				B00257BB2B8488D000311188 /* NumpadController.swift in Sources */,
-				B069C2C02BA0A87600503FEB /* Storyboard + Extension.swift in Sources */,
 				B064E3192B62BFF400E56208 /* UIWindow + Extension.swift in Sources */,
 				B059F1E62B88FD8F0079EFFA /* Array + Extension.swift in Sources */,
 				B02EC6612B5D8D4E00CE0122 /* ViewController.swift in Sources */,
@@ -466,6 +510,7 @@
 				B099E0CB2B6C03DA000670CE /* SettingManager.swift in Sources */,
 				B0FEF0472B9DD1A9001C1792 /* HistoryViewController.swift in Sources */,
 				B064E2FC2B5ED4F000E56208 /* UILabel + Extension.swift in Sources */,
+				B03037FE2BAF3E9A00CA1DC6 /* SettingCollectionView.swift in Sources */,
 				B064E3262B6583AD00E56208 /* DynamicNumberFormatter.swift in Sources */,
 				B069C2D92BA47E3000503FEB /* SettingModel.swift in Sources */,
 				B064E30A2B61822400E56208 /* UITableView + Extension.swift in Sources */,
@@ -474,7 +519,9 @@
 				B064E30F2B62707500E56208 /* CalculationHistoryItem.swift in Sources */,
 				B099E0C22B6AA1F1000670CE /* DynamicCalculate.swift in Sources */,
 				B064E3232B65807E00E56208 /* UIFount + Extension.swift in Sources */,
+				B03037F82BAF1A5900CA1DC6 /* SwitchCellListCell.swift in Sources */,
 				B064E2F42B5E9DD800E56208 /* UIColor + Extension.swift in Sources */,
+				B03037FB2BAF1ED200CA1DC6 /* LabelCellListCell.swift in Sources */,
 				B04BFDCC2B736E7200ED7099 /* NumpadButton.swift in Sources */,
 				B00257BD2B848C7200311188 /* InstantPanGestureRecognizer.swift in Sources */,
 				B064E2FA2B5ED38800E56208 /* UIButton + Extension.swift in Sources */,
@@ -486,10 +533,11 @@
 				B064E31B2B62D8B000E56208 /* DisplayLabel.swift in Sources */,
 				B02EC65D2B5D8D4E00CE0122 /* AppDelegate.swift in Sources */,
 				B0FEF0462B9DC382001C1792 /* HistoryTableView.swift in Sources */,
-				B050E2552B9F83FD00D48DFE /* NavigationController.swift in Sources */,
 				B064E3022B6039A600E56208 /* HistoryCell.swift in Sources */,
 				B050E2532B9F762B00D48DFE /* SettingViewController.swift in Sources */,
 				B02EC65F2B5D8D4E00CE0122 /* SceneDelegate.swift in Sources */,
+				B04053F22BADC02B00EB217B /* UIView + Extension.swift in Sources */,
+				B04053F52BADDBC400EB217B /* GeneralSettingViewController.swift in Sources */,
 				B064E3202B6456D800E56208 /* CGSize + Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -15,6 +15,7 @@ class ButtonCellContentView: UIView, UIContentView {
         button.backgroundColor = .cellButtonColor()
         button.setTitleColor(.cellButtonTextColor(), for: .normal)
         button.layer.cornerRadius = 10
+        button.titleLabel?.font = Font.att(size: 17, weight: .bold)
         return button
     }()
     

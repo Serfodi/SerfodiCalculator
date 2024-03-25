@@ -17,7 +17,8 @@ import UIKit
  */
 final class HistoryManager {
         
-    private let storage = CalculationHistoryStorage()
+    // Репозиторий истории
+    public let storage = CalculationHistoryStorage()
     
     private var calculations: [Calculation] = []
     

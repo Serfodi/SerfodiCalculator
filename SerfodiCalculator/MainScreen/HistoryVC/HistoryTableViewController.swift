@@ -7,13 +7,13 @@
 
 import UIKit
 
-protocol CloseHistory {
-    func closeHistory()
+protocol NavigationDoneDelegate {
+    func done(to viewController: UIViewController)
 }
 
 class HistoryTableViewController: UITableViewController {
 
-    public var delegate: CloseHistory?
+    public var delegate: NavigationDoneDelegate?
     
     public var topBar: UINavigationBar {
         get {
@@ -21,25 +21,19 @@ class HistoryTableViewController: UITableViewController {
         }
     }
     
+    init(table: UITableView) {
+        super.init(nibName: nil, bundle: nil)
+        self.tableView = table
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        navigationController?.navigationBar.topItem?.title = "История"
-        navigationController?.navigationBar.prefersLargeTitles = true
-        navigationController?.navigationBar.backgroundColor = .white
-        
-        let image = UIImage(systemName: "gearshape.fill")
-        let leftBarButtonItem = UIBarButtonItem(image: image, style: .done, target: self, action: #selector(openSetting))
-        leftBarButtonItem.tintColor = .exampleColorSign()
-        navigationItem.leftBarButtonItem = leftBarButtonItem
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Готово", style: .done, target: self, action: #selector(doneTapped))
-        
-        self.tableView.contentInsetAdjustmentBehavior = .never
-        
-        tableView = HistoryTableView()
-        
-        navigationController?.navigationBar.alpha = 0
-        navigationController?.isNavigationBarHidden = true
+        setupNavBar()
+        setupTable()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -47,19 +41,52 @@ class HistoryTableViewController: UITableViewController {
         tableView.reloadData()
     }
     
-    
     @objc private func openSetting() {
         let settingVC = SettingTableViewController()
         settingVC.delegate = delegate
         navigationController?.pushViewController(settingVC, animated: true)
     }
     
-    @objc private func doneTapped() {
-        delegate?.closeHistory()
+    @objc private func done() {
+        delegate?.done(to: self)
     }
     
+    private func setupTable() {
+        tableView.contentInsetAdjustmentBehavior = .never
+    }
     
-    func showCellAnimation(_ cells: [UITableViewCell]) {
+    private func setupNavBar() {
+        navigationController?.navigationBar.topItem?.title = "История"
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.navigationBar.alpha = 0
+        navigationController?.isNavigationBarHidden = true
+        
+        navigationItem.makeDone(target: self, action: #selector(done))
+        
+        let image = UIImage(systemName: "gearshape.fill")
+        let leftBarButtonItem = UIBarButtonItem(image: image, style: .done, target: self, action: #selector(openSetting))
+        leftBarButtonItem.tintColor = .exampleColorSign()
+        navigationItem.leftBarButtonItem = leftBarButtonItem
+    }
+}
+
+// MARK: Animation
+
+extension HistoryTableViewController {
+    
+    public func animationCells(_ beforeCells: [UITableViewCell], _ afterCells: [UITableViewCell]) {
+        let cells = afterCells.filter{ !beforeCells.contains($0) }
+        let upsetCells = cells.filter {
+            $0.frame.minY > beforeCells.first!.frame.maxY
+        }
+        let downCells = cells.filter {
+            $0.frame.maxY < beforeCells.last!.frame.maxY
+        }
+        showCellAnimation(upsetCells)
+        showCellAnimation(downCells.reversed())
+    }
+    
+    private func showCellAnimation(_ cells: [UITableViewCell]) {
         var delay = 0.1
         for cell in cells {
             cell.alpha = 0
@@ -69,8 +96,4 @@ class HistoryTableViewController: UITableViewController {
             delay += 1
         }
     }
-    
-    
-    
 }
-

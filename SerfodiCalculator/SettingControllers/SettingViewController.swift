@@ -24,6 +24,8 @@ enum Section: Int {
 }
 
 
+// MARK: SettingTableViewController
+
 class SettingTableViewController: UIViewController {
     
     let modelObjects = [
@@ -32,7 +34,7 @@ class SettingTableViewController: UIViewController {
         [MenuItem(title: "История")]
     ]
     
-    var delegate: CloseHistory?
+    var delegate: NavigationDoneDelegate?
     
     var collectionView: UICollectionView!
     var dataSource: UICollectionViewDiffableDataSource<Section, MenuItem>!
@@ -50,6 +52,10 @@ class SettingTableViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.prefersLargeTitles = false
+    }
+    
+    @objc private func done() {
+        delegate?.done(to: self)
     }
     
 }
@@ -74,9 +80,7 @@ extension SettingTableViewController: UICollectionViewDelegate {
         default:
             print(selectedItem.title)
         }
-        
     }
-    
 }
  
 
@@ -86,7 +90,6 @@ extension SettingTableViewController {
     
     private func createDataSource() {
         let cellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, MenuItem> { (cell, indexPath, item) in
-            
             var content = cell.defaultContentConfiguration()
             content.image = item.image
             content.text = item.title
@@ -113,8 +116,8 @@ extension SettingTableViewController {
     private func reloadData() {
         var snapshot = NSDiffableDataSourceSnapshot<Section, MenuItem>()
         snapshot.appendSections([.general, .data])
-        snapshot.appendItems(modelObjects[ Section.general.rawValue ], toSection: .general)
-        snapshot.appendItems(modelObjects[ Section.data.rawValue ], toSection: .data)
+        snapshot.appendItems(modelObjects[Section.general.rawValue], toSection: .general)
+        snapshot.appendItems(modelObjects[Section.data.rawValue], toSection: .data)
         dataSource.apply(snapshot, animatingDifferences: false)
     }
     
@@ -126,8 +129,8 @@ extension SettingTableViewController {
 extension SettingTableViewController {
         
     private func configNavigationBar() {
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Готово", style: .done, target: self, action: #selector(doneTapped))
         navigationItem.title = "Настройки"
+        navigationItem.makeDone(target: self, action: #selector(done))
     }
         
     private func setupCollectionView() {
@@ -146,15 +149,3 @@ extension SettingTableViewController {
     }
     
 }
-
-// MARK: Done Tapped
-
-extension SettingTableViewController {
-    
-    @objc private func doneTapped() {
-        navigationController?.popToRootViewController(animated: true)
-        delegate?.closeHistory()
-    }
-    
-}
-

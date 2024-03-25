@@ -9,7 +9,21 @@ import UIKit
 
 final class HistoryViewController: UIViewController {
     
-    public var isOpen: Bool = false
+    private let tableViewController = HistoryTableViewController(table: HistoryTableView())
+    private let topBlur = BlurView(styleGradient: .linear(.up(0.45)))
+    private let bottomBlur = BlurView(styleGradient: .doubleLine(0.4, 0.5))
+    
+    private var historyBottomConstraint: NSLayoutConstraint!
+    private var isOpen: Bool = false
+    
+    public var delegate: NavigationDoneDelegate? {
+        get {
+            tableViewController.delegate
+        }
+        set {
+            tableViewController.delegate = newValue
+        }
+    }
     
     public var table: UITableView {
         get {
@@ -17,24 +31,15 @@ final class HistoryViewController: UIViewController {
         }
     }
     
-    public var castomNavigationController: NavigationController!
-    
-    public let tableViewController = HistoryTableViewController()
-    
-    
-    public let topBlur = BlurView(styleGradient: .linear(.up(0.45)))
-    public let bottomBlur = BlurView(styleGradient: .doubleLine(0.4, 0.5))
-    
-    
-    // MARK: init
+    public var stateVC: Bool {
+        get {
+            isOpen
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         let navigationController = UINavigationController(rootViewController: tableViewController)
-        
-//        castomNavigationController = NavigationController(rootViewController: tableViewController)
-        
         addChild(navigationController)
         self.view.addSubview(navigationController.view)
         setupTableConstraints(navigationController.view)
@@ -43,10 +48,12 @@ final class HistoryViewController: UIViewController {
         configure()
     }
     
-    
     private func configure() {
         view.backgroundColor = .clear
-        
+        configurationBlur()
+    }
+ 
+    private func configurationBlur() {
         topBlur.isUserInteractionEnabled = false
         bottomBlur.isUserInteractionEnabled = false
         view.addSubview(topBlur)
@@ -54,15 +61,83 @@ final class HistoryViewController: UIViewController {
         setupBlurConstraints()
     }
     
+    /// Устанавливает ограничения. Устанавливает нижний динамический констрейнт
+    public func pinedVC(parentView: UIView, buttonView: UIView) {
+        self.view.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            self.view.topAnchor.constraint(equalTo: parentView.topAnchor),
+            self.view.leadingAnchor.constraint(equalTo: parentView.leadingAnchor),
+            self.view.trailingAnchor.constraint(equalTo: parentView.trailingAnchor)
+        ])
+        historyBottomConstraint = NSLayoutConstraint(item: self.view!,
+                                              attribute: .bottom,
+                                              relatedBy: .equal,
+                                              toItem: buttonView,
+                                              attribute: .top,
+                                              multiplier: 1,
+                                              constant: 20)
+        historyBottomConstraint.isActive = true
+    }
+    
 }
 
-// MARK:  Constraints
+// MARK: Animation
 
 extension HistoryViewController {
     
-    private func setupTableConstraints(_ view: UIView) {
+    func animationOpen(_ indexPath: IndexPath?, updateConstraint: @escaping ()->()) {
+        let beforeCells = table.visibleCells
+        var afterCells = beforeCells
+        historyBottomConstraint.constant = UIApplication.shared.getWindow().frame.height - view.bounds.height + 40
+        UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut) {
+            updateConstraint()
+            afterCells = self.table.visibleCells
+            self.tableViewController.topBar.alpha = 1
+            self.topBlur.alpha = 0
+            self.bottomBlur.alpha = 0
+            self.tableViewController.navigationController?.setNavigationBarHidden(false, animated: true)
+            if let indexPath = indexPath {
+                self.table.scrollToRow(at: indexPath, at: .top, animated: true)
+            } else {
+                self.table.showLastCell(animated: true)
+            }
+        } completion: { _ in
+            UIView.animate(withDuration: 0.2) {
+                self.bottomBlur.alpha = 1
+            }
+        }
+        tableViewController.animationCells(beforeCells, afterCells)
+        isOpen = true
+    }
+    
+    func animationClose(_ indexPath: IndexPath?, updateConstraint: @escaping ()->()) {
+        UIView.animate(withDuration: 0.2) {
+            self.bottomBlur.alpha = 0
+        }
+        historyBottomConstraint.constant = 20
+        UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut) {
+            updateConstraint()
+            self.topBlur.alpha = 1
+            self.bottomBlur.alpha = 1
+            self.tableViewController.topBar.alpha = 0
+            self.tableViewController.navigationController?.setNavigationBarHidden(true, animated: true)
+            if let indexPath = indexPath {
+                self.table.scrollToRow(at: indexPath, at: .bottom, animated: true)
+            } else {
+                self.table.showLastCell(animated: true)
+            }
+        }
+        isOpen = false
+    }
+}
+
+
+// MARK:  Constraints
+
+private extension HistoryViewController {
+    
+    func setupTableConstraints(_ view: UIView) {
         view.translatesAutoresizingMaskIntoConstraints = false
-        
         NSLayoutConstraint.activate([
             view.topAnchor.constraint(equalTo: self.view.topAnchor),
             view.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -20),
@@ -71,8 +146,7 @@ extension HistoryViewController {
         ])
     }
     
-    
-    private func setupBlurConstraints() {
+    func setupBlurConstraints() {
         topBlur.translatesAutoresizingMaskIntoConstraints = false
         bottomBlur.translatesAutoresizingMaskIntoConstraints = false
 

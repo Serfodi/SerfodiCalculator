@@ -13,8 +13,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var inputLabel: DisplayLabel!
     @IBOutlet weak var numpadController: NumpadController!
     
-    var historyTableViewController : HistoryViewController!
-    var historyTableBottomConstraint: NSLayoutConstraint!
+    var historyVC : HistoryViewController!
     
     private let blurBG = BlurView(styleGradient: .non)
     
@@ -36,28 +35,15 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        configurationBG()
+        configurationHistory()
         
         dataProvider = DataProvider(historyManager: historyManager)
         setting = settingManager.getSetting()
         
-        
-        view.addSubview(blurBG)
-        blurBG.alpha = 0
-//        blurBG.isHidden = true
-        setupBlurBGConstraints()
-        
-        
-        historyTableViewController = HistoryViewController()
-        
-        
-        addChild(historyTableViewController)
-        view.insertSubview(historyTableViewController.view, belowSubview: inputLabel)
-        setupTableViewConstraints(historyTableViewController.view)
-        didMove(toParent: self)
-        
-        historyTableViewController.tableViewController.delegate = self
-        historyTableViewController.table.dataSource = dataProvider
-        historyTableViewController.table.delegate = self
+        historyVC.delegate = self
+        historyVC.table.dataSource = dataProvider
+        historyVC.table.delegate = self
         
         numpadController.delegate = self
         inputLabel.delegate = self
@@ -69,29 +55,30 @@ class ViewController: UIViewController {
         super.viewDidAppear(animated)
         let lastResult = setting.lastResult
         inputLabel.setTextLabel(number: lastResult!)
-        historyTableViewController.table.reloadData()
-        historyTableViewController.table.showLastCell(animated: false)
+        historyVC.table.reloadData()
+        historyVC.table.showLastCell(animated: false)
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
+    fileprivate func configurationHistory() {
+        historyVC = HistoryViewController()
+        addChild(historyVC)
+        view.insertSubview(historyVC.view, belowSubview: inputLabel)
+        historyVC.pinedVC(parentView: self.view, buttonView: inputLabel)
+        didMove(toParent: self)
     }
+    
+    fileprivate func configurationBG() {
+        view.addSubview(blurBG)
+        view.pinToBounds(blurBG)
+        blurBG.alpha = 0
+    }
+    
     
     private func addNewExample(_ example: Calculation) {
-        
         historyManager.add(calculation: example)
-        historyTableViewController.table.reloadData()
-        historyTableViewController.table.showLastCell(animated: true)
-        
+        historyVC.table.reloadData()
+        historyVC.table.showLastCell(animated: true)
     }
-    
-}
-
-
-// MARK: - Calculate
-
-extension ViewController {
     
     /// Проивзодит вычисленя результата
     /// В случаии ошибки вызывает функцию `errorCalculate`
@@ -104,22 +91,6 @@ extension ViewController {
         }
     }
     
-    // MARK: FIX IT
-    
-    /*
-    добавить операции для одной переменной
-     */
-    
-    /// Обработка ошибок вычислений
-    func errorCalculate(error: CalculationError) {
-        switch error {
-        case .dividedByZero, .outOfRang:
-            resetCalculate(clearLabel: false)
-            inputLabel.showError()
-        }
-        
-    }
-    
     /// Полный сброс калькулятора и вычислений.
     func resetCalculate(clearLabel: Bool = true) {
         calculator.removeAll()
@@ -129,9 +100,23 @@ extension ViewController {
         }
     }
     
+    // MARK: Error handler
+    
+    /// Обработка ошибок вычислений
+    private func errorCalculate(error: CalculationError) {
+        switch error {
+        case .dividedByZero, .outOfRang:
+            resetCalculate(clearLabel: false)
+            inputLabel.showError()
+        }
+    }
+    
 }
 
-extension ViewController: RemoveLastDigit {
+
+// MARK: - Calculate
+
+extension ViewController: NumpadDelegate, RemoveLastDigit {
     
     func removeLastDigit() {
         if let _ = inputLabel.getNumber() {
@@ -140,10 +125,6 @@ extension ViewController: RemoveLastDigit {
             inputLabel.text = "0"
         }
     }
-    
-}
-
-extension ViewController: NumpadDelegate {
     
     func number(_ sender: UIButton) {
         guard let buttonText = sender.currentTitle,
@@ -160,7 +141,6 @@ extension ViewController: NumpadDelegate {
     func minusNum(_ sender: UIButton) {
         inputLabel.addMinusNumber()
     }
-    
     
     func operating(_ sender: UIButton) {
         guard let buttonOperation = Operation(rawValue: sender.tag) else { return }
@@ -183,7 +163,6 @@ extension ViewController: NumpadDelegate {
         }
         isNewInput = true
     }
-    
     
     func equal(_ sender: UIButton) {
         guard let labelNumber = inputLabel.getNumber() else { return }
@@ -216,13 +195,13 @@ extension ViewController: NumpadDelegate {
     
 }
 
-// MARK: Table View delegate
+// MARK: - Table View delegate
 
-extension ViewController: UITableViewDelegate, CloseHistory {
-    
-    func closeHistory() {
-        historyTableViewController.table.reloadData()
-        historyTableViewController.navigationController?.popToRootViewController(animated: false)
+extension ViewController: UITableViewDelegate, NavigationDoneDelegate {
+        
+    func done(to viewController: UIViewController) {
+        historyVC.table.reloadData()
+        viewController.navigationController?.popToRootViewController(animated: true)
         animationTableController()
     }
     
@@ -233,133 +212,30 @@ extension ViewController: UITableViewDelegate, CloseHistory {
     
 }
 
-
-
 // MARK: - Animation
 
 private extension ViewController {
     
     func animationTableController(_ indexPath: IndexPath? = nil) {
-        switch historyTableViewController.isOpen {
+        switch historyVC.stateVC {
         case true:
-            
-            UIView.animate(withDuration: 0.2) {
-                self.historyTableViewController.bottomBlur.alpha = 0
-            }
-            
-            UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut) {
-                self.historyTableBottomConstraint.constant = self.view.bounds.height - self.historyTableViewController.view.bounds.height + 20
+            historyVC.animationClose(indexPath) {
                 self.view.layoutIfNeeded()
+            }
+            UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut) {
                 self.blurBG.alpha = 0
-                
-                self.historyTableViewController.topBlur.alpha = 1
-                self.historyTableViewController.bottomBlur.alpha = 1
-                
-                self.historyTableViewController.tableViewController.topBar.alpha = 0
-                self.historyTableViewController.tableViewController.navigationController?.setNavigationBarHidden(true, animated: true)
-                
-                if let indexPath = indexPath {
-                    self.historyTableViewController.table.scrollToRow(at: indexPath, at: .bottom, animated: true)
-                } else {
-                    self.historyTableViewController.table.showLastCell(animated: true)
-                }
-                
             } completion: { _ in
-                self.view.sendSubviewToBack(self.historyTableViewController.view)
+                self.view.sendSubviewToBack(self.historyVC.view)
             }
-            
         case false:
-            
-            // Перемещения на передний план.
-            self.view.bringSubviewToFront(historyTableViewController.view)
-            
-            // Получения ячеек для анимации показа
-            let beforeCells = self.historyTableViewController.table.visibleCells
-            
-            // Нажать на ячейку можно только тогда когда есть хотя бы одна.
-            let beforeFirstCell = beforeCells.first!
-            let beforeLastCell = beforeCells.last!
-            
-            self.historyTableBottomConstraint.constant = self.view.bounds.height - self.historyTableViewController.view.bounds.height + 20
-            
-            // Ячекйи после того как экрна откроется полностью
-            var afterCells = beforeCells
-            
+            view.bringSubviewToFront(historyVC.view)
             UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut) {
-                self.view.layoutIfNeeded()
-                
-                afterCells = self.historyTableViewController.table.visibleCells
-                
                 self.blurBG.alpha = 1
-                self.historyTableViewController.tableViewController.topBar.alpha = 1
-                
-                self.historyTableViewController.topBlur.alpha = 0
-                self.historyTableViewController.bottomBlur.alpha = 0
-                
-                self.historyTableViewController.tableViewController.navigationController?.setNavigationBarHidden(false, animated: true)
-                
-                if let indexPath = indexPath {
-                    self.historyTableViewController.table.scrollToRow(at: indexPath, at: .top, animated: true)
-                } else {
-                    self.historyTableViewController.table.showLastCell(animated: true)
-                }
-                
-            } completion: { _ in
-                
-                UIView.animate(withDuration: 0.2) {
-                    self.historyTableViewController.bottomBlur.alpha = 1
-                }
-                
             }
-            
-            let cells = afterCells.filter{ !beforeCells.contains($0) }
-            
-            let upsetCells = cells.filter {
-                $0.frame.minY > beforeFirstCell.frame.maxY
+            historyVC.animationOpen(indexPath) {
+                self.view.layoutIfNeeded()
             }
-            
-            let downCells = cells.filter {
-                $0.frame.maxY < beforeLastCell.frame.maxY
-            }
-            
-            self.historyTableViewController.tableViewController.showCellAnimation(upsetCells)
-            self.historyTableViewController.tableViewController.showCellAnimation(downCells.reversed())
         }
-
-        historyTableViewController.isOpen = !historyTableViewController.isOpen
-    }
-    
-}
-
-// MARK:  Constraints
-
-private extension ViewController {
-    
-    private func setupBlurBGConstraints() {
-        blurBG.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            blurBG.topAnchor.constraint(equalTo: view.topAnchor),
-            blurBG.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            blurBG.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            blurBG.leadingAnchor.constraint(equalTo: view.leadingAnchor)
-        ])
-    }
-    
-    private func setupTableViewConstraints(_ view: UIView) {
-        view.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            view.topAnchor.constraint(equalTo: self.view.topAnchor),
-            view.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-            view.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
-        ])
-        historyTableBottomConstraint = NSLayoutConstraint(item: view,
-                                              attribute: .bottom,
-                                              relatedBy: .equal,
-                                              toItem: inputLabel,
-                                              attribute: .top,
-                                              multiplier: 1,
-                                              constant: 20)
-        historyTableBottomConstraint.isActive = true
     }
     
 }
