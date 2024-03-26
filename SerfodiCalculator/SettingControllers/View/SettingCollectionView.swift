@@ -9,14 +9,20 @@ import UIKit
 
 class SettingCollectionView: UICollectionView {
 
-    init(frame: CGRect) {
-        let layoutConfig = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
+    init(frame: CGRect, header: Bool = false) {
+        var layoutConfig = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
+        if header {
+            layoutConfig.headerMode = .supplementary
+        }
         let layout = UICollectionViewCompositionalLayout.list(using: layoutConfig)
         super.init(frame: frame, collectionViewLayout: layout)
         allowsSelection = false
         autoresizingMask = [.flexibleWidth, .flexibleHeight]
         backgroundColor = .operatingSelectedButtonColor()
     }
+    
+    
+    
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

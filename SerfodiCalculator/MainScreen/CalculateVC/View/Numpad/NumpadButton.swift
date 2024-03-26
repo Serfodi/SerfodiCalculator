@@ -52,4 +52,9 @@ final class NumpadButton: UIButton {
         self.titleLabel?.font = .numpad(size: 22)
     }
     
+    override func actions(forTarget target: Any?, forControlEvent controlEvent: UIControl.Event) -> [String]? {
+        super.actions(forTarget: target, forControlEvent: controlEvent)
+        return super.actions(forTarget: target, forControlEvent: controlEvent)
+    }
+    
 }

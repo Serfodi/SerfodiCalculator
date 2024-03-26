@@ -21,15 +21,6 @@ class HistoryTableViewController: UITableViewController {
         }
     }
     
-    init(table: UITableView) {
-        super.init(nibName: nil, bundle: nil)
-        self.tableView = table
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavBar()
@@ -44,7 +35,16 @@ class HistoryTableViewController: UITableViewController {
     @objc private func openSetting() {
         let settingVC = SettingTableViewController()
         settingVC.delegate = delegate
-        navigationController?.pushViewController(settingVC, animated: true)
+        
+        
+        let transition = CATransition()
+        transition.duration = 0.5
+        transition.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
+        transition.type = .fade
+        navigationController?.view.layer.add(transition, forKey: nil)
+        
+        
+        navigationController?.pushViewController(settingVC, animated: false)
     }
     
     @objc private func done() {
@@ -52,12 +52,12 @@ class HistoryTableViewController: UITableViewController {
     }
     
     private func setupTable() {
+        tableView = HistoryTableView()
         tableView.contentInsetAdjustmentBehavior = .never
     }
     
     private func setupNavBar() {
         navigationController?.navigationBar.topItem?.title = "История"
-        navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.navigationBar.alpha = 0
         navigationController?.isNavigationBarHidden = true
         

@@ -45,13 +45,26 @@ final class SecondNumpad: UIView, NumpadDelegate {
         numpadButtons.forEach { array in
             array.forEach{ $0.addTarget(self, action: #selector(operating), for: .touchUpInside) }
         }
-        
     }
     
     private func setupView() {
         backgroundColor = .numpadColor()
         layer.cornerRadius = 45
     }
+    
+    // MARK: - Operating
+    
+    @objc func operating(_ sender: UIButton) {
+        sender.animationTap()
+        sender.hapticSoftTap()
+        delegate?.operating(sender)
+    }
+    
+}
+
+// MARK: Constraint
+
+extension SecondNumpad {
     
     private func setupStackView(numpadButtons: [[NumpadButton]]) {
         var horizontalStackViews:[UIStackView] = []
@@ -70,21 +83,6 @@ final class SecondNumpad: UIView, NumpadDelegate {
         mainVerticalStackView.spacing = 15
         self.addSubview(mainVerticalStackView)
     }
-    
-    
-    // MARK: - Operating
-    
-    @objc func operating(_ sender: UIButton) {
-        sender.animationTap()
-        sender.hapticSoftTap()
-        delegate?.operating(sender)
-    }
-    
-}
-
-// MARK: Constraint
-
-extension SecondNumpad {
     
     private func setupConstraints() {
         

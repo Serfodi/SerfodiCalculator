@@ -41,14 +41,39 @@ final class SettingManager {
         self.setting
     }
     
+}
+
+extension SettingManager {
     
-    public func isSaveHistoryData(_ isSave: Bool) {
-        setting.isSaveHistoryData = isSave
+    public func setGeneralSetting(_ set: GeneralSetting) {
+        setting.generalSetting = set
         save()
     }
-    
-    public func getIsSaveHistoryData() -> Bool {
-        setting.isSaveHistoryData
+    public func getGeneralSetting() -> GeneralSetting {
+        setting.generalSetting
     }
     
+    public func setEnvironmentSetting(_ set: EnvironmentSetting) {
+        setting.environmentSetting = set
+        save()
+    }
+    public func getEnvironmentSetting() -> EnvironmentSetting {
+        setting.environmentSetting
+    }
+    
+    public func setDataSetting(_ set: DataSetting) {
+        setting.dataSetting = set
+        save()
+    }
+    public func getDataSetting() -> DataSetting {
+        setting.dataSetting
+    }
+    
+    public func setDesignSetting(_ set: DesignSetting) {
+        setting.designSetting = set
+        save()
+    }
+    public func getDesignSetting() -> DesignSetting {
+        setting.designSetting
+    }
 }

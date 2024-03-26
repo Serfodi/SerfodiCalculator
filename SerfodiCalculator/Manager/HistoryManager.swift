@@ -51,8 +51,8 @@ final class HistoryManager {
     }
     
     public func removeAllDataHistory() {
-        calculations.removeAll()
         storage.removeAllHistory()
+        calculations.removeAll()
     }
     
 }

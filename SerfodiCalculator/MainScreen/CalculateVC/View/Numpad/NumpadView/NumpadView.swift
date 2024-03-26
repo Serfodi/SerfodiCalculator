@@ -7,19 +7,13 @@
 
 import UIKit
 
-@objc protocol NumpadDelegate: AnyObject {
-    func operating(_ sender: UIButton)
-    @objc optional func number(_ sender: UIButton)
-    @objc optional func minusNum(_ sender: UIButton)
-    @objc optional func equal(_ sender: UIButton)
-    @objc optional func reset(_ sender: UIButton)
-}
-
 //@IBDesignable
 final class NumpadView: UIView {
 
     var delegate: NumpadDelegate?
 
+    
+    
     @IBOutlet var numpadButtons: [UIButton]!
     @IBOutlet var padView: UIView!
     
@@ -101,49 +95,3 @@ final class NumpadView: UIView {
     }
     
 }
-
-// Touch
-
-/*
-
-extension NumpadView: UIGestureRecognizerDelegate {
-    
-    private func addGesture() {
-        swipeGesture.addTarget(self, action: #selector(handleSwipe(_:)))
-        swipeGesture.direction = .right
-        addGestureRecognizer(swipeGesture)
-        longPressGesture.addTarget(self, action: #selector(handleLongPress(_:)))
-        addGestureRecognizer(longPressGesture)
-    }
-
-    @objc func handleLongPress(_ gestureRecognizer: UILongPressGestureRecognizer) {
-        if gestureRecognizer.state == .began {
-            hapticMediumTap()
-            UIView.animate(withDuration: 0.3, animations: {
-                self.transform = CGAffineTransform(scaleX: 1.03, y: 1.03)
-            })
-        } else if gestureRecognizer.state == .ended {
-            UIView.animate(withDuration: 0.3, animations: {
-                self.transform = CGAffineTransform.identity
-            })
-        }
-    }
-    
-    @objc func handleSwipe(_ gestureRecognizer: UISwipeGestureRecognizer) {
-        
-  
-        
-    }
-    
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRequireFailureOf otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        if gestureRecognizer == self.longPressGesture && otherGestureRecognizer == self.swipeGesture {
-            return true
-        }
-        return false
-    }
- 
-
-    
-}
-
-*/

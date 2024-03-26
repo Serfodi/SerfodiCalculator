@@ -67,16 +67,22 @@ extension SettingTableViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
-        
         guard let selectedItem = dataSource.itemIdentifier(for: indexPath) else { return }
         
         switch selectedItem.title {
+        case modelObjects[0][0].title:
+            let vc = GeneralSettingViewController()
+            vc.delegate = delegate
+            navigationController?.pushViewController(vc, animated: true)
+        case modelObjects[0][1].title:
+            let vc = DesignViewController()
+            vc.delegate = delegate
+            navigationController?.pushViewController(vc, animated: true)
         case modelObjects[1][0].title:
-            
             let vc = HistoryDataController()
             vc.delegate = delegate
             navigationController?.pushViewController(vc, animated: true)
-            
+        
         default:
             print(selectedItem.title)
         }
@@ -131,6 +137,7 @@ extension SettingTableViewController {
     private func configNavigationBar() {
         navigationItem.title = "Настройки"
         navigationItem.makeDone(target: self, action: #selector(done))
+        navigationItem.hidesBackButton = true
     }
         
     private func setupCollectionView() {

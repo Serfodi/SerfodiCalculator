@@ -13,6 +13,11 @@ class SwitchCellListCell: UICollectionViewListCell {
     var text: String?
     let aSwitch = UISwitch()
     
+    func config(isOn: Bool, target: AnyObject, action: Selector) {
+        aSwitch.addTarget(target, action: action, for: .valueChanged)
+        aSwitch.setOn(isOn, animated: true)
+    }
+    
     override func updateConfiguration(using state: UICellConfigurationState) {
         let newBgConfiguration = UIBackgroundConfiguration.listGroupedCell()
         backgroundConfiguration = newBgConfiguration

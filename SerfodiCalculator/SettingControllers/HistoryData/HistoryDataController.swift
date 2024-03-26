@@ -21,9 +21,10 @@ class HistoryDataController: UIViewController {
     }
     
     var delegate: NavigationDoneDelegate?
-    
     var collectionView: UICollectionView!
     var dataSource: UICollectionViewDiffableDataSource<Section, Item>!
+    
+    private static var dataSetting: DataSetting = SettingManager().getDataSetting()
     
     let menu = [
         Section(name: "Память", items: [
@@ -31,7 +32,7 @@ class HistoryDataController: UIViewController {
             Item.clearButton(HistoryManager().storage.getSizeOfUserDefaults() ?? 0)
         ]),
         Section(items: [
-            Item.isSaveSwitch(SettingManager().getIsSaveHistoryData())
+            Item.isSaveSwitch(dataSetting.isSaveHistory)
         ])
     ]
     
@@ -60,7 +61,9 @@ class HistoryDataController: UIViewController {
     }
     
     @objc func switchChanged(_ sender: UISwitch) {
-        SettingManager().isSaveHistoryData(sender.isOn)
+        var newDataSetting = HistoryDataController.dataSetting
+        newDataSetting.isSaveHistory = sender.isOn
+        SettingManager().setDataSetting(newDataSetting)
     }
 }
 

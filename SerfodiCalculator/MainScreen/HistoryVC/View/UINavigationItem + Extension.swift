@@ -14,24 +14,5 @@ extension UINavigationItem {
         rightBarButtonItem = UIBarButtonItem(title: "Готово", style: .done, target: target, action: action)
     }
     
-//    @objc func done() {
-//        ()
-//    }
-    
 }
 
-//extension UIViewController {
-//
-//    @objc func done(to viewController: UIViewController) {
-//        viewController.navigationController?.popToRootViewController(animated: true)
-//    }
-//
-//    func makeDone() {
-//        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Готово", style: .done, target: self, action: #selector(done))
-//    }
-//
-////    @objc func done() {
-////        ()
-////    }
-//
-//}

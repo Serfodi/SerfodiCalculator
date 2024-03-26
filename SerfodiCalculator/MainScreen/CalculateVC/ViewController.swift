@@ -13,17 +13,15 @@ class ViewController: UIViewController {
     @IBOutlet weak var inputLabel: DisplayLabel!
     @IBOutlet weak var numpadController: NumpadController!
     
-    var historyVC : HistoryViewController!
+    private var historyVC : HistoryViewController!
+    private let blurBG = BlurView()
     
-    private let blurBG = BlurView(styleGradient: .non)
-    
-    private let calculator = Calculator()
-    
-    private let settingManager = SettingManager()
-    private let historyManager = HistoryManager()
     private var dataProvider: DataProvider!
-    private var setting: Setting!
+    private var historyManager = HistoryManager()
+    
+    private let settingManager = SettingManager().getSetting()
          
+    private let calculator = Calculator()
     
     /// Индикатор для сигнализации о новом вводе:
     /// `true` – Разрешён новый ввод числа
@@ -39,11 +37,10 @@ class ViewController: UIViewController {
         configurationHistory()
         
         dataProvider = DataProvider(historyManager: historyManager)
-        setting = settingManager.getSetting()
         
         historyVC.delegate = self
-        historyVC.table.dataSource = dataProvider
         historyVC.table.delegate = self
+        historyVC.table.dataSource = dataProvider
         
         numpadController.delegate = self
         inputLabel.delegate = self
@@ -53,7 +50,9 @@ class ViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        let lastResult = setting.lastResult
+        
+        let lastResult = settingManager.environmentSetting.lastResult
+        
         inputLabel.setTextLabel(number: lastResult!)
         historyVC.table.reloadData()
         historyVC.table.showLastCell(animated: false)
@@ -70,6 +69,7 @@ class ViewController: UIViewController {
     fileprivate func configurationBG() {
         view.addSubview(blurBG)
         view.pinToBounds(blurBG)
+        blurBG.isHidden = true
         blurBG.alpha = 0
     }
     
@@ -145,13 +145,10 @@ extension ViewController: NumpadDelegate, RemoveLastDigit {
     func operating(_ sender: UIButton) {
         guard let buttonOperation = Operation(rawValue: sender.tag) else { return }
         guard let labelNumber = inputLabel.getNumber() else { return }
-        
         if !isNewInput || calculator.count == 0 {
             calculator.addNumber(labelNumber)
         }
-        
         calculator.addOperation(buttonOperation)
-        
         calculateResult { result in
             inputLabel.setTextLabel(number: result)
             if buttonOperation.type == .unary {
@@ -166,18 +163,15 @@ extension ViewController: NumpadDelegate, RemoveLastDigit {
     
     func equal(_ sender: UIButton) {
         guard let labelNumber = inputLabel.getNumber() else { return }
-        
         if !isNewInput || calculator.count == 0 {
             calculator.addNumber(labelNumber)
         } else {
             calculator.removeLastOperation()
         }
-        
         if isNewInput && calculator.count == 1 {
             // Добавить последнее действие.
             calculator.addLastOperation()
         }
-        
         calculateResult { result in
             calculator.removeHistory { calculationItems in
                 let calculation = Calculation(expression: calculationItems, result: result)
@@ -185,7 +179,6 @@ extension ViewController: NumpadDelegate, RemoveLastDigit {
             }
             inputLabel.setTextLabel(number: result)
         }
-        
         isNewInput = true // Новый ввод разрешён
     }
 
@@ -200,8 +193,19 @@ extension ViewController: NumpadDelegate, RemoveLastDigit {
 extension ViewController: UITableViewDelegate, NavigationDoneDelegate {
         
     func done(to viewController: UIViewController) {
+        
+        historyManager = HistoryManager()
+        dataProvider.historyManager = HistoryManager()
         historyVC.table.reloadData()
-        viewController.navigationController?.popToRootViewController(animated: true)
+        
+        let transition = CATransition()
+        transition.duration = 0.2
+        transition.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
+        transition.type = .fade
+        
+        viewController.navigationController?.view.layer.add(transition, forKey: nil)
+        viewController.navigationController?.popToRootViewController(animated: false)
+        
         animationTableController()
     }
     
@@ -226,8 +230,10 @@ private extension ViewController {
                 self.blurBG.alpha = 0
             } completion: { _ in
                 self.view.sendSubviewToBack(self.historyVC.view)
+                self.blurBG.isHidden = true
             }
         case false:
+            blurBG.isHidden = false
             view.bringSubviewToFront(historyVC.view)
             UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut) {
                 self.blurBG.alpha = 1

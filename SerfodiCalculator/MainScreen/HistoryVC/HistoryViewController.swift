@@ -9,7 +9,7 @@ import UIKit
 
 final class HistoryViewController: UIViewController {
     
-    private let tableViewController = HistoryTableViewController(table: HistoryTableView())
+    private var tableViewController: HistoryTableViewController!
     private let topBlur = BlurView(styleGradient: .linear(.up(0.45)))
     private let bottomBlur = BlurView(styleGradient: .doubleLine(0.4, 0.5))
     
@@ -39,6 +39,7 @@ final class HistoryViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableViewController = HistoryTableViewController()
         let navigationController = UINavigationController(rootViewController: tableViewController)
         addChild(navigationController)
         self.view.addSubview(navigationController.view)

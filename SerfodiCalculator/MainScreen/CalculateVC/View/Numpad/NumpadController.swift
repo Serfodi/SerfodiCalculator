@@ -7,6 +7,15 @@
 
 import UIKit
 
+@objc protocol NumpadDelegate: AnyObject {
+    func operating(_ sender: UIButton)
+    @objc optional func number(_ sender: UIButton)
+    @objc optional func minusNum(_ sender: UIButton)
+    @objc optional func equal(_ sender: UIButton)
+    @objc optional func reset(_ sender: UIButton)
+}
+
+
 final class NumpadController: UIView {
     
     public enum NumpadState {
