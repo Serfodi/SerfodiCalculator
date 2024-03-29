@@ -35,16 +35,7 @@ class HistoryTableViewController: UITableViewController {
     @objc private func openSetting() {
         let settingVC = SettingTableViewController()
         settingVC.delegate = delegate
-        
-        
-        let transition = CATransition()
-        transition.duration = 0.5
-        transition.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
-        transition.type = .fade
-        navigationController?.view.layer.add(transition, forKey: nil)
-        
-        
-        navigationController?.pushViewController(settingVC, animated: false)
+        navigationController?.pushViewController(settingVC, animated: true)
     }
     
     @objc private func done() {

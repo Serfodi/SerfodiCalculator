@@ -14,15 +14,13 @@ class SettingCollectionView: UICollectionView {
         if header {
             layoutConfig.headerMode = .supplementary
         }
+        layoutConfig.backgroundColor = .clear
         let layout = UICollectionViewCompositionalLayout.list(using: layoutConfig)
         super.init(frame: frame, collectionViewLayout: layout)
         allowsSelection = false
         autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        backgroundColor = .operatingSelectedButtonColor()
+        backgroundColor = .clear
     }
-    
-    
-    
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

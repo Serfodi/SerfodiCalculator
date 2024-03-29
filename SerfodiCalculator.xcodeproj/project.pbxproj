@@ -21,7 +21,6 @@
 		B03037FB2BAF1ED200CA1DC6 /* LabelCellListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03037FA2BAF1ED200CA1DC6 /* LabelCellListCell.swift */; };
 		B03037FE2BAF3E9A00CA1DC6 /* SettingCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03037FD2BAF3E9A00CA1DC6 /* SettingCollectionView.swift */; };
 		B03038012BAF47EB00CA1DC6 /* UINavigationItem + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03038002BAF47EB00CA1DC6 /* UINavigationItem + Extension.swift */; };
-		B03038032BB2C45700CA1DC6 /* MakeMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03038022BB2C45700CA1DC6 /* MakeMenuCell.swift */; };
 		B03038052BB2D8CD00CA1DC6 /* DesignViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03038042BB2D8CD00CA1DC6 /* DesignViewController.swift */; };
 		B04053F22BADC02B00EB217B /* UIView + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04053F12BADC02B00EB217B /* UIView + Extension.swift */; };
 		B04053F52BADDBC400EB217B /* GeneralSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04053F42BADDBC400EB217B /* GeneralSettingViewController.swift */; };
@@ -61,6 +60,9 @@
 		B099E0C72B6BF016000670CE /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B099E0C62B6BF016000670CE /* DataProvider.swift */; };
 		B099E0C92B6BF86F000670CE /* HistoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B099E0C82B6BF86F000670CE /* HistoryManager.swift */; };
 		B099E0CB2B6C03DA000670CE /* SettingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B099E0CA2B6C03DA000670CE /* SettingManager.swift */; };
+		B0A1B8562BB4321100D7E568 /* WhiteNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A1B8552BB4321100D7E568 /* WhiteNavigationBar.swift */; };
+		B0A1B8582BB43DFB00D7E568 /* AnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A1B8572BB43DFB00D7E568 /* AnimationController.swift */; };
+		B0A1B85A2BB460C300D7E568 /* AnimationInteractiveController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A1B8592BB460C300D7E568 /* AnimationInteractiveController.swift */; };
 		B0FEF0462B9DC382001C1792 /* HistoryTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0899CFE2B9CA9DB00C12D7C /* HistoryTableView.swift */; };
 		B0FEF0472B9DD1A9001C1792 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B059F1D92B878D380079EFFA /* HistoryViewController.swift */; };
 		B0FEF0492B9DD38A001C1792 /* HistoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0FEF0482B9DD38A001C1792 /* HistoryTableViewController.swift */; };
@@ -83,7 +85,6 @@
 		B03037FA2BAF1ED200CA1DC6 /* LabelCellListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelCellListCell.swift; sourceTree = "<group>"; };
 		B03037FD2BAF3E9A00CA1DC6 /* SettingCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCollectionView.swift; sourceTree = "<group>"; };
 		B03038002BAF47EB00CA1DC6 /* UINavigationItem + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationItem + Extension.swift"; sourceTree = "<group>"; };
-		B03038022BB2C45700CA1DC6 /* MakeMenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeMenuCell.swift; sourceTree = "<group>"; };
 		B03038042BB2D8CD00CA1DC6 /* DesignViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignViewController.swift; sourceTree = "<group>"; };
 		B04053F12BADC02B00EB217B /* UIView + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView + Extension.swift"; sourceTree = "<group>"; };
 		B04053F42BADDBC400EB217B /* GeneralSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralSettingViewController.swift; sourceTree = "<group>"; };
@@ -126,6 +127,9 @@
 		B099E0C62B6BF016000670CE /* DataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProvider.swift; sourceTree = "<group>"; };
 		B099E0C82B6BF86F000670CE /* HistoryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryManager.swift; sourceTree = "<group>"; };
 		B099E0CA2B6C03DA000670CE /* SettingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingManager.swift; sourceTree = "<group>"; };
+		B0A1B8552BB4321100D7E568 /* WhiteNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhiteNavigationBar.swift; sourceTree = "<group>"; };
+		B0A1B8572BB43DFB00D7E568 /* AnimationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationController.swift; sourceTree = "<group>"; };
+		B0A1B8592BB460C300D7E568 /* AnimationInteractiveController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationInteractiveController.swift; sourceTree = "<group>"; };
 		B0FEF0482B9DD38A001C1792 /* HistoryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -227,7 +231,6 @@
 				B03037FC2BAF1EFC00CA1DC6 /* SecondLabelCell */,
 				B03037F92BAF1A6000CA1DC6 /* SwitchCell */,
 				B069C2DB2BA480AE00503FEB /* ButtonCell */,
-				B03038022BB2C45700CA1DC6 /* MakeMenuCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -239,6 +242,8 @@
 				B064E3012B6039A600E56208 /* HistoryCell.swift */,
 				B050E2502B9F73DD00D48DFE /* ExpressionLabel.swift */,
 				B03038002BAF47EB00CA1DC6 /* UINavigationItem + Extension.swift */,
+				B0A1B8552BB4321100D7E568 /* WhiteNavigationBar.swift */,
+				B0A1B85B2BB5593300D7E568 /* AnimationController */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -422,6 +427,15 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		B0A1B85B2BB5593300D7E568 /* AnimationController */ = {
+			isa = PBXGroup;
+			children = (
+				B0A1B8572BB43DFB00D7E568 /* AnimationController.swift */,
+				B0A1B8592BB460C300D7E568 /* AnimationInteractiveController.swift */,
+			);
+			path = AnimationController;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -508,17 +522,19 @@
 				B00257BB2B8488D000311188 /* NumpadController.swift in Sources */,
 				B064E3192B62BFF400E56208 /* UIWindow + Extension.swift in Sources */,
 				B059F1E62B88FD8F0079EFFA /* Array + Extension.swift in Sources */,
+				B0A1B85A2BB460C300D7E568 /* AnimationInteractiveController.swift in Sources */,
+				B0A1B8582BB43DFB00D7E568 /* AnimationController.swift in Sources */,
 				B02EC6612B5D8D4E00CE0122 /* ViewController.swift in Sources */,
 				B04BFDCE2B7373A800ED7099 /* NumpadView.swift in Sources */,
 				B099E0C92B6BF86F000670CE /* HistoryManager.swift in Sources */,
 				B064E3062B6180FA00E56208 /* BlurGradientEffect.swift in Sources */,
-				B03038032BB2C45700CA1DC6 /* MakeMenuCell.swift in Sources */,
 				B069C2BC2BA08A2200503FEB /* HistoryDataController.swift in Sources */,
 				B099E0CB2B6C03DA000670CE /* SettingManager.swift in Sources */,
 				B0FEF0472B9DD1A9001C1792 /* HistoryViewController.swift in Sources */,
 				B064E2FC2B5ED4F000E56208 /* UILabel + Extension.swift in Sources */,
 				B03037FE2BAF3E9A00CA1DC6 /* SettingCollectionView.swift in Sources */,
 				B064E3262B6583AD00E56208 /* DynamicNumberFormatter.swift in Sources */,
+				B0A1B8562BB4321100D7E568 /* WhiteNavigationBar.swift in Sources */,
 				B069C2D92BA47E3000503FEB /* SettingModel.swift in Sources */,
 				B064E30A2B61822400E56208 /* UITableView + Extension.swift in Sources */,
 				B0FEF0492B9DD38A001C1792 /* HistoryTableViewController.swift in Sources */,

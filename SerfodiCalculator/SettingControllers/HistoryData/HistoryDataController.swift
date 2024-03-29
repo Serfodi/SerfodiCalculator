@@ -38,15 +38,13 @@ class HistoryDataController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        view.backgroundColor = .systemGroupedBackground
+        
         configNavigationBar()
         setupCollectionView()
         createDataSource()
         reloadData()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.navigationBar.prefersLargeTitles = false
     }
     
     // MARK: Action

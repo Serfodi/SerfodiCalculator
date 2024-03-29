@@ -19,5 +19,16 @@ extension UIView {
             view.trailingAnchor.constraint(equalTo: trailingAnchor),
             ])
     }
+}
+
+extension UIView {
+    
+    var snapshot: UIImage {
+        let renderer = UIGraphicsImageRenderer(bounds: bounds)
+        let capturedImage = renderer.image { context in
+            layer.render(in: context.cgContext)
+        }
+        return capturedImage
+    }
     
 }

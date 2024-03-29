@@ -28,6 +28,8 @@ enum Section: Int {
 
 class SettingTableViewController: UIViewController {
     
+    
+    
     let modelObjects = [
         [MenuItem(title: "Общие"),
          MenuItem(title: "Дизайн")],
@@ -43,15 +45,13 @@ class SettingTableViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        view.backgroundColor = .white
+        
         configNavigationBar()
         setupCollectionView()
         createDataSource()
         reloadData()
-    }
- 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.navigationBar.prefersLargeTitles = false
     }
     
     @objc private func done() {
@@ -68,7 +68,6 @@ extension SettingTableViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
         guard let selectedItem = dataSource.itemIdentifier(for: indexPath) else { return }
-        
         switch selectedItem.title {
         case modelObjects[0][0].title:
             let vc = GeneralSettingViewController()
@@ -82,7 +81,6 @@ extension SettingTableViewController: UICollectionViewDelegate {
             let vc = HistoryDataController()
             vc.delegate = delegate
             navigationController?.pushViewController(vc, animated: true)
-        
         default:
             print(selectedItem.title)
         }
@@ -126,7 +124,6 @@ extension SettingTableViewController {
         snapshot.appendItems(modelObjects[Section.data.rawValue], toSection: .data)
         dataSource.apply(snapshot, animatingDifferences: false)
     }
-    
 }
 
 
@@ -138,6 +135,12 @@ extension SettingTableViewController {
         navigationItem.title = "Настройки"
         navigationItem.makeDone(target: self, action: #selector(done))
         navigationItem.hidesBackButton = true
+        
+//        navigationController?.delegate = self
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+        
+//        (navigationController as! WhiteNavigationController).interactiveGesture.isEnabled = false
+        
     }
         
     private func setupCollectionView() {
@@ -151,8 +154,11 @@ extension SettingTableViewController {
     private func createCompositionalLayout() -> UICollectionViewLayout {
         var layoutConfig = UICollectionLayoutListConfiguration(appearance: .grouped)
         layoutConfig.showsSeparators = false
-        layoutConfig.backgroundColor = UIColor.operatingSelectedButtonColor()
+//        layoutConfig.backgroundColor = UIColor.operatingSelectedButtonColor()
+        layoutConfig.backgroundColor = .clear
         return UICollectionViewCompositionalLayout.list(using: layoutConfig)
     }
     
 }
+
+

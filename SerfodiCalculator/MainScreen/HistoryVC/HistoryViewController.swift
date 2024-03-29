@@ -40,7 +40,9 @@ final class HistoryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableViewController = HistoryTableViewController()
-        let navigationController = UINavigationController(rootViewController: tableViewController)
+        
+        let navigationController = WhiteNavigationController(rootViewController: tableViewController)
+        
         addChild(navigationController)
         self.view.addSubview(navigationController.view)
         setupTableConstraints(navigationController.view)

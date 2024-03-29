@@ -15,7 +15,6 @@ import UIKit
     @objc optional func reset(_ sender: UIButton)
 }
 
-
 final class NumpadController: UIView {
     
     public enum NumpadState {
@@ -32,16 +31,6 @@ final class NumpadController: UIView {
         }
     }
     
-    private var numpadView = NumpadView()
-    private var secondNumpadView = SecondNumpad()
-    private var pullButton = PullButton()
-    
-    
-    public var delegate: NumpadDelegate!
-    
-    
-    private var centerNumpadConstraint: NSLayoutConstraint!
-    
     private lazy var swipeLRecognizer: UISwipeGestureRecognizer = {
         let recognizer = UISwipeGestureRecognizer()
         recognizer.addTarget(self, action: #selector(swipeL))
@@ -54,47 +43,46 @@ final class NumpadController: UIView {
         recognizer.direction = .left
         return recognizer
     }()
-    
     private lazy var panRecognizer: InstantPanGestureRecognizer = {
         let recognizer = InstantPanGestureRecognizer()
         recognizer.addTarget(self, action: #selector(dragSwipe(recognizer:)))
         return recognizer
     }()
-    
     private lazy var popupOffset: CGFloat = {
         var constraint = bounds.width
         constraint -= (constraint - numpadView.frame.width) / 2
         return constraint
     }()
     
+    private var numpadView = NumpadView()
+    private var secondNumpadView = SecondNumpad()
+    private var pullButton = PullButton()
+    
+    public var delegate: NumpadDelegate!
+    
     private var currentState: NumpadState = .general
     
-    private var runningAnimators = [UIViewPropertyAnimator]()
+    private var centerNumpadConstraint: NSLayoutConstraint!
     
+    private var runningAnimators = [UIViewPropertyAnimator]()
     private var animationProgress = [CGFloat]()
     
-    
+    // MARK: init
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         configure()
     }
     
-    
     private func configure() {
         backgroundColor = .clear
-        
         setupConstrains()
-        
         numpadView.addGestureRecognizer(swipeLRecognizer)
         secondNumpadView.addGestureRecognizer(swipeRRecognizer)
-        
         pullButton.addGestureRecognizer(panRecognizer)
-        
         numpadView.delegate = self
         secondNumpadView.delegate = self
     }
-    
 }
 
 
@@ -121,7 +109,6 @@ extension NumpadController: NumpadDelegate {
     func reset(_ sender: UIButton) {
         delegate.reset?(sender)
     }
-    
 }
 
 
@@ -138,16 +125,13 @@ extension NumpadController {
     }
     
     @objc private func dragSwipe(recognizer: UIPanGestureRecognizer) {
-        
         switch recognizer.state {
         case .began:
-            
             animateTransitionIfNeeded(to: currentState.opposite, duration: 1)
             runningAnimators.forEach { $0.pauseAnimation() }
             animationProgress = runningAnimators.map { $0.fractionComplete }
             
         case .changed:
-            
             // variable setup
             let translation = recognizer.translation(in: pullButton)
             var fraction = translation.x / popupOffset
@@ -162,7 +146,6 @@ extension NumpadController {
             }
             
         case .ended:
-            
             // variable setup
             let xVelocity = recognizer.velocity(in: pullButton).x
             let shouldClose = xVelocity < 0
@@ -185,14 +168,12 @@ extension NumpadController {
             
             // continue all animations
             runningAnimators.forEach { $0.continueAnimation(withTimingParameters: nil, durationFactor: 0) }
-            
         default:
             ()
         }
     }
 
     private func animateTransitionIfNeeded(to state: NumpadState, duration: TimeInterval) {
-        
         // ensure that the animators array is empty (which implies new animations need to be created)
         guard runningAnimators.isEmpty else { return }
         
@@ -205,7 +186,6 @@ extension NumpadController {
             case .second:
                 self.centerNumpadConstraint.constant = self.popupOffset
             }
-            
             self.layoutIfNeeded()
         })
         
@@ -238,12 +218,8 @@ extension NumpadController {
         
         transitionAnimator.startAnimation()
         runningAnimators.append(transitionAnimator)
-        
     }
-    
 }
-
-
 
 // MARK: - Constrains
 
@@ -257,7 +233,6 @@ extension NumpadController {
         numpadView.translatesAutoresizingMaskIntoConstraints = false
         secondNumpadView.translatesAutoresizingMaskIntoConstraints = false
         pullButton.translatesAutoresizingMaskIntoConstraints = false
-                
         
         NSLayoutConstraint.activate([
             numpadView.topAnchor.constraint(equalTo: topAnchor),
@@ -276,7 +251,7 @@ extension NumpadController {
             constant: 0)
         centerNumpadConstraint.isActive = true
         
-        let width = (self.bounds.width - 315) / 2
+        let width = (UIScreen.main.bounds.width - 315) / 2
         
         NSLayoutConstraint.activate([
             pullButton.trailingAnchor.constraint(equalTo: numpadView.leadingAnchor),
@@ -286,10 +261,7 @@ extension NumpadController {
             pullButton.heightAnchor.constraint(equalToConstant: 200)
         ])
         
-        
         secondNumpadView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
         secondNumpadView.trailingAnchor.constraint(equalTo: pullButton.leadingAnchor).isActive = true
-        
     }
-    
 }

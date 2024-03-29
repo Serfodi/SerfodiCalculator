@@ -79,6 +79,8 @@ final class BlurView: UIVisualEffectView {
         super.traitCollectionDidChange(previousTraitCollection)
         fixGradientColor()
     }
+    
+    
 }
 
 

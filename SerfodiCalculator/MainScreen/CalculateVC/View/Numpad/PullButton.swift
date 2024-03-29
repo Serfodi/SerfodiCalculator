@@ -15,16 +15,15 @@ class PullButton: UIButton {
         let _ = setStyle(in: rect, color: .focusColor())
     }
     
-    
-    func image(in rect: CGRect, color: UIColor) -> UIImage {
-        UIGraphicsBeginImageContext(rect.size)
-        
-        let _ = setStyle(in: rect, color: color)
-        
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return image!
-    }
+//    func image(in rect: CGRect, color: UIColor) -> UIImage {
+//        UIGraphicsBeginImageContext(rect.size)
+//
+//        let _ = setStyle(in: rect, color: color)
+//
+//        let image = UIGraphicsGetImageFromCurrentImageContext()
+//        UIGraphicsEndImageContext()
+//        return image!
+//    }
     
     private func setStyle(in rect: CGRect, color: UIColor) -> UIBezierPath {
         let size = CGSize(width: 12, height: 56)
