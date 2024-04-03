@@ -12,25 +12,24 @@ final class NumpadView: UIView {
 
     var delegate: NumpadDelegate?
 
-    
+    @IBOutlet var serviceButtons: [UIButton]!
+    @IBOutlet var operationButtons: [UIButton]!
+    @IBOutlet var numberButtons: [UIButton]!
     
     @IBOutlet var numpadButtons: [UIButton]!
     @IBOutlet var padView: UIView!
-    
-    private let longPressGesture = UILongPressGestureRecognizer()
-    private let swipeGesture = UISwipeGestureRecognizer()
     
     private var currentOperationButton: UIButton? = UIButton() {
         didSet {
             guard let button = oldValue else { return }
             guard button != currentOperationButton else { return }
-            button.backgroundColor = .operatingButtonColor()
+            button.backgroundColor = NumpadAppearance.OperatingButton.BGColor.normal.color()
             button.isSelected = false
         }
         willSet {
             guard let button = newValue else { return }
             guard button != currentOperationButton else { return }
-            button.backgroundColor = .operatingSelectedButtonColor()
+            button.backgroundColor = NumpadAppearance.OperatingButton.BGColor.selected.color()
             button.isSelected = true
         }
     }
@@ -46,12 +45,27 @@ final class NumpadView: UIView {
     }
     
     private func configure() {
-        backgroundColor = .clear
-        
         guard let view = loadViewFromXib() else { return }
         
+        backgroundColor = .clear
+        
+        serviceButtons.forEach {
+            $0.backgroundColor = NumpadAppearance.ServiceButton.normalColor.color()
+            $0.setTitleColor(NumpadAppearance.ServiceButton.titleColor.color(), for: .normal)
+        }
+        operationButtons.forEach {
+            $0.backgroundColor = NumpadAppearance.OperatingButton.BGColor.normal.color()
+            $0.setTitleColor(NumpadAppearance.OperatingButton.TitleColor.normal.color(), for: .normal)
+        }
+        numberButtons.forEach {
+            $0.backgroundColor = NumpadAppearance.NumberButton.normalColor.color()
+            $0.setTitleColor(NumpadAppearance.NumberButton.titleColor.color(), for: .normal)
+        }
+        
+        
+        
         view.layer.cornerRadius = 45
-        view.backgroundColor = .numpadColor()
+        view.backgroundColor = NumpadAppearance.numpadColor.color()
         
         addSubview(view)
     }
@@ -93,5 +107,4 @@ final class NumpadView: UIView {
         currentOperationButton = nil
         delegate?.reset!(sender)
     }
-    
 }

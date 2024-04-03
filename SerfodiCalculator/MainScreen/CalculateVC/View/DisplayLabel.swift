@@ -7,31 +7,23 @@
 
 import UIKit
 
-
 @objc protocol RemoveLastDigit: AnyObject {
     @objc optional func removeLastDigit()
 }
 
-
 final class DisplayLabel: UILabel {
     
-    override public var canBecomeFirstResponder: Bool { true }
+    private enum Appearance {
+        static let minimumScaleFactor = 0.9
+        static let font = Font.att(size: 50, design: .regular, weight: .medium)
+        static let adjustsFontSizeToFitWidth = true
+        static let cornerRadius = { $0 / 4.0 }
+        static let colorFont = EnvironmentColorAppearance.mainTextColor.color()
+    }
     
-    /// View для фокусирования выдиления.
-    private let focusView: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor.focusColor()
-        view.isHidden = true
-        return view
-    }()
-    /// Width Constraint для `focusView`
-    private var widthConstraint = NSLayoutConstraint()
-    /// Height Constraint для `focusView`
-    private var heightConstraint = NSLayoutConstraint()
-    /// Right Constraint для `focusView`
-    private var rightConstraint = NSLayoutConstraint()
-    /// CenterY Constraint для `focusView`
-    private var centerYConstraint = NSLayoutConstraint()
+    private var focusView: FocusView!
+    
+    override public var canBecomeFirstResponder: Bool { true }
     
     /// Картеж для `Cтирание касанием`
     ///  1. Точка по x первого нажатия
@@ -59,20 +51,18 @@ final class DisplayLabel: UILabel {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        layer.cornerRadius = bounds.height / 4
-        resizeFocusView()
+        focusView.fitToSize(textSize())
     }
     
     private func configure() {
-        font = UIFont.mainDisplay()
-        adjustsFontSizeToFitWidth = true
-        minimumScaleFactor = 0.9
-        setupFocusView()
+        font = Appearance.font
+        textColor = Appearance.colorFont
+        minimumScaleFactor = Appearance.minimumScaleFactor
+        adjustsFontSizeToFitWidth = Appearance.adjustsFontSizeToFitWidth
+        layer.cornerRadius = Appearance.cornerRadius(bounds.height)
+        focusView = FocusView(for: self.bounds)
+        addSubview(focusView)
     }
-    
-    
-    
-    // MARK: -
     
     /// Пытается преоброзовать текст `UILabel` в число  `Double?`
     public func getNumber() -> Double? {
@@ -102,14 +92,7 @@ final class DisplayLabel: UILabel {
         }
     }
     
-    /// Справшивает `Label` можно ли добавить еще одну цифру.
     public func isCanAddDigit(new digit: String) -> Bool {
-        /*
-         1. Доболяем в текст
-         2. Преоброзовываем в число
-         3. Снова форматируем
-         4. Смотрим. Если влазиет то true
-         */
         isFitTextInto(text! + "0", scale: minimumScaleFactor)
     }
     
@@ -136,9 +119,10 @@ final class DisplayLabel: UILabel {
         let attributedString = NSMutableAttributedString(string: labelText)
         attributedString.addAttribute(NSAttributedString.Key.kern, value: CGFloat(10.0), range: NSRange(location: labelText.count - 1, length: 1))
         attributedText = attributedString
-        animationError()
+        layer.errorAnimation()
+        let generator = UINotificationFeedbackGenerator()
+        generator.notificationOccurred(.error)
     }
-    
 }
 
 // MARK: - Formatting input
@@ -169,7 +153,6 @@ extension DisplayLabel {
     }
     
 }
-
 
 // MARK: Touches Erase
 
@@ -205,7 +188,6 @@ extension DisplayLabel {
     
 }
 
-
 // MARK:  shared Init / copy
 
 extension DisplayLabel {
@@ -230,7 +212,7 @@ extension DisplayLabel {
     
     @objc func showMenu(sender: Any?) {
         becomeFirstResponder()
-        resizeFocusView()
+//        focusView.fitToSize(textSize())
         focusView.isHidden = false
         let menu = UIMenuController.shared
         if !menu.isMenuVisible {
@@ -248,118 +230,4 @@ extension DisplayLabel {
             menu.hideMenu()
         }
     }
-    
-    
 }
-
-
-// MARK:  Focus View
-
-extension DisplayLabel {
-    
-    private func resizeFocusView() {
-        
-        let textSize = textSize()
-        
-        var width: CGFloat = textSize.width
-        var hight: CGFloat = textSize.height
-        
-        let radius = bounds.height / 4
-        
-        if textSize.width > bounds.width {
-            hight = bounds.height * minimumScaleFactor
-            width = bounds.width + hight / 4 * minimumScaleFactor
-            centerYConstraint.constant = (1 - minimumScaleFactor) * 10
-            rightConstraint.constant = radius / 2 * minimumScaleFactor
-        } else {
-            width = textSize.width + radius
-            hight = textSize.height + radius
-            rightConstraint.constant = radius / 2
-        }
-        
-        widthConstraint.constant = width
-        heightConstraint.constant = hight
-        
-        focusView.layoutIfNeeded()
-        focusView.layer.cornerRadius = radius
-    }
-    
-    private func setupFocusView() {
-        addSubview(focusView)
-        focusView.translatesAutoresizingMaskIntoConstraints = false
-        centerYConstraint = NSLayoutConstraint(item: focusView,
-                                               attribute: .centerY,
-                                             relatedBy: .equal,
-                                             toItem: self,
-                                             attribute: .centerY,
-                                             multiplier: 1,
-                                             constant: 0)
-        heightConstraint = NSLayoutConstraint(item: focusView,
-                                             attribute: .height,
-                                             relatedBy: .equal,
-                                             toItem: self,
-                                             attribute: .height,
-                                             multiplier: 0,
-                                             constant: 0)
-        widthConstraint = NSLayoutConstraint(item: focusView,
-                                             attribute: .width,
-                                             relatedBy: .equal,
-                                             toItem: self,
-                                             attribute: .width,
-                                             multiplier: 0,
-                                             constant: 0)
-        rightConstraint = NSLayoutConstraint(item: focusView,
-                                             attribute: .right,
-                                             relatedBy: .equal,
-                                             toItem: self,
-                                             attribute: .right,
-                                             multiplier: 1,
-                                             constant: 0)
-        rightConstraint.isActive = true
-        heightConstraint.isActive = true
-        widthConstraint.isActive = true
-        centerYConstraint.isActive = true
-    }
-    
-}
-
-
-// MARK:  Animation Error
-
-extension DisplayLabel: CAAnimationDelegate {
-    
-    public func animationError() {
-        let durationColor = 0.5
-        
-        let snake = CABasicAnimation(keyPath: "position")
-        snake.duration = 0.1
-        snake.repeatCount = 3
-        snake.autoreverses = true
-        
-        snake.fromValue = NSValue(cgPoint: CGPoint(x: center.x - 3, y: center.y))
-        snake.toValue = NSValue(cgPoint: CGPoint(x: center.x + 3, y: center.y))
-        
-        let colorAnimation = CABasicAnimation(keyPath: "backgroundColor")
-        colorAnimation.fromValue = UIColor.clear.cgColor
-        colorAnimation.toValue = #colorLiteral(red: 0.9568627477, green: 0.8265123661, blue: 0.7767734047, alpha: 1).cgColor
-        colorAnimation.duration = durationColor
-        colorAnimation.autoreverses = true
-        
-        
-        let animationGroup = CAAnimationGroup()
-        animationGroup.duration = durationColor * 2 + 0.1 * 3
-        animationGroup.animations = [colorAnimation, snake]
-        
-        layer.add(animationGroup, forKey: "groupAnimation")
-        hapticSoftTap()
-    }
-    
-    private func hapticSoftTap() {
-        let generator = UINotificationFeedbackGenerator()
-        generator.notificationOccurred(.error)
-    }
- 
-}
-
-
-

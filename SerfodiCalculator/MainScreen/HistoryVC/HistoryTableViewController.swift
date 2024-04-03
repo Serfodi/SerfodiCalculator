@@ -56,7 +56,7 @@ class HistoryTableViewController: UITableViewController {
         
         let image = UIImage(systemName: "gearshape.fill")
         let leftBarButtonItem = UIBarButtonItem(image: image, style: .done, target: self, action: #selector(openSetting))
-        leftBarButtonItem.tintColor = .exampleColorSign()
+        leftBarButtonItem.tintColor = NavigationAppearance.leftBarButtonColor.color()
         navigationItem.leftBarButtonItem = leftBarButtonItem
     }
 }

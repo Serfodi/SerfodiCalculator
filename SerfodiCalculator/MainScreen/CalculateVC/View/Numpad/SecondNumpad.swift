@@ -48,7 +48,7 @@ final class SecondNumpad: UIView, NumpadDelegate {
     }
     
     private func setupView() {
-        backgroundColor = .numpadColor()
+        backgroundColor = NumpadAppearance.numpadColor.color()
         layer.cornerRadius = 45
     }
     
@@ -59,7 +59,6 @@ final class SecondNumpad: UIView, NumpadDelegate {
         sender.hapticSoftTap()
         delegate?.operating(sender)
     }
-    
 }
 
 // MARK: Constraint
@@ -70,7 +69,7 @@ extension SecondNumpad {
         var horizontalStackViews:[UIStackView] = []
         for buttons in numpadButtons {
             let stackView = UIStackView(arrangedSubviews: buttons)
-            stackView.spacing = 15
+            stackView.spacing = spacing
             stackView.axis = .horizontal
             stackView.alignment = .fill
             stackView.distribution = .fillEqually
@@ -80,25 +79,20 @@ extension SecondNumpad {
         mainVerticalStackView.axis = .vertical
         mainVerticalStackView.alignment = .fill
         mainVerticalStackView.distribution = .fillEqually
-        mainVerticalStackView.spacing = 15
+        mainVerticalStackView.spacing = spacing
         self.addSubview(mainVerticalStackView)
     }
     
     private func setupConstraints() {
-        
         self.widthAnchor.constraint(equalToConstant: self.bounds.width).isActive = true
         self.heightAnchor.constraint(equalToConstant: self.bounds.height).isActive = true
         
         mainVerticalStackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            mainVerticalStackView.topAnchor.constraint(equalTo: topAnchor, constant: 15),
-            mainVerticalStackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -15),
-            mainVerticalStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -15),
-            mainVerticalStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15)
+            mainVerticalStackView.topAnchor.constraint(equalTo: topAnchor, constant: spacing),
+            mainVerticalStackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -spacing),
+            mainVerticalStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -spacing),
+            mainVerticalStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: spacing)
         ])
-        
-        
-        
     }
-    
 }

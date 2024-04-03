@@ -11,24 +11,20 @@ import UIKit
 
 extension UIFont {
     
-    static func mainDisplay() -> UIFont {
-        UIFont(name: "SFPro-Medium", size: 50)!
-    }
-    
     static func example26() -> UIFont {
-        UIFont(name: "SFPro-Medium", size: 26)!
+        Font.att(size: 26, design: .regular, weight: .medium)
     }
     
     static func numpad35() -> UIFont {
-        UIFont(name: "SFPro-Medium", size: 35)!
+        Font.att(size: 35, design: .regular, weight: .medium)
     }
     
     static func numpad(size: Int) -> UIFont {
-        UIFont(name: "SFPro-Medium", size: CGFloat(size))!
+        Font.att(size: CGFloat(size), design: .regular, weight: .medium)
     }
     
     static func SFProSemibold(size: Int) -> UIFont {
-        UIFont(name: "SFPro-Semibold", size: CGFloat(size))!
+        Font.att(size: CGFloat(size), design: .regular, weight: .semibold)
     }
     
 }

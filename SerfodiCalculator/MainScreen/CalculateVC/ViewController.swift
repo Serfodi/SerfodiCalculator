@@ -10,22 +10,15 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    var mainView: MainView { return self.view as! MainView }
+    
     @IBOutlet weak var inputLabel: DisplayLabel!
     @IBOutlet weak var numpadController: NumpadController!
-    
     private var historyVC : HistoryViewController!
-    private let blurBG = BlurView()
     
     private var dataProvider: DataProvider!
-    private var historyManager = HistoryManager()
-    
-    private let settingManager = SettingManager().getSetting()
-         
     private let calculator = Calculator()
     
-    /// Индикатор для сигнализации о новом вводе:
-    /// `true` – Разрешён новый ввод числа
-    /// `false` – Ввод числа завершен
     private var isNewInput = true
     
     
@@ -33,55 +26,23 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configurationBG()
         configurationHistory()
-        
-        dataProvider = DataProvider(historyManager: historyManager)
-        
-        historyVC.delegate = self
-        historyVC.table.delegate = self
-        historyVC.table.dataSource = dataProvider
-        
         numpadController.delegate = self
         inputLabel.delegate = self
-        
         resetCalculate()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        let lastResult = settingManager.environmentSetting.lastResult
-        
-        inputLabel.setTextLabel(number: lastResult!)
-        historyVC.table.reloadData()
         historyVC.table.showLastCell(animated: false)
     }
     
-    fileprivate func configurationHistory() {
-        historyVC = HistoryViewController()
-        addChild(historyVC)
-        view.insertSubview(historyVC.view, belowSubview: inputLabel)
-        historyVC.pinedVC(parentView: self.view, buttonView: inputLabel)
-        didMove(toParent: self)
-    }
-    
-    fileprivate func configurationBG() {
-        view.addSubview(blurBG)
-        view.pinToBounds(blurBG)
-        blurBG.isHidden = true
-        blurBG.alpha = 0
-    }
-    
-    
     private func addNewExample(_ example: Calculation) {
-        historyManager.add(calculation: example)
+        dataProvider.historyManager.add(calculation: example)
         historyVC.table.reloadData()
         historyVC.table.showLastCell(animated: true)
     }
     
-    /// Проивзодит вычисленя результата
-    /// В случаии ошибки вызывает функцию `errorCalculate`
     func calculateResult(result: (Double)->()) {
         do {
             let number = try calculator.calculateResult()
@@ -91,7 +52,6 @@ class ViewController: UIViewController {
         }
     }
     
-    /// Полный сброс калькулятора и вычислений.
     func resetCalculate(clearLabel: Bool = true) {
         calculator.removeAll()
         isNewInput = true
@@ -102,7 +62,6 @@ class ViewController: UIViewController {
     
     // MARK: Error handler
     
-    /// Обработка ошибок вычислений
     private func errorCalculate(error: CalculationError) {
         switch error {
         case .dividedByZero, .outOfRang:
@@ -110,7 +69,6 @@ class ViewController: UIViewController {
             inputLabel.showError()
         }
     }
-    
 }
 
 
@@ -188,24 +146,14 @@ extension ViewController: NumpadDelegate, RemoveLastDigit {
     
 }
 
+
 // MARK: - Table View delegate
 
 extension ViewController: UITableViewDelegate, NavigationDoneDelegate {
         
     func done(to viewController: UIViewController) {
-        
-        historyManager = HistoryManager()
-        dataProvider.historyManager = HistoryManager()
-        historyVC.table.reloadData()
-        
-        let transition = CATransition()
-        transition.duration = 0.2
-        transition.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
-        transition.type = .fade
-        
-        viewController.navigationController?.view.layer.add(transition, forKey: nil)
+        viewController.navigationController?.view.layer.animationTransition()
         viewController.navigationController?.popToRootViewController(animated: false)
-        
         animationTableController()
     }
     
@@ -213,8 +161,26 @@ extension ViewController: UITableViewDelegate, NavigationDoneDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
         animationTableController(indexPath)
     }
-    
 }
+
+
+
+private extension ViewController {
+    
+    func configurationHistory() {
+        historyVC = HistoryViewController()
+        addChild(historyVC)
+        view.insertSubview(historyVC.view, belowSubview: inputLabel)
+        historyVC.pinedVC(parentView: self.view, buttonView: inputLabel)
+        didMove(toParent: self)
+        let historyManager = HistoryManager()
+        dataProvider = DataProvider(historyManager: historyManager)
+        historyVC.delegate = self
+        historyVC.table.delegate = self
+        historyVC.table.dataSource = dataProvider
+    }
+}
+
 
 // MARK: - Animation
 
@@ -227,21 +193,20 @@ private extension ViewController {
                 self.view.layoutIfNeeded()
             }
             UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut) {
-                self.blurBG.alpha = 0
+                self.mainView.blurBG.alpha = 0
             } completion: { _ in
                 self.view.sendSubviewToBack(self.historyVC.view)
-                self.blurBG.isHidden = true
+                self.mainView.blurBG.isHidden = true
             }
         case false:
-            blurBG.isHidden = false
+            self.mainView.blurBG.isHidden = false
             view.bringSubviewToFront(historyVC.view)
             UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut) {
-                self.blurBG.alpha = 1
+                self.mainView.blurBG.alpha = 1
             }
             historyVC.animationOpen(indexPath) {
                 self.view.layoutIfNeeded()
             }
         }
     }
-    
 }

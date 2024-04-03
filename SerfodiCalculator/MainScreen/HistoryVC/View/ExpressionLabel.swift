@@ -26,7 +26,7 @@ final class ExpressionLabel: UILabel {
         textAlignment = .right
         lineBreakMode = .byTruncatingTail
         numberOfLines = 4
-        textColor = .exampleColorNumber()
+        textColor = HistoryAppearance.HistoryCellExample.numberColor.color()
     }
     
     public func setExpression(_ expression: Calculation) {
@@ -67,7 +67,7 @@ extension ExpressionLabel {
                     let textS: String = text.string
                     let last = String(textS.suffix(1))
                     text.append(NSAttributedString(string: "\n"))
-                    let testSign = createAtt(text: last, color: .exampleColorSign())
+                    let testSign = createAtt(text: last, color: HistoryAppearance.HistoryCellExample.signColor.color())
                     text.append(testSign)
                     currentWidth = maxWidth - 1
                 }
@@ -80,7 +80,7 @@ extension ExpressionLabel {
             case .operation(let sign):
                 
                 let symbolSign = getSign(sign)
-                let testSign = createAtt(text: symbolSign, color: .exampleColorSign())
+                let testSign = createAtt(text: symbolSign, color: HistoryAppearance.HistoryCellExample.signColor.color())
                 
                 text.append(testSign)
                 currentWidth -= 1
@@ -96,12 +96,12 @@ extension ExpressionLabel {
         let numberText = formatText(number: calculation.result, width: maxWidth - 1)
         
         if currentWidth - numberText.count < 0  {
-            text.append(createAtt(text: "=", color: .exampleColorEqual()))
+            text.append(createAtt(text: "=", color: HistoryAppearance.HistoryCellExample.equalColor.color()))
             text.append(NSAttributedString(string: "\n"))
         }
         
-        text.append(createAtt(text: "=", color: .exampleColorEqual()))
-        text.append(createAtt(text: numberText, color: .exampleColorResult()))
+        text.append(createAtt(text: "=", color: HistoryAppearance.HistoryCellExample.equalColor.color()))
+        text.append(createAtt(text: numberText, color: HistoryAppearance.HistoryCellExample.resultColor.color()))
         
         return text
     }

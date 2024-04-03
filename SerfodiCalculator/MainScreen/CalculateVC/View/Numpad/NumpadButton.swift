@@ -7,24 +7,14 @@
 
 import UIKit
 
-/// Стиль кнопки
 enum ButtonStyle {
     case secondOperation(Operation)
-    
-    func color() -> (UIColor, UIColor) {
-        switch self {
-        case .secondOperation:
-            return (.operatingSecondButtonColor(), .operatingSecondTextColor())
-        }
-    }
-    
 }
 
-
 final class NumpadButton: UIButton {
-
     private let size = CGSize(width: 60, height: 60)
-
+    private let font = UIFont.numpad(size: 22)
+    
     let buttonStyle: ButtonStyle
     
     init(_ buttonStyle: ButtonStyle) {
@@ -38,9 +28,8 @@ final class NumpadButton: UIButton {
     }
     
     private func configure() {
-        let color = buttonStyle.color()
-        backgroundColor = color.0
-        setTitleColor(color.1, for: .normal)
+        backgroundColor = NumpadAppearance.OperatingSecondButton.normalColor.color()
+        setTitleColor(NumpadAppearance.OperatingSecondButton.titleColor.color(), for: .normal)
         layer.cornerRadius = 30
         
         switch buttonStyle {
@@ -49,12 +38,11 @@ final class NumpadButton: UIButton {
             tag = operation.rawValue
         }
         
-        self.titleLabel?.font = .numpad(size: 22)
+        self.titleLabel?.font = font
     }
     
     override func actions(forTarget target: Any?, forControlEvent controlEvent: UIControl.Event) -> [String]? {
         super.actions(forTarget: target, forControlEvent: controlEvent)
         return super.actions(forTarget: target, forControlEvent: controlEvent)
     }
-    
 }

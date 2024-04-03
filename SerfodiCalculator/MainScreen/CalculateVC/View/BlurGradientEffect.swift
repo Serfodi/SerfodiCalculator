@@ -5,9 +5,7 @@
 //  Created by Сергей Насыбуллин on 24.01.2024.
 //
 
-import Foundation
 import UIKit
- 
 
 final class BlurView: UIVisualEffectView {
     
@@ -16,7 +14,6 @@ final class BlurView: UIVisualEffectView {
         case linear (linearGradientPosition)
         case doubleLine (NSNumber, NSNumber) /// plato position
         
-        
         enum linearGradientPosition {
             case up (NSNumber) /// start point
             case down (NSNumber) /// start point
@@ -24,7 +21,6 @@ final class BlurView: UIVisualEffectView {
     }
     
     private var gradientLayer = CAGradientLayer()
-    
     
     // MARK: init
     
@@ -67,7 +63,6 @@ final class BlurView: UIVisualEffectView {
         gradientLayer.frame = bounds
     }
     
-    
     private func configureGradient(location: [NSNumber], colors: [CGColor]) {
         fixGradientColor()
         gradientLayer.locations = location
@@ -79,10 +74,7 @@ final class BlurView: UIVisualEffectView {
         super.traitCollectionDidChange(previousTraitCollection)
         fixGradientColor()
     }
-    
-    
 }
-
 
 private extension BlurView {
     
@@ -93,8 +85,7 @@ private extension BlurView {
         if let vfxSubView = self.subviews.first(where: {
             String(describing: type(of: $0)) == "_UIVisualEffectSubview"
         }) {
-            vfxSubView.backgroundColor = .blurColor()
+            vfxSubView.backgroundColor = HistoryAppearance.backgroundBlurColor.color()
         }
     }
-    
 }

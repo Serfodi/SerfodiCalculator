@@ -35,6 +35,9 @@ class GeneralSettingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        view.backgroundColor = .systemGroupedBackground
+        
         collectionView = SettingCollectionView(frame: view.bounds, header: true)
         view.addSubview(collectionView)
         navigationItem.title = "Общие"

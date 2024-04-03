@@ -13,16 +13,24 @@ final class WhiteNavigationController: UINavigationController {
     private lazy var percentDrivenInteractiveTransition: UIPercentDrivenInteractiveTransition? = nil
     private lazy var operation: AnimationController.AnimationType? = nil
     
-    public var interactiveGesture = UIPanGestureRecognizer()
+    private var interactiveGesture = UIPanGestureRecognizer()
+    
+    public var isPopEnabled: Bool = true {
+        didSet {
+            interactiveGesture.isEnabled = isPopEnabled
+        }
+    }
     
     override init(rootViewController: UIViewController) {
         super.init(rootViewController: rootViewController)
-        let bounds = navigationBar.bounds
         navigationBar.shadowImage = UIImage()
+        
+        let bounds = navigationBar.bounds
         let view = UIView(frame: bounds)
-        view.backgroundColor = .operatingSelectedButtonColor()
+        view.backgroundColor = NavigationAppearance.backgroundColor.color()
         view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         navigationBar.setBackgroundImage(view.snapshot, for: .default)
+        
         delegate = self
         setupUI()
     }
@@ -37,6 +45,14 @@ final class WhiteNavigationController: UINavigationController {
         view.addGestureRecognizer(interactiveGesture)
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        let bounds = navigationBar.bounds
+        let view = UIView(frame: bounds)
+        view.backgroundColor = NavigationAppearance.backgroundColor.color()
+        view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        navigationBar.setBackgroundImage(view.snapshot, for: .default)
+    }
 }
 
 extension WhiteNavigationController: UIGestureRecognizerDelegate {

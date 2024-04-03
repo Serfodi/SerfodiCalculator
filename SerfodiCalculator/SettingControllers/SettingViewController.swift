@@ -28,11 +28,8 @@ enum Section: Int {
 
 class SettingTableViewController: UIViewController {
     
-    
-    
     let modelObjects = [
-        [MenuItem(title: "Общие"),
-         MenuItem(title: "Дизайн")],
+        [MenuItem(title: "Общие")],
         [MenuItem(title: "История")]
     ]
     
@@ -46,7 +43,7 @@ class SettingTableViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .white
+        view.backgroundColor = EnvironmentColorAppearance.mainBackgroundColor.color()
         
         configNavigationBar()
         setupCollectionView()
@@ -73,10 +70,10 @@ extension SettingTableViewController: UICollectionViewDelegate {
             let vc = GeneralSettingViewController()
             vc.delegate = delegate
             navigationController?.pushViewController(vc, animated: true)
-        case modelObjects[0][1].title:
-            let vc = DesignViewController()
-            vc.delegate = delegate
-            navigationController?.pushViewController(vc, animated: true)
+//        case modelObjects[0][1].title:
+//            let vc = DesignViewController()
+//            vc.delegate = delegate
+//            navigationController?.pushViewController(vc, animated: true)
         case modelObjects[1][0].title:
             let vc = HistoryDataController()
             vc.delegate = delegate
@@ -103,7 +100,7 @@ extension SettingTableViewController {
                                                   width: self.collectionView.bounds.width - 20,
                                                   height: 56))
             viewSecond.layer.cornerRadius = 12
-            viewSecond.backgroundColor = UIColor.focusColor()
+            viewSecond.backgroundColor = DisplayLabelAppearance.focusColor.color()
             first.addSubview(viewSecond)
             cell.selectedBackgroundView = first
             
@@ -135,18 +132,12 @@ extension SettingTableViewController {
         navigationItem.title = "Настройки"
         navigationItem.makeDone(target: self, action: #selector(done))
         navigationItem.hidesBackButton = true
-        
-//        navigationController?.delegate = self
-        navigationController?.interactivePopGestureRecognizer?.isEnabled = false
-        
-//        (navigationController as! WhiteNavigationController).interactiveGesture.isEnabled = false
-        
     }
         
     private func setupCollectionView() {
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createCompositionalLayout())
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        collectionView.backgroundColor = .operatingSelectedButtonColor()
+        collectionView.backgroundColor = .clear
         view.addSubview(collectionView)
         collectionView.delegate = self
     }
@@ -154,7 +145,6 @@ extension SettingTableViewController {
     private func createCompositionalLayout() -> UICollectionViewLayout {
         var layoutConfig = UICollectionLayoutListConfiguration(appearance: .grouped)
         layoutConfig.showsSeparators = false
-//        layoutConfig.backgroundColor = UIColor.operatingSelectedButtonColor()
         layoutConfig.backgroundColor = .clear
         return UICollectionViewCompositionalLayout.list(using: layoutConfig)
     }

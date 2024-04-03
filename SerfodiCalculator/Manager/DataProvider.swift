@@ -10,9 +10,9 @@ import UIKit
 
 final class DataProvider: NSObject {
     
-    var historyManager: HistoryManager?
+    var historyManager: HistoryManager
     
-    init(historyManager: HistoryManager? = nil) {
+    init(historyManager: HistoryManager) {
         self.historyManager = historyManager
     }
     
@@ -25,14 +25,12 @@ extension DataProvider: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let manager = historyManager else { return 0 }
-        return manager.calculationsCount
+        return historyManager.calculationsCount
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: HistoryCell.reuseId, for: indexPath) as! HistoryCell
-        guard let manager = historyManager else { fatalError("HistoryManager is nil!") }
-        let calculate = manager.calculation(at: indexPath.row)
+        let calculate = historyManager.calculation(at: indexPath.row)
         cell.config(calculation: calculate)
         return cell
     }

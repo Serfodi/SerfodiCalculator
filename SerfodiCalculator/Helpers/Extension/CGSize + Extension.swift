@@ -9,6 +9,10 @@ import Foundation
 
 public extension CGSize {
     
+    static func + (size: CGSize, summand: CGFloat) -> CGSize {
+        return CGSize(width: size.width + summand, height: size.height + summand)
+    }
+    
     static func * (size: CGSize, multiplier: CGFloat) -> CGSize {
         return CGSize(width: size.width * multiplier, height: size.height * multiplier)
     }
@@ -29,8 +33,5 @@ public extension CGSize {
         return CGRect(origin: CGPoint(x: rect.minX + floor((rect.width - self.width) / 2.0), y: rect.minY + floor((rect.height - self.height) / 2.0)), size: self)
     }
     
-    func centered(around position: CGPoint) -> CGRect {
-        return CGRect(origin: CGPoint(x: position.x - self.width / 2.0, y: position.y - self.height / 2.0), size: self)
-    }
-    
 }
+

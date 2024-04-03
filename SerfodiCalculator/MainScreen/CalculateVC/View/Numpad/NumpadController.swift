@@ -17,7 +17,9 @@ import UIKit
 
 final class NumpadController: UIView {
     
-    public enum NumpadState {
+    var delegate: NumpadDelegate!
+    
+    enum NumpadState {
         case general
         case second
         
@@ -30,6 +32,8 @@ final class NumpadController: UIView {
             }
         }
     }
+    
+    private var currentState: NumpadState = .general
     
     private lazy var swipeLRecognizer: UISwipeGestureRecognizer = {
         let recognizer = UISwipeGestureRecognizer()
@@ -58,14 +62,10 @@ final class NumpadController: UIView {
     private var secondNumpadView = SecondNumpad()
     private var pullButton = PullButton()
     
-    public var delegate: NumpadDelegate!
-    
-    private var currentState: NumpadState = .general
-    
-    private var centerNumpadConstraint: NSLayoutConstraint!
     
     private var runningAnimators = [UIViewPropertyAnimator]()
     private var animationProgress = [CGFloat]()
+    private var centerNumpadConstraint: NSLayoutConstraint!
     
     // MARK: init
     

@@ -5,7 +5,6 @@
 //  Created by Сергей Насыбуллин on 15.03.2024.
 //
 
-import Foundation
 import UIKit
 
 public struct Font {
