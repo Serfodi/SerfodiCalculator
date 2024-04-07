@@ -54,9 +54,6 @@ extension ExpressionLabel {
         let maxWidth = lengthLine
         var currentWidth = maxWidth
         
-        // 14 + 4
-        // sin45
-        
         for item in calculation.expression {
             switch item{
             case .number(let number):

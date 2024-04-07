@@ -54,6 +54,7 @@
 		B069C2D42BA371F700503FEB /* ButtonCellContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B069C2D32BA371F700503FEB /* ButtonCellContentView.swift */; };
 		B069C2D62BA4728E00503FEB /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = B069C2D52BA4728E00503FEB /* Font.swift */; };
 		B069C2D92BA47E3000503FEB /* SettingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B069C2D82BA47E3000503FEB /* SettingModel.swift */; };
+		B09246642BC316BE00DC3799 /* SwiftMath in Frameworks */ = {isa = PBXBuildFile; productRef = B09246632BC316BE00DC3799 /* SwiftMath */; };
 		B099E0C22B6AA1F1000670CE /* DynamicCalculate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B099E0C12B6AA1F1000670CE /* DynamicCalculate.swift */; };
 		B099E0C72B6BF016000670CE /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B099E0C62B6BF016000670CE /* DataProvider.swift */; };
 		B099E0C92B6BF86F000670CE /* HistoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B099E0C82B6BF86F000670CE /* HistoryManager.swift */; };
@@ -143,6 +144,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B09246642BC316BE00DC3799 /* SwiftMath in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -451,6 +453,9 @@
 			dependencies = (
 			);
 			name = SerfodiCalculator;
+			packageProductDependencies = (
+				B09246632BC316BE00DC3799 /* SwiftMath */,
+			);
 			productName = SerfodiCalculator;
 			productReference = B02EC6592B5D8D4E00CE0122 /* SerfodiCalculator.app */;
 			productType = "com.apple.product-type.application";
@@ -479,6 +484,9 @@
 				Base,
 			);
 			mainGroup = B02EC6502B5D8D4E00CE0122;
+			packageReferences = (
+				B09246622BC316BE00DC3799 /* XCRemoteSwiftPackageReference "SwiftMath" */,
+			);
 			productRefGroup = B02EC65A2B5D8D4E00CE0122 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -788,6 +796,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		B09246622BC316BE00DC3799 /* XCRemoteSwiftPackageReference "SwiftMath" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mgriebling/SwiftMath";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		B09246632BC316BE00DC3799 /* SwiftMath */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B09246622BC316BE00DC3799 /* XCRemoteSwiftPackageReference "SwiftMath" */;
+			productName = SwiftMath;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = B02EC6512B5D8D4E00CE0122 /* Project object */;
 }
