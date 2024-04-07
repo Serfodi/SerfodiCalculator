@@ -16,6 +16,10 @@ final class DataProvider: NSObject {
         self.historyManager = historyManager
     }
     
+    func reload() {
+        historyManager = HistoryManager()
+    }
+    
 }
 
 extension DataProvider: UITableViewDataSource {

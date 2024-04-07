@@ -10,7 +10,7 @@ import UIKit
 struct MenuItem: Hashable {
     let title: String
     let image: UIImage
-    let font: UIFont = UIFont.SFProSemibold(size: 17)
+    let font: UIFont = MainFontAppearance.firstFont
     
     init(title: String) {
         self.title = title
@@ -20,7 +20,6 @@ struct MenuItem: Hashable {
 
 enum Section: Int {
     case general
-    case data
 }
 
 
@@ -29,8 +28,7 @@ enum Section: Int {
 class SettingTableViewController: UIViewController {
     
     let modelObjects = [
-        [MenuItem(title: "Общие")],
-        [MenuItem(title: "История")]
+        [MenuItem(title: "Общие"), MenuItem(title: "История")]
     ]
     
     var delegate: NavigationDoneDelegate?
@@ -51,6 +49,11 @@ class SettingTableViewController: UIViewController {
         reloadData()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        (navigationController as! WhiteNavigationController).isPopEnabled = false
+    }
+    
     @objc private func done() {
         delegate?.done(to: self)
     }
@@ -65,16 +68,13 @@ extension SettingTableViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
         guard let selectedItem = dataSource.itemIdentifier(for: indexPath) else { return }
+        (navigationController as! WhiteNavigationController).isPopEnabled = true
         switch selectedItem.title {
         case modelObjects[0][0].title:
             let vc = GeneralSettingViewController()
             vc.delegate = delegate
             navigationController?.pushViewController(vc, animated: true)
-//        case modelObjects[0][1].title:
-//            let vc = DesignViewController()
-//            vc.delegate = delegate
-//            navigationController?.pushViewController(vc, animated: true)
-        case modelObjects[1][0].title:
+        case modelObjects[0][1].title:
             let vc = HistoryDataController()
             vc.delegate = delegate
             navigationController?.pushViewController(vc, animated: true)
@@ -116,9 +116,8 @@ extension SettingTableViewController {
     
     private func reloadData() {
         var snapshot = NSDiffableDataSourceSnapshot<Section, MenuItem>()
-        snapshot.appendSections([.general, .data])
+        snapshot.appendSections([.general])
         snapshot.appendItems(modelObjects[Section.general.rawValue], toSection: .general)
-        snapshot.appendItems(modelObjects[Section.data.rawValue], toSection: .data)
         dataSource.apply(snapshot, animatingDifferences: false)
     }
 }

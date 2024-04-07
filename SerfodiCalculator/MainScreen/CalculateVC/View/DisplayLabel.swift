@@ -15,10 +15,14 @@ final class DisplayLabel: UILabel {
     
     private enum Appearance {
         static let minimumScaleFactor = 0.9
-        static let font = Font.att(size: 50, design: .regular, weight: .medium)
+        static let font = MainFontAppearance.mainLabelFont
         static let adjustsFontSizeToFitWidth = true
         static let cornerRadius = { $0 / 4.0 }
         static let colorFont = EnvironmentColorAppearance.mainTextColor.color()
+    }
+    
+    private var setting: EnvironmentSetting {
+        SettingManager().getEnvironmentSetting()
     }
     
     private var focusView: FocusView!
@@ -60,8 +64,8 @@ final class DisplayLabel: UILabel {
         minimumScaleFactor = Appearance.minimumScaleFactor
         adjustsFontSizeToFitWidth = Appearance.adjustsFontSizeToFitWidth
         layer.cornerRadius = Appearance.cornerRadius(bounds.height)
-        focusView = FocusView(for: self.bounds)
-        addSubview(focusView)
+        focusView = FocusView(for: self)
+        setTextLabel(number: setting.lastResult)
     }
     
     /// Пытается преоброзовать текст `UILabel` в число  `Double?`
@@ -76,6 +80,8 @@ final class DisplayLabel: UILabel {
         text = try! dynamicNumberFormatter.fitInBounds(number: nsNumber) { numberText in
             isFitTextInto(numberText, scale: minimumScaleFactor)
         }
+        let setting = EnvironmentSetting(lastResult: getNumber())
+        SettingManager().setEnvironmentSetting(setting)
     }
     
     /// Добавляет "цифру" к `text` и форматирует его.
@@ -113,6 +119,10 @@ final class DisplayLabel: UILabel {
         } else {
             text?.insert(dynamicNumberFormatter.minusSign.first!, at: text!.startIndex)
         }
+    }
+    
+    public func clearInput() {
+        setTextLabel(number: 0)
     }
     
     public func showError(labelText: String = "Ошибка!") {
@@ -212,7 +222,6 @@ extension DisplayLabel {
     
     @objc func showMenu(sender: Any?) {
         becomeFirstResponder()
-//        focusView.fitToSize(textSize())
         focusView.isHidden = false
         let menu = UIMenuController.shared
         if !menu.isMenuVisible {

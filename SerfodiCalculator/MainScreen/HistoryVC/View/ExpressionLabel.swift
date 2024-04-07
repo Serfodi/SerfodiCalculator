@@ -22,7 +22,7 @@ final class ExpressionLabel: UILabel {
     }
     
     private func configure() {
-        font = .example26()
+        font = MainFontAppearance.exampleFont
         textAlignment = .right
         lineBreakMode = .byTruncatingTail
         numberOfLines = 4

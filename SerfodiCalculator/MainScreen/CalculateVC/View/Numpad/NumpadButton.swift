@@ -13,7 +13,7 @@ enum ButtonStyle {
 
 final class NumpadButton: UIButton {
     private let size = CGSize(width: 60, height: 60)
-    private let font = UIFont.numpad(size: 22)
+    private let font = Font.att(size: 24)
     
     let buttonStyle: ButtonStyle
     

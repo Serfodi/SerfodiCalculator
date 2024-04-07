@@ -80,7 +80,7 @@ enum HistoryAppearance {
 enum SettingColorAppearance {
     
     enum ButtonCell {
-        static let titleColor = EnvironmentColorAppearance.mainTextColor
+        static let titleColor = SchemeColor(light: .white, dark: .init(white: 0.9, alpha: 1))
         static let normalColor = SchemeColor(light: #colorLiteral(red: 0.2941176471, green: 0.6509803922, blue: 0.9764705882, alpha: 1), dark: #colorLiteral(red: 0.2941176471, green: 0.6509803922, blue: 0.9764705882, alpha: 1))
     }
     

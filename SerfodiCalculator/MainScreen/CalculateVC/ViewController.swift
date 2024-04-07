@@ -29,21 +29,20 @@ class ViewController: UIViewController {
         configurationHistory()
         numpadController.delegate = self
         inputLabel.delegate = self
-        resetCalculate()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        historyVC.table.showLastCell(animated: false)
+        historyVC.table.scrollToBottom(animated: false)
     }
     
     private func addNewExample(_ example: Calculation) {
         dataProvider.historyManager.add(calculation: example)
         historyVC.table.reloadData()
-        historyVC.table.showLastCell(animated: true)
+        historyVC.table.scrollToBottom(animated: true)
     }
     
-    func calculateResult(result: (Double)->()) {
+    private func calculateResult(result: (Double)->()) {
         do {
             let number = try calculator.calculateResult()
             result(number)
@@ -52,11 +51,11 @@ class ViewController: UIViewController {
         }
     }
     
-    func resetCalculate(clearLabel: Bool = true) {
+    private func resetCalculate(clearLabel: Bool = true) {
         calculator.removeAll()
         isNewInput = true
         if clearLabel {
-            inputLabel.text = "0"
+            inputLabel.clearInput()
         }
     }
     
@@ -147,26 +146,28 @@ extension ViewController: NumpadDelegate, RemoveLastDigit {
 }
 
 
-// MARK: - Table View delegate
+// MARK: Table View delegate
 
 extension ViewController: UITableViewDelegate, NavigationDoneDelegate {
         
     func done(to viewController: UIViewController) {
         viewController.navigationController?.view.layer.animationTransition()
         viewController.navigationController?.popToRootViewController(animated: false)
+        let historyManager = HistoryManager()
+        dataProvider = DataProvider(historyManager: historyManager)
+        historyVC.table.dataSource = dataProvider
+        historyVC.table.reloadData()
         animationTableController()
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
         animationTableController(indexPath)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
 
 
-
 private extension ViewController {
-    
     func configurationHistory() {
         historyVC = HistoryViewController()
         addChild(historyVC)
@@ -192,7 +193,7 @@ private extension ViewController {
             historyVC.animationClose(indexPath) {
                 self.view.layoutIfNeeded()
             }
-            UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut) {
+            UIView.animate(withDuration: 0.3, delay: 0.15, options: .curveEaseInOut) {
                 self.mainView.blurBG.alpha = 0
             } completion: { _ in
                 self.view.sendSubviewToBack(self.historyVC.view)
@@ -204,7 +205,7 @@ private extension ViewController {
             UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut) {
                 self.mainView.blurBG.alpha = 1
             }
-            historyVC.animationOpen(indexPath) {
+            historyVC.animationOpen {
                 self.view.layoutIfNeeded()
             }
         }

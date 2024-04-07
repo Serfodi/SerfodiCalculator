@@ -12,6 +12,10 @@ final class NumpadView: UIView {
 
     var delegate: NumpadDelegate?
 
+    var currentButton: UIButton!
+    
+    @IBOutlet weak var signButton: UIButton!
+    
     @IBOutlet var serviceButtons: [UIButton]!
     @IBOutlet var operationButtons: [UIButton]!
     @IBOutlet var numberButtons: [UIButton]!
@@ -34,8 +38,10 @@ final class NumpadView: UIView {
         }
     }
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    
+    init() {
+        let size = CGSize(width: 315, height: 390)
+        super.init(frame: CGRect(origin: .zero, size: size))
         configure()
     }
     
@@ -49,24 +55,31 @@ final class NumpadView: UIView {
         
         backgroundColor = .clear
         
+        numpadButtons.forEach {
+            $0.layer.cornerRadius = 30
+            $0.tintColor = .clear
+        }
+        
+        signButton.tintColor = NumpadAppearance.ServiceButton.titleColor.color()
         serviceButtons.forEach {
             $0.backgroundColor = NumpadAppearance.ServiceButton.normalColor.color()
             $0.setTitleColor(NumpadAppearance.ServiceButton.titleColor.color(), for: .normal)
+            $0.titleLabel?.font = NumpadFontAppearance.numberFont
         }
         operationButtons.forEach {
             $0.backgroundColor = NumpadAppearance.OperatingButton.BGColor.normal.color()
             $0.setTitleColor(NumpadAppearance.OperatingButton.TitleColor.normal.color(), for: .normal)
+            $0.setTitleColor(NumpadAppearance.OperatingButton.TitleColor.selected.color(), for: .selected)
+            $0.titleLabel?.font = NumpadFontAppearance.numberFont
         }
         numberButtons.forEach {
             $0.backgroundColor = NumpadAppearance.NumberButton.normalColor.color()
             $0.setTitleColor(NumpadAppearance.NumberButton.titleColor.color(), for: .normal)
+            $0.titleLabel?.font = NumpadFontAppearance.numberFont
         }
-        
-        
         
         view.layer.cornerRadius = 45
         view.backgroundColor = NumpadAppearance.numpadColor.color()
-        
         addSubview(view)
     }
         
@@ -75,35 +88,25 @@ final class NumpadView: UIView {
     }
     
     @IBAction func numberTap(_ sender: UIButton) {
-        sender.animationTap()
-        sender.hapticLightTap()
         currentOperationButton = nil
         delegate?.number!(sender)
     }
     
     @IBAction func minusTap(_ sender: UIButton) {
-        sender.animationTap()
-        sender.hapticLightTap()
         delegate?.minusNum!(sender)
     }
     
     @IBAction func operatingTap(_ sender: UIButton) {
-        sender.animationTap()
-        sender.hapticSoftTap()
         currentOperationButton = sender
         delegate?.operating(sender)
     }
     
     @IBAction func equalTap(_ sender: UIButton) {
-        sender.hapticMediumTap()
-        sender.animationTap()
         currentOperationButton = nil
         delegate?.equal!(sender)
     }
     
     @IBAction func resetTap(_ sender: UIButton) {
-        sender.hapticHeavyTap()
-        sender.animationTap()
         currentOperationButton = nil
         delegate?.reset!(sender)
     }

@@ -11,7 +11,6 @@ struct Setting: Codable {
     var environmentSetting: EnvironmentSetting
     var generalSetting: GeneralSetting
     var dataSetting: DataSetting
-    var designSetting: DesignSetting
 }
 
 struct EnvironmentSetting: Codable {
@@ -42,21 +41,12 @@ struct GeneralSetting: Codable {
     }
 }
 
-struct DesignSetting: Codable {
-    var isDarkStyle:  Bool!
-    
-    func setDefault() -> Self {
-        .init(isDarkStyle: false)
-    }
-}
-
 extension Setting {
     
     static func setDefault() -> Self {
         .init(environmentSetting: EnvironmentSetting().setDefault(),
               generalSetting: GeneralSetting().setDefault(),
-              dataSetting: DataSetting().setDefault(),
-              designSetting: DesignSetting().setDefault())
+              dataSetting: DataSetting().setDefault())
     }
     
 }

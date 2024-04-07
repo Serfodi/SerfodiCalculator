@@ -33,6 +33,10 @@ final class NumpadController: UIView {
         }
     }
     
+    private var setting: GeneralSetting {
+        SettingManager().getGeneralSetting()
+    }
+    
     private var currentState: NumpadState = .general
     
     private lazy var swipeLRecognizer: UISwipeGestureRecognizer = {
@@ -91,22 +95,52 @@ final class NumpadController: UIView {
 extension NumpadController: NumpadDelegate {
     
     func operating(_ sender: UIButton) {
+        if setting.isVibration {
+            sender.hapticSoftTap()
+        }
+        if setting.isClicks {
+            sender.animationTap()
+        }
         delegate.operating(sender)
     }
     
     func number(_ sender: UIButton) {
+        if setting.isClicks {
+            if setting.isVibration {
+                sender.hapticLightTap()
+            }
+        }
+        sender.animationTap()
         delegate.number?(sender)
     }
     
     func minusNum(_ sender: UIButton) {
+        if setting.isClicks {
+            if setting.isVibration {
+                sender.hapticLightTap()
+            }
+        }
+        sender.animationTap()
         delegate.minusNum?(sender)
     }
     
     func equal(_ sender: UIButton) {
+        if setting.isClicks {
+            if setting.isVibration {
+                sender.hapticMediumTap()
+            }
+        }
+        sender.animationTap()
         delegate.equal?(sender)
     }
     
     func reset(_ sender: UIButton) {
+        if setting.isClicks {
+            if setting.isVibration {
+                sender.hapticHeavyTap()
+            }
+        }
+        sender.animationTap()
         delegate.reset?(sender)
     }
 }

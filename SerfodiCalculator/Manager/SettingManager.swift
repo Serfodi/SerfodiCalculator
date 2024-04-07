@@ -13,7 +13,6 @@ import UIKit
 /// Набор настроек приложения
 final class SettingManager {
     
-    // Репозиторий настроект
     private let storage = CalculationSettingStorage()
     
     private var setting: Setting!
@@ -67,13 +66,5 @@ extension SettingManager {
     }
     public func getDataSetting() -> DataSetting {
         setting.dataSetting
-    }
-    
-    public func setDesignSetting(_ set: DesignSetting) {
-        setting.designSetting = set
-        save()
-    }
-    public func getDesignSetting() -> DesignSetting {
-        setting.designSetting
     }
 }
