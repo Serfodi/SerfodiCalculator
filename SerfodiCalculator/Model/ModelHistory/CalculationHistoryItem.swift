@@ -13,7 +13,6 @@ enum CalculationHistoryItem {
     case number(Double)
     /// Опирация
     case operation(Operation)
-    
 }
 
 
@@ -52,7 +51,6 @@ extension CalculationHistoryItem: Codable {
         
         throw CalculationHistoryItemError.itemNotFound
     }
-    
 }
 
 

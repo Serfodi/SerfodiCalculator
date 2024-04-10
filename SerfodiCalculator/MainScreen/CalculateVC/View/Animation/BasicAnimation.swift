@@ -17,12 +17,12 @@ extension CALayer {
         snake.repeatCount = 3
         snake.autoreverses = true
         
-        snake.fromValue = NSValue(cgPoint: CGPoint(x: frame.origin.x - 3, y: frame.origin.y))
-        snake.toValue = NSValue(cgPoint: CGPoint(x: frame.origin.x + 3, y: frame.origin.y))
+        snake.fromValue = NSValue(cgPoint: CGPoint(x: frame.midX - 3, y: frame.midY))
+        snake.toValue = NSValue(cgPoint: CGPoint(x: frame.midX + 3, y: frame.midY))
         
         let colorAnimation = CABasicAnimation(keyPath: "backgroundColor")
         colorAnimation.fromValue = UIColor.clear.cgColor
-        colorAnimation.toValue = #colorLiteral(red: 0.9568627477, green: 0.8265123661, blue: 0.7767734047, alpha: 1).cgColor
+        colorAnimation.toValue = EnvironmentColorAppearance.mainErrorColor.color().cgColor
         colorAnimation.duration = durationColor
         colorAnimation.autoreverses = true
         

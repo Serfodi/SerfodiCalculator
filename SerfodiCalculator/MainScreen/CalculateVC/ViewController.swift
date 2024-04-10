@@ -108,27 +108,22 @@ extension ViewController: NumpadDelegate, RemoveLastDigit {
         calculator.addOperation(buttonOperation)
         calculateResult { result in
             inputLabel.setTextLabel(number: result)
-            if buttonOperation.type == .unary {
-                calculator.removeHistory { calculationItems in
-                    let calculation = Calculation(expression: calculationItems, result: result)
-                    self.addNewExample(calculation)
-                }
-            }
         }
         isNewInput = true
     }
     
     func equal(_ sender: UIButton) {
         guard let labelNumber = inputLabel.getNumber() else { return }
+        
+        // Повтор последнего дейсвия при нажатии на равно. Получения числа и опирации.
         if !isNewInput || calculator.count == 0 {
             calculator.addNumber(labelNumber)
-        } else {
-            calculator.removeLastOperation()
         }
         if isNewInput && calculator.count == 1 {
             // Добавить последнее действие.
             calculator.addLastOperation()
         }
+        
         calculateResult { result in
             calculator.removeHistory { calculationItems in
                 let calculation = Calculation(expression: calculationItems, result: result)
@@ -142,7 +137,6 @@ extension ViewController: NumpadDelegate, RemoveLastDigit {
     func reset(_ sender: UIButton) {
         resetCalculate()
     }
-    
 }
 
 

@@ -19,7 +19,6 @@ final class DataProvider: NSObject {
     func reload() {
         historyManager = HistoryManager()
     }
-    
 }
 
 extension DataProvider: UITableViewDataSource {
@@ -33,10 +32,9 @@ extension DataProvider: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: HistoryCell.reuseId, for: indexPath) as! HistoryCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: ExpressionCell.reuseId, for: indexPath) as! ExpressionCell
         let calculate = historyManager.calculation(at: indexPath.row)
         cell.config(calculation: calculate)
         return cell
     }
-    
 }

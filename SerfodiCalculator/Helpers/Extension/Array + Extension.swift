@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension Array where Element: Numeric {
+extension Array where Element: Any {
     
     /// [1, 2, 3].pop(2) -> [3, 2]
     mutating func pop(_ numberPopLast: Int) -> [Element]? {

@@ -26,7 +26,7 @@ final class HistoryTableView: UITableView {
         self.showsVerticalScrollIndicator = false
         self.backgroundColor = .clear
         self.tintColor = .clear
-        self.register(HistoryCell.self, forCellReuseIdentifier: HistoryCell.reuseId)
+        self.register(ExpressionCell.self, forCellReuseIdentifier: ExpressionCell.reuseId)
     }
 
     override func layoutSubviews() {
@@ -35,7 +35,6 @@ final class HistoryTableView: UITableView {
         self.separatorStyle = .none
         self.alwaysBounceVertical = false
     }
-    
 }
 
 extension HistoryTableView {
@@ -58,9 +57,6 @@ extension HistoryTableView {
     public func scrollToBottom(animated: Bool = true) {
         guard let lastIndex = lastIndexPath() else { return }
         self.scrollToRow(at: lastIndex as IndexPath, at: .bottom, animated: animated)
-        
-//        scrollToNearestSelectedRow(at: .bottom, animated: true)
-        
     }
 }
 

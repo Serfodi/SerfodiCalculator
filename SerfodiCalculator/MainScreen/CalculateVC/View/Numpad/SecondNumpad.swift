@@ -12,13 +12,23 @@ final class SecondNumpad: UIView, NumpadDelegate {
     
     public var delegate: NumpadDelegate?
         
+//    public let numpadButtons: [[NumpadButton]] = [
+//
+//
+//
+//        [NumpadButton(.secondOperation(.pow10X)),     NumpadButton(.secondOperation(.precent)), NumpadButton(.secondOperation(.tanhX)), NumpadButton(.secondOperation(.pow10X))],
+//        [NumpadButton(.secondOperation(.divisionByOne)), NumpadButton(.secondOperation(.factorial)),   NumpadButton(.secondOperation(.lnX)),   NumpadButton(.secondOperation(.log2X))]
+//    ]
+    
     public let numpadButtons: [[NumpadButton]] = [
-        [NumpadButton(.secondOperation(.pow2)),    NumpadButton(.secondOperation(.root2)),  NumpadButton(.secondOperation(.cosX)),  NumpadButton(.secondOperation(.sinX))],
-        [NumpadButton(.secondOperation(.pow3)),    NumpadButton(.secondOperation(.root3)),  NumpadButton(.secondOperation(.tanX)),  NumpadButton(.secondOperation(.tanhX))],
-        [NumpadButton(.secondOperation(.powXY)),   NumpadButton(.secondOperation(.rootYX)),  NumpadButton(.secondOperation(.sinhX)), NumpadButton(.secondOperation(.coshX))],
-        [NumpadButton(.secondOperation(.pow10X)),     NumpadButton(.secondOperation(.precent)), NumpadButton(.secondOperation(.tanhX)), NumpadButton(.secondOperation(.pow10X))],
-        [NumpadButton(.secondOperation(.divisionByOne)), NumpadButton(.secondOperation(.factorial)),   NumpadButton(.secondOperation(.lnX)),   NumpadButton(.secondOperation(.log2X))]
+        [NumpadButton(.secondOperation(.root2)),   NumpadButton(.secondOperation(.root3)),     NumpadButton(.secondOperation(.rootYX)), NumpadButton(.secondOperation(.divisionByOne))],
+        [NumpadButton(.secondOperation(.pow2)),    NumpadButton(.secondOperation(.pow3)),      NumpadButton(.secondOperation(.powXY)),  NumpadButton(.secondOperation(.powYX))],
+        [NumpadButton(.secondOperation(.precent)), NumpadButton(.secondOperation(.factorial)), NumpadButton(.secondOperation(.pow10X)), NumpadButton(.secondOperation(.lnX))],
+        [NumpadButton(.secondOperation(.sinX)),    NumpadButton(.secondOperation(.cosX)),      NumpadButton(.secondOperation(.tanX)), NumpadButton(.secondOperation(.logY))],
+        [NumpadButton(.secondOperation(.sinhX)),   NumpadButton(.secondOperation(.coshX)),     NumpadButton(.secondOperation(.tanhX)), NumpadButton(.secondOperation(.log10X))]
     ]
+    
+    
     
     private var mainVerticalStackView = UIStackView()
     private var spacing: CGFloat = 15

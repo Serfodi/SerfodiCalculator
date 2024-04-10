@@ -60,18 +60,22 @@ extension Operation {
     
     var priority: Int {
         switch self {
-        case .precent, .pow2, .pow3, .powEX, .pow10X, .pow2X,
-                .divisionByOne, .root2, .root3, .lnX, .log10X, .logY, .log2X, .factorial,
-                .sinX, .cosX, .tanX, .sinhX, .coshX, .tanhX, .powXY, .powYX, .rootYX:
+        case .logY, .powXY, .powYX, .rootYX:
             return 0
         case .add, .subtract:
             return 1
         case .multiply, .divide:
             return 2
+        case .sinX, .cosX, .tanX, .sinhX, .coshX, .tanhX,
+                .precent, .pow2, .pow3, .powEX, .pow10X, .pow2X,
+                .root2, .root3, .factorial, .divisionByOne,
+                .lnX, .log10X, .log2X:
+            return 3
         }
     }
-    
 }
+
+// MARK: Symbol
 
 extension Operation {
     
@@ -139,9 +143,7 @@ extension Operation {
             return "tanh"
         }
     }
-    
 }
-
 
 
 // MARK: Calculate
@@ -223,7 +225,7 @@ extension Operation {
         case .factorial:
             
             if numbers[0].truncatingRemainder(dividingBy: 1) == 0 {
-                result = Double( factorial(Int(numbers[0])) )
+                result = Double( factorial(numbers[0]))
             } else {
                 result = approximateFactorial(for: numbers[0])
             }
@@ -253,13 +255,12 @@ extension Operation {
         return result
     }
     
-    
-    private func factorial(_ n: Int) -> Int {
-        var result = 1
-        var i = 1
+    private func factorial(_ n: Double) -> Double {
+        var result = 1.0
+        var i = 1.0
         while i <= n {
             result *= i
-            i += 1
+            i += 1.0
         }
         return result
     }
@@ -269,7 +270,6 @@ extension Operation {
         let pi = Double.pi
         return sqrt(2 * pi * number) * pow(number / exp(1), number)
     }
-    
 }
 
 // MARK: Test
@@ -287,12 +287,4 @@ extension Operation {
             throw CalculationError.outOfRang
         }
     }
-    
 }
-
-/*
- 
- sign.type == .binary
- operation.priority <= lastOp.priority
- 
- */

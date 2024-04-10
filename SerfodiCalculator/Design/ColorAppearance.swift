@@ -10,6 +10,7 @@ import UIKit
 enum EnvironmentColorAppearance {
     static let mainBackgroundColor = SchemeColor(light: .white, dark: .black)
     static let mainTextColor = SchemeColor(light: .black, dark: .init(white: 0.9, alpha: 1))
+    static let mainErrorColor = SchemeColor(light: #colorLiteral(red: 0.9568627477, green: 0.8265123661, blue: 0.7767734047, alpha: 1), dark: #colorLiteral(red: 0.9568627477, green: 0.8265123661, blue: 0.7767734047, alpha: 1))
 }
 
 enum DisplayLabelAppearance {

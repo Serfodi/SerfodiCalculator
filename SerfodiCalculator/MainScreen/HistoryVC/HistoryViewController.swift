@@ -99,7 +99,7 @@ extension HistoryViewController {
             self.topBlur.alpha = 0
             self.bottomBlur.alpha = 0
             self.tableViewController.navigationController?.setNavigationBarHidden(false, animated: true)
-            self.table.scrollToNearestSelectedRow(at: .top, animated: true)
+//            self.table.scrollToNearestSelectedRow(at: .top, animated: true)
         } completion: { _ in
             UIView.animate(withDuration: 0.2) {
                 self.bottomBlur.alpha = 1
@@ -165,5 +165,4 @@ private extension HistoryViewController {
             bottomBlur.leadingAnchor.constraint(equalTo: view.leadingAnchor)
         ])
     }
-    
 }

@@ -88,11 +88,16 @@ final class Calculator {
     /// Добовляет опирации для повторного вычисления при нажатии на `Равно "="`.
     /// Берет последнии действия, если они есть, и добовляет их в масив `calculationHistory`
     public func addLastOperation() {
-        guard let lastNumber = currentNumber,
-              let lastOperation = currentOperation
-        else { return }
-        addOperation(lastOperation)
-        addNumber(lastNumber)
+        guard let lastOperation = currentOperation else { return }
+        
+        switch lastOperation.type {
+        case .binary:
+            guard let lastNumber = currentNumber else { return }
+            addOperation(lastOperation)
+            addNumber(lastNumber)
+        case .unary:
+            addOperation(lastOperation)
+        }
     }
     
     
