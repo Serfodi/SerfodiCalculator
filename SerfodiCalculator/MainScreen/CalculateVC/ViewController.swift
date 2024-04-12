@@ -17,6 +17,8 @@ class ViewController: UIViewController {
     private var historyVC : HistoryViewController!
     
     private var dataProvider: DataProvider!
+//    private var dataProvider: CoreDateProvider!
+        
     private let calculator = Calculator()
     
     private var isNewInput = true
@@ -38,6 +40,7 @@ class ViewController: UIViewController {
     
     private func addNewExample(_ example: Calculation) {
         dataProvider.historyManager.add(calculation: example)
+//        dataProvider.add(calculation: example)
         historyVC.table.reloadData()
         historyVC.table.scrollToBottom(animated: true)
     }
@@ -147,10 +150,10 @@ extension ViewController: UITableViewDelegate, NavigationDoneDelegate {
     func done(to viewController: UIViewController) {
         viewController.navigationController?.view.layer.animationTransition()
         viewController.navigationController?.popToRootViewController(animated: false)
-        let historyManager = HistoryManager()
-        dataProvider = DataProvider(historyManager: historyManager)
-        historyVC.table.dataSource = dataProvider
-        historyVC.table.reloadData()
+//        let historyManager = HistoryManager()
+//        dataProvider = DataProvider(historyManager: historyManager)
+//        historyVC.table.dataSource = dataProvider
+//        historyVC.table.reloadData()
         animationTableController()
     }
     
@@ -164,14 +167,22 @@ extension ViewController: UITableViewDelegate, NavigationDoneDelegate {
 private extension ViewController {
     func configurationHistory() {
         historyVC = HistoryViewController()
+        setupView()
+        setupDataMenager()
+        historyVC.delegate = self
+        historyVC.table.delegate = self
+    }
+    
+    func setupView() {
         addChild(historyVC)
         view.insertSubview(historyVC.view, belowSubview: inputLabel)
         historyVC.pinedVC(parentView: self.view, buttonView: inputLabel)
         didMove(toParent: self)
+    }
+    
+    func setupDataMenager() {
         let historyManager = HistoryManager()
         dataProvider = DataProvider(historyManager: historyManager)
-        historyVC.delegate = self
-        historyVC.table.delegate = self
         historyVC.table.dataSource = dataProvider
     }
 }

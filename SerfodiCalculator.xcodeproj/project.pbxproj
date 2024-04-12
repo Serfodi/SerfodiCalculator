@@ -68,6 +68,11 @@
 		B0A1B8672BB8AEDB00D7E568 /* FocusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A1B8662BB8AEDB00D7E568 /* FocusView.swift */; };
 		B0A1B8692BB9882F00D7E568 /* Transition.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A1B8682BB9882F00D7E568 /* Transition.swift */; };
 		B0A1F08C2BC6A26500146145 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B0A1F08A2BC6A26500146145 /* Model.xcdatamodeld */; };
+		B0A1F0B82BC6DCE600146145 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A1F0B72BC6DCE600146145 /* CoreDataManager.swift */; };
+		B0A1F0BA2BC6DD9A00146145 /* ExpressionConfigurationTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A1F0B92BC6DD9A00146145 /* ExpressionConfigurationTransformer.swift */; };
+		B0A1F0BC2BC6DDC400146145 /* ExpressionConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A1F0BB2BC6DDC400146145 /* ExpressionConfiguration.swift */; };
+		B0A79EDF2BC9527C00FAD045 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A79EDE2BC9527C00FAD045 /* Result.swift */; };
+		B0EACC822BC860BB008E1A8D /* ExpressionLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B050E2502B9F73DD00D48DFE /* ExpressionLabel.swift */; };
 		B0FEF0462B9DC382001C1792 /* HistoryTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0899CFE2B9CA9DB00C12D7C /* HistoryTableView.swift */; };
 		B0FEF0472B9DD1A9001C1792 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B059F1D92B878D380079EFFA /* HistoryViewController.swift */; };
 		B0FEF0492B9DD38A001C1792 /* HistoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0FEF0482B9DD38A001C1792 /* HistoryTableViewController.swift */; };
@@ -140,6 +145,10 @@
 		B0A1B8662BB8AEDB00D7E568 /* FocusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusView.swift; sourceTree = "<group>"; };
 		B0A1B8682BB9882F00D7E568 /* Transition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transition.swift; sourceTree = "<group>"; };
 		B0A1F08B2BC6A26500146145 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		B0A1F0B72BC6DCE600146145 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		B0A1F0B92BC6DD9A00146145 /* ExpressionConfigurationTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpressionConfigurationTransformer.swift; sourceTree = "<group>"; };
+		B0A1F0BB2BC6DDC400146145 /* ExpressionConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpressionConfiguration.swift; sourceTree = "<group>"; };
+		B0A79EDE2BC9527C00FAD045 /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		B0FEF0482B9DD38A001C1792 /* HistoryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -169,6 +178,7 @@
 			children = (
 				B099E0CA2B6C03DA000670CE /* SettingManager.swift */,
 				B099E0C82B6BF86F000670CE /* HistoryManager.swift */,
+				B099E0C62B6BF016000670CE /* DataProvider.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -287,6 +297,7 @@
 			isa = PBXGroup;
 			children = (
 				B064E2F52B5EB7AB00E56208 /* CalculationError.swift */,
+				B0A79EDE2BC9527C00FAD045 /* Result.swift */,
 				B064E2FD2B5EE64300E56208 /* Extension */,
 			);
 			path = Helpers;
@@ -306,7 +317,7 @@
 			isa = PBXGroup;
 			children = (
 				B064E30B2B626F4600E56208 /* Storage.swift */,
-				B0A1F08A2BC6A26500146145 /* Model.xcdatamodeld */,
+				B0EACC802BC85F60008E1A8D /* CoreData */,
 			);
 			path = Storage;
 			sourceTree = "<group>";
@@ -317,7 +328,6 @@
 				B059F1D92B878D380079EFFA /* HistoryViewController.swift */,
 				B0FEF0482B9DD38A001C1792 /* HistoryTableViewController.swift */,
 				B09246682BC440DD00DC3799 /* GenerationLatex.swift */,
-				B099E0C62B6BF016000670CE /* DataProvider.swift */,
 				B04053F32BADD6B500EB217B /* View */,
 			);
 			path = HistoryVC;
@@ -452,6 +462,17 @@
 			path = Animation;
 			sourceTree = "<group>";
 		};
+		B0EACC802BC85F60008E1A8D /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				B0A1F08A2BC6A26500146145 /* Model.xcdatamodeld */,
+				B0A1F0B72BC6DCE600146145 /* CoreDataManager.swift */,
+				B0A1F0BB2BC6DDC400146145 /* ExpressionConfiguration.swift */,
+				B0A1F0B92BC6DD9A00146145 /* ExpressionConfigurationTransformer.swift */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -536,6 +557,7 @@
 				B00257B72B7F7BE100311188 /* SecondNumpad.swift in Sources */,
 				B064E30C2B626F4600E56208 /* Storage.swift in Sources */,
 				B00257B92B7FC05C00311188 /* PullButton.swift in Sources */,
+				B0A1F0BA2BC6DD9A00146145 /* ExpressionConfigurationTransformer.swift in Sources */,
 				B03038012BAF47EB00CA1DC6 /* UINavigationItem + Extension.swift in Sources */,
 				B064E2F82B5EB7D900E56208 /* Calculate.swift in Sources */,
 				B069C2D22BA371CE00503FEB /* ButtonCellListCell.swift in Sources */,
@@ -551,6 +573,7 @@
 				B099E0C92B6BF86F000670CE /* HistoryManager.swift in Sources */,
 				B0A1F08C2BC6A26500146145 /* Model.xcdatamodeld in Sources */,
 				B064E3062B6180FA00E56208 /* BlurGradientEffect.swift in Sources */,
+				B0A1F0BC2BC6DDC400146145 /* ExpressionConfiguration.swift in Sources */,
 				B069C2BC2BA08A2200503FEB /* HistoryDataController.swift in Sources */,
 				B099E0CB2B6C03DA000670CE /* SettingManager.swift in Sources */,
 				B0FEF0472B9DD1A9001C1792 /* HistoryViewController.swift in Sources */,
@@ -584,10 +607,13 @@
 				B09246662BC31A0200DC3799 /* ExpressionCell.swift in Sources */,
 				B0FEF0462B9DC382001C1792 /* HistoryTableView.swift in Sources */,
 				B050E2532B9F762B00D48DFE /* SettingViewController.swift in Sources */,
+				B0A79EDF2BC9527C00FAD045 /* Result.swift in Sources */,
 				B02EC65F2B5D8D4E00CE0122 /* SceneDelegate.swift in Sources */,
 				B04053F22BADC02B00EB217B /* UIView + Extension.swift in Sources */,
+				B0A1F0B82BC6DCE600146145 /* CoreDataManager.swift in Sources */,
 				B04053F52BADDBC400EB217B /* GeneralSettingViewController.swift in Sources */,
 				B064E3202B6456D800E56208 /* CGSize + Extension.swift in Sources */,
+				B0EACC822BC860BB008E1A8D /* ExpressionLabel.swift in Sources */,
 				B0A1B8672BB8AEDB00D7E568 /* FocusView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

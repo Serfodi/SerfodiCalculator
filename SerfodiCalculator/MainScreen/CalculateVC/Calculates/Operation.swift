@@ -49,10 +49,10 @@ extension Operation {
     
     var type: TypeOperation {
         switch self {
-        case .add, .subtract, .multiply, .divide, .powXY, .powYX, .rootYX:
+        case .add, .subtract, .multiply, .divide, .powXY, .powYX, .rootYX, .logY:
             return .binary
         case .precent, .pow2, .pow3, .powEX, .pow10X, .pow2X,
-                .divisionByOne, .root2, .root3, .lnX, .log10X, .logY, .log2X, .factorial,
+                .divisionByOne, .root2, .root3, .lnX, .log10X, .log2X, .factorial,
                 .sinX, .cosX, .tanX, .sinhX, .coshX, .tanhX:
             return .unary
         }

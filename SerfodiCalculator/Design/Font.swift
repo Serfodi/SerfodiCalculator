@@ -47,7 +47,6 @@ public struct Font {
         let descriptor = design.key + "-" + weight.key
         return UIFont(name: descriptor, size: size)!
     }
-    
 }
 
 
@@ -61,7 +60,6 @@ public extension NSAttributedString {
         attributes[NSAttributedString.Key.foregroundColor] = textColor
         self.init(string: string, attributes: attributes)
     }
-    
 }
 
 

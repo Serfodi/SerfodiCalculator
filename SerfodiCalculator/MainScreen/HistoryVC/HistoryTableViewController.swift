@@ -12,7 +12,7 @@ protocol NavigationDoneDelegate {
 }
 
 class HistoryTableViewController: UITableViewController {
-
+        
     public var delegate: NavigationDoneDelegate?
     
     public var topBar: UINavigationBar {
@@ -21,16 +21,16 @@ class HistoryTableViewController: UITableViewController {
         }
     }
     
+    
+//    MARK: Live circle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavBar()
         setupTable()
     }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-//        tableView.reloadData()
-    }
+    
+//    MARK: Action
     
     @objc private func openSetting() {
         let settingVC = SettingTableViewController()
@@ -41,28 +41,10 @@ class HistoryTableViewController: UITableViewController {
     @objc private func done() {
         delegate?.done(to: self)
     }
-    
-    private func setupTable() {
-        tableView = HistoryTableView()
-        tableView.contentInsetAdjustmentBehavior = .never
-    }
-    
-    private func setupNavBar() {
-        navigationController?.navigationBar.topItem?.title = "История"
-        navigationController?.navigationBar.alpha = 0
-        navigationController?.isNavigationBarHidden = true
-        
-        navigationItem.makeDone(target: self, action: #selector(done))
-        
-        let image = UIImage(systemName: "gearshape.fill")
-        let leftBarButtonItem = UIBarButtonItem(image: image, style: .done, target: self, action: #selector(openSetting))
-        leftBarButtonItem.tintColor = NavigationAppearance.leftBarButtonColor.color()
-        navigationItem.leftBarButtonItem = leftBarButtonItem
-    }
 }
 
-// MARK: Animation
 
+// MARK: - Animation
 extension HistoryTableViewController {
     
     public func animationCells(_ beforeCells: [UITableViewCell], _ afterCells: [UITableViewCell]) {
@@ -86,5 +68,23 @@ extension HistoryTableViewController {
             }
             delay += 1
         }
+    }
+}
+
+// MARK: - setup
+private extension HistoryTableViewController {
+    func setupTable() {
+        tableView = HistoryTableView()
+        tableView.contentInsetAdjustmentBehavior = .never
+    }
+    func setupNavBar() {
+        navigationController?.navigationBar.topItem?.title = "История"
+        navigationController?.navigationBar.alpha = 0
+        navigationController?.isNavigationBarHidden = true
+        navigationItem.makeDone(target: self, action: #selector(done))
+        let image = UIImage(systemName: "gearshape.fill")
+        let leftBarButtonItem = UIBarButtonItem(image: image, style: .done, target: self, action: #selector(openSetting))
+        leftBarButtonItem.tintColor = NavigationAppearance.leftBarButtonColor.color()
+        navigationItem.leftBarButtonItem = leftBarButtonItem
     }
 }

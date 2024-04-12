@@ -62,7 +62,6 @@ extension Operation {
             return "{\(op[0])}" + #"\div"# + "{\(op[1])}"
         case .precent:
             return "{\(op[0])}%"
-            
         case .pow2:
             return "{\(op[0])}^{2}"
         case .pow3:
@@ -77,36 +76,30 @@ extension Operation {
             return "{10}^{\(op[0])}"
         case .pow2X:
             return "{2}^{\(op[0])}"
-        
         case .divisionByOne:
             return #"\frac{1}"# + "{\(op[0])}"
         case .root2:
             return #"\sqrt"# + "{\(op[0])}"
         case .root3:
             return #"\sqrt[3]"# + "{\(op[0])}"
-            
         case .rootYX:
             return #"\sqrt"# + "[\(op[1])]" + "{\(op[0])}"
-            
         case .lnX:
             return "ln" + "{\(op[0])}"
         case .log10X:
             return #"\log_10"# + "{\(op[0])}"
         case .logY:
-            return #"\log_y"# + "{\(op[0])}"
+            return #"\log_"# + "{\(op[1])}" + "{\(op[0])}"
         case .log2X:
             return #"\log_2"# + "{\(op[0])}"
-            
         case .factorial:
             return "!" + "{\(op[0])}"
-            
         case .sinX:
             return #"\sin"# + "{\(op[0])}"
         case .cosX:
             return #"\cos"# + "{\(op[0])}"
         case .tanX:
             return #"\tanh"# + "{\(op[0])}"
-            
         case .sinhX:
             return #"\sinh"# + "{\(op[0])}"
         case .coshX:
@@ -115,5 +108,4 @@ extension Operation {
             return #"\tanh"# + "{\(op[0])}"
         }
     }
-    
 }
