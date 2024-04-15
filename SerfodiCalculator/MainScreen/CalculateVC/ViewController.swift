@@ -7,17 +7,16 @@
 
 import UIKit
 
-
 class ViewController: UIViewController {
     
     var mainView: MainView { return self.view as! MainView }
     
     @IBOutlet weak var inputLabel: DisplayLabel!
     @IBOutlet weak var numpadController: NumpadController!
+    
     private var historyVC : HistoryViewController!
     
     private var dataProvider: DataProvider!
-//    private var dataProvider: CoreDateProvider!
         
     private let calculator = Calculator()
     
@@ -40,7 +39,6 @@ class ViewController: UIViewController {
     
     private func addNewExample(_ example: Calculation) {
         dataProvider.historyManager.add(calculation: example)
-//        dataProvider.add(calculation: example)
         historyVC.table.reloadData()
         historyVC.table.scrollToBottom(animated: true)
     }
@@ -75,7 +73,6 @@ class ViewController: UIViewController {
 
 
 // MARK: - Calculate
-
 extension ViewController: NumpadDelegate, RemoveLastDigit {
     
     func removeLastDigit() {
@@ -144,16 +141,11 @@ extension ViewController: NumpadDelegate, RemoveLastDigit {
 
 
 // MARK: Table View delegate
-
 extension ViewController: UITableViewDelegate, NavigationDoneDelegate {
         
     func done(to viewController: UIViewController) {
         viewController.navigationController?.view.layer.animationTransition()
         viewController.navigationController?.popToRootViewController(animated: false)
-//        let historyManager = HistoryManager()
-//        dataProvider = DataProvider(historyManager: historyManager)
-//        historyVC.table.dataSource = dataProvider
-//        historyVC.table.reloadData()
         animationTableController()
     }
     
@@ -163,7 +155,7 @@ extension ViewController: UITableViewDelegate, NavigationDoneDelegate {
     }
 }
 
-
+//MARK: - Setup
 private extension ViewController {
     func configurationHistory() {
         historyVC = HistoryViewController()
@@ -187,11 +179,8 @@ private extension ViewController {
     }
 }
 
-
 // MARK: - Animation
-
 private extension ViewController {
-    
     func animationTableController(_ indexPath: IndexPath? = nil) {
         switch historyVC.stateVC {
         case true:

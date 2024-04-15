@@ -36,3 +36,11 @@ enum DynamicNumberFormatterError: Error {
         }
     }
 }
+
+
+//MARK: - DB Errors Handling
+
+enum DBRepositoryErrors: Error {
+    case entityTypeError
+    case noChangesInRepository
+}

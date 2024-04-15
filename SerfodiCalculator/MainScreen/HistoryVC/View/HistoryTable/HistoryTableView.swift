@@ -54,13 +54,14 @@ extension HistoryTableView {
         contentInset = UIEdgeInsets(top: contentInsetTop, left: 0, bottom: 10, right: 0)
     }
     
+}
+
+extension UITableView {
+    
     public func scrollToBottom(animated: Bool = true) {
         guard let lastIndex = lastIndexPath() else { return }
         self.scrollToRow(at: lastIndex as IndexPath, at: .bottom, animated: animated)
     }
-}
-
-extension UITableView {
     
     func lastIndexPath() -> IndexPath? {
         let lastSection = numberOfSections

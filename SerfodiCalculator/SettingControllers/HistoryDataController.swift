@@ -54,7 +54,7 @@ class HistoryDataController: UIViewController {
     }
     
     func buttonTap() {
-        HistoryManager().removeAllDataHistory()
+//        HistoryManager().removeAllDataHistory()
         self.reloadData()
     }
     

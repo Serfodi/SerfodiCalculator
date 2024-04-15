@@ -50,9 +50,10 @@ final class HistoryManager {
         save()
     }
     
-    public func removeAllDataHistory() {
+    public func removeAllDataHistory(complite: @escaping (Result<Void>) -> ()) {
         storage.removeAllHistory()
         calculations.removeAll()
+        complite(Result(value: ()))
     }
     
 }

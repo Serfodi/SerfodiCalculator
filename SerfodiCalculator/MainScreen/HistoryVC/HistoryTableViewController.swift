@@ -21,13 +21,17 @@ class HistoryTableViewController: UITableViewController {
         }
     }
     
+    override func loadView() {
+        super.loadView()
+        tableView = HistoryTableView()
+    }
+    
     
 //    MARK: Live circle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavBar()
-        setupTable()
     }
     
 //    MARK: Action
@@ -63,7 +67,7 @@ extension HistoryTableViewController {
         var delay = 0.1
         for cell in cells {
             cell.alpha = 0
-            UIView.animate(withDuration: 0.4, delay: delay * 0.05, options: .curveEaseOut) {
+            UIView.animate(withDuration: 0.3, delay: delay * 0.05, options: .curveEaseOut) {
                 cell.alpha = 1
             }
             delay += 1
@@ -73,10 +77,6 @@ extension HistoryTableViewController {
 
 // MARK: - setup
 private extension HistoryTableViewController {
-    func setupTable() {
-        tableView = HistoryTableView()
-        tableView.contentInsetAdjustmentBehavior = .never
-    }
     func setupNavBar() {
         navigationController?.navigationBar.topItem?.title = "История"
         navigationController?.navigationBar.alpha = 0

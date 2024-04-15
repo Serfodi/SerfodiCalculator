@@ -42,7 +42,3 @@ extension UILabel {
     }
     
 }
-
-extension UILabel {
-    
-}
