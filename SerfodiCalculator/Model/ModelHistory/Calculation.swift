@@ -10,6 +10,7 @@ import UIKit
 struct Calculation {
     let expression: [CalculationHistoryItem]
     let result: Double
+    let date: Date
 }
 
 

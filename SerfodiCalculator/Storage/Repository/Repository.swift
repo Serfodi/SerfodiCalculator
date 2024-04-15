@@ -11,7 +11,7 @@ protocol AccessableRepository {
    
    associatedtype DomainModel
    
-   func save(_ objects: DomainModel, completion: @escaping ((Result<Void>) -> Void))
+   func save(_ objects: [DomainModel], completion: @escaping ((Result<Void>) -> Void))
    
    func present(by request: RepositorySearchRequest, completion: @escaping ((Result<[DomainModel]>) -> Void))
    
@@ -29,7 +29,7 @@ protocol RepositorySearchRequest {
 class Repository<DomainModel, Entity>: NSObject, AccessableRepository {
    typealias DomainModel = DomainModel
    
-   func save(_ objects: DomainModel, completion: @escaping ((Result<Void>) -> Void)) {
+   func save(_ objects: [DomainModel], completion: @escaping ((Result<Void>) -> Void)) {
       fatalError("save(_ objects: must be overrided")
    }
    func present(by request: RepositorySearchRequest, completion: @escaping ((Result<[DomainModel]>) -> Void)) {

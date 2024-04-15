@@ -13,11 +13,13 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var inputLabel: DisplayLabel!
     @IBOutlet weak var numpadController: NumpadController!
-    
     private var historyVC : HistoryViewController!
     
-    private var dataProvider: DataProvider!
+//    private var dataProvider: DataProvider!
         
+    private var dataMeneger: CoreDataManager!
+    private var dataProvider: CoreDataProvider!
+    
     private let calculator = Calculator()
     
     private var isNewInput = true
@@ -38,7 +40,8 @@ class ViewController: UIViewController {
     }
     
     private func addNewExample(_ example: Calculation) {
-        dataProvider.historyManager.add(calculation: example)
+//        dataProvider.historyManager.add(calculation: example)
+        dataMeneger.add(calculation: example)
         historyVC.table.reloadData()
         historyVC.table.scrollToBottom(animated: true)
     }
@@ -126,7 +129,7 @@ extension ViewController: NumpadDelegate, RemoveLastDigit {
         
         calculateResult { result in
             calculator.removeHistory { calculationItems in
-                let calculation = Calculation(expression: calculationItems, result: result)
+                let calculation = Calculation(expression: calculationItems, result: result, date: Date())
                 self.addNewExample(calculation)
             }
             inputLabel.setTextLabel(number: result)
@@ -173,8 +176,11 @@ private extension ViewController {
     }
     
     func setupDataMenager() {
-        let historyManager = HistoryManager()
-        dataProvider = DataProvider(historyManager: historyManager)
+//        let historyManager = HistoryManager()
+//        dataProvider = DataProvider(historyManager: historyManager)
+        
+        dataMeneger = CoreDataManager()
+        dataProvider = CoreDataProvider(historyManager: dataMeneger)
         historyVC.table.dataSource = dataProvider
     }
 }

@@ -68,10 +68,13 @@
 		B0A1B8672BB8AEDB00D7E568 /* FocusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A1B8662BB8AEDB00D7E568 /* FocusView.swift */; };
 		B0A1B8692BB9882F00D7E568 /* Transition.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A1B8682BB9882F00D7E568 /* Transition.swift */; };
 		B0A79EDF2BC9527C00FAD045 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A79EDE2BC9527C00FAD045 /* Result.swift */; };
-		B0B7EED72BCCFE08002DDFAF /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B7EED62BCCFE08002DDFAF /* CoreDataManager.swift */; };
+		B0B7EED72BCCFE08002DDFAF /* CoreDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B7EED62BCCFE08002DDFAF /* CoreDataRepository.swift */; };
 		B0B7EED92BCDA329002DDFAF /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B7EED82BCDA329002DDFAF /* Repository.swift */; };
 		B0B7EEDD2BCDAEA0002DDFAF /* DataStorageModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B0B7EEDB2BCDAEA0002DDFAF /* DataStorageModel.xcdatamodeld */; };
 		B0B7EEDF2BCDAF36002DDFAF /* CalculateEntityMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B7EEDE2BCDAF36002DDFAF /* CalculateEntityMapper.swift */; };
+		B0B7EEE12BCDB898002DDFAF /* CoreDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B7EEE02BCDB898002DDFAF /* CoreDataProvider.swift */; };
+		B0B7EEE52BCDBD37002DDFAF /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B7EEE42BCDBD37002DDFAF /* CoreDataManager.swift */; };
+		B0B7EEE72BCDBFD7002DDFAF /* CoreDataContextProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B7EEE62BCDBFD7002DDFAF /* CoreDataContextProvider.swift */; };
 		B0EACC822BC860BB008E1A8D /* ExpressionLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B050E2502B9F73DD00D48DFE /* ExpressionLabel.swift */; };
 		B0FEF0462B9DC382001C1792 /* HistoryTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0899CFE2B9CA9DB00C12D7C /* HistoryTableView.swift */; };
 		B0FEF0472B9DD1A9001C1792 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B059F1D92B878D380079EFFA /* HistoryViewController.swift */; };
@@ -145,10 +148,13 @@
 		B0A1B8662BB8AEDB00D7E568 /* FocusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusView.swift; sourceTree = "<group>"; };
 		B0A1B8682BB9882F00D7E568 /* Transition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transition.swift; sourceTree = "<group>"; };
 		B0A79EDE2BC9527C00FAD045 /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
-		B0B7EED62BCCFE08002DDFAF /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		B0B7EED62BCCFE08002DDFAF /* CoreDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataRepository.swift; sourceTree = "<group>"; };
 		B0B7EED82BCDA329002DDFAF /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
 		B0B7EEDC2BCDAEA0002DDFAF /* DataStorageModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataStorageModel.xcdatamodel; sourceTree = "<group>"; };
 		B0B7EEDE2BCDAF36002DDFAF /* CalculateEntityMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculateEntityMapper.swift; sourceTree = "<group>"; };
+		B0B7EEE02BCDB898002DDFAF /* CoreDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataProvider.swift; sourceTree = "<group>"; };
+		B0B7EEE42BCDBD37002DDFAF /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		B0B7EEE62BCDBFD7002DDFAF /* CoreDataContextProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataContextProvider.swift; sourceTree = "<group>"; };
 		B0FEF0482B9DD38A001C1792 /* HistoryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -179,7 +185,6 @@
 				B099E0CA2B6C03DA000670CE /* SettingManager.swift */,
 				B099E0C82B6BF86F000670CE /* HistoryManager.swift */,
 				B099E0C62B6BF016000670CE /* DataProvider.swift */,
-				B0B7EEDA2BCDACD1002DDFAF /* CoreData */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -218,6 +223,7 @@
 			children = (
 				B069C2C42BA18FBF00503FEB /* AppDelegate */,
 				B064E30D2B626F5200E56208 /* Storage */,
+				B0B7EEDA2BCDACD1002DDFAF /* CoreData */,
 				B069C2DA2BA47EA500503FEB /* Model */,
 				B00257B52B795D6900311188 /* Manager */,
 				B069C2D72BA47D8B00503FEB /* MainScreen */,
@@ -314,6 +320,7 @@
 		B064E30D2B626F5200E56208 /* Storage */ = {
 			isa = PBXGroup;
 			children = (
+				B0B7EEE22BCDBCAD002DDFAF /* Repository */,
 				B064E30B2B626F4600E56208 /* Storage.swift */,
 			);
 			path = Storage;
@@ -473,12 +480,30 @@
 		B0B7EEDA2BCDACD1002DDFAF /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				B0B7EED82BCDA329002DDFAF /* Repository.swift */,
-				B0B7EEDB2BCDAEA0002DDFAF /* DataStorageModel.xcdatamodeld */,
-				B0B7EED62BCCFE08002DDFAF /* CoreDataManager.swift */,
-				B0B7EEDE2BCDAF36002DDFAF /* CalculateEntityMapper.swift */,
+				B0B7EEE32BCDBCE5002DDFAF /* CoreDataRepository */,
+				B0B7EEE42BCDBD37002DDFAF /* CoreDataManager.swift */,
+				B0B7EEE02BCDB898002DDFAF /* CoreDataProvider.swift */,
 			);
 			path = CoreData;
+			sourceTree = "<group>";
+		};
+		B0B7EEE22BCDBCAD002DDFAF /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				B0B7EED82BCDA329002DDFAF /* Repository.swift */,
+			);
+			path = Repository;
+			sourceTree = "<group>";
+		};
+		B0B7EEE32BCDBCE5002DDFAF /* CoreDataRepository */ = {
+			isa = PBXGroup;
+			children = (
+				B0B7EED62BCCFE08002DDFAF /* CoreDataRepository.swift */,
+				B0B7EEDB2BCDAEA0002DDFAF /* DataStorageModel.xcdatamodeld */,
+				B0B7EEDE2BCDAF36002DDFAF /* CalculateEntityMapper.swift */,
+				B0B7EEE62BCDBFD7002DDFAF /* CoreDataContextProvider.swift */,
+			);
+			path = CoreDataRepository;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -561,6 +586,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B0B7EEE72BCDBFD7002DDFAF /* CoreDataContextProvider.swift in Sources */,
 				B064E3042B61728000E56208 /* Operation.swift in Sources */,
 				B00257B72B7F7BE100311188 /* SecondNumpad.swift in Sources */,
 				B064E30C2B626F4600E56208 /* Storage.swift in Sources */,
@@ -585,10 +611,11 @@
 				B0FEF0472B9DD1A9001C1792 /* HistoryViewController.swift in Sources */,
 				B064E2FC2B5ED4F000E56208 /* UILabel + Extension.swift in Sources */,
 				B03037FE2BAF3E9A00CA1DC6 /* SettingCollectionView.swift in Sources */,
+				B0B7EEE12BCDB898002DDFAF /* CoreDataProvider.swift in Sources */,
 				B064E3262B6583AD00E56208 /* DynamicNumberFormatter.swift in Sources */,
 				B0A1B8562BB4321100D7E568 /* WhiteNavigationBar.swift in Sources */,
 				B069C2D92BA47E3000503FEB /* SettingModel.swift in Sources */,
-				B0B7EED72BCCFE08002DDFAF /* CoreDataManager.swift in Sources */,
+				B0B7EED72BCCFE08002DDFAF /* CoreDataRepository.swift in Sources */,
 				B0FEF0492B9DD38A001C1792 /* HistoryTableViewController.swift in Sources */,
 				B069C2C62BA190FE00503FEB /* ButtonCellContentConfiguration.swift in Sources */,
 				B064E30F2B62707500E56208 /* CalculationHistoryItem.swift in Sources */,
@@ -610,6 +637,7 @@
 				B064E3132B62B62300E56208 /* Calculation.swift in Sources */,
 				B064E2F62B5EB7AB00E56208 /* CalculationError.swift in Sources */,
 				B0B7EEDF2BCDAF36002DDFAF /* CalculateEntityMapper.swift in Sources */,
+				B0B7EEE52BCDBD37002DDFAF /* CoreDataManager.swift in Sources */,
 				B0B7EED92BCDA329002DDFAF /* Repository.swift in Sources */,
 				B064E31B2B62D8B000E56208 /* DisplayLabel.swift in Sources */,
 				B02EC65D2B5D8D4E00CE0122 /* AppDelegate.swift in Sources */,
