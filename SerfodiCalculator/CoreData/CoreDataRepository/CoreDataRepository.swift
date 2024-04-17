@@ -31,8 +31,6 @@ class EntityMapper<DomainModel, Entity> {
     }
 }
 
-
-
 class CoreDataRepository<DomainModel, Entity>: Repository<DomainModel, Entity>, NSFetchedResultsControllerDelegate {
     
     private let associatedEntityName: String
@@ -156,4 +154,3 @@ class CoreDataRepository<DomainModel, Entity>: Repository<DomainModel, Entity>, 
         return fetchedResultsController
     }
 }
-

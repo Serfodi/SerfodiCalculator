@@ -28,8 +28,8 @@ class HistoryDataController: UIViewController {
     
     let menu = [
         Section(name: "Память", items: [
-            Item.dataTitle(HistoryManager().storage.getSizeOfUserDefaults() ?? 0),
-            Item.clearButton(HistoryManager().storage.getSizeOfUserDefaults() ?? 0)
+            Item.dataTitle(0),
+            Item.clearButton(0)
         ]),
         Section(items: [
             Item.isSaveSwitch(dataSetting.isSaveHistory)

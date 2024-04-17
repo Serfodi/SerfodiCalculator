@@ -9,9 +9,7 @@ import Foundation
 
 
 enum CalculationHistoryItem {
-    /// Число
     case number(Double)
-    /// Опирация
     case operation(Operation)
 }
 

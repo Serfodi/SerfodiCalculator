@@ -10,14 +10,15 @@ import CoreData
 final class CoreDataContextProvider  {
     
     private lazy var persistentContainer: NSPersistentContainer = {
-       let container = NSPersistentContainer(name: "DataStorageModel")
-       container.loadPersistentStores(completionHandler: { (_, error) in
-          if let error = error as NSError? {
-             fatalError("Unresolved error \(error),\(error.userInfo)")
-          }
-          container.viewContext.automaticallyMergesChangesFromParent = true
-       })
-       return container
+        CalculationTransformer.register()
+        let container = NSPersistentContainer(name: "DataStorageModel")
+        container.loadPersistentStores(completionHandler: { (_, error) in
+            if let error = error as NSError? {
+                fatalError("Unresolved error \(error),\(error.userInfo)")
+            }
+            container.viewContext.automaticallyMergesChangesFromParent = true
+        })
+        return container
     }()
     
     private lazy var mainContext = persistentContainer.viewContext

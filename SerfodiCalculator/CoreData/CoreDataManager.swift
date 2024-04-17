@@ -9,9 +9,7 @@ import UIKit
 
 final class CoreDataCalculateSearchRequest: RepositorySearchRequest {
     
-    var predicate: NSPredicate? {
-        nil
-    }
+    var predicate: NSPredicate? { nil }
     
     var sortDescriptors: [NSSortDescriptor] {
         [.init(key: "date", ascending: true)]
@@ -20,9 +18,9 @@ final class CoreDataCalculateSearchRequest: RepositorySearchRequest {
 
 class CoreDataManager {
     
-    private var repository: CoreDataRepository<Calculation, CalculateEntity>?
+    private var repository: CoreDataRepository<HistoryCalculation, CalculateEntity>?
     
-    private var calculations: [Calculation] = []
+    private var calculations: [HistoryCalculation] = []
     
     public var calculationsCount: Int {
         calculations.count
@@ -30,7 +28,7 @@ class CoreDataManager {
     
     init() {
         let contextProvider = CoreDataContextProvider()
-        let entityMapper = CalculateEntityMapper()
+        let entityMapper = HistoryCalculationEntityMapper()
         let repository = CoreDataRepository(contextSource: contextProvider,
                                         autoUpdateSearchRequest: nil,
                                         entityMapper: entityMapper)
@@ -43,19 +41,19 @@ class CoreDataManager {
         repository?.save(calculations, completion: { result in
             switch result {
             case .success():
-                print("success save")
+                ()
             case .error(let error):
                 print(error)
             }
         })
     }
     
-    public func calculation(at index: Int) -> Calculation {
+    public func calculation(at index: Int) -> HistoryCalculation {
         calculations[index]
     }
     
-    public func add(calculation: Calculation) {
-        calculations.append(calculation)
+    public func add(_ historyCalculation: HistoryCalculation) {
+        calculations.append(historyCalculation)
         save()
     }
     

@@ -40,8 +40,8 @@ class ViewController: UIViewController {
     }
     
     private func addNewExample(_ example: Calculation) {
-//        dataProvider.historyManager.add(calculation: example)
-        dataMeneger.add(calculation: example)
+        let historyCalculation = HistoryCalculation(calculation: example, date: Date())
+        dataMeneger.add(historyCalculation)
         historyVC.table.reloadData()
         historyVC.table.scrollToBottom(animated: true)
     }
@@ -129,7 +129,7 @@ extension ViewController: NumpadDelegate, RemoveLastDigit {
         
         calculateResult { result in
             calculator.removeHistory { calculationItems in
-                let calculation = Calculation(expression: calculationItems, result: result, date: Date())
+                let calculation = Calculation(expression: calculationItems, result: result)
                 self.addNewExample(calculation)
             }
             inputLabel.setTextLabel(number: result)
