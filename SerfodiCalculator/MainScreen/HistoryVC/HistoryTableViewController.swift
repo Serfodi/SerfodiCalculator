@@ -7,13 +7,7 @@
 
 import UIKit
 
-protocol NavigationDoneDelegate {
-    func done(to viewController: UIViewController)
-}
-
 class HistoryTableViewController: UITableViewController {
-        
-    public var delegate: NavigationDoneDelegate?
     
     public var topBar: UINavigationBar {
         get {
@@ -21,13 +15,12 @@ class HistoryTableViewController: UITableViewController {
         }
     }
     
+    //    MARK: Live circle
+    
     override func loadView() {
         super.loadView()
         tableView = HistoryTableView()
     }
-    
-    
-//    MARK: Live circle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,15 +31,35 @@ class HistoryTableViewController: UITableViewController {
     
     @objc private func openSetting() {
         let settingVC = SettingTableViewController()
-        settingVC.delegate = delegate
         navigationController?.pushViewController(settingVC, animated: true)
     }
     
-    @objc private func done() {
-        delegate?.done(to: self)
+}
+
+// MARK: - ResponderChainActionSenderType
+extension HistoryTableViewController: ResponderChainActionSenderType {
+    @objc func doneTap(_ sender: AnyObject) {
+        let event = DoneEvent(controller: self)
+        let _ = sendNilTargetedAction(selector: .doneTap, sender: self, forEvent: event)
     }
 }
 
+
+// MARK: - setup
+private extension HistoryTableViewController {
+    func setupNavBar() {
+        navigationController?.navigationBar.topItem?.title = "История"
+        navigationController?.navigationBar.alpha = 0
+        navigationController?.isNavigationBarHidden = true
+        
+        navigationItem.makeDone(target: self, selector: #selector(doneTap(_:)))
+        
+        let image = UIImage(systemName: "gearshape.fill")
+        let leftBarButtonItem = UIBarButtonItem(image: image, style: .done, target: self, action: #selector(openSetting))
+        leftBarButtonItem.tintColor = NavigationAppearance.leftBarButtonColor.color()
+        navigationItem.leftBarButtonItem = leftBarButtonItem
+    }
+}
 
 // MARK: - Animation
 extension HistoryTableViewController {
@@ -72,19 +85,5 @@ extension HistoryTableViewController {
             }
             delay += 1
         }
-    }
-}
-
-// MARK: - setup
-private extension HistoryTableViewController {
-    func setupNavBar() {
-        navigationController?.navigationBar.topItem?.title = "История"
-        navigationController?.navigationBar.alpha = 0
-        navigationController?.isNavigationBarHidden = true
-        navigationItem.makeDone(target: self, action: #selector(done))
-        let image = UIImage(systemName: "gearshape.fill")
-        let leftBarButtonItem = UIBarButtonItem(image: image, style: .done, target: self, action: #selector(openSetting))
-        leftBarButtonItem.tintColor = NavigationAppearance.leftBarButtonColor.color()
-        navigationItem.leftBarButtonItem = leftBarButtonItem
     }
 }

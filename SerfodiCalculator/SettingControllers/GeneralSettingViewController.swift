@@ -19,7 +19,6 @@ class GeneralSettingViewController: UIViewController {
         var state: Bool
     }
     
-    var delegate: NavigationDoneDelegate?
     var collectionView: UICollectionView!
     var dataSource: UICollectionViewDiffableDataSource<Section, SwitchItem>!
     
@@ -27,7 +26,6 @@ class GeneralSettingViewController: UIViewController {
     
     let menu = [
         Section(name: "Нажатия", items: [
-            .init(title: "Щелчки", state: generalSetting.isClicks),
             .init(title: "Звук", state: generalSetting.isSound),
             .init(title: "Вибрация", state: generalSetting.isVibration)
         ])
@@ -41,31 +39,30 @@ class GeneralSettingViewController: UIViewController {
         collectionView = SettingCollectionView(frame: view.bounds, header: true)
         view.addSubview(collectionView)
         navigationItem.title = "Общие"
-        navigationItem.makeDone(target: self, action:  #selector(done))
+        navigationItem.makeDone(target: self, selector: #selector(done))
         createDataSource()
         reloadData()
     }
-    
     
     @objc func switchChanged(_ sender: UISwitch) {
         var newSetting = GeneralSettingViewController.generalSetting
         switch sender.tag {
         case 0:
-            newSetting.isClicks = sender.isOn
-        case 1:
             newSetting.isSound = sender.isOn
-        case 2:
+        case 1:
             newSetting.isVibration = sender.isOn
         default:
             fatalError("Not switch menu.")
         }
         GeneralSettingViewController.generalSetting = newSetting
         SettingManager().setGeneralSetting(GeneralSettingViewController.generalSetting)
-        reloadData()
     }
+}
 
+extension GeneralSettingViewController: ResponderChainActionSenderType {
     @objc func done() {
-        delegate?.done(to: self)
+        let event = DoneEvent(controller: self)
+        let _ = sendNilTargetedAction(selector: .doneTap, sender: self, forEvent: event)
     }
 }
 

@@ -19,5 +19,4 @@ extension Array where Element: Any {
         }
         return array.reversed()
     }
-    
 }

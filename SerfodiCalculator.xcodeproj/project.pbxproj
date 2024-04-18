@@ -267,7 +267,6 @@
 			children = (
 				B09246672BC322FE00DC3799 /* HistoryTable */,
 				B050E2502B9F73DD00D48DFE /* ExpressionLabel.swift */,
-				B03038002BAF47EB00CA1DC6 /* UINavigationItem + Extension.swift */,
 				B0A1B8552BB4321100D7E568 /* WhiteNavigationBar.swift */,
 				B0A1B85B2BB5593300D7E568 /* AnimationController */,
 			);
@@ -290,6 +289,15 @@
 				B05C9DDE2BCFEA8700A47DA4 /* Transformable */,
 			);
 			path = EntityModel;
+			sourceTree = "<group>";
+		};
+		B05C9DE22BD161B400A47DA4 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				B03038002BAF47EB00CA1DC6 /* UINavigationItem + Extension.swift */,
+				B0A1B86A2BB98A6A00D7E568 /* Animation */,
+			);
+			path = Helper;
 			sourceTree = "<group>";
 		};
 		B064E2FD2B5EE64300E56208 /* Extension */ = {
@@ -410,6 +418,7 @@
 			children = (
 				B064E3002B60283C00E56208 /* CalculateVC */,
 				B064E31E2B6446FB00E56208 /* HistoryVC */,
+				B05C9DE22BD161B400A47DA4 /* Helper */,
 			);
 			path = MainScreen;
 			sourceTree = "<group>";
@@ -451,7 +460,6 @@
 				B064E31A2B62D8B000E56208 /* DisplayLabel.swift */,
 				B0A1B8662BB8AEDB00D7E568 /* FocusView.swift */,
 				B064E3052B6180FA00E56208 /* BlurGradientEffect.swift */,
-				B0A1B86A2BB98A6A00D7E568 /* Animation */,
 				B00257BE2B84BC2000311188 /* Numpad */,
 			);
 			path = View;

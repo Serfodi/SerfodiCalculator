@@ -16,15 +16,6 @@ final class HistoryViewController: UIViewController {
     private var historyBottomConstraint: NSLayoutConstraint!
     private var isOpen: Bool = false
     
-    public var delegate: NavigationDoneDelegate? {
-        get {
-            tableViewController.delegate
-        }
-        set {
-            tableViewController.delegate = newValue
-        }
-    }
-    
     public var table: HistoryTableView {
         get {
             self.tableViewController.tableView as! HistoryTableView
@@ -32,22 +23,17 @@ final class HistoryViewController: UIViewController {
     }
     
     public var stateVC: Bool {
-        get {
-            isOpen
-        }
+        get { isOpen }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableViewController = HistoryTableViewController()
-        
         let navigationController = WhiteNavigationController(rootViewController: tableViewController)
-        
         addChild(navigationController)
         self.view.addSubview(navigationController.view)
         setupTableConstraints(navigationController.view)
         didMove(toParent: self)
-        
         configure()
     }
     
@@ -81,11 +67,9 @@ final class HistoryViewController: UIViewController {
                                               constant: 20)
         historyBottomConstraint.isActive = true
     }
-    
 }
 
-// MARK: Animation
-
+// MARK: - Animation
 extension HistoryViewController {
     
     func animationOpen(updateConstraint: @escaping ()->()) {
@@ -99,7 +83,6 @@ extension HistoryViewController {
             self.topBlur.alpha = 0
             self.bottomBlur.alpha = 0
             self.tableViewController.navigationController?.setNavigationBarHidden(false, animated: true)
-//            self.table.scrollToNearestSelectedRow(at: .top, animated: true)
         } completion: { _ in
             UIView.animate(withDuration: 0.2) {
                 self.bottomBlur.alpha = 1
@@ -131,10 +114,8 @@ extension HistoryViewController {
 }
 
 
-// MARK:  Constraints
-
+// MARK: - Constraints
 private extension HistoryViewController {
-    
     func setupTableConstraints(_ view: UIView) {
         view.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -144,20 +125,16 @@ private extension HistoryViewController {
             view.leadingAnchor.constraint(equalTo: self.view.leadingAnchor)
         ])
     }
-    
     func setupBlurConstraints() {
         topBlur.translatesAutoresizingMaskIntoConstraints = false
         bottomBlur.translatesAutoresizingMaskIntoConstraints = false
-
         let statusHeight = UIApplication.shared.getStatusBarFrame().height
-        
         NSLayoutConstraint.activate([
             topBlur.heightAnchor.constraint(equalToConstant: statusHeight + 20),
             topBlur.topAnchor.constraint(equalTo: view.topAnchor),
             topBlur.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             topBlur.leadingAnchor.constraint(equalTo: view.leadingAnchor)
         ])
-        
         NSLayoutConstraint.activate([
             bottomBlur.heightAnchor.constraint(equalToConstant: 40),
             bottomBlur.bottomAnchor.constraint(equalTo: view.bottomAnchor),
@@ -166,3 +143,4 @@ private extension HistoryViewController {
         ])
     }
 }
+

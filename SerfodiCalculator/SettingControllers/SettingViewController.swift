@@ -31,8 +31,6 @@ class SettingTableViewController: UIViewController {
         [MenuItem(title: "Общие"), MenuItem(title: "История")]
     ]
     
-    var delegate: NavigationDoneDelegate?
-    
     var collectionView: UICollectionView!
     var dataSource: UICollectionViewDiffableDataSource<Section, MenuItem>!
     
@@ -53,13 +51,15 @@ class SettingTableViewController: UIViewController {
         super.viewDidAppear(animated)
         (navigationController as! WhiteNavigationController).isPopEnabled = false
     }
-    
-    @objc private func done() {
-        delegate?.done(to: self)
-    }
-    
 }
 
+// MARK: ResponderChainActionSenderType
+extension SettingTableViewController: ResponderChainActionSenderType {
+    @objc func done() {
+        let event = DoneEvent(controller: self)
+        sendNilTargetedAction(selector: .doneTap, sender: self, forEvent: event)
+    }
+}
 
 // MARK: Navigation
 
@@ -72,11 +72,9 @@ extension SettingTableViewController: UICollectionViewDelegate {
         switch selectedItem.title {
         case modelObjects[0][0].title:
             let vc = GeneralSettingViewController()
-            vc.delegate = delegate
             navigationController?.pushViewController(vc, animated: true)
         case modelObjects[0][1].title:
             let vc = HistoryDataController()
-            vc.delegate = delegate
             navigationController?.pushViewController(vc, animated: true)
         default:
             print(selectedItem.title)
@@ -129,7 +127,7 @@ extension SettingTableViewController {
         
     private func configNavigationBar() {
         navigationItem.title = "Настройки"
-        navigationItem.makeDone(target: self, action: #selector(done))
+        navigationItem.makeDone(target: self, selector: #selector(done))
         navigationItem.hidesBackButton = true
     }
         
@@ -147,7 +145,6 @@ extension SettingTableViewController {
         layoutConfig.backgroundColor = .clear
         return UICollectionViewCompositionalLayout.list(using: layoutConfig)
     }
-    
 }
 
 

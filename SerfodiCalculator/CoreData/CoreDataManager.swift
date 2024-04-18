@@ -58,9 +58,13 @@ class CoreDataManager {
     }
     
     public func removeAllDataHistory(complite: @escaping (Result<Void>) -> ()) {
+        calculations.removeAll()
         repository?.eraseAllData(completion: complite)
     }
     
+    public func dataСapacity() -> Int {
+        calculations.count
+    }
     
     // MARK: - Helper
     

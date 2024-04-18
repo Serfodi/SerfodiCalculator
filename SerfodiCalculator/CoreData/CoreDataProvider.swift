@@ -10,7 +10,7 @@ import UIKit
 
 final class CoreDataProvider: NSObject {
     
-    var historyManager: CoreDataManager
+     var historyManager: CoreDataManager
     
     init(historyManager: CoreDataManager) {
         self.historyManager = historyManager

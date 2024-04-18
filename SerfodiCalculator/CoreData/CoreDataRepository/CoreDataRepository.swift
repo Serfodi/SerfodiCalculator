@@ -123,9 +123,26 @@ class CoreDataRepository<DomainModel, Entity>: Repository<DomainModel, Entity>, 
         })
     }
     
+    // MARK: - Other metods
+    
+    public func dataCapacity() -> Int {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: associatedEntityName)
+        var capacity = Int()
+        contextSource.performBackgroundTask ({ context in
+            do {
+                let _ = try context.fetch(fetchRequest)
+                capacity = 7777
+            } catch {
+                print(error)
+            }
+        })
+        return capacity
+    }
+    
     // MARK: - Saving support
     
     private func applyChanges(context: NSManagedObjectContext, completion: ((Result<Void>) -> Void)? = nil) {
+        context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
         switch context.hasChanges {
         case true:
             do {

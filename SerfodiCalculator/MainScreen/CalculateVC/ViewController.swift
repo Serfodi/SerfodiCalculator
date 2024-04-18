@@ -15,9 +15,6 @@ class ViewController: UIViewController {
     @IBOutlet weak var numpadController: NumpadController!
     private var historyVC : HistoryViewController!
     
-//    private var dataProvider: DataProvider!
-        
-    private var dataMeneger: CoreDataManager!
     private var dataProvider: CoreDataProvider!
     
     private let calculator = Calculator()
@@ -41,7 +38,7 @@ class ViewController: UIViewController {
     
     private func addNewExample(_ example: Calculation) {
         let historyCalculation = HistoryCalculation(calculation: example, date: Date())
-        dataMeneger.add(historyCalculation)
+        dataProvider.historyManager.add(historyCalculation)
         historyVC.table.reloadData()
         historyVC.table.scrollToBottom(animated: true)
     }
@@ -142,16 +139,35 @@ extension ViewController: NumpadDelegate, RemoveLastDigit {
     }
 }
 
-
-// MARK: Table View delegate
-extension ViewController: UITableViewDelegate, NavigationDoneDelegate {
-        
-    func done(to viewController: UIViewController) {
-        viewController.navigationController?.view.layer.animationTransition()
-        viewController.navigationController?.popToRootViewController(animated: false)
-        animationTableController()
+// MARK: - History Delegate
+extension ViewController {
+    
+    @objc func removeHistory() {
+        dataProvider.historyManager.removeAllDataHistory { result in
+            switch result {
+            case .success():
+                print("Remove All")
+            case .error(let error):
+                print(error)
+            }
+        }
     }
     
+}
+
+// MARK: - Navigation DoneDelegate
+extension ViewController: NavigationDoneDelegate {
+    
+    func done(_ sender: AnyObject, forEvent event: DoneEvent) {
+        guard let navigationController = event.controller.navigationController else { return }
+        navigationController.view.layer.animationTransition()
+        navigationController.popToRootViewController(animated: false)
+        animationTableController()
+    }
+}
+
+// MARK: Table View delegate
+extension ViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         animationTableController(indexPath)
         tableView.deselectRow(at: indexPath, animated: true)
@@ -164,7 +180,6 @@ private extension ViewController {
         historyVC = HistoryViewController()
         setupView()
         setupDataMenager()
-        historyVC.delegate = self
         historyVC.table.delegate = self
     }
     
@@ -176,10 +191,7 @@ private extension ViewController {
     }
     
     func setupDataMenager() {
-//        let historyManager = HistoryManager()
-//        dataProvider = DataProvider(historyManager: historyManager)
-        
-        dataMeneger = CoreDataManager()
+        let dataMeneger = CoreDataManager()
         dataProvider = CoreDataProvider(historyManager: dataMeneger)
         historyVC.table.dataSource = dataProvider
     }

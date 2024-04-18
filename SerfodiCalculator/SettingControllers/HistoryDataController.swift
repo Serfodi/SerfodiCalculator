@@ -7,6 +7,7 @@
 
 import UIKit
 
+
 class HistoryDataController: UIViewController {
     
     struct Section: Hashable {
@@ -20,27 +21,20 @@ class HistoryDataController: UIViewController {
         case isSaveSwitch (Bool)
     }
     
-    var delegate: NavigationDoneDelegate?
     var collectionView: UICollectionView!
     var dataSource: UICollectionViewDiffableDataSource<Section, Item>!
     
-    private static var dataSetting: DataSetting = SettingManager().getDataSetting()
+    private var dataSetting: DataSetting = SettingManager().getDataSetting()
     
-    let menu = [
-        Section(name: "Память", items: [
-            Item.dataTitle(0),
-            Item.clearButton(0)
-        ]),
-        Section(items: [
-            Item.isSaveSwitch(dataSetting.isSaveHistory)
-        ])
-    ]
+    private var dataMeneger: CoreDataManager!
+    
+    private var menu:[Section] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         view.backgroundColor = .systemGroupedBackground
-        
+        dataMeneger = CoreDataManager()
+        configMenu()
         configNavigationBar()
         setupCollectionView()
         createDataSource()
@@ -49,21 +43,44 @@ class HistoryDataController: UIViewController {
     
     // MARK: Action
     
-    @objc func done() {
-        delegate?.done(to: self)
-    }
-    
     func buttonTap() {
-//        HistoryManager().removeAllDataHistory()
-        self.reloadData()
+        dataMeneger.removeAllDataHistory { result in
+            switch result {
+            case .success():
+                ()
+            case .error(let error):
+                print(error)
+            }
+        }
     }
     
     @objc func switchChanged(_ sender: UISwitch) {
-        var newDataSetting = HistoryDataController.dataSetting
+        var newDataSetting = dataSetting
         newDataSetting.isSaveHistory = sender.isOn
         SettingManager().setDataSetting(newDataSetting)
     }
+    
+    fileprivate func configMenu() {
+        let count = dataMeneger.dataСapacity()
+        menu = [
+            Section(name: "Память", items: [
+                Item.dataTitle(count),
+                Item.clearButton(count)
+            ]),
+            Section(items: [
+                Item.isSaveSwitch(dataSetting.isSaveHistory)
+            ])
+        ]
+    }
 }
+
+extension HistoryDataController: ResponderChainActionSenderType {
+    @objc func done() {
+        let event = DoneEvent(controller: self)
+        let _ = sendNilTargetedAction(selector: .doneTap, sender: self, forEvent: event)
+    }
+}
+
 
 // MARK: - Data source
 
@@ -118,7 +135,7 @@ private extension HistoryDataController {
     
     func configNavigationBar() {
         navigationItem.title = "История"
-        navigationItem.makeDone(target: self, action: #selector(done))
+        navigationItem.makeDone(target: self, selector: #selector(done))
     }
     
     func setupCollectionView() {
