@@ -65,7 +65,6 @@ final class DisplayLabel: UILabel {
         adjustsFontSizeToFitWidth = Appearance.adjustsFontSizeToFitWidth
         layer.cornerRadius = Appearance.cornerRadius(bounds.height)
         focusView = FocusView(for: self)
-        setTextLabel(number: setting.lastResult)
     }
     
     /// Пытается преоброзовать текст `UILabel` в число  `Double?`

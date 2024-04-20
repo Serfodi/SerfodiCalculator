@@ -11,6 +11,28 @@ import Foundation
 enum CalculationHistoryItem {
     case number(Double)
     case operation(Operation)
+    
+    init (number: Double) {
+        self = .number(number)
+    }
+    
+    init (operation: Operation) {
+        self = .operation(operation)
+    }
+    
+    var number: Double? {
+        switch self {
+        case .number(let number): return number
+        case .operation(_): return nil
+        }
+    }
+    
+    var operation: Operation? {
+        switch self {
+        case .number(_): return nil
+        case .operation(let operation): return operation
+        }
+    }
 }
 
 

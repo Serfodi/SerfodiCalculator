@@ -13,12 +13,14 @@ import UIKit
 /// Может изменять стиль форматирования и подстраивать его под оприделеные ограничения.
 final class DynamicNumberFormatter {
     
+    static private let maximumSignificantDigits = 15
+    
     private var numberFormatterDec = {
        let formatter = NumberFormatter(style: .decimal)
         formatter.usesGroupingSeparator = true
         formatter.usesSignificantDigits = true
         formatter.minimumSignificantDigits = 1
-        formatter.maximumSignificantDigits = 15
+        formatter.maximumSignificantDigits = DynamicNumberFormatter.maximumSignificantDigits
         return formatter
     }()
     
@@ -27,7 +29,7 @@ final class DynamicNumberFormatter {
         formatter.usesSignificantDigits = true
         formatter.exponentSymbol = "e"
         formatter.minimumSignificantDigits = 1
-        formatter.maximumSignificantDigits = 17
+        formatter.maximumSignificantDigits = DynamicNumberFormatter.maximumSignificantDigits
         return formatter
     }()
     
@@ -91,10 +93,13 @@ final class DynamicNumberFormatter {
                              _ formatter: NumberFormatter,
                              _ textInto: (String) -> Bool) -> String?
     {
-        let max = formatter.maximumSignificantDigits
+        let max = DynamicNumberFormatter.maximumSignificantDigits
         for i in 1...max {
             let text = perform(formatter: formatter, number: number)
-            if textInto(text) { return text }
+            if textInto(text) {
+                formatter.maximumSignificantDigits = max
+                return text
+            }
             formatter.maximumSignificantDigits = max - i
         }
         defer {

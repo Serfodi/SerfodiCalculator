@@ -17,7 +17,7 @@ class ViewController: UIViewController {
     
     private var dataProvider: CoreDataProvider!
     
-    private let calculator = Calculator()
+    private let calculator: CalculateManager = Calculator()
     
     private var isNewInput = true
     
@@ -33,19 +33,28 @@ class ViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        inputLabel.setTextLabel(number: SettingManager().getEnvironmentSetting().lastResult)
         historyVC.table.scrollToBottom(animated: false)
     }
     
+    // MARK: addNewExample
+    
     private func addNewExample(_ example: Calculation) {
-        let historyCalculation = HistoryCalculation(calculation: example, date: Date())
-        dataProvider.historyManager.add(historyCalculation)
-        historyVC.table.reloadData()
-        historyVC.table.scrollToBottom(animated: true)
+        dataProvider.addCalculate(example)
+        guard let section = self.historyVC.table.lastSection else { return }
+        let row = self.historyVC.table.numberOfRows(inSection: section)
+        self.historyVC.table.performBatchUpdates {
+            self.historyVC.table.insertRows(at: [IndexPath(row: row, section: section)], with: .bottom)
+        } completion: { _ in
+        }
+        self.historyVC.table.scrollToBottom(animated: true)
     }
+    
+    // MARK: Calculator
     
     private func calculateResult(result: (Double)->()) {
         do {
-            let number = try calculator.calculateResult()
+            let number = try calculator.result()
             result(number)
         } catch let error {
             self.errorCalculate(error: error as! CalculationError)
@@ -53,7 +62,7 @@ class ViewController: UIViewController {
     }
     
     private func resetCalculate(clearLabel: Bool = true) {
-        calculator.removeAll()
+        calculator.eraseAll()
         isNewInput = true
         if clearLabel {
             inputLabel.clearInput()
@@ -70,7 +79,6 @@ class ViewController: UIViewController {
         }
     }
 }
-
 
 // MARK: - Calculate
 extension ViewController: NumpadDelegate, RemoveLastDigit {
@@ -102,7 +110,7 @@ extension ViewController: NumpadDelegate, RemoveLastDigit {
     func operating(_ sender: UIButton) {
         guard let buttonOperation = Operation(rawValue: sender.tag) else { return }
         guard let labelNumber = inputLabel.getNumber() else { return }
-        if !isNewInput || calculator.count == 0 {
+        if !isNewInput || calculator.countItems == 0 {
             calculator.addNumber(labelNumber)
         }
         calculator.addOperation(buttonOperation)
@@ -116,10 +124,10 @@ extension ViewController: NumpadDelegate, RemoveLastDigit {
         guard let labelNumber = inputLabel.getNumber() else { return }
         
         // Повтор последнего дейсвия при нажатии на равно. Получения числа и опирации.
-        if !isNewInput || calculator.count == 0 {
+        if !isNewInput || calculator.countItems == 0 {
             calculator.addNumber(labelNumber)
         }
-        if isNewInput && calculator.count == 1 {
+        if isNewInput && calculator.countItems == 1 {
             // Добавить последнее действие.
             calculator.addLastOperation()
         }
@@ -140,23 +148,15 @@ extension ViewController: NumpadDelegate, RemoveLastDigit {
 }
 
 // MARK: - History Delegate
-extension ViewController {
+extension ViewController: SettingActionHandler {
     
-    @objc func removeHistory() {
-        dataProvider.historyManager.removeAllDataHistory { result in
-            switch result {
-            case .success():
-                print("Remove All")
-            case .error(let error):
-                print(error)
-            }
-        }
+    func eraseData(_ sender: AnyObject, forEvent event: UIEvent) {
+        self.historyVC.table.reloadData()
     }
-    
 }
 
-// MARK: - Navigation DoneDelegate
-extension ViewController: NavigationDoneDelegate {
+// MARK: Navigation DoneDelegate
+extension ViewController: NavigationDoneActionHandler {
     
     func done(_ sender: AnyObject, forEvent event: DoneEvent) {
         guard let navigationController = event.controller.navigationController else { return }
@@ -168,40 +168,51 @@ extension ViewController: NavigationDoneDelegate {
 
 // MARK: Table View delegate
 extension ViewController: UITableViewDelegate {
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         animationTableController(indexPath)
         tableView.deselectRow(at: indexPath, animated: true)
     }
+    
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        guard let cell = self.historyVC.table.cellForRow(at: indexPath) as? ExpressionMathCell else {
+//            return 50
+//        }
+//        return cell.cellHeight
+//    }
+    
 }
 
-//MARK: - Setup
+//MARK: - Configuration
 private extension ViewController {
     func configurationHistory() {
         historyVC = HistoryViewController()
-        setupView()
-        setupDataMenager()
+        addChildVC()
+        configurationDataMenager()
         historyVC.table.delegate = self
     }
     
-    func setupView() {
+    func addChildVC() {
         addChild(historyVC)
         view.insertSubview(historyVC.view, belowSubview: inputLabel)
         historyVC.pinedVC(parentView: self.view, buttonView: inputLabel)
         didMove(toParent: self)
     }
     
-    func setupDataMenager() {
-        let dataMeneger = CoreDataManager()
+    func configurationDataMenager() {
+        let dataMeneger = CoreDataManager.sherd
         dataProvider = CoreDataProvider(historyManager: dataMeneger)
         historyVC.table.dataSource = dataProvider
     }
 }
+
 
 // MARK: - Animation
 private extension ViewController {
     func animationTableController(_ indexPath: IndexPath? = nil) {
         switch historyVC.stateVC {
         case true:
+            self.view.isUserInteractionEnabled = false
             historyVC.animationClose(indexPath) {
                 self.view.layoutIfNeeded()
             }
@@ -210,12 +221,16 @@ private extension ViewController {
             } completion: { _ in
                 self.view.sendSubviewToBack(self.historyVC.view)
                 self.mainView.blurBG.isHidden = true
+                self.view.isUserInteractionEnabled = true
             }
         case false:
+            self.view.isUserInteractionEnabled = false
             self.mainView.blurBG.isHidden = false
             view.bringSubviewToFront(historyVC.view)
             UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut) {
                 self.mainView.blurBG.alpha = 1
+            } completion: { _ in
+                self.view.isUserInteractionEnabled = true
             }
             historyVC.animationOpen {
                 self.view.layoutIfNeeded()

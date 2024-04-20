@@ -7,15 +7,14 @@
 
 import UIKit
 
+
 class HistoryTableViewController: UITableViewController {
     
     public var topBar: UINavigationBar {
-        get {
-            navigationController!.navigationBar
-        }
+        navigationController!.navigationBar
     }
     
-    //    MARK: Live circle
+    // MARK: - Live circle
     
     override func loadView() {
         super.loadView()
@@ -27,7 +26,7 @@ class HistoryTableViewController: UITableViewController {
         setupNavBar()
     }
     
-//    MARK: Action
+// MARK: Action
     
     @objc private func openSetting() {
         let settingVC = SettingTableViewController()
@@ -44,8 +43,7 @@ extension HistoryTableViewController: ResponderChainActionSenderType {
     }
 }
 
-
-// MARK: - setup
+// MARK: - Configuration
 private extension HistoryTableViewController {
     func setupNavBar() {
         navigationController?.navigationBar.topItem?.title = "История"
@@ -60,6 +58,9 @@ private extension HistoryTableViewController {
         navigationItem.leftBarButtonItem = leftBarButtonItem
     }
 }
+
+
+/*
 
 // MARK: - Animation
 extension HistoryTableViewController {
@@ -87,3 +88,5 @@ extension HistoryTableViewController {
         }
     }
 }
+
+*/

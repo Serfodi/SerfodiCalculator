@@ -17,7 +17,7 @@ import UIKit
 
 final class NumpadController: UIView {
     
-    var delegate: NumpadDelegate!
+    weak var delegate: NumpadDelegate?
     
     enum NumpadState {
         case general
@@ -101,7 +101,7 @@ extension NumpadController: NumpadDelegate {
         if setting.isClicks {
             sender.animationTap()
         }
-        delegate.operating(sender)
+        delegate?.operating(sender)
     }
     
     func number(_ sender: UIButton) {
@@ -111,7 +111,7 @@ extension NumpadController: NumpadDelegate {
             }
         }
         sender.animationTap()
-        delegate.number?(sender)
+        delegate?.number?(sender)
     }
     
     func minusNum(_ sender: UIButton) {
@@ -121,7 +121,7 @@ extension NumpadController: NumpadDelegate {
             }
         }
         sender.animationTap()
-        delegate.minusNum?(sender)
+        delegate?.minusNum?(sender)
     }
     
     func equal(_ sender: UIButton) {
@@ -131,7 +131,7 @@ extension NumpadController: NumpadDelegate {
             }
         }
         sender.animationTap()
-        delegate.equal?(sender)
+        delegate?.equal?(sender)
     }
     
     func reset(_ sender: UIButton) {
@@ -141,7 +141,7 @@ extension NumpadController: NumpadDelegate {
             }
         }
         sender.animationTap()
-        delegate.reset?(sender)
+        delegate?.reset?(sender)
     }
 }
 

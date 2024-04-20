@@ -11,6 +11,8 @@ protocol AccessableRepository {
    
    associatedtype DomainModel
    
+    var actualSearchedData: Observable<[DomainModel]>? {get}
+    
    func save(_ objects: [DomainModel], completion: @escaping ((Result<Void>) -> Void))
    
    func present(by request: RepositorySearchRequest, completion: @escaping ((Result<[DomainModel]>) -> Void))
@@ -27,6 +29,11 @@ protocol RepositorySearchRequest {
 //MARK: - Default Repository implementation
 
 class Repository<DomainModel, Entity>: NSObject, AccessableRepository {
+    
+    var actualSearchedData: Observable<[DomainModel]>? {
+        fatalError("actualSearchedData must be overrided")
+    }
+    
    typealias DomainModel = DomainModel
    
    func save(_ objects: [DomainModel], completion: @escaping ((Result<Void>) -> Void)) {

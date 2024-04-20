@@ -8,53 +8,36 @@
 import Foundation
 
 
-protocol Calculate {
-    func calculate(items: [CalculationHistoryItem]) throws -> Double
+final class Calculator {
+private
+    /// Содержит исторю добавления опираций и числе по правилу: Число, опирация…
+    var calculationHistory: [CalculationHistoryItem] = []
+    
+    let calculating: Calculate = DynamicCalculate()
+    
+    /// Предпоследния опирация
+    var currentOperation: Operation!
+    /// Предпоследнее число
+    var currentNumber: Double!
+    
+    var lastOperation: Operation? {
+        calculationHistory.last?.operation
+    }
+    
+    var lastNumber: Double? {
+        calculationHistory.last?.number
+    }
 }
 
-final class Calculator {
+extension Calculator: CalculateManager {
     
-    /// Содержит исторю добавления опираций и числе по правилу: Число, опирация…
-    private var calculationHistory: [CalculationHistoryItem] = []
-    
-    /// Кол-во элементов в `calculationHistory`
-    public var count: Int {
+    var countItems: Int {
         calculationHistory.count
     }
     
-    private let calculating: Calculate = DynamicCalculate()
-    
-    /// Предпоследния опирация
-    private var currentOperation: Operation!
-    /// Предпоследнее число
-    private var currentNumber: Double!
-    
-    
-    private var lastOperation: Operation? {
-        if case .operation(let operation) = calculationHistory.last {
-            return operation
-        }
-        return nil
-    }
-    
-    private var lastNumber: Double? {
-        if case .number(let number) = calculationHistory.last {
-            return number
-        }
-        return nil
-    }
-    
-    
-    
-    // MARK: - Calculating
-    
-    /// Вычисляет текущий пример.
-    public func calculateResult() throws -> Double {
+    func result() throws -> Double {
         try calculating.calculate(items: calculationHistory)
     }
-    
-    
-    // MARK: - Add items
     
     /// Добалвяет новое число в массив: `calculationHistory`
     public func addNumber(_ number: Double) {
@@ -85,8 +68,6 @@ final class Calculator {
         }
     }
     
-    /// Добовляет опирации для повторного вычисления при нажатии на `Равно "="`.
-    /// Берет последнии действия, если они есть, и добовляет их в масив `calculationHistory`
     public func addLastOperation() {
         guard let lastOperation = currentOperation else { return }
         
@@ -100,30 +81,15 @@ final class Calculator {
         }
     }
     
-    
-    
-    // MARK: - Remove
-    
-    public func removeLastOperation() {
-        guard let _ = lastOperation else { return }
-        calculationHistory.removeLast()
-    }
-    
-    /// Удаляет массив исории `calculationHistory`
-    /// Запоминает последнее введое число `lastNumber`
-    ///
-    /// - Parameter completion: Принимает текущию массив `calculationHistory` до удаления.
-    ///
     public func removeHistory(completion: @escaping ([CalculationHistoryItem]) -> ()) {
         completion(calculationHistory)
         currentNumber = lastNumber
         calculationHistory.removeAll()
     }
     
-    public func removeAll() {
+    func eraseAll() {
         calculationHistory.removeAll()
         currentNumber = nil
         currentOperation = nil
     }
-    
 }

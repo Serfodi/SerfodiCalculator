@@ -57,7 +57,7 @@ class SettingTableViewController: UIViewController {
 extension SettingTableViewController: ResponderChainActionSenderType {
     @objc func done() {
         let event = DoneEvent(controller: self)
-        sendNilTargetedAction(selector: .doneTap, sender: self, forEvent: event)
+        let _ = sendNilTargetedAction(selector: .doneTap, sender: self, forEvent: event)
     }
 }
 

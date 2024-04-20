@@ -10,7 +10,7 @@ import UIKit
 //@IBDesignable
 final class NumpadView: UIView {
 
-    var delegate: NumpadDelegate?
+    weak var delegate: NumpadDelegate?
 
     var currentButton: UIButton!
     

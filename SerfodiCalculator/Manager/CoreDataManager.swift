@@ -18,6 +18,8 @@ final class CoreDataCalculateSearchRequest: RepositorySearchRequest {
 
 class CoreDataManager {
     
+    static var sherd = CoreDataManager()
+    
     private var repository: CoreDataRepository<HistoryCalculation, CalculateEntity>?
     
     private var calculations: [HistoryCalculation] = []
@@ -29,10 +31,12 @@ class CoreDataManager {
     init() {
         let contextProvider = CoreDataContextProvider()
         let entityMapper = HistoryCalculationEntityMapper()
+        let autoUpdateSearchRequest = CoreDataCalculateSearchRequest()
         let repository = CoreDataRepository(contextSource: contextProvider,
-                                        autoUpdateSearchRequest: nil,
+                                        autoUpdateSearchRequest: autoUpdateSearchRequest,
                                         entityMapper: entityMapper)
         self.repository = repository
+        
         NotificationCenter.default.addObserver(self, selector: #selector(save), name: UIApplication.willResignActiveNotification, object: nil)
         load()
     }
@@ -49,12 +53,11 @@ class CoreDataManager {
     }
     
     public func calculation(at index: Int) -> HistoryCalculation {
-        calculations[index]
+        return calculations[index]
     }
     
     public func add(_ historyCalculation: HistoryCalculation) {
         calculations.append(historyCalculation)
-        save()
     }
     
     public func removeAllDataHistory(complite: @escaping (Result<Void>) -> ()) {
@@ -69,13 +72,9 @@ class CoreDataManager {
     // MARK: - Helper
     
     private func load() {
-        repository?.present(by: CoreDataCalculateSearchRequest(), completion: { result in
-            switch result {
-            case .success(let data):
-                self.calculations = data
-            case .error(let error):
-                print(error)
-            }
-        })
+        guard let calculations = repository?.actualSearchedData?.value else {
+            return
+        }
+        self.calculations = calculations
     }
 }

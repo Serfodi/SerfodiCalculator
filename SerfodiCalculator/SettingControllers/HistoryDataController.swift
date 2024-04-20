@@ -25,16 +25,24 @@ class HistoryDataController: UIViewController {
     var dataSource: UICollectionViewDiffableDataSource<Section, Item>!
     
     private var dataSetting: DataSetting = SettingManager().getDataSetting()
+//    private var dataMeneger: CoreDataManager!
     
-    private var dataMeneger: CoreDataManager!
     
-    private var menu:[Section] = []
+    private var menu:[Section] = {
+        [
+            Section(name: "Память", items: [
+                Item.dataTitle(777),
+                Item.clearButton(777)
+            ])
+        ]
+    }()
+    
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemGroupedBackground
-        dataMeneger = CoreDataManager()
-        configMenu()
         configNavigationBar()
         setupCollectionView()
         createDataSource()
@@ -43,34 +51,10 @@ class HistoryDataController: UIViewController {
     
     // MARK: Action
     
-    func buttonTap() {
-        dataMeneger.removeAllDataHistory { result in
-            switch result {
-            case .success():
-                ()
-            case .error(let error):
-                print(error)
-            }
-        }
-    }
-    
     @objc func switchChanged(_ sender: UISwitch) {
         var newDataSetting = dataSetting
         newDataSetting.isSaveHistory = sender.isOn
         SettingManager().setDataSetting(newDataSetting)
-    }
-    
-    fileprivate func configMenu() {
-        let count = dataMeneger.dataСapacity()
-        menu = [
-            Section(name: "Память", items: [
-                Item.dataTitle(count),
-                Item.clearButton(count)
-            ]),
-            Section(items: [
-                Item.isSaveSwitch(dataSetting.isSaveHistory)
-            ])
-        ]
     }
 }
 
@@ -79,8 +63,21 @@ extension HistoryDataController: ResponderChainActionSenderType {
         let event = DoneEvent(controller: self)
         let _ = sendNilTargetedAction(selector: .doneTap, sender: self, forEvent: event)
     }
+    
+    func buttonTap() {
+        CoreDataManager.sherd.removeAllDataHistory { result in
+            switch result {
+            case .success():
+                print("removeAllDataHistory")
+            case .error(let error):
+                print(error)
+            }
+        }
+        let _ = sendNilTargetedAction(selector: .eraseDataTap, sender: self)
+        reloadData()
+    }
+    
 }
-
 
 // MARK: - Data source
 
@@ -142,5 +139,4 @@ private extension HistoryDataController {
         collectionView = SettingCollectionView(frame: view.bounds)
         view.addSubview(collectionView)
     }
-    
 }

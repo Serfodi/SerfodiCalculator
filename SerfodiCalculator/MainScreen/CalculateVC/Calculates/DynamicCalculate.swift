@@ -7,6 +7,10 @@
 
 import Foundation
 
+protocol Calculate {
+    func calculate(items: [CalculationHistoryItem]) throws -> Double
+}
+
 final class DynamicCalculate: Calculate {
     
     public func calculate(items: [CalculationHistoryItem]) throws -> Double {

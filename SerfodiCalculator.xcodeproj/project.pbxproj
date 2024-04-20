@@ -33,6 +33,9 @@
 		B05C9DDB2BCFEA6500A47DA4 /* CalculationTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B05C9DDA2BCFEA6500A47DA4 /* CalculationTransformer.swift */; };
 		B05C9DDD2BCFEA7D00A47DA4 /* CalculationBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = B05C9DDC2BCFEA7D00A47DA4 /* CalculationBox.swift */; };
 		B05C9DE12BCFF70E00A47DA4 /* HistoryCalculation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B05C9DE02BCFF70E00A47DA4 /* HistoryCalculation.swift */; };
+		B05C9DE42BD16DDB00A47DA4 /* CalculateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B05C9DE32BD16DDB00A47DA4 /* CalculateManager.swift */; };
+		B05C9DE62BD1703700A47DA4 /* ResponderChainActionSenderType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B05C9DE52BD1703700A47DA4 /* ResponderChainActionSenderType.swift */; };
+		B05C9DE82BD17B5A00A47DA4 /* SettingActionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B05C9DE72BD17B5A00A47DA4 /* SettingActionHandler.swift */; };
 		B064E2F62B5EB7AB00E56208 /* CalculationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B064E2F52B5EB7AB00E56208 /* CalculationError.swift */; };
 		B064E2F82B5EB7D900E56208 /* Calculate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B064E2F72B5EB7D900E56208 /* Calculate.swift */; };
 		B064E2FA2B5ED38800E56208 /* UIButton + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B064E2F92B5ED38800E56208 /* UIButton + Extension.swift */; };
@@ -55,8 +58,10 @@
 		B069C2D42BA371F700503FEB /* ButtonCellContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B069C2D32BA371F700503FEB /* ButtonCellContentView.swift */; };
 		B069C2D62BA4728E00503FEB /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = B069C2D52BA4728E00503FEB /* Font.swift */; };
 		B069C2D92BA47E3000503FEB /* SettingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B069C2D82BA47E3000503FEB /* SettingModel.swift */; };
+		B06EA8722BD3FA8D0051573D /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06EA8712BD3FA8D0051573D /* Observable.swift */; };
+		B06EA8752BD40B520051573D /* UITableView + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06EA8742BD40B520051573D /* UITableView + Extension.swift */; };
 		B09246642BC316BE00DC3799 /* SwiftMath in Frameworks */ = {isa = PBXBuildFile; productRef = B09246632BC316BE00DC3799 /* SwiftMath */; };
-		B09246662BC31A0200DC3799 /* ExpressionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09246652BC31A0200DC3799 /* ExpressionCell.swift */; };
+		B09246662BC31A0200DC3799 /* ExpressionMathCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09246652BC31A0200DC3799 /* ExpressionMathCell.swift */; };
 		B09246692BC440DD00DC3799 /* GenerationLatex.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09246682BC440DD00DC3799 /* GenerationLatex.swift */; };
 		B099E0C22B6AA1F1000670CE /* DynamicCalculate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B099E0C12B6AA1F1000670CE /* DynamicCalculate.swift */; };
 		B099E0CB2B6C03DA000670CE /* SettingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B099E0CA2B6C03DA000670CE /* SettingManager.swift */; };
@@ -113,6 +118,9 @@
 		B05C9DDA2BCFEA6500A47DA4 /* CalculationTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculationTransformer.swift; sourceTree = "<group>"; };
 		B05C9DDC2BCFEA7D00A47DA4 /* CalculationBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculationBox.swift; sourceTree = "<group>"; };
 		B05C9DE02BCFF70E00A47DA4 /* HistoryCalculation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCalculation.swift; sourceTree = "<group>"; };
+		B05C9DE32BD16DDB00A47DA4 /* CalculateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculateManager.swift; sourceTree = "<group>"; };
+		B05C9DE52BD1703700A47DA4 /* ResponderChainActionSenderType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponderChainActionSenderType.swift; sourceTree = "<group>"; };
+		B05C9DE72BD17B5A00A47DA4 /* SettingActionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingActionHandler.swift; sourceTree = "<group>"; };
 		B064E2F52B5EB7AB00E56208 /* CalculationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculationError.swift; sourceTree = "<group>"; };
 		B064E2F72B5EB7D900E56208 /* Calculate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calculate.swift; sourceTree = "<group>"; };
 		B064E2F92B5ED38800E56208 /* UIButton + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton + Extension.swift"; sourceTree = "<group>"; };
@@ -136,8 +144,10 @@
 		B069C2D32BA371F700503FEB /* ButtonCellContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonCellContentView.swift; sourceTree = "<group>"; };
 		B069C2D52BA4728E00503FEB /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		B069C2D82BA47E3000503FEB /* SettingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingModel.swift; sourceTree = "<group>"; };
+		B06EA8712BD3FA8D0051573D /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
+		B06EA8742BD40B520051573D /* UITableView + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView + Extension.swift"; sourceTree = "<group>"; };
 		B0899CFE2B9CA9DB00C12D7C /* HistoryTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HistoryTableView.swift; path = SerfodiCalculator/MainScreen/HistoryVC/View/HistoryTable/HistoryTableView.swift; sourceTree = SOURCE_ROOT; };
-		B09246652BC31A0200DC3799 /* ExpressionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpressionCell.swift; sourceTree = "<group>"; };
+		B09246652BC31A0200DC3799 /* ExpressionMathCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpressionMathCell.swift; sourceTree = "<group>"; };
 		B09246682BC440DD00DC3799 /* GenerationLatex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerationLatex.swift; sourceTree = "<group>"; };
 		B099E0C12B6AA1F1000670CE /* DynamicCalculate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicCalculate.swift; sourceTree = "<group>"; };
 		B099E0CA2B6C03DA000670CE /* SettingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingManager.swift; sourceTree = "<group>"; };
@@ -184,6 +194,8 @@
 		B00257B52B795D6900311188 /* Manager */ = {
 			isa = PBXGroup;
 			children = (
+				B0B7EEE42BCDBD37002DDFAF /* CoreDataManager.swift */,
+				B0B7EEE02BCDB898002DDFAF /* CoreDataProvider.swift */,
 				B099E0CA2B6C03DA000670CE /* SettingManager.swift */,
 			);
 			path = Manager;
@@ -265,6 +277,7 @@
 		B04053F32BADD6B500EB217B /* View */ = {
 			isa = PBXGroup;
 			children = (
+				B064E3052B6180FA00E56208 /* BlurGradientEffect.swift */,
 				B09246672BC322FE00DC3799 /* HistoryTable */,
 				B050E2502B9F73DD00D48DFE /* ExpressionLabel.swift */,
 				B0A1B8552BB4321100D7E568 /* WhiteNavigationBar.swift */,
@@ -300,6 +313,14 @@
 			path = Helper;
 			sourceTree = "<group>";
 		};
+		B05C9DE92BD17B6100A47DA4 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				B05C9DE72BD17B5A00A47DA4 /* SettingActionHandler.swift */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
 		B064E2FD2B5EE64300E56208 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
@@ -326,7 +347,7 @@
 			isa = PBXGroup;
 			children = (
 				B064E2F52B5EB7AB00E56208 /* CalculationError.swift */,
-				B0A79EDE2BC9527C00FAD045 /* Result.swift */,
+				B05C9DE52BD1703700A47DA4 /* ResponderChainActionSenderType.swift */,
 				B064E2FD2B5EE64300E56208 /* Extension */,
 			);
 			path = Helpers;
@@ -335,6 +356,7 @@
 		B064E3082B6181BC00E56208 /* Calculates */ = {
 			isa = PBXGroup;
 			children = (
+				B05C9DE32BD16DDB00A47DA4 /* CalculateManager.swift */,
 				B064E2F72B5EB7D900E56208 /* Calculate.swift */,
 				B099E0C12B6AA1F1000670CE /* DynamicCalculate.swift */,
 				B064E3032B61728000E56208 /* Operation.swift */,
@@ -345,9 +367,10 @@
 		B064E30D2B626F5200E56208 /* Storage */ = {
 			isa = PBXGroup;
 			children = (
+				B064E30B2B626F4600E56208 /* Storage.swift */,
 				B0B7EEE22BCDBCAD002DDFAF /* Repository */,
 				B0B7EEDA2BCDACD1002DDFAF /* CoreData */,
-				B064E30B2B626F4600E56208 /* Storage.swift */,
+				B06EA8732BD3FA9F0051573D /* Helpers */,
 			);
 			path = Storage;
 			sourceTree = "<group>";
@@ -400,6 +423,7 @@
 				B04053F42BADDBC400EB217B /* GeneralSettingViewController.swift */,
 				B069C2BB2BA08A2200503FEB /* HistoryDataController.swift */,
 				B03037FF2BAF409300CA1DC6 /* View */,
+				B05C9DE92BD17B6100A47DA4 /* Helper */,
 			);
 			path = SettingControllers;
 			sourceTree = "<group>";
@@ -442,12 +466,21 @@
 			path = ButtonCell;
 			sourceTree = "<group>";
 		};
+		B06EA8732BD3FA9F0051573D /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				B0A79EDE2BC9527C00FAD045 /* Result.swift */,
+				B06EA8712BD3FA8D0051573D /* Observable.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		B09246672BC322FE00DC3799 /* HistoryTable */ = {
 			isa = PBXGroup;
 			children = (
 				B0899CFE2B9CA9DB00C12D7C /* HistoryTableView.swift */,
 				B064E3012B6039A600E56208 /* HistoryCell.swift */,
-				B09246652BC31A0200DC3799 /* ExpressionCell.swift */,
+				B09246652BC31A0200DC3799 /* ExpressionMathCell.swift */,
 			);
 			path = HistoryTable;
 			sourceTree = "<group>";
@@ -459,7 +492,6 @@
 				B064E3252B6583AD00E56208 /* DynamicNumberFormatter.swift */,
 				B064E31A2B62D8B000E56208 /* DisplayLabel.swift */,
 				B0A1B8662BB8AEDB00D7E568 /* FocusView.swift */,
-				B064E3052B6180FA00E56208 /* BlurGradientEffect.swift */,
 				B00257BE2B84BC2000311188 /* Numpad */,
 			);
 			path = View;
@@ -500,6 +532,7 @@
 				B04053F12BADC02B00EB217B /* UIView + Extension.swift */,
 				B064E2F92B5ED38800E56208 /* UIButton + Extension.swift */,
 				B064E2FB2B5ED4F000E56208 /* UILabel + Extension.swift */,
+				B06EA8742BD40B520051573D /* UITableView + Extension.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -508,8 +541,6 @@
 			isa = PBXGroup;
 			children = (
 				B0B7EEE32BCDBCE5002DDFAF /* CoreDataRepository */,
-				B0B7EEE42BCDBD37002DDFAF /* CoreDataManager.swift */,
-				B0B7EEE02BCDB898002DDFAF /* CoreDataProvider.swift */,
 			);
 			name = CoreData;
 			path = ../CoreData;
@@ -622,6 +653,7 @@
 				B03038012BAF47EB00CA1DC6 /* UINavigationItem + Extension.swift in Sources */,
 				B0B7EEDD2BCDAEA0002DDFAF /* DataStorageModel.xcdatamodeld in Sources */,
 				B064E2F82B5EB7D900E56208 /* Calculate.swift in Sources */,
+				B05C9DE42BD16DDB00A47DA4 /* CalculateManager.swift in Sources */,
 				B069C2D22BA371CE00503FEB /* ButtonCellListCell.swift in Sources */,
 				B069C2D42BA371F700503FEB /* ButtonCellContentView.swift in Sources */,
 				B00257BB2B8488D000311188 /* NumpadController.swift in Sources */,
@@ -634,7 +666,9 @@
 				B02EC6612B5D8D4E00CE0122 /* ViewController.swift in Sources */,
 				B04BFDCE2B7373A800ED7099 /* NumpadView.swift in Sources */,
 				B064E3062B6180FA00E56208 /* BlurGradientEffect.swift in Sources */,
+				B05C9DE62BD1703700A47DA4 /* ResponderChainActionSenderType.swift in Sources */,
 				B069C2BC2BA08A2200503FEB /* HistoryDataController.swift in Sources */,
+				B05C9DE82BD17B5A00A47DA4 /* SettingActionHandler.swift in Sources */,
 				B099E0CB2B6C03DA000670CE /* SettingManager.swift in Sources */,
 				B0FEF0472B9DD1A9001C1792 /* HistoryViewController.swift in Sources */,
 				B064E2FC2B5ED4F000E56208 /* UILabel + Extension.swift in Sources */,
@@ -651,6 +685,7 @@
 				B099E0C22B6AA1F1000670CE /* DynamicCalculate.swift in Sources */,
 				B0A1B85F2BB807BD00D7E568 /* SchemeColor.swift in Sources */,
 				B03037F82BAF1A5900CA1DC6 /* SwitchCellListCell.swift in Sources */,
+				B06EA8752BD40B520051573D /* UITableView + Extension.swift in Sources */,
 				B0361A932BBDB68200963580 /* FontAppearance.swift in Sources */,
 				B03037FB2BAF1ED200CA1DC6 /* LabelCellListCell.swift in Sources */,
 				B05C9DDB2BCFEA6500A47DA4 /* CalculationTransformer.swift in Sources */,
@@ -669,7 +704,7 @@
 				B0B7EED92BCDA329002DDFAF /* Repository.swift in Sources */,
 				B064E31B2B62D8B000E56208 /* DisplayLabel.swift in Sources */,
 				B02EC65D2B5D8D4E00CE0122 /* AppDelegate.swift in Sources */,
-				B09246662BC31A0200DC3799 /* ExpressionCell.swift in Sources */,
+				B09246662BC31A0200DC3799 /* ExpressionMathCell.swift in Sources */,
 				B0FEF0462B9DC382001C1792 /* HistoryTableView.swift in Sources */,
 				B05C9DDD2BCFEA7D00A47DA4 /* CalculationBox.swift in Sources */,
 				B050E2532B9F762B00D48DFE /* SettingViewController.swift in Sources */,
@@ -677,6 +712,7 @@
 				B02EC65F2B5D8D4E00CE0122 /* SceneDelegate.swift in Sources */,
 				B04053F22BADC02B00EB217B /* UIView + Extension.swift in Sources */,
 				B04053F52BADDBC400EB217B /* GeneralSettingViewController.swift in Sources */,
+				B06EA8722BD3FA8D0051573D /* Observable.swift in Sources */,
 				B064E3202B6456D800E56208 /* CGSize + Extension.swift in Sources */,
 				B0EACC822BC860BB008E1A8D /* ExpressionLabel.swift in Sources */,
 				B0A1B8672BB8AEDB00D7E568 /* FocusView.swift in Sources */,

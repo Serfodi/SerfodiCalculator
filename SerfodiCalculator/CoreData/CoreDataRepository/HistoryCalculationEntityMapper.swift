@@ -14,7 +14,7 @@ final class HistoryCalculationEntityMapper: EntityMapper<HistoryCalculation, Cal
                let date = entity.date
         else { return nil }
         return HistoryCalculation(calculation: calculation,
-                           date: date)
+                                  date: date)
     }
     
     override func update(_ entity: CalculateEntity, by model: HistoryCalculation) {

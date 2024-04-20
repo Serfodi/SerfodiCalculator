@@ -9,6 +9,7 @@ import CoreData
 
 //MARK: - Helpers for CoreData Rrpository default implementation
 
+
 protocol CoreDataContextProviding {
     func mainQueueContext() -> NSManagedObjectContext
     func performBackgroundTask(_ block: @escaping (NSManagedObjectContext) -> Void)
@@ -36,6 +37,7 @@ class CoreDataRepository<DomainModel, Entity>: Repository<DomainModel, Entity>, 
     private let associatedEntityName: String
     private let contextSource: CoreDataContextProviding
     private var fetchedResultsController: NSFetchedResultsController<NSFetchRequestResult>?
+    private var searchedData: Observable<[DomainModel]>?
     private let entityMapper: EntityMapper<DomainModel, Entity>
     
     // MARK: - init
@@ -46,10 +48,15 @@ class CoreDataRepository<DomainModel, Entity>: Repository<DomainModel, Entity>, 
         self.entityMapper = entityMapper
         super.init()
         guard let request = autoUpdateSearchRequest else { return }
+        self.searchedData  = .init(value: [])
         self.fetchedResultsController = configureactualSearchedDataUpdating(request)
     }
     
     // MARK: - Repository
+    
+    override var actualSearchedData: Observable<[DomainModel]>? {
+        searchedData
+    }
     
     override func save(_ objects: [DomainModel], completion: @escaping ((Result<Void>) -> Void)) {
         contextSource.performBackgroundTask() { context in
@@ -121,6 +128,7 @@ class CoreDataRepository<DomainModel, Entity>: Repository<DomainModel, Entity>, 
                 completion(Result.error(error))
             }
         })
+        
     }
     
     // MARK: - Other metods
@@ -138,6 +146,8 @@ class CoreDataRepository<DomainModel, Entity>: Repository<DomainModel, Entity>, 
         })
         return capacity
     }
+    
+    
     
     // MARK: - Saving support
     
@@ -168,6 +178,25 @@ class CoreDataRepository<DomainModel, Entity>: Repository<DomainModel, Entity>, 
         
         fetchedResultsController.delegate = self
         try? fetchedResultsController.performFetch()
+        
+        if let content = fetchedResultsController.fetchedObjects as? [Entity] {
+            updateObservableContent(content)
+        }
+        
         return fetchedResultsController
     }
+    
+    
+    //MARK: - NSFetchedResultsControllerDelegate implementation
+        
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        guard let fetchedObjects = controller.fetchedObjects as? [Entity] else { return }
+        updateObservableContent(fetchedObjects)
+    }
+    
+    func updateObservableContent(_ content: [Entity]) {
+        let converted = content.compactMap({ return self.entityMapper.convert($0) })
+        searchedData?.value = converted
+    }
 }
+

@@ -10,7 +10,7 @@ import UIKit
 
 final class SecondNumpad: UIView, NumpadDelegate {
     
-    public var delegate: NumpadDelegate?
+    weak var delegate: NumpadDelegate?
         
     public let numpadButtons: [[NumpadButton]] = [
         [NumpadButton(.secondOperation(.root2)),   NumpadButton(.secondOperation(.root3)),     NumpadButton(.secondOperation(.rootYX)), NumpadButton(.secondOperation(.divisionByOne))],

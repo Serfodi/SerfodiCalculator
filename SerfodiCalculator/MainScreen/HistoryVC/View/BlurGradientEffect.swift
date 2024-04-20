@@ -17,6 +17,8 @@ final class BlurView: UIVisualEffectView {
         enum linearGradientPosition {
             case up (NSNumber) /// start point
             case down (NSNumber) /// start point
+            case left (CGFloat)
+            case right (CGFloat)
         }
     }
     
@@ -26,6 +28,7 @@ final class BlurView: UIVisualEffectView {
     
     init (styleGradient: StyleGradient = .non) {
         super.init(effect: UIBlurEffect(style: .regular))
+        configurationView()
         switch styleGradient {
         case .non:
             return
@@ -40,6 +43,18 @@ final class BlurView: UIVisualEffectView {
                 configureGradient(
                     location: [start, 1],
                     colors: [CGColor(gray: 0, alpha: 0), CGColor(gray: 0, alpha: 1)])
+            case .left(let start):
+                fixGradientColor()
+                gradientLayer.startPoint = CGPoint(x: start, y: 0)
+                gradientLayer.endPoint = CGPoint(x: 1, y: 0)
+                gradientLayer.colors = [CGColor(gray: 0, alpha: 1), CGColor(gray: 0, alpha: 0)]
+                layer.mask = gradientLayer
+            case .right(let start):
+                fixGradientColor()
+                gradientLayer.startPoint = CGPoint(x: start, y: 0)
+                gradientLayer.endPoint = CGPoint(x: 1, y: 0)
+                gradientLayer.colors = [CGColor(gray: 0, alpha: 0), CGColor(gray: 0, alpha: 1)]
+                layer.mask = gradientLayer
             }
             
         case .doubleLine(let start, let end):
@@ -68,6 +83,10 @@ final class BlurView: UIVisualEffectView {
         gradientLayer.locations = location
         gradientLayer.colors = colors
         layer.mask = gradientLayer
+    }
+    
+    private func configurationView() {
+        isUserInteractionEnabled = false
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

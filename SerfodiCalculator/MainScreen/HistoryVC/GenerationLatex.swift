@@ -10,46 +10,26 @@ import Foundation
 final class GenerationLatex {
     
     /// Создает математический пример в виде Latex формулы
-    func generate(expression: Calculation,
-                  formatting: (NSNumber)->(String),
-                  isFit: (String) -> Bool
-    ) -> String {
+    func generate(expression: Calculation, formatting: (NSNumber)->(String)) -> String {
         
-        let expressionPost = DynamicCalculate().toPostfix(calculationHistory: expression.expression)
+        let expressionPost = DynamicCalculate().toPostfix(calculationHistory: expression.expression) // fix it
         
         var result: [String] = []
-                
         for item in expressionPost {
             switch item {
             case .number(let number):
                 result.append(formatting(number as NSNumber))
-                
             case .operation(let sign):
                 guard let numbers = result.pop(sign.type.rawValue) else { break }
-                
-                switch sign.type {
-                case .binary:
-                    ()
-                case .unary:
-                    ()
-                }
-                
                 result.append(sign.generateLatex(numbers))
             }
         }
-        
         result.append(" =" + formatting(expression.result as NSNumber))
-        
-        if !isFit(result.joined()) {
-            return result.joined(separator: #"\\"#)
-        }
-        
         return result.joined()
     }
 }
 
 extension Operation {
-    
     func generateLatex(_ op: [String]) -> String {
         switch self {
         case .add:

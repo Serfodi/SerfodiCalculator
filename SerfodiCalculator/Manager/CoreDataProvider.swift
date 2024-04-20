@@ -10,11 +10,17 @@ import UIKit
 
 final class CoreDataProvider: NSObject {
     
-     var historyManager: CoreDataManager
+    var historyManager: CoreDataManager
     
     init(historyManager: CoreDataManager) {
         self.historyManager = historyManager
     }
+    
+    func addCalculate(_ calculation: Calculation) {
+        let historyCalculation = HistoryCalculation(calculation: calculation, date: Date())
+        historyManager.add(historyCalculation)
+    }
+    
 }
 
 
@@ -29,9 +35,14 @@ extension CoreDataProvider: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: ExpressionCell.reuseId, for: indexPath) as! ExpressionCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: ExpressionMathCell.reuseId, for: indexPath) as! ExpressionMathCell
         let calculate = historyManager.calculation(at: indexPath.row)
-        cell.config(calculation: calculate.calculation)
+        cell.config(calculation: calculate.calculation)        
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
 }

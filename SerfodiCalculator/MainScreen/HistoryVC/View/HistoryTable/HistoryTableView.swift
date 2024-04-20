@@ -7,10 +7,12 @@
 
 import UIKit
 
+protocol ExpressinCellConfiguration {
+    func config(calculation: Calculation)
+}
+
 final class HistoryTableView: UITableView {
 
-    private var isFitCell = true
-    
     override init(frame: CGRect, style: UITableView.Style) {
         super.init(frame: frame, style: style)
         configure()
@@ -26,19 +28,21 @@ final class HistoryTableView: UITableView {
         self.showsVerticalScrollIndicator = false
         self.backgroundColor = .clear
         self.tintColor = .clear
-        self.register(ExpressionCell.self, forCellReuseIdentifier: ExpressionCell.reuseId)
+        self.rowHeight = UITableView.automaticDimension
+        self.register(ExpressionMathCell.self, forCellReuseIdentifier: ExpressionMathCell.reuseId)
     }
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.updateTableContentInset()
         self.separatorStyle = .none
         self.alwaysBounceVertical = false
+        
+        self.updateTableContentInset()
     }
 }
 
 extension HistoryTableView {
-    
+        
     /// Переворачивает таблицу
     public func updateTableContentInset() {
         let numRows = numberOfRows(inSection: 0)
@@ -51,24 +55,6 @@ extension HistoryTableView {
                 break
             }
         }
-        contentInset = UIEdgeInsets(top: contentInsetTop, left: 0, bottom: 10, right: 0)
-    }
-    
-}
-
-extension UITableView {
-    
-    public func scrollToBottom(animated: Bool = true) {
-        guard let lastIndex = lastIndexPath() else { return }
-        self.scrollToRow(at: lastIndex as IndexPath, at: .bottom, animated: animated)
-    }
-    
-    func lastIndexPath() -> IndexPath? {
-        let lastSection = numberOfSections
-        guard lastSection > 0 else { return nil }
-        let numRows = numberOfRows(inSection: lastSection - 1)
-        guard numRows > 0 else { return nil }
-        let lastIndex = NSIndexPath(row: numRows - 1, section: 0)
-        return lastIndex as IndexPath
+        contentInset = UIEdgeInsets(top: contentInsetTop + 5, left: 0, bottom: 5, right: 0)
     }
 }
