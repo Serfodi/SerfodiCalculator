@@ -173,13 +173,15 @@ extension ViewController: UITableViewDelegate {
         animationTableController(indexPath)
         tableView.deselectRow(at: indexPath, animated: true)
     }
-    
+        
 //    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        guard let cell = self.historyVC.table.cellForRow(at: indexPath) as? ExpressionMathCell else {
-//            return 50
-//        }
-//        return cell.cellHeight
+//        return 46
 //    }
+//
+    
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        UITableView.automaticDimension
+    }
     
 }
 

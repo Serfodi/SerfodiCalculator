@@ -124,7 +124,7 @@ final class DisplayLabel: UILabel {
         setTextLabel(number: 0)
     }
     
-    public func showError(labelText: String = "Ошибка!") {
+    public func showError(labelText: String = "  Ошибка!") {
         let attributedString = NSMutableAttributedString(string: labelText)
         attributedString.addAttribute(NSAttributedString.Key.kern, value: CGFloat(10.0), range: NSRange(location: labelText.count - 1, length: 1))
         attributedText = attributedString

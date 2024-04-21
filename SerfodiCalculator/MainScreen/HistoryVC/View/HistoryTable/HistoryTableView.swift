@@ -28,33 +28,13 @@ final class HistoryTableView: UITableView {
         self.showsVerticalScrollIndicator = false
         self.backgroundColor = .clear
         self.tintColor = .clear
-        self.rowHeight = UITableView.automaticDimension
+//        self.rowHeight = UITableView.automaticDimension
         self.register(ExpressionMathCell.self, forCellReuseIdentifier: ExpressionMathCell.reuseId)
     }
 
     override func layoutSubviews() {
         super.layoutSubviews()
         self.separatorStyle = .none
-        self.alwaysBounceVertical = false
-        
-        self.updateTableContentInset()
-    }
-}
-
-extension HistoryTableView {
-        
-    /// Переворачивает таблицу
-    public func updateTableContentInset() {
-        let numRows = numberOfRows(inSection: 0)
-        var contentInsetTop = bounds.size.height
-        for i in 0..<numRows {
-            let rowRect = rectForRow(at: IndexPath(item: i, section: 0))
-            contentInsetTop -= rowRect.size.height
-            if contentInsetTop <= 0 {
-                contentInsetTop = 0
-                break
-            }
-        }
-        contentInset = UIEdgeInsets(top: contentInsetTop + 5, left: 0, bottom: 5, right: 0)
+        self.alwaysBounceVertical = true
     }
 }

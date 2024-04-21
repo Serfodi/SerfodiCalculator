@@ -139,20 +139,19 @@ extension HistoryViewController {
     
     func animationOpen(updateConstraint: @escaping ()->()) {
         
-//        let beforeCells = table.visibleCells
-//        var afterCells = beforeCells
-        
         historyBottomConstraint.constant = UIApplication.shared.getWindow().frame.height - view.bounds.height + 40
         
         UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut) {
             updateConstraint()
             
-//            afterCells = self.table.visibleCells
+            self.table.reversInset()
             
             self.tableViewController.topBar.alpha = 1
             self.topBlur.alpha = 0
             self.bottomBlur.alpha = 0
             self.tableViewController.navigationController?.setNavigationBarHidden(false, animated: true)
+            
+            self.table.scrollToNearestSelectedRow(at: .middle, animated: true)
             
         } completion: { _ in
             UIView.animate(withDuration: 0.2) {
@@ -160,17 +159,21 @@ extension HistoryViewController {
             }
         }
         
-//        tableViewController.animationCells(beforeCells, afterCells)
         isOpen = true
     }
     
     func animationClose(_ indexPath: IndexPath?, updateConstraint: @escaping ()->()) {
+        
         UIView.animate(withDuration: 0.2) {
             self.bottomBlur.alpha = 0
         }
+        
         historyBottomConstraint.constant = 20
+        
         UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut) {
             updateConstraint()
+            
+            self.table.updateTableContentInset()
             
             self.topBlur.alpha = 1
             self.bottomBlur.alpha = 1
@@ -184,6 +187,7 @@ extension HistoryViewController {
                 self.table.scrollToBottom(animated: true)
             }
         }
+        
         isOpen = false
     }
 }

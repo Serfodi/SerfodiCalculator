@@ -37,12 +37,8 @@ extension CoreDataProvider: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ExpressionMathCell.reuseId, for: indexPath) as! ExpressionMathCell
         let calculate = historyManager.calculation(at: indexPath.row)
-        cell.config(calculation: calculate.calculation)        
+        cell.config(calculation: calculate.calculation)
         return cell
-    }
-    
-    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return true
     }
     
 }

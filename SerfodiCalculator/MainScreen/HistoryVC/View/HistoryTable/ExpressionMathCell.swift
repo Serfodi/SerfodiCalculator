@@ -21,7 +21,7 @@ class ExpressionMathCell: UITableViewCell, ExpressinCellConfiguration {
         scrollView.showsVerticalScrollIndicator = false
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.isUserInteractionEnabled = false
-        scrollView.transform = CGAffineTransform(scaleX: -1, y: 1)
+        scrollView.contentInset = UIEdgeInsets(top: 0, left: 14, bottom: 0, right: 14)
         return scrollView
     }()
     
@@ -29,13 +29,20 @@ class ExpressionMathCell: UITableViewCell, ExpressinCellConfiguration {
         let label = MTMathUILabel()
         let font = MainFontAppearance.exampleFont
         let size = font.pointSize
-        label.contentInsets = MTEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
+        label.contentInsets = MTEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         label.font = MTFontManager().defaultFont
         label.fontSize = size
         label.textAlignment = .right
         label.textColor = HistoryAppearance.HistoryCellExample.resultColor.color()
         label.transform = CGAffineTransform(scaleX: -1, y: 1)
         return label
+    }()
+    
+    private let selectedView: UIView = {
+        let view = UIView()
+        view.backgroundColor = DisplayLabelAppearance.focusColor.color()
+        view.isHidden = true
+        return view
     }()
     
     public var cellHeight: CGFloat {
@@ -46,12 +53,20 @@ class ExpressionMathCell: UITableViewCell, ExpressinCellConfiguration {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
+//        selectedBackgroundView = UIView()
+        self.transform = CGAffineTransform(scaleX: -1, y: 1)
+        
         self.backgroundColor = .clear
         scrollView.frame = self.bounds
         scrollView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+        
         self.contentView.addSubview(scrollView)
         self.contentView.addGestureRecognizer(scrollView.panGestureRecognizer)
+        
+        scrollView.addSubview(selectedView)
         scrollView.addSubview(mathLabel)
+        
     }
     
     required init?(coder: NSCoder) {
@@ -60,8 +75,12 @@ class ExpressionMathCell: UITableViewCell, ExpressinCellConfiguration {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        
         scrollView.contentSize = mathLabel.intrinsicContentSize
         mathLabel.frame = mathLabel.intrinsicContentSize.leftCentered(in: scrollView.rectInside())
+        
+        selectedView.frame = mathLabel.frame.size.leftCentered(in: scrollView.rectInside())
+        selectedView.layer.cornerRadius = selectedView.frame.height / 4
     }
     
     
@@ -81,19 +100,12 @@ class ExpressionMathCell: UITableViewCell, ExpressinCellConfiguration {
     }
 }
 
-
 private extension UIScrollView {
-    
-    func updateScrollContentInset() {
-        
-        
-        
-    }
-    
     func rectInside() -> CGRect {
         CGRect(origin: .zero,
                size: CGSize(width: self.bounds.width > self.contentSize.width ? self.bounds.width : self.contentSize.width,
                             height: self.bounds.height > self.contentSize.height ? self.bounds.height : self.contentSize.height))
     }
-    
 }
+
+
