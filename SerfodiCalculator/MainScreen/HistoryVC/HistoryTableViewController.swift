@@ -37,7 +37,6 @@ class HistoryTableViewController: UITableViewController {
         let settingVC = SettingTableViewController()
         navigationController?.pushViewController(settingVC, animated: true)
     }
-    
 }
 
 // MARK: - ResponderChainActionSenderType

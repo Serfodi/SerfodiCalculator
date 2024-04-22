@@ -8,81 +8,56 @@
 import SwiftMath
 import UIKit
 
-class ExpressionMathCell: UITableViewCell, ExpressinCellConfiguration {
+class ExpressionMathCell: UITableViewCell {
     
-    static let reuseId = "ExpressionMathCell"
+    enum Padding {
+        static let scroll: CGFloat = 14
+        static let label: CGFloat = 10
+        static let cell: CGFloat = 2
+    }
+    
+    static let reuseId = String(describing: ExpressionMathCell.self)
     
     private let dynamicNumberFormatter = DynamicNumberFormatter()
     private let generateLatex = GenerationLatex()
     
-    private let scrollView: UIScrollView = {
-        let scrollView = UIScrollView()
-        scrollView.scrollsToTop = false
-        scrollView.showsVerticalScrollIndicator = false
-        scrollView.showsHorizontalScrollIndicator = false
+    private let scrollView: ContentScrollView = {
+        let scrollView = ContentScrollView()
         scrollView.isUserInteractionEnabled = false
-        scrollView.contentInset = UIEdgeInsets(top: 0, left: 14, bottom: 0, right: 14)
+        scrollView.contentInset = UIEdgeInsets(top: 0, left: Padding.scroll, bottom: 0, right: Padding.scroll)
         return scrollView
     }()
     
+    private var heightConstraint: NSLayoutConstraint!
+    
     private let mathLabel: MTMathUILabel = {
         let label = MTMathUILabel()
+        label.transform = CGAffineTransform(scaleX: -1, y: 1)
         let font = MainFontAppearance.exampleFont
         let size = font.pointSize
-        label.contentInsets = MTEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        label.contentInsets = MTEdgeInsets(top: Padding.label, left:  Padding.label, bottom:  Padding.label, right:  Padding.label)
         label.font = MTFontManager().defaultFont
         label.fontSize = size
         label.textAlignment = .right
         label.textColor = HistoryAppearance.HistoryCellExample.resultColor.color()
-        label.transform = CGAffineTransform(scaleX: -1, y: 1)
         return label
     }()
-    
-    private let selectedView: UIView = {
-        let view = UIView()
-        view.backgroundColor = DisplayLabelAppearance.focusColor.color()
-        view.isHidden = true
-        return view
-    }()
-    
-    public var cellHeight: CGFloat {
-        mathLabel.intrinsicContentSize.height
-    }
     
     // MARK: init
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
-//        selectedBackgroundView = UIView()
-        self.transform = CGAffineTransform(scaleX: -1, y: 1)
-        
         self.backgroundColor = .clear
-        scrollView.frame = self.bounds
-        scrollView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
-        
+        self.transform = CGAffineTransform(scaleX: -1, y: 1)
         self.contentView.addSubview(scrollView)
         self.contentView.addGestureRecognizer(scrollView.panGestureRecognizer)
-        
-        scrollView.addSubview(selectedView)
-        scrollView.addSubview(mathLabel)
-        
+        scrollView.addView(mathLabel)
+        scrollLayoutConfiguration()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        scrollView.contentSize = mathLabel.intrinsicContentSize
-        mathLabel.frame = mathLabel.intrinsicContentSize.leftCentered(in: scrollView.rectInside())
-        
-        selectedView.frame = mathLabel.frame.size.leftCentered(in: scrollView.rectInside())
-        selectedView.layer.cornerRadius = selectedView.frame.height / 4
-    }
-    
     
     // MARK: - override ExpressinCellConfiguration
     
@@ -97,15 +72,30 @@ class ExpressionMathCell: UITableViewCell, ExpressinCellConfiguration {
                 return String(describing: number)
             }
         })
+        heightConstraint.constant = mathLabel.intrinsicContentSize.height + 2 * Padding.cell
+        layoutIfNeeded()
     }
 }
 
-private extension UIScrollView {
-    func rectInside() -> CGRect {
-        CGRect(origin: .zero,
-               size: CGSize(width: self.bounds.width > self.contentSize.width ? self.bounds.width : self.contentSize.width,
-                            height: self.bounds.height > self.contentSize.height ? self.bounds.height : self.contentSize.height))
+// MARK: - Layout
+private extension ExpressionMathCell {
+    
+    func scrollLayoutConfiguration() {
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            scrollView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor),
+            scrollView.topAnchor.constraint(equalTo: self.contentView.topAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor)
+        ])
+        heightConstraint = NSLayoutConstraint(item: scrollView,
+                                          attribute: .height,
+                                          relatedBy: .greaterThanOrEqual,
+                                          toItem: nil,
+                                          attribute: .height,
+                                          multiplier: 1,
+                                          constant: 50)
+        heightConstraint.priority = .defaultHigh
+        heightConstraint.isActive = true
     }
 }
-
-

@@ -81,7 +81,7 @@
 		B0B7EEE12BCDB898002DDFAF /* CoreDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B7EEE02BCDB898002DDFAF /* CoreDataProvider.swift */; };
 		B0B7EEE52BCDBD37002DDFAF /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B7EEE42BCDBD37002DDFAF /* CoreDataManager.swift */; };
 		B0B7EEE72BCDBFD7002DDFAF /* CoreDataContextProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B7EEE62BCDBFD7002DDFAF /* CoreDataContextProvider.swift */; };
-		B0B92D492BD58ADF00C77633 /* HistoryCellLayoutCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B92D482BD58ADF00C77633 /* HistoryCellLayoutCalculator.swift */; };
+		B0B92D4B2BD6AD1B00C77633 /* ContentScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B92D4A2BD6AD1B00C77633 /* ContentScrollView.swift */; };
 		B0EACC822BC860BB008E1A8D /* ExpressionLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B050E2502B9F73DD00D48DFE /* ExpressionLabel.swift */; };
 		B0FEF0462B9DC382001C1792 /* HistoryTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0899CFE2B9CA9DB00C12D7C /* HistoryTableView.swift */; };
 		B0FEF0472B9DD1A9001C1792 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B059F1D92B878D380079EFFA /* HistoryViewController.swift */; };
@@ -126,7 +126,6 @@
 		B064E2F72B5EB7D900E56208 /* Calculate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calculate.swift; sourceTree = "<group>"; };
 		B064E2F92B5ED38800E56208 /* UIButton + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton + Extension.swift"; sourceTree = "<group>"; };
 		B064E2FB2B5ED4F000E56208 /* UILabel + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel + Extension.swift"; sourceTree = "<group>"; };
-		B064E3012B6039A600E56208 /* HistoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCell.swift; sourceTree = "<group>"; };
 		B064E3032B61728000E56208 /* Operation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operation.swift; sourceTree = "<group>"; };
 		B064E3052B6180FA00E56208 /* BlurGradientEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurGradientEffect.swift; sourceTree = "<group>"; };
 		B064E30B2B626F4600E56208 /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
@@ -168,7 +167,7 @@
 		B0B7EEE02BCDB898002DDFAF /* CoreDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataProvider.swift; sourceTree = "<group>"; };
 		B0B7EEE42BCDBD37002DDFAF /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		B0B7EEE62BCDBFD7002DDFAF /* CoreDataContextProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataContextProvider.swift; sourceTree = "<group>"; };
-		B0B92D482BD58ADF00C77633 /* HistoryCellLayoutCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCellLayoutCalculator.swift; sourceTree = "<group>"; };
+		B0B92D4A2BD6AD1B00C77633 /* ContentScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentScrollView.swift; sourceTree = "<group>"; };
 		B0FEF0482B9DD38A001C1792 /* HistoryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -282,7 +281,7 @@
 				B064E3052B6180FA00E56208 /* BlurGradientEffect.swift */,
 				B09246672BC322FE00DC3799 /* HistoryTable */,
 				B050E2502B9F73DD00D48DFE /* ExpressionLabel.swift */,
-				B0B92D482BD58ADF00C77633 /* HistoryCellLayoutCalculator.swift */,
+				B0B92D4A2BD6AD1B00C77633 /* ContentScrollView.swift */,
 				B0A1B8552BB4321100D7E568 /* WhiteNavigationBar.swift */,
 				B0A1B85B2BB5593300D7E568 /* AnimationController */,
 			);
@@ -483,7 +482,6 @@
 			isa = PBXGroup;
 			children = (
 				B0899CFE2B9CA9DB00C12D7C /* HistoryTableView.swift */,
-				B064E3012B6039A600E56208 /* HistoryCell.swift */,
 				B09246652BC31A0200DC3799 /* ExpressionMathCell.swift */,
 			);
 			path = HistoryTable;
@@ -674,7 +672,6 @@
 				B05C9DE82BD17B5A00A47DA4 /* SettingActionHandler.swift in Sources */,
 				B099E0CB2B6C03DA000670CE /* SettingManager.swift in Sources */,
 				B0FEF0472B9DD1A9001C1792 /* HistoryViewController.swift in Sources */,
-				B0B92D492BD58ADF00C77633 /* HistoryCellLayoutCalculator.swift in Sources */,
 				B064E2FC2B5ED4F000E56208 /* UILabel + Extension.swift in Sources */,
 				B03037FE2BAF3E9A00CA1DC6 /* SettingCollectionView.swift in Sources */,
 				B0B7EEE12BCDB898002DDFAF /* CoreDataProvider.swift in Sources */,
@@ -699,6 +696,7 @@
 				B0A1B8692BB9882F00D7E568 /* Transition.swift in Sources */,
 				B0A1B8652BB8AC8F00D7E568 /* BasicAnimation.swift in Sources */,
 				B069C2D62BA4728E00503FEB /* Font.swift in Sources */,
+				B0B92D4B2BD6AD1B00C77633 /* ContentScrollView.swift in Sources */,
 				B064E3172B62B9EE00E56208 /* NumberFormatter + Extension.swift in Sources */,
 				B0430D4E2BBC72440077207D /* MainView.swift in Sources */,
 				B064E3132B62B62300E56208 /* Calculation.swift in Sources */,

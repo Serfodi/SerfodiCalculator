@@ -35,10 +35,6 @@ class HistoryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configuration()
-        
-//        leftBlur.isHidden = true
-//        bottomBlur.isHidden = true
-        
     }
     
     /// Устанавливает ограничения. Устанавливает нижний динамический констрейнт
