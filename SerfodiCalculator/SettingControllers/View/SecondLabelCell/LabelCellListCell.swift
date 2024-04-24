@@ -23,5 +23,4 @@ class LabelCellListCell: UICollectionViewListCell {
         
         contentConfiguration = content
     }
-    
 }

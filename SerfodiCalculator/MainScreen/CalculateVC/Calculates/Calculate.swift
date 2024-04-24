@@ -15,9 +15,7 @@ private
     
     let calculating: Calculate = DynamicCalculate()
     
-    /// Предпоследния опирация
     var currentOperation: Operation!
-    /// Предпоследнее число
     var currentNumber: Double!
     
     var lastOperation: Operation? {
@@ -35,7 +33,7 @@ extension Calculator: CalculateManager {
         calculationHistory.count
     }
     
-    func result() throws -> Double {
+    func result() async throws -> Double {
         try calculating.calculate(items: calculationHistory)
     }
     
@@ -47,21 +45,12 @@ extension Calculator: CalculateManager {
     
     /// Добалвяет новоы знак в массив: "calculationHistory"
     public func addOperation(_ operation: Operation) {
-        if let sign = lastOperation {
-            
-            if sign.type == .binary {
-                
-                if sign != operation {
-                    calculationHistory.removeLast()
-                    calculationHistory.append(.operation(operation))
-                    currentOperation = operation
-                }
-                
-            } else {
+        if let sign = lastOperation, sign.type == .binary {
+            if sign != operation {
+                calculationHistory.removeLast()
                 calculationHistory.append(.operation(operation))
                 currentOperation = operation
             }
-            
         } else {
             calculationHistory.append(.operation(operation))
             currentOperation = operation
@@ -70,7 +59,6 @@ extension Calculator: CalculateManager {
     
     public func addLastOperation() {
         guard let lastOperation = currentOperation else { return }
-        
         switch lastOperation.type {
         case .binary:
             guard let lastNumber = currentNumber else { return }

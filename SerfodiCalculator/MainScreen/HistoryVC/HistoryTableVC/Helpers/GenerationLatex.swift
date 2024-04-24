@@ -73,7 +73,7 @@ extension Operation {
         case .log2X:
             return #"\log_2"# + "{\(op[0])}"
         case .factorial:
-            return "!" + "{\(op[0])}"
+            return "{\(op[0])}" + "!"
         case .sinX:
             return #"\sin"# + "{\(op[0])}"
         case .cosX:

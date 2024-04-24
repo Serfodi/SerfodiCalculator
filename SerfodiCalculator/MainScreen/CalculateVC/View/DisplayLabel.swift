@@ -156,7 +156,7 @@ extension DisplayLabel {
         text = text!.replacingOccurrences(of: dynamicNumberFormatter.separator, with: "")
         
         if let number = getNumber() {
-            text = dynamicNumberFormatter.perform(number: number as NSNumber)
+            text = dynamicNumberFormatter.performDec(number: number as NSNumber)
             successful(number)
         }
     }

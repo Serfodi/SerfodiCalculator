@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 enum CalculationHistoryItem {
     case number(Double)
     case operation(Operation)
@@ -34,7 +33,6 @@ enum CalculationHistoryItem {
         }
     }
 }
-
 
 // MARK: Codable
 
@@ -72,5 +70,6 @@ extension CalculationHistoryItem: Codable {
         throw CalculationHistoryItemError.itemNotFound
     }
 }
+
 
 

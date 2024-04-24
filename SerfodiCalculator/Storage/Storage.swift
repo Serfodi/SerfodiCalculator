@@ -10,7 +10,7 @@ import Foundation
 
 final class CalculationSettingStorage {
     
-    static let lastInputKey = "lastInputKey"
+    static let lastInputKey = "SettingKey"
     
     func setData(_ data: Setting) {
         if let encoder = try? JSONEncoder().encode(data) {

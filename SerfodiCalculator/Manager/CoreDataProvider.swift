@@ -20,9 +20,7 @@ final class CoreDataProvider: NSObject {
         let historyCalculation = HistoryCalculation(calculation: calculation, date: Date())
         historyManager.add(historyCalculation)
     }
-    
 }
-
 
 extension CoreDataProvider: UITableViewDataSource {
     
@@ -40,5 +38,4 @@ extension CoreDataProvider: UITableViewDataSource {
         cell.config(calculation: calculate.calculation)
         return cell
     }
-    
 }

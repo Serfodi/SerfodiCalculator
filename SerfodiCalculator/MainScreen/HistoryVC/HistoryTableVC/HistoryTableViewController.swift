@@ -47,7 +47,7 @@ extension HistoryTableViewController: ResponderChainActionSenderType {
     }
 }
 
-// MARK: - Configuration
+// MARK: - Configuration navigationController
 private extension HistoryTableViewController {
     func setupNavBar() {
         navigationController?.navigationBar.topItem?.title = "История"
@@ -63,3 +63,28 @@ private extension HistoryTableViewController {
     }
 }
 
+extension HistoryTableViewController {
+    
+    public func animationCells(_ beforeCells: [UITableViewCell], _ afterCells: [UITableViewCell]) {
+        let cells = afterCells.filter{ !beforeCells.contains($0) }
+        let upsetCells = cells.filter {
+            $0.frame.minY > beforeCells.first!.frame.maxY
+        }
+        let downCells = cells.filter {
+            $0.frame.maxY < beforeCells.last!.frame.maxY
+        }
+        showCellAnimation(upsetCells)
+        showCellAnimation(downCells.reversed())
+    }
+    
+    private func showCellAnimation(_ cells: [UITableViewCell]) {
+        var delay = 0.5
+        for cell in cells {
+            cell.alpha = 0
+            UIView.animate(withDuration: 0.4, delay: delay * 0.1, options: .curveEaseOut) {
+                cell.alpha = 1
+            }
+            delay += 1
+        }
+    }
+}

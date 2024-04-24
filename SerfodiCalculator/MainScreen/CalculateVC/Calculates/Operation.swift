@@ -224,6 +224,8 @@ extension Operation {
             
         case .factorial:
             
+            guard numbers[0] <= 100 else { throw CalculationError.outOfRang }
+            
             if numbers[0].truncatingRemainder(dividingBy: 1) == 0 {
                 result = Double( factorial(numbers[0]))
             } else {

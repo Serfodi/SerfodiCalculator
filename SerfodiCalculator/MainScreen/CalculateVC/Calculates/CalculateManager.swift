@@ -11,7 +11,7 @@ protocol CalculateManager {
     
     var countItems: Int {get}
     
-    func result() throws -> Double
+    func result() async throws -> Double
     
     func eraseAll()
     
@@ -29,4 +29,5 @@ protocol CalculateManager {
     /// - Parameter completion: Принимает текущию массив `calculationHistory` до удаления.
     func removeHistory(completion: @escaping ([CalculationHistoryItem]) -> ())
 }
+
 

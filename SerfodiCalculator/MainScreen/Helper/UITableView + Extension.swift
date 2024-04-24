@@ -13,26 +13,25 @@ extension UITableView {
         guard let lastIndex = lastIndexPath() else { return }
         self.scrollToRow(at: lastIndex, at: .bottom, animated: animated)
     }
-    
-    var lastSection: Int? {
-        let lastSection = numberOfSections
-        guard lastSection > 0 else { return nil }
-        return lastSection - 1
-    }
-    
+        
     var lastRows: Int? {
-        guard let lastSection = lastSection else { return nil }
-        let numRows = numberOfRows(inSection: lastSection)
+        let numRows = numberOfRows(inSection: 0)
         guard numRows > 0 else { return nil }
-        return numRows - 1
+        return numRows
     }
     
     func lastIndexPath() -> IndexPath? {
-        guard let lastSection = lastSection,
-              let lastRows = lastRows
-        else { return nil }
-        let lastIndex = IndexPath(row: lastRows, section: lastSection)
+        guard let lastRows = lastRows else { return nil }
+        let lastIndex = IndexPath(row: lastRows - 1, section: 0)
         return lastIndex
+    }
+    
+    func animatedInsertLastRow() {
+        let rows = numberOfRows(inSection: 0)
+        performBatchUpdates {
+            insertRows(at: [IndexPath(row: rows, section: 0)], with: .bottom)
+        }
+        scrollToBottom(animated: true)
     }
 }
 

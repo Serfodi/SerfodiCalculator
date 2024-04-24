@@ -39,6 +39,7 @@ class ExpressionMathCell: UITableViewCell {
         label.font = MTFontManager().defaultFont
         label.fontSize = size
         label.textAlignment = .right
+        label.labelMode = .text
         label.textColor = HistoryAppearance.HistoryCellExample.resultColor.color()
         return label
     }()
@@ -59,27 +60,22 @@ class ExpressionMathCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - override ExpressinCellConfiguration
-    
     func config(calculation: Calculation) {
         mathLabel.latex = generateLatex.generate(expression: calculation, formatting: { number in
-            do {
-                return try dynamicNumberFormatter.fitInBounds(number: number) { numberText in
-                    let attString = NSAttributedString(string: numberText, font: MainFontAppearance.exampleFont, textColor: .black)
-                    return attString.size().width < (self.bounds.width / 2)
-                }
-            } catch {
-                return String(describing: number)
-            }
+            return dynamicNumberFormatter.perform(number)
         })
         heightConstraint.constant = mathLabel.intrinsicContentSize.height + 2 * Padding.cell
         layoutIfNeeded()
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        mathLabel.latex = ""
     }
 }
 
 // MARK: - Layout
 private extension ExpressionMathCell {
-    
     func scrollLayoutConfiguration() {
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -88,13 +84,7 @@ private extension ExpressionMathCell {
             scrollView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor),
             scrollView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor)
         ])
-        heightConstraint = NSLayoutConstraint(item: scrollView,
-                                          attribute: .height,
-                                          relatedBy: .greaterThanOrEqual,
-                                          toItem: nil,
-                                          attribute: .height,
-                                          multiplier: 1,
-                                          constant: 50)
+        heightConstraint = scrollView.heightAnchor.constraint(greaterThanOrEqualToConstant: 0)
         heightConstraint.priority = .defaultHigh
         heightConstraint.isActive = true
     }

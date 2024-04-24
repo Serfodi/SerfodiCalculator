@@ -95,4 +95,19 @@ final class DynamicCalculate: Calculate {
         }
         return output
     }
+    
+//    func deleteHangingOperation(items: inout [CalculationHistoryItem]) -> Operation {
+//        var lastInputSign: Operation!
+//
+//        if case .operation(let operation) = items.last {
+//            if operation.type == .binary {
+//                items.removeLast()
+//                lastInputSign = operation
+//            }
+//        }
+//
+//        return lastInputSign
+//    }
+    
+    
 }

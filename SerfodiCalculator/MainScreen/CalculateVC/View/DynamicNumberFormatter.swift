@@ -57,7 +57,7 @@ final class DynamicNumberFormatter {
     }
     
     /// Выполняет форматирование текста. Использует `numberFormatterDec`
-    public func perform(number: NSNumber) -> String {
+    public func performDec(number: NSNumber) -> String {
         numberFormatterDec.string(from: number)!
     }
     
@@ -69,6 +69,12 @@ final class DynamicNumberFormatter {
     private func perform(formatter: NumberFormatter, number: NSNumber) -> String {
         formatter.string(from: number)!
     }
+    
+//    private func perform(formatter: NumberFormatter, number: NSNumber, maximumSignificantDigits: Int) -> String {
+//        formatter.maximumSignificantDigits = maximumSignificantDigits
+//        return formatter.string(from: number)!
+//    }
+    
     
     /// Функция  подбирает формат числа под заданную рамку.
     ///
@@ -84,6 +90,13 @@ final class DynamicNumberFormatter {
             return text
         }
         throw DynamicNumberFormatterError.fitFormattingFailure(number: number)
+    }
+    
+    public func perform(_ number: NSNumber) -> String {
+        if number.stringValue.count > DynamicNumberFormatter.maximumSignificantDigits {
+            return perform(formatter: numberFormatterE, number: number)
+        }
+        return perform(formatter: numberFormatterDec, number: number)
     }
     
     
@@ -104,7 +117,7 @@ final class DynamicNumberFormatter {
             formatter.maximumSignificantDigits = max - i
         }
         defer {
-            formatter.maximumSignificantDigits = max
+            formatter.maximumSignificantDigits = DynamicNumberFormatter.maximumSignificantDigits
         }
         return nil
     }

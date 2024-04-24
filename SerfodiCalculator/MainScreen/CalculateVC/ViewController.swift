@@ -20,6 +20,7 @@ class ViewController: UIViewController {
     private let calculator: CalculateManager = Calculator()
     
     private var isNewInput = true
+
     
     
     // MARK: - Live circle
@@ -41,23 +42,19 @@ class ViewController: UIViewController {
     
     private func addNewExample(_ example: Calculation) {
         dataProvider.addCalculate(example)
-        guard let section = self.historyVC.table.lastSection else { return }
-        let row = self.historyVC.table.numberOfRows(inSection: section)
-        self.historyVC.table.performBatchUpdates {
-            self.historyVC.table.insertRows(at: [IndexPath(row: row, section: section)], with: .bottom)
-        } completion: { _ in
-        }
-        self.historyVC.table.scrollToBottom(animated: true)
+        historyVC.table.animatedInsertLastRow()
     }
     
     // MARK: Calculator
     
-    private func calculateResult(result: (Double)->()) {
-        do {
-            let number = try calculator.result()
-            result(number)
-        } catch let error {
-            self.errorCalculate(error: error as! CalculationError)
+    private func calculateResult(result: @escaping (Double)->()) {
+        Task(priority: .medium) {
+            do {
+                let number = try await calculator.result()
+                result(number)
+            } catch let error {
+                self.errorCalculate(error: error as! CalculationError)
+            }
         }
     }
     
@@ -115,7 +112,7 @@ extension ViewController: NumpadDelegate, RemoveLastDigit {
         }
         calculator.addOperation(buttonOperation)
         calculateResult { result in
-            inputLabel.setTextLabel(number: result)
+            self.inputLabel.setTextLabel(number: result)
         }
         isNewInput = true
     }
@@ -128,16 +125,15 @@ extension ViewController: NumpadDelegate, RemoveLastDigit {
             calculator.addNumber(labelNumber)
         }
         if isNewInput && calculator.countItems == 1 {
-            // Добавить последнее действие.
             calculator.addLastOperation()
         }
         
         calculateResult { result in
-            calculator.removeHistory { calculationItems in
+            self.calculator.removeHistory { calculationItems in
                 let calculation = Calculation(expression: calculationItems, result: result)
                 self.addNewExample(calculation)
             }
-            inputLabel.setTextLabel(number: result)
+            self.inputLabel.setTextLabel(number: result)
         }
         isNewInput = true // Новый ввод разрешён
     }
@@ -173,11 +169,6 @@ extension ViewController: UITableViewDelegate {
         animationTableController(indexPath)
         tableView.deselectRow(at: indexPath, animated: true)
     }
-    
-    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        UITableView.automaticDimension
-    }
-    
 }
 
 //MARK: - Configuration
@@ -206,31 +197,29 @@ private extension ViewController {
 
 // MARK: - Animation
 private extension ViewController {
+    
     func animationTableController(_ indexPath: IndexPath? = nil) {
         switch historyVC.stateVC {
         case true:
             self.view.isUserInteractionEnabled = false
             historyVC.animationClose(indexPath) {
-                self.view.layoutIfNeeded()
-            }
-            UIView.animate(withDuration: 0.3, delay: 0.15, options: .curveEaseInOut) {
                 self.mainView.blurBG.alpha = 0
+                self.view.layoutIfNeeded()
             } completion: { _ in
                 self.view.sendSubviewToBack(self.historyVC.view)
                 self.mainView.blurBG.isHidden = true
                 self.view.isUserInteractionEnabled = true
             }
+            
         case false:
             self.view.isUserInteractionEnabled = false
             self.mainView.blurBG.isHidden = false
-            view.bringSubviewToFront(historyVC.view)
-            UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut) {
+            self.view.bringSubviewToFront(self.historyVC.view)
+            historyVC.animationOpen {
                 self.mainView.blurBG.alpha = 1
+                self.view.layoutIfNeeded()
             } completion: { _ in
                 self.view.isUserInteractionEnabled = true
-            }
-            historyVC.animationOpen {
-                self.view.layoutIfNeeded()
             }
         }
     }

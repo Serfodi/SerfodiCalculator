@@ -10,7 +10,7 @@ import UIKit
 enum EnvironmentColorAppearance {
     static let mainBackgroundColor = SchemeColor(light: .white, dark: .black)
     static let mainTextColor = SchemeColor(light: .black, dark: .init(white: 0.9, alpha: 1))
-    static let mainErrorColor = SchemeColor(light: #colorLiteral(red: 0.9568627477, green: 0.8265123661, blue: 0.7767734047, alpha: 1), dark: #colorLiteral(red: 0.9568627477, green: 0.8265123661, blue: 0.7767734047, alpha: 1))
+    static let mainErrorColor = SchemeColor(light: #colorLiteral(red: 0.9568627477, green: 0.8265123661, blue: 0.7767734047, alpha: 1), dark: #colorLiteral(red: 0.865062654, green: 0.4343209863, blue: 0.3122095466, alpha: 1))
 }
 
 enum DisplayLabelAppearance {
@@ -61,7 +61,7 @@ enum NumpadAppearance {
 enum NavigationAppearance {
     
     static let backgroundColor = EnvironmentColorAppearance.mainBackgroundColor
-    static let leftBarButtonColor = SchemeColor(light: #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1), dark: #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1))
+    static let leftBarButtonColor = SchemeColor(light: #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1), dark: #colorLiteral(red: 0.7080144286, green: 0.7080144286, blue: 0.7080144286, alpha: 1))
 }
 
 enum HistoryAppearance {
@@ -82,7 +82,7 @@ enum SettingColorAppearance {
     
     enum ButtonCell {
         static let titleColor = SchemeColor(light: .white, dark: .init(white: 0.9, alpha: 1))
-        static let normalColor = SchemeColor(light: #colorLiteral(red: 0.2941176471, green: 0.6509803922, blue: 0.9764705882, alpha: 1), dark: #colorLiteral(red: 0.2941176471, green: 0.6509803922, blue: 0.9764705882, alpha: 1))
+        static let normalColor = SchemeColor(light: #colorLiteral(red: 0.2941176471, green: 0.6509803922, blue: 0.9764705882, alpha: 1), dark: #colorLiteral(red: 0.2650460005, green: 0.5981450677, blue: 0.8966157436, alpha: 1))
     }
     
 }

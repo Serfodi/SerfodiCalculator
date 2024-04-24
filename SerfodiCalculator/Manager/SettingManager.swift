@@ -39,7 +39,6 @@ final class SettingManager {
     public func getSetting() -> Setting {
         self.setting
     }
-    
 }
 
 extension SettingManager {

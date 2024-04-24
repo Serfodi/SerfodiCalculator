@@ -60,21 +60,19 @@ class CoreDataManager {
         calculations.append(historyCalculation)
     }
     
-    public func removeAllDataHistory(complite: @escaping (Result<Void>) -> ()) {
+    public func removeAllDataHistory(completion: @escaping (Result<Void>) -> ()) {
         calculations.removeAll()
-        repository?.eraseAllData(completion: complite)
+        repository?.eraseAllData(completion: completion)
     }
     
-    public func dataСapacity() -> Int {
+    public func dataCapacity() -> Int {
         calculations.count
     }
     
     // MARK: - Helper
     
     private func load() {
-        guard let calculations = repository?.actualSearchedData?.value else {
-            return
-        }
+        guard let calculations = repository?.actualSearchedData?.value else { return }
         self.calculations = calculations
     }
 }

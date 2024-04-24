@@ -31,7 +31,7 @@ class HistoryDataController: UIViewController {
     private var menu:[Section] = {
         [
             Section(name: "Память", items: [
-                Item.dataTitle(777),
+                Item.dataTitle(CoreDataManager.sherd.dataCapacity()),
                 Item.clearButton(777)
             ])
         ]
@@ -86,8 +86,8 @@ private extension HistoryDataController {
     func createDataSource() {
         let labelCell = UICollectionView.CellRegistration<LabelCellListCell, Item> { (cell, _, item) in
             guard case .dataTitle(let data) = item else { fatalError() }
-            cell.text = "Использование памяти"
-            cell.secondText = "\(data) Мб"
+            cell.text = "Кол-во примеров"
+            cell.secondText = "\(data)"
         }
         let buttonCell = UICollectionView.CellRegistration<ButtonCellListCell, Item> { (cell, _, _) in
             cell.text = "Очистить"

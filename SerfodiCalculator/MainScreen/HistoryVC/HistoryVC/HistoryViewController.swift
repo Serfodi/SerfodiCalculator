@@ -11,6 +11,7 @@ import UIKit
 class HistoryViewController: UIViewController {
     
     private var tableViewController: HistoryTableViewController!
+    
     private let topBlur = BlurView(styleGradient: .linear(.up(0.45)))
     private let bottomBlur = BlurView(styleGradient: .doubleLine(0.4, 0.5))
     private let leftBlur = BlurView(styleGradient: .linear(.left(0.3)))
@@ -37,7 +38,6 @@ class HistoryViewController: UIViewController {
         configuration()
     }
     
-    /// Устанавливает ограничения. Устанавливает нижний динамический констрейнт
     public func pinedVC(parentView: UIView, buttonView: UIView) {
         self.view.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -45,13 +45,7 @@ class HistoryViewController: UIViewController {
             self.view.leadingAnchor.constraint(equalTo: parentView.leadingAnchor),
             self.view.trailingAnchor.constraint(equalTo: parentView.trailingAnchor)
         ])
-        historyBottomConstraint = NSLayoutConstraint(item: self.view!,
-                                                     attribute: .bottom,
-                                                     relatedBy: .equal,
-                                                     toItem: buttonView,
-                                                     attribute: .top,
-                                                     multiplier: 1,
-                                                     constant: 20)
+        historyBottomConstraint = self.view.bottomAnchor.constraint(equalTo: buttonView.topAnchor, constant: 20)
         historyBottomConstraint.isActive = true
     }
 }
@@ -133,57 +127,47 @@ private extension HistoryViewController {
 // MARK: - Animation
 extension HistoryViewController {
     
-    func animationOpen(updateConstraint: @escaping ()->()) {
+    func animationOpen(updateConstraint: @escaping ()->(), completion: @escaping (Bool)->()) {
+        
+//        let beforeCells = table.visibleCells
+//        var afterCells = beforeCells
         
         historyBottomConstraint.constant = UIApplication.shared.getWindow().frame.height - view.bounds.height + 40
         
-        UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut) {
+        UIView.animate(withDuration: 0.45, delay: 0, options: [.curveEaseInOut, .layoutSubviews]) {
             updateConstraint()
-            
             self.table.reversInset()
-            
-            self.tableViewController.topBar.alpha = 1
             self.topBlur.alpha = 0
-            self.bottomBlur.alpha = 0
+            self.tableViewController.topBar.alpha = 1
             self.tableViewController.navigationController?.setNavigationBarHidden(false, animated: true)
+            self.table.scrollToNearestSelectedRow(at: .top, animated: true)
             
-            self.table.scrollToNearestSelectedRow(at: .middle, animated: true)
+//            afterCells = self.table.visibleCells
             
-        } completion: { _ in
-            UIView.animate(withDuration: 0.2) {
-                self.bottomBlur.alpha = 1
-            }
+        } completion: { finish in
+            self.isOpen = finish
+            completion(finish)
         }
         
-        isOpen = true
+//        tableViewController.animationCells(beforeCells, afterCells)
     }
     
-    func animationClose(_ indexPath: IndexPath?, updateConstraint: @escaping ()->()) {
-        
-        UIView.animate(withDuration: 0.2) {
-            self.bottomBlur.alpha = 0
-        }
-        
+    func animationClose(_ indexPath: IndexPath?, updateConstraint: @escaping ()->(), completion: @escaping (Bool)->()) {
         historyBottomConstraint.constant = 20
-        
-        UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut) {
+        UIView.animate(withDuration: 0.3, delay: 0, options: [.curveEaseInOut, .layoutSubviews]) {
             updateConstraint()
-            
             self.table.updateTableContentInset()
-            
             self.topBlur.alpha = 1
-            self.bottomBlur.alpha = 1
             self.tableViewController.topBar.alpha = 0
-            
             self.tableViewController.navigationController?.setNavigationBarHidden(true, animated: true)
-            
             if let indexPath = indexPath {
                 self.table.scrollToRow(at: indexPath, at: .bottom, animated: true)
             } else {
                 self.table.scrollToBottom(animated: true)
             }
+        } completion: { finish in
+            self.isOpen = !finish
+            completion(finish)
         }
-        
-        isOpen = false
     }
 }

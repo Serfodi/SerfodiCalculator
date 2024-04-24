@@ -33,7 +33,6 @@ extension AnimationController: UIViewControllerAnimatedTransitioning {
     }
     
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
-        
         guard let toVC = transitionContext.viewController(forKey: .to),
               let fromVC = transitionContext.viewController(forKey: .from)
         else {
@@ -67,17 +66,10 @@ extension AnimationController: UIViewControllerAnimatedTransitioning {
     
     func dismissAnimation(with transitionContext: UIViewControllerContextTransitioning, viewToAnimation: UIView) {
         let transitionDuration = transitionDuration(using: transitionContext)
-        
-//        let scale = CGAffineTransform(scaleX: 0.3, y: 0.3)
-//        let moveOut = CGAffineTransform(translationX: -viewToAnimation.frame.width, y: 0)
-        
         UIView.animate(withDuration: transitionDuration) {
-            
             viewToAnimation.alpha = 0
-            
         } completion: { _ in
             transitionContext.completeTransition(true)
         }
     }
-    
 }

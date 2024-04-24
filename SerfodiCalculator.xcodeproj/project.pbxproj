@@ -60,6 +60,8 @@
 		B069C2D92BA47E3000503FEB /* SettingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B069C2D82BA47E3000503FEB /* SettingModel.swift */; };
 		B06EA8722BD3FA8D0051573D /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06EA8712BD3FA8D0051573D /* Observable.swift */; };
 		B06EA8752BD40B520051573D /* UITableView + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06EA8742BD40B520051573D /* UITableView + Extension.swift */; };
+		B0875FEE2BD940CE0020CBE7 /* CalculateVeiwController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0875FED2BD940CE0020CBE7 /* CalculateVeiwController.swift */; };
+		B0875FF02BD940F60020CBE7 /* DynamicCalculateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0875FEF2BD940F60020CBE7 /* DynamicCalculateTests.swift */; };
 		B09246642BC316BE00DC3799 /* SwiftMath in Frameworks */ = {isa = PBXBuildFile; productRef = B09246632BC316BE00DC3799 /* SwiftMath */; };
 		B09246662BC31A0200DC3799 /* ExpressionMathCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09246652BC31A0200DC3799 /* ExpressionMathCell.swift */; };
 		B09246692BC440DD00DC3799 /* GenerationLatex.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09246682BC440DD00DC3799 /* GenerationLatex.swift */; };
@@ -82,11 +84,20 @@
 		B0B7EEE52BCDBD37002DDFAF /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B7EEE42BCDBD37002DDFAF /* CoreDataManager.swift */; };
 		B0B7EEE72BCDBFD7002DDFAF /* CoreDataContextProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B7EEE62BCDBFD7002DDFAF /* CoreDataContextProvider.swift */; };
 		B0B92D4B2BD6AD1B00C77633 /* ContentScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B92D4A2BD6AD1B00C77633 /* ContentScrollView.swift */; };
-		B0EACC822BC860BB008E1A8D /* ExpressionLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B050E2502B9F73DD00D48DFE /* ExpressionLabel.swift */; };
 		B0FEF0462B9DC382001C1792 /* HistoryTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0899CFE2B9CA9DB00C12D7C /* HistoryTableView.swift */; };
 		B0FEF0472B9DD1A9001C1792 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B059F1D92B878D380079EFFA /* HistoryViewController.swift */; };
 		B0FEF0492B9DD38A001C1792 /* HistoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0FEF0482B9DD38A001C1792 /* HistoryTableViewController.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		B0875FE82BD940390020CBE7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B02EC6512B5D8D4E00CE0122 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B02EC6582B5D8D4E00CE0122;
+			remoteInfo = SerfodiCalculator;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		B00257B62B7F7BE100311188 /* SecondNumpad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondNumpad.swift; sourceTree = "<group>"; };
@@ -112,7 +123,6 @@
 		B04BFDCB2B736E7200ED7099 /* NumpadButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumpadButton.swift; sourceTree = "<group>"; };
 		B04BFDCD2B7373A800ED7099 /* NumpadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumpadView.swift; sourceTree = "<group>"; };
 		B04BFDCF2B77EA3F00ED7099 /* NumpadView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NumpadView.xib; sourceTree = "<group>"; };
-		B050E2502B9F73DD00D48DFE /* ExpressionLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpressionLabel.swift; sourceTree = "<group>"; };
 		B050E2522B9F762B00D48DFE /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		B059F1D92B878D380079EFFA /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		B059F1E52B88FD8F0079EFFA /* Array + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array + Extension.swift"; sourceTree = "<group>"; };
@@ -146,7 +156,10 @@
 		B069C2D82BA47E3000503FEB /* SettingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingModel.swift; sourceTree = "<group>"; };
 		B06EA8712BD3FA8D0051573D /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		B06EA8742BD40B520051573D /* UITableView + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView + Extension.swift"; sourceTree = "<group>"; };
-		B0899CFE2B9CA9DB00C12D7C /* HistoryTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HistoryTableView.swift; path = SerfodiCalculator/MainScreen/HistoryVC/View/HistoryTable/HistoryTableView.swift; sourceTree = SOURCE_ROOT; };
+		B0875FE42BD940390020CBE7 /* SerfodiCalculatorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SerfodiCalculatorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B0875FED2BD940CE0020CBE7 /* CalculateVeiwController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculateVeiwController.swift; sourceTree = "<group>"; };
+		B0875FEF2BD940F60020CBE7 /* DynamicCalculateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicCalculateTests.swift; sourceTree = "<group>"; };
+		B0899CFE2B9CA9DB00C12D7C /* HistoryTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HistoryTableView.swift; path = SerfodiCalculator/MainScreen/HistoryVC/HistoryTableVC/View/HistoryTable/HistoryTableView.swift; sourceTree = SOURCE_ROOT; };
 		B09246652BC31A0200DC3799 /* ExpressionMathCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpressionMathCell.swift; sourceTree = "<group>"; };
 		B09246682BC440DD00DC3799 /* GenerationLatex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerationLatex.swift; sourceTree = "<group>"; };
 		B099E0C12B6AA1F1000670CE /* DynamicCalculate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicCalculate.swift; sourceTree = "<group>"; };
@@ -177,6 +190,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				B09246642BC316BE00DC3799 /* SwiftMath in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B0875FE12BD940390020CBE7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -219,6 +239,7 @@
 			isa = PBXGroup;
 			children = (
 				B02EC65B2B5D8D4E00CE0122 /* SerfodiCalculator */,
+				B0875FE52BD940390020CBE7 /* SerfodiCalculatorTests */,
 				B02EC65A2B5D8D4E00CE0122 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -227,6 +248,7 @@
 			isa = PBXGroup;
 			children = (
 				B02EC6592B5D8D4E00CE0122 /* SerfodiCalculator.app */,
+				B0875FE42BD940390020CBE7 /* SerfodiCalculatorTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -279,11 +301,7 @@
 			isa = PBXGroup;
 			children = (
 				B064E3052B6180FA00E56208 /* BlurGradientEffect.swift */,
-				B09246672BC322FE00DC3799 /* HistoryTable */,
-				B050E2502B9F73DD00D48DFE /* ExpressionLabel.swift */,
-				B0B92D4A2BD6AD1B00C77633 /* ContentScrollView.swift */,
 				B0A1B8552BB4321100D7E568 /* WhiteNavigationBar.swift */,
-				B0A1B85B2BB5593300D7E568 /* AnimationController */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -310,7 +328,10 @@
 			isa = PBXGroup;
 			children = (
 				B03038002BAF47EB00CA1DC6 /* UINavigationItem + Extension.swift */,
-				B0A1B86A2BB98A6A00D7E568 /* Animation */,
+				B064E2FB2B5ED4F000E56208 /* UILabel + Extension.swift */,
+				B064E3162B62B9EE00E56208 /* NumberFormatter + Extension.swift */,
+				B064E2F92B5ED38800E56208 /* UIButton + Extension.swift */,
+				B06EA8742BD40B520051573D /* UITableView + Extension.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -327,7 +348,6 @@
 			isa = PBXGroup;
 			children = (
 				B0A79EE32BC9715700FAD045 /* UI */,
-				B064E3162B62B9EE00E56208 /* NumberFormatter + Extension.swift */,
 				B064E31F2B6456D800E56208 /* CGSize + Extension.swift */,
 				B059F1E52B88FD8F0079EFFA /* Array + Extension.swift */,
 			);
@@ -381,10 +401,8 @@
 		B064E31E2B6446FB00E56208 /* HistoryVC */ = {
 			isa = PBXGroup;
 			children = (
-				B059F1D92B878D380079EFFA /* HistoryViewController.swift */,
-				B0FEF0482B9DD38A001C1792 /* HistoryTableViewController.swift */,
-				B09246682BC440DD00DC3799 /* GenerationLatex.swift */,
-				B04053F32BADD6B500EB217B /* View */,
+				B0B92D4E2BD6C68D00C77633 /* HistoryVC */,
+				B0B92D4C2BD6C64F00C77633 /* HistoryTableVC */,
 			);
 			path = HistoryVC;
 			sourceTree = "<group>";
@@ -445,6 +463,7 @@
 			children = (
 				B064E3002B60283C00E56208 /* CalculateVC */,
 				B064E31E2B6446FB00E56208 /* HistoryVC */,
+				B0A1B86A2BB98A6A00D7E568 /* Animation */,
 				B05C9DE22BD161B400A47DA4 /* Helper */,
 			);
 			path = MainScreen;
@@ -478,11 +497,20 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
+		B0875FE52BD940390020CBE7 /* SerfodiCalculatorTests */ = {
+			isa = PBXGroup;
+			children = (
+				B0875FED2BD940CE0020CBE7 /* CalculateVeiwController.swift */,
+				B0875FEF2BD940F60020CBE7 /* DynamicCalculateTests.swift */,
+			);
+			path = SerfodiCalculatorTests;
+			sourceTree = "<group>";
+		};
 		B09246672BC322FE00DC3799 /* HistoryTable */ = {
 			isa = PBXGroup;
 			children = (
 				B0899CFE2B9CA9DB00C12D7C /* HistoryTableView.swift */,
-				B09246652BC31A0200DC3799 /* ExpressionMathCell.swift */,
+				B0B92D4F2BD6D11200C77633 /* Cell */,
 			);
 			path = HistoryTable;
 			sourceTree = "<group>";
@@ -494,6 +522,7 @@
 				B064E3252B6583AD00E56208 /* DynamicNumberFormatter.swift */,
 				B064E31A2B62D8B000E56208 /* DisplayLabel.swift */,
 				B0A1B8662BB8AEDB00D7E568 /* FocusView.swift */,
+				B0A1B8642BB8AC8F00D7E568 /* BasicAnimation.swift */,
 				B00257BE2B84BC2000311188 /* Numpad */,
 			);
 			path = View;
@@ -521,7 +550,7 @@
 		B0A1B86A2BB98A6A00D7E568 /* Animation */ = {
 			isa = PBXGroup;
 			children = (
-				B0A1B8642BB8AC8F00D7E568 /* BasicAnimation.swift */,
+				B0A1B85B2BB5593300D7E568 /* AnimationController */,
 				B0A1B8682BB9882F00D7E568 /* Transition.swift */,
 			);
 			path = Animation;
@@ -531,9 +560,6 @@
 			isa = PBXGroup;
 			children = (
 				B04053F12BADC02B00EB217B /* UIView + Extension.swift */,
-				B064E2F92B5ED38800E56208 /* UIButton + Extension.swift */,
-				B064E2FB2B5ED4F000E56208 /* UILabel + Extension.swift */,
-				B06EA8742BD40B520051573D /* UITableView + Extension.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -566,6 +592,50 @@
 			path = CoreDataRepository;
 			sourceTree = "<group>";
 		};
+		B0B92D4C2BD6C64F00C77633 /* HistoryTableVC */ = {
+			isa = PBXGroup;
+			children = (
+				B0FEF0482B9DD38A001C1792 /* HistoryTableViewController.swift */,
+				B0B92D4D2BD6C66700C77633 /* View */,
+				B0B92D502BD6D11D00C77633 /* Helpers */,
+			);
+			path = HistoryTableVC;
+			sourceTree = "<group>";
+		};
+		B0B92D4D2BD6C66700C77633 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B0B92D4A2BD6AD1B00C77633 /* ContentScrollView.swift */,
+				B09246672BC322FE00DC3799 /* HistoryTable */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		B0B92D4E2BD6C68D00C77633 /* HistoryVC */ = {
+			isa = PBXGroup;
+			children = (
+				B059F1D92B878D380079EFFA /* HistoryViewController.swift */,
+				B04053F32BADD6B500EB217B /* View */,
+			);
+			path = HistoryVC;
+			sourceTree = "<group>";
+		};
+		B0B92D4F2BD6D11200C77633 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				B09246652BC31A0200DC3799 /* ExpressionMathCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		B0B92D502BD6D11D00C77633 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				B09246682BC440DD00DC3799 /* GenerationLatex.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -589,6 +659,24 @@
 			productReference = B02EC6592B5D8D4E00CE0122 /* SerfodiCalculator.app */;
 			productType = "com.apple.product-type.application";
 		};
+		B0875FE32BD940390020CBE7 /* SerfodiCalculatorTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B0875FEA2BD940390020CBE7 /* Build configuration list for PBXNativeTarget "SerfodiCalculatorTests" */;
+			buildPhases = (
+				B0875FE02BD940390020CBE7 /* Sources */,
+				B0875FE12BD940390020CBE7 /* Frameworks */,
+				B0875FE22BD940390020CBE7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B0875FE92BD940390020CBE7 /* PBXTargetDependency */,
+			);
+			name = SerfodiCalculatorTests;
+			productName = SerfodiCalculatorTests;
+			productReference = B0875FE42BD940390020CBE7 /* SerfodiCalculatorTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -601,6 +689,10 @@
 				TargetAttributes = {
 					B02EC6582B5D8D4E00CE0122 = {
 						CreatedOnToolsVersion = 14.3.1;
+					};
+					B0875FE32BD940390020CBE7 = {
+						CreatedOnToolsVersion = 14.3.1;
+						TestTargetID = B02EC6582B5D8D4E00CE0122;
 					};
 				};
 			};
@@ -621,6 +713,7 @@
 			projectRoot = "";
 			targets = (
 				B02EC6582B5D8D4E00CE0122 /* SerfodiCalculator */,
+				B0875FE32BD940390020CBE7 /* SerfodiCalculatorTests */,
 			);
 		};
 /* End PBXProject section */
@@ -636,6 +729,13 @@
 				B064E3282B6712C600E56208 /* SF-Pro.ttf in Resources */,
 				B02EC6662B5D8D5200CE0122 /* Assets.xcassets in Resources */,
 				B02EC6642B5D8D4E00CE0122 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B0875FE22BD940390020CBE7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -716,12 +816,28 @@
 				B04053F52BADDBC400EB217B /* GeneralSettingViewController.swift in Sources */,
 				B06EA8722BD3FA8D0051573D /* Observable.swift in Sources */,
 				B064E3202B6456D800E56208 /* CGSize + Extension.swift in Sources */,
-				B0EACC822BC860BB008E1A8D /* ExpressionLabel.swift in Sources */,
 				B0A1B8672BB8AEDB00D7E568 /* FocusView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		B0875FE02BD940390020CBE7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B0875FF02BD940F60020CBE7 /* DynamicCalculateTests.swift in Sources */,
+				B0875FEE2BD940CE0020CBE7 /* CalculateVeiwController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		B0875FE92BD940390020CBE7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B02EC6582B5D8D4E00CE0122 /* SerfodiCalculator */;
+			targetProxy = B0875FE82BD940390020CBE7 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		B02EC6622B5D8D4E00CE0122 /* Main.storyboard */ = {
@@ -919,6 +1035,54 @@
 			};
 			name = Release;
 		};
+		B0875FEB2BD940390020CBE7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = VJ7AN5PN54;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				MACOSX_DEPLOYMENT_TARGET = 13.3;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = serfodi.SerfodiCalculatorTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SerfodiCalculator.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/SerfodiCalculator";
+			};
+			name = Debug;
+		};
+		B0875FEC2BD940390020CBE7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = VJ7AN5PN54;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				MACOSX_DEPLOYMENT_TARGET = 13.3;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = serfodi.SerfodiCalculatorTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SerfodiCalculator.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/SerfodiCalculator";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -936,6 +1100,15 @@
 			buildConfigurations = (
 				B02EC66E2B5D8D5200CE0122 /* Debug */,
 				B02EC66F2B5D8D5200CE0122 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B0875FEA2BD940390020CBE7 /* Build configuration list for PBXNativeTarget "SerfodiCalculatorTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B0875FEB2BD940390020CBE7 /* Debug */,
+				B0875FEC2BD940390020CBE7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

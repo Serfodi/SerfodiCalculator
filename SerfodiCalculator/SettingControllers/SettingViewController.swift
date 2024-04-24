@@ -146,5 +146,3 @@ extension SettingTableViewController {
         return UICollectionViewCompositionalLayout.list(using: layoutConfig)
     }
 }
-
-
