@@ -9,6 +9,8 @@ import Foundation
 
 protocol CalculateManager {
     
+    var isNewInput: Bool { get }
+    
     var countItems: Int {get}
     
     func result() async throws -> Double
@@ -27,7 +29,7 @@ protocol CalculateManager {
     /// Запоминает последнее введое число `lastNumber`
     ///
     /// - Parameter completion: Принимает текущию массив `calculationHistory` до удаления.
-    func removeHistory(completion: @escaping ([CalculationHistoryItem]) -> ())
+    func removeHistory(completion: @escaping ([CalculationItem]) -> ())
 }
 
 

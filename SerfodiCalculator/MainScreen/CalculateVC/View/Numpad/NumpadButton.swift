@@ -9,6 +9,7 @@ import UIKit
 
 enum ButtonStyle {
     case secondOperation(Operation)
+    case number(Int)
 }
 
 final class NumpadButton: UIButton {
@@ -34,15 +35,19 @@ final class NumpadButton: UIButton {
         
         switch buttonStyle {
         case .secondOperation(let operation):
+            
             setTitle(operation.symbol(), for: .normal)
             tag = operation.rawValue
+        case .number(let number):
+            setTitle("\(number)", for: .normal)
+            tag = number
         }
         
         self.titleLabel?.font = font
     }
     
-    override func actions(forTarget target: Any?, forControlEvent controlEvent: UIControl.Event) -> [String]? {
-        super.actions(forTarget: target, forControlEvent: controlEvent)
-        return super.actions(forTarget: target, forControlEvent: controlEvent)
-    }
+//    override func actions(forTarget target: Any?, forControlEvent controlEvent: UIControl.Event) -> [String]? {
+//        super.actions(forTarget: target, forControlEvent: controlEvent)
+//        return super.actions(forTarget: target, forControlEvent: controlEvent)
+//    }
 }

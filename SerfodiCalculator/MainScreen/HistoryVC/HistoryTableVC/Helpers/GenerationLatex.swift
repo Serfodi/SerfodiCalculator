@@ -11,8 +11,7 @@ final class GenerationLatex {
     
     /// Создает математический пример в виде Latex формулы
     func generate(expression: Calculation, formatting: (NSNumber)->(String)) -> String {
-        
-        let expressionPost = DynamicCalculate().toPostfix(calculationHistory: expression.expression) // fix it
+        let expressionPost = CalculationItemParser().parsing(items: expression.expression)
         
         var result: [String] = []
         for item in expressionPost {

@@ -13,15 +13,13 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var inputLabel: DisplayLabel!
     @IBOutlet weak var numpadController: NumpadController!
-    private var historyVC : HistoryViewController!
+    var historyVC : HistoryViewController!
     
-    private var dataProvider: CoreDataProvider!
+    var dataProvider: CoreDataProvider!
     
-    private let calculator: CalculateManager = Calculator()
+    let calculator: CalculateManager = Calculator()
     
-    private var isNewInput = true
-
-    
+    var isNewInput = true
     
     // MARK: - Live circle
     
@@ -38,16 +36,16 @@ class ViewController: UIViewController {
         historyVC.table.scrollToBottom(animated: false)
     }
     
-    // MARK: addNewExample
+    // MARK: - AddNewExample
     
-    private func addNewExample(_ example: Calculation) {
+    func addNewExample(_ example: Calculation) {
         dataProvider.addCalculate(example)
         historyVC.table.animatedInsertLastRow()
     }
     
     // MARK: Calculator
     
-    private func calculateResult(result: @escaping (Double)->()) {
+    func calculateResult(result: @escaping (Double)->()) {
         Task(priority: .medium) {
             do {
                 let number = try await calculator.result()
@@ -58,7 +56,7 @@ class ViewController: UIViewController {
         }
     }
     
-    private func resetCalculate(clearLabel: Bool = true) {
+    func resetCalculate(clearLabel: Bool = true) {
         calculator.eraseAll()
         isNewInput = true
         if clearLabel {
@@ -68,12 +66,21 @@ class ViewController: UIViewController {
     
     // MARK: Error handler
     
-    private func errorCalculate(error: CalculationError) {
+    func errorCalculate(error: CalculationError) {
         switch error {
         case .dividedByZero, .outOfRang:
             resetCalculate(clearLabel: false)
             inputLabel.showError()
         }
+    }
+    
+    // MARK: Notification
+    
+    @objc func showDetail(withNotification notification: Notification ) {
+        guard let userInfo = notification.userInfo,
+                let indexPath = userInfo["indexPath"] as? IndexPath
+        else { fatalError() }
+        animationTableController(indexPath)
     }
 }
 
@@ -89,12 +96,15 @@ extension ViewController: NumpadDelegate, RemoveLastDigit {
     }
     
     func number(_ sender: UIButton) {
+        
         guard let buttonText = sender.currentTitle,
               let _ = inputLabel.text
         else { return }
+        
         guard inputLabel.isCanAddDigit(new: buttonText) || isNewInput else { return }
+        
         if isNewInput {
-            isNewInput = !isNewInput
+            isNewInput.toggle()
             inputLabel.text = "0"
         }
         inputLabel.inputDigit(add: buttonText) { number in }
@@ -107,21 +117,24 @@ extension ViewController: NumpadDelegate, RemoveLastDigit {
     func operating(_ sender: UIButton) {
         guard let buttonOperation = Operation(rawValue: sender.tag) else { return }
         guard let labelNumber = inputLabel.getNumber() else { return }
+        
         if !isNewInput || calculator.countItems == 0 {
             calculator.addNumber(labelNumber)
         }
+        
         calculator.addOperation(buttonOperation)
+        
         calculateResult { result in
             self.inputLabel.setTextLabel(number: result)
         }
+        
         isNewInput = true
     }
     
     func equal(_ sender: UIButton) {
         guard let labelNumber = inputLabel.getNumber() else { return }
         
-        // Повтор последнего дейсвия при нажатии на равно. Получения числа и опирации.
-        if !isNewInput || calculator.countItems == 0 {
+        if !isNewInput {
             calculator.addNumber(labelNumber)
         }
         if isNewInput && calculator.countItems == 1 {
@@ -145,29 +158,18 @@ extension ViewController: NumpadDelegate, RemoveLastDigit {
 
 // MARK: - History Delegate
 extension ViewController: SettingActionHandler {
-    
     func eraseData(_ sender: AnyObject, forEvent event: UIEvent) {
         self.historyVC.table.reloadData()
     }
 }
 
-// MARK: Navigation DoneDelegate
+// MARK: - Navigation DoneDelegate
 extension ViewController: NavigationDoneActionHandler {
-    
     func done(_ sender: AnyObject, forEvent event: DoneEvent) {
         guard let navigationController = event.controller.navigationController else { return }
         navigationController.view.layer.animationTransition()
         navigationController.popToRootViewController(animated: false)
         animationTableController()
-    }
-}
-
-// MARK: Table View delegate
-extension ViewController: UITableViewDelegate {
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        animationTableController(indexPath)
-        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
 
@@ -177,7 +179,7 @@ private extension ViewController {
         historyVC = HistoryViewController()
         addChildVC()
         configurationDataMenager()
-        historyVC.table.delegate = self
+        NotificationCenter.default.addObserver(self, selector: #selector(showDetail(withNotification:)), name: NSNotification.Name(rawValue: "DidSelectRowAtNotification"), object: nil)
     }
     
     func addChildVC() {
@@ -188,15 +190,16 @@ private extension ViewController {
     }
     
     func configurationDataMenager() {
-        let dataMeneger = CoreDataManager.sherd
-        dataProvider = CoreDataProvider(historyManager: dataMeneger)
+        let dataManager = CoreDataManager.sherd
+        dataProvider = CoreDataProvider(historyManager: dataManager)
         historyVC.table.dataSource = dataProvider
+        historyVC.table.delegate = dataProvider
     }
 }
 
 
 // MARK: - Animation
-private extension ViewController {
+extension ViewController {
     
     func animationTableController(_ indexPath: IndexPath? = nil) {
         switch historyVC.stateVC {

@@ -39,3 +39,12 @@ extension CoreDataProvider: UITableViewDataSource {
         return cell
     }
 }
+
+extension CoreDataProvider: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        NotificationCenter.default.post(name: NSNotification.Name("DidSelectRowAtNotification"), object: self, userInfo: ["indexPath": indexPath])
+    }
+    
+}

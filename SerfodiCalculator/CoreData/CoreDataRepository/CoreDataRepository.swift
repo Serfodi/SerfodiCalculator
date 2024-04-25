@@ -1,5 +1,5 @@
 //
-//  CoreDataManager.swift
+//  CoreDataRepository.swift
 //  SerfodiCalculator
 //
 //  Created by Сергей Насыбуллин on 15.04.2024.

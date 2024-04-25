@@ -9,9 +9,12 @@ import Foundation
 
 
 final class Calculator {
+    
+    var isInput = true
+    
 private
     /// Содержит исторю добавления опираций и числе по правилу: Число, опирация…
-    var calculationHistory: [CalculationHistoryItem] = []
+    var calculationHistory: [CalculationItem] = []
     
     let calculating: Calculate = DynamicCalculate()
     
@@ -29,6 +32,10 @@ private
 
 extension Calculator: CalculateManager {
     
+    var isNewInput: Bool {
+        isInput
+    }
+    
     var countItems: Int {
         calculationHistory.count
     }
@@ -37,20 +44,17 @@ extension Calculator: CalculateManager {
         try calculating.calculate(items: calculationHistory)
     }
     
-    /// Добалвяет новое число в массив: `calculationHistory`
     public func addNumber(_ number: Double) {
         if let _ = lastNumber { calculationHistory.removeLast() }
         calculationHistory.append(.number(number))
     }
     
-    /// Добалвяет новоы знак в массив: "calculationHistory"
     public func addOperation(_ operation: Operation) {
         if let sign = lastOperation, sign.type == .binary {
-            if sign != operation {
-                calculationHistory.removeLast()
-                calculationHistory.append(.operation(operation))
-                currentOperation = operation
-            }
+            guard sign != operation else { return }
+            calculationHistory.removeLast()
+            calculationHistory.append(.operation(operation))
+            currentOperation = operation
         } else {
             calculationHistory.append(.operation(operation))
             currentOperation = operation
@@ -69,9 +73,8 @@ extension Calculator: CalculateManager {
         }
     }
     
-    public func removeHistory(completion: @escaping ([CalculationHistoryItem]) -> ()) {
+    public func removeHistory(completion: @escaping ([CalculationItem]) -> ()) {
         completion(calculationHistory)
-        currentNumber = lastNumber
         calculationHistory.removeAll()
     }
     

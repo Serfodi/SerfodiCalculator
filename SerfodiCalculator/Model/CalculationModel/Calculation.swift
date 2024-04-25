@@ -8,7 +8,7 @@
 import UIKit
 
 struct Calculation {
-    let expression: [CalculationHistoryItem]
+    let expression: [CalculationItem]
     let result: Double
 }
 
