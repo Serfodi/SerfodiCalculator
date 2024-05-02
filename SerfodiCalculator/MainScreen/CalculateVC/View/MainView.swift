@@ -29,5 +29,4 @@ class MainView: UIView {
         blurBG.isHidden = true
         blurBG.alpha = 0
     }
-    
 }

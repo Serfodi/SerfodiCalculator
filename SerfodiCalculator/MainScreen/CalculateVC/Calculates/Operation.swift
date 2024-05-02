@@ -60,16 +60,20 @@ extension Operation {
     
     var priority: Int {
         switch self {
-        case .logY, .powXY, .powYX, .rootYX:
-            return 0
-        case .add, .subtract:
-            return 1
-        case .multiply, .divide:
-            return 2
+            
         case .sinX, .cosX, .tanX, .sinhX, .coshX, .tanhX,
                 .precent, .pow2, .pow3, .powEX, .pow10X, .pow2X,
                 .root2, .root3, .factorial, .divisionByOne,
                 .lnX, .log10X, .log2X:
+            return 0
+            
+        case .logY, .powXY, .powYX, .rootYX:
+            return 1
+            
+        case .multiply, .divide:
+            return 2
+            
+        case .add, .subtract:
             return 3
         }
     }

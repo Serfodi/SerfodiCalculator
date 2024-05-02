@@ -57,5 +57,70 @@ final class CalculateViewControllerTests: XCTestCase {
         )
     }
     
+    func testSimpleInput() throws {
+        let expression:[CalculationItem] = [.number(123)]
+        sut.number("1")
+        sut.number("2")
+        sut.number("3")
+        sut.calculator.equal(result: 123) { items in
+            XCTAssertEqual(items, expression)
+        }
+    }
+    
+    func testSimpleInputExpressin() throws {
+        let expression:[CalculationItem] = [.number(123), .operation(.add), .number(321)]
+        sut.number("1")
+        sut.number("2")
+        sut.number("3")
+        sut.operating(.add)
+        sut.number("3")
+        sut.number("2")
+        sut.number("1")
+        sut.calculator.equal(result: 123) { items in
+            XCTAssertEqual(items, expression)
+        }
+    }
+    
+    func testChangeOperation1P() throws {
+        let expression:[CalculationItem] = [.number(123), .operation(.subtract), .number(321)]
+        sut.number("1")
+        sut.number("2")
+        sut.number("3")
+        sut.operating(.add)
+        sut.operating(.subtract)
+        sut.number("3")
+        sut.number("2")
+        sut.number("1")
+        
+        sut.calculator.equal(result: 123) { items in
+            XCTAssertEqual(items, expression)
+        }
+    }
+    
+    func testChangeOperation2P() throws {
+        let expression:[CalculationItem] = [.number(2), .operation(.add), .number(3), .operation(.subtract), .number(9)]
+        sut.number("2")
+        sut.operating(.add)
+        sut.number("3")
+        sut.operating(.multiply)
+        sut.operating(.subtract)
+        sut.number("9")
+        sut.calculator.equal(result: 123) { items in
+            XCTAssertEqual(items, expression)
+        }
+    }
+    
+    func testSimpleInputOperationUnary() throws {
+        let expression:[CalculationItem] = [.number(123), .operation(.pow2), .operation(.pow2), .operation(.pow3)]
+        sut.number("1")
+        sut.number("2")
+        sut.number("3")
+        sut.operating(.pow2)
+        sut.operating(.pow2)
+        sut.operating(.pow3)
+        sut.calculator.equal(result: 123) { items in
+            XCTAssertEqual(items, expression)
+        }
+    }
     
 }

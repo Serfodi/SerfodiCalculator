@@ -8,18 +8,30 @@
 import Foundation
 
 
+protocol CalculateManager {
+    var isNewInput: Bool { get }
+    func endNewInput()
+    func result(isFinal: Bool) async throws -> Double
+    func addNumber(_ number: Double)
+    func addOperation(_ operation: Operation)
+    func repeatsEqual()
+    func equal(result: Double, completion: @escaping ([CalculationItem]) -> ())
+    func eraseAll()
+}
+
+
 final class Calculator {
     
-    var isInput = true
-    
-private
-    /// Содержит исторю добавления опираций и числе по правилу: Число, опирация…
-    var calculationHistory: [CalculationItem] = []
-    
     let calculating: Calculate = DynamicCalculate()
+    /// Содержит исторю добавления опираций и числе по правилу: Число, опирация…
+    var calculationHistory: [CalculationItem] = [.number(0)]
     
-    var currentOperation: Operation!
-    var currentNumber: Double!
+    var isInput = true
+    var lastResult: Double?
+    var currentOperation: Operation?
+    var currentNumber: Double?
+    
+    // MARK: - calculate var
     
     var lastOperation: Operation? {
         calculationHistory.last?.operation
@@ -28,59 +40,89 @@ private
     var lastNumber: Double? {
         calculationHistory.last?.number
     }
+    
+    // MARK: - func
+    
+    func addLastOperation() {
+        guard let operation = currentOperation else { return }
+        addOperation(operation)
+    }
+    
+    func addLastNumber() {
+        if let number = currentNumber {
+            addNumber(number)
+        } else {
+            guard let result = lastResult else { return }
+            addNumber(result)
+        }
+    }
+    
+    func startNewInput() { isInput = true }
+    
+    func removeHistory(completion: @escaping ([CalculationItem]) -> ()) {
+        currentNumber = lastNumber
+        completion(calculationHistory)
+        calculationHistory.removeAll()
+        startNewInput()
+    }
+    
+    func reset() {
+        isInput = true
+        lastResult = nil
+        calculationHistory = [.number(0)]
+        currentOperation = nil
+        currentNumber = nil
+    }
 }
 
+// MARK: - Calculate Manager
 extension Calculator: CalculateManager {
     
-    var isNewInput: Bool {
-        isInput
+    var isNewInput: Bool { isInput }
+    
+    func endNewInput() { isInput = false }
+        
+    func result(isFinal: Bool) async throws -> Double {
+        lastResult = try calculating.calculate(items: calculationHistory, isFinal: isFinal)
+        return lastResult!
     }
     
-    var countItems: Int {
-        calculationHistory.count
-    }
-    
-    func result() async throws -> Double {
-        try calculating.calculate(items: calculationHistory)
-    }
-    
-    public func addNumber(_ number: Double) {
+    func addNumber(_ number: Double) {
+        if let lastOperation = lastOperation, lastOperation.type == .unary {
+            reset()
+            currentOperation = lastOperation
+        }
         if let _ = lastNumber { calculationHistory.removeLast() }
         calculationHistory.append(.number(number))
     }
     
-    public func addOperation(_ operation: Operation) {
-        if let sign = lastOperation, sign.type == .binary {
-            guard sign != operation else { return }
+    func addOperation(_ operation: Operation) {
+        if let last = lastOperation, last.type == .binary {
+            guard last != operation else { return }
             calculationHistory.removeLast()
-            calculationHistory.append(.operation(operation))
-            currentOperation = operation
-        } else {
-            calculationHistory.append(.operation(operation))
-            currentOperation = operation
         }
+        calculationHistory.append(.operation(operation))
+        currentOperation = operation
+        startNewInput()
     }
     
-    public func addLastOperation() {
-        guard let lastOperation = currentOperation else { return }
-        switch lastOperation.type {
-        case .binary:
-            guard let lastNumber = currentNumber else { return }
-            addOperation(lastOperation)
-            addNumber(lastNumber)
-        case .unary:
-            addOperation(lastOperation)
+    func repeatsEqual() {
+        guard isNewInput else { return }
+        if let lastOperation = lastOperation, lastOperation.type == .unary { return }
+        guard let operation = currentOperation else { return }
+        addLastOperation()
+        if operation.type == .binary {
+            addLastNumber()
         }
     }
-    
-    public func removeHistory(completion: @escaping ([CalculationItem]) -> ()) {
-        completion(calculationHistory)
-        calculationHistory.removeAll()
+
+    func equal(result: Double, completion: @escaping ([CalculationItem]) -> ()) {
+        removeHistory(completion: completion)
+        addNumber(result)
+        startNewInput()
     }
     
     func eraseAll() {
-        calculationHistory.removeAll()
-        currentNumber = nil
-        currentOperation = nil
+        reset()
     }
 }

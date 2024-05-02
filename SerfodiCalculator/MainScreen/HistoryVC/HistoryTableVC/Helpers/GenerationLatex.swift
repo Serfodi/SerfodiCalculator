@@ -11,7 +11,7 @@ final class GenerationLatex {
     
     /// Создает математический пример в виде Latex формулы
     func generate(expression: Calculation, formatting: (NSNumber)->(String)) -> String {
-        let expressionPost = CalculationItemParser().parsing(items: expression.expression)
+        let expressionPost = CalculationItemParser().parsing(items: expression.expression, isFinal: true)
         
         var result: [String] = []
         for item in expressionPost {
@@ -40,7 +40,7 @@ extension Operation {
         case .divide:
             return "{\(op[0])}" + #"\div"# + "{\(op[1])}"
         case .precent:
-            return "{\(op[0])}%"
+            return "{\(op[0])}" + #"\%"#
         case .pow2:
             return "{\(op[0])}^{2}"
         case .pow3:

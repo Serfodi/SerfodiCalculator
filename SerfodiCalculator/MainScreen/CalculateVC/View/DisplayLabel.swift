@@ -11,32 +11,45 @@ import UIKit
     @objc optional func removeLastDigit()
 }
 
+protocol InputManager {
+    var number: Double? { get }
+    func input(_ digit: String)
+    func input(_ number: Double)
+    func inputMinus()
+    func removeLast()
+    func clear()
+    func showError()
+}
+
+
 final class DisplayLabel: UILabel {
     
-    private enum Appearance {
+    override public var canBecomeFirstResponder: Bool { true }
+    
+    weak var delegate: RemoveLastDigit?
+    
+private
+    
+    enum Appearance {
         static let minimumScaleFactor = 0.9
         static let font = MainFontAppearance.mainLabelFont
         static let adjustsFontSizeToFitWidth = true
         static let cornerRadius = { $0 / 4.0 }
         static let colorFont = EnvironmentColorAppearance.mainTextColor.color()
+        static let errorText = "  Ошибка!"
     }
     
-    private var setting: EnvironmentSetting {
+    var setting: EnvironmentSetting {
         SettingManager().getEnvironmentSetting()
     }
     
-    private var focusView: FocusView!
-    
-    override public var canBecomeFirstResponder: Bool { true }
+    var focusView: FocusView!
     
     /// Картеж для `Cтирание касанием`
     ///  1. Точка по x первого нажатия
-    private var isErase: (CGFloat, Bool) = (0, false)
+    var isErase: (CGFloat, Bool) = (0, false)
     
-    weak var delegate: RemoveLastDigit?
-    
-    private var dynamicNumberFormatter = DynamicNumberFormatter()
-    
+    var dynamicNumberFormatter = DynamicNumberFormatter()
     
     
     // MARK: - init
@@ -58,7 +71,7 @@ final class DisplayLabel: UILabel {
         focusView.fitToSize(textSize())
     }
     
-    private func configure() {
+    func configure() {
         font = Appearance.font
         textColor = Appearance.colorFont
         minimumScaleFactor = Appearance.minimumScaleFactor
@@ -67,24 +80,21 @@ final class DisplayLabel: UILabel {
         focusView = FocusView(for: self)
     }
     
-    /// Пытается преоброзовать текст `UILabel` в число  `Double?`
-    public func getNumber() -> Double? {
+    func isCanAddDigit(new digit: String) -> Bool {
+        isFitTextInto(text! + digit, scale: minimumScaleFactor)
+    }
+}
+
+
+// MARK: - InputManager
+extension DisplayLabel: InputManager {
+    
+    var number: Double? {
         dynamicNumberFormatter.perform(text: text!)
     }
     
-    /// Форматирует число и обновляет `text`
-    /// В случае успеха преоброзования выводит результат на экран.
-    public func setTextLabel(number: Double) {
-        let nsNumber = number as NSNumber
-        text = try! dynamicNumberFormatter.fitInBounds(number: nsNumber) { numberText in
-            isFitTextInto(numberText, scale: minimumScaleFactor)
-        }
-        let setting = EnvironmentSetting(lastResult: getNumber())
-        SettingManager().setEnvironmentSetting(setting)
-    }
-    
-    /// Добавляет "цифру" к `text` и форматирует его.
-    public func inputDigit(add digit: String, successful: (Double) -> ()) {
+    func input(_ digit: String) {
+        guard isCanAddDigit(new: digit) else { return }
         switch digit {
         case NumberFormatter.getPoint():
             guard !dynamicNumberFormatter.isContainPoint(text!) else { return }
@@ -92,27 +102,19 @@ final class DisplayLabel: UILabel {
         default:
             text?.append(digit)
         }
-        formattingInput { number in
-            successful(number)
+        formattingInput()
+    }
+    
+    func input(_ number: Double) {
+        text = try! dynamicNumberFormatter.fitInBounds(number: number as NSNumber) { numberText in
+            isFitTextInto(numberText, scale: minimumScaleFactor)
         }
+        let setting = EnvironmentSetting(lastResult: number)
+        SettingManager().setEnvironmentSetting(setting)
     }
     
-    public func isCanAddDigit(new digit: String) -> Bool {
-        isFitTextInto(text! + "0", scale: minimumScaleFactor)
-    }
-    
-    public func removeLastDigit() {
-        guard !text!.contains(dynamicNumberFormatter.exponentSymbol) else { return }
-        if text!.count > 2 || (!text!.contains(dynamicNumberFormatter.minusSign) && text!.count > 1) {
-            text!.removeLast()
-        } else {
-            text! = "0"
-        }
-        formattingInput(considerPoint: true) { _ in }
-    }
-    
-    public func addMinusNumber() {
-        guard let _ = getNumber() else { return }
+    func inputMinus() {
+        guard let _ = number else { return }
         if text!.contains(dynamicNumberFormatter.minusSign) {
             text!.removeFirst()
         } else {
@@ -120,24 +122,32 @@ final class DisplayLabel: UILabel {
         }
     }
     
-    public func clearInput() {
-        setTextLabel(number: 0)
+    func removeLast() {
+        guard !text!.contains(dynamicNumberFormatter.exponentSymbol) else { return }
+        if text!.count > 2 || (!text!.contains(dynamicNumberFormatter.minusSign) && text!.count > 1) {
+            text!.removeLast()
+        } else {
+            clear()
+        }
+        formattingInput(considerPoint: true)
     }
     
-    public func showError(labelText: String = "  Ошибка!") {
+    func clear() {
+        input(0)
+    }
+    
+    func showError() {
+        let labelText = Appearance.errorText
         let attributedString = NSMutableAttributedString(string: labelText)
         attributedString.addAttribute(NSAttributedString.Key.kern, value: CGFloat(10.0), range: NSRange(location: labelText.count - 1, length: 1))
         attributedText = attributedString
         layer.errorAnimation()
-        let generator = UINotificationFeedbackGenerator()
-        generator.notificationOccurred(.error)
     }
 }
 
-// MARK: - Formatting input
 
-extension DisplayLabel {
-    
+// MARK: - Formatting input
+private extension DisplayLabel {
     /// Форматирует и пытается преоброзовать текст `UILabel` к числу  `Double`.
     ///
     /// В случае успеха преоброзования отпровляет callback с числом. Выводит результат на экран.
@@ -149,22 +159,17 @@ extension DisplayLabel {
     /// - Note: Вызывайте его если хотите отформатировать пользовательский ввод числа. Он убирает пробелы в строке и форматирует число под `Dec` формат.
     /// - Remark: Вызывайте после изменения строки ввода.
     ///
-    public func formattingInput(considerPoint: Bool = false, successful: (Double) -> ()) {
+    func formattingInput(considerPoint: Bool = false)  {
         guard !dynamicNumberFormatter.isContainExponentSymbol(text!) else { return }
         guard !dynamicNumberFormatter.isContainPoint(text!) || considerPoint else { return }
-        
         text = text!.replacingOccurrences(of: dynamicNumberFormatter.separator, with: "")
-        
-        if let number = getNumber() {
+        if let number = number {
             text = dynamicNumberFormatter.performDec(number: number as NSNumber)
-            successful(number)
         }
     }
-    
 }
 
 // MARK: Touches Erase
-
 extension DisplayLabel {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -194,11 +199,9 @@ extension DisplayLabel {
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
         isErase = (0, false)
     }
-    
 }
 
 // MARK:  shared Init / copy
-
 extension DisplayLabel {
     
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {

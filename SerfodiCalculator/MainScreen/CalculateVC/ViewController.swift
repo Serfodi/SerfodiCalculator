@@ -19,8 +19,6 @@ class ViewController: UIViewController {
     
     let calculator: CalculateManager = Calculator()
     
-    var isNewInput = true
-    
     // MARK: - Live circle
     
     override func viewDidLoad() {
@@ -32,23 +30,21 @@ class ViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        inputLabel.setTextLabel(number: SettingManager().getEnvironmentSetting().lastResult)
+        inputLabel.input(SettingManager().getEnvironmentSetting().lastResult)
         historyVC.table.scrollToBottom(animated: false)
     }
     
-    // MARK: - AddNewExample
-    
+    // MARK: - Add new Cell Example
     func addNewExample(_ example: Calculation) {
         dataProvider.addCalculate(example)
         historyVC.table.animatedInsertLastRow()
     }
     
-    // MARK: Calculator
-    
-    func calculateResult(result: @escaping (Double)->()) {
+    // MARK: calculate Result
+    func calculateResult(isFinal: Bool, result: @escaping (Double)->()) {
         Task(priority: .medium) {
             do {
-                let number = try await calculator.result()
+                let number = try await calculator.result(isFinal: isFinal)
                 result(number)
             } catch let error {
                 self.errorCalculate(error: error as! CalculationError)
@@ -58,24 +54,22 @@ class ViewController: UIViewController {
     
     func resetCalculate(clearLabel: Bool = true) {
         calculator.eraseAll()
-        isNewInput = true
         if clearLabel {
-            inputLabel.clearInput()
+            inputLabel.clear()
         }
     }
     
     // MARK: Error handler
-    
     func errorCalculate(error: CalculationError) {
         switch error {
         case .dividedByZero, .outOfRang:
             resetCalculate(clearLabel: false)
             inputLabel.showError()
+            UINotificationFeedbackGenerator().notificationOccurred(.error)
         }
     }
     
     // MARK: Notification
-    
     @objc func showDetail(withNotification notification: Notification ) {
         guard let userInfo = notification.userInfo,
                 let indexPath = userInfo["indexPath"] as? IndexPath
@@ -84,87 +78,57 @@ class ViewController: UIViewController {
     }
 }
 
-// MARK: - Calculate
+
+// MARK: - Numpad Delegate, RemoveLastDigit
 extension ViewController: NumpadDelegate, RemoveLastDigit {
     
     func removeLastDigit() {
-        if let _ = inputLabel.getNumber() {
-            inputLabel.removeLastDigit()
-        } else {
-            inputLabel.text = "0"
+        guard !calculator.isNewInput else { return }
+        inputLabel.removeLast()
+    }
+    
+    func number(_ num: String) {
+        if calculator.isNewInput {
+            calculator.endNewInput()
+            inputLabel.clear()
+        }
+        inputLabel.input(num)
+        calculator.addNumber(inputLabel.number!)
+    }
+    
+    func operating(_ operation: Operation) {
+        calculator.addOperation(operation)
+        calculateResult(isFinal: false) { result in
+            self.inputLabel.input(result)
         }
     }
     
-    func number(_ sender: UIButton) {
-        
-        guard let buttonText = sender.currentTitle,
-              let _ = inputLabel.text
-        else { return }
-        
-        guard inputLabel.isCanAddDigit(new: buttonText) || isNewInput else { return }
-        
-        if isNewInput {
-            isNewInput.toggle()
-            inputLabel.text = "0"
-        }
-        inputLabel.inputDigit(add: buttonText) { number in }
-    }
-
-    func minusNum(_ sender: UIButton) {
-        inputLabel.addMinusNumber()
-    }
-    
-    func operating(_ sender: UIButton) {
-        guard let buttonOperation = Operation(rawValue: sender.tag) else { return }
-        guard let labelNumber = inputLabel.getNumber() else { return }
-        
-        if !isNewInput || calculator.countItems == 0 {
-            calculator.addNumber(labelNumber)
-        }
-        
-        calculator.addOperation(buttonOperation)
-        
-        calculateResult { result in
-            self.inputLabel.setTextLabel(number: result)
-        }
-        
-        isNewInput = true
-    }
-    
-    func equal(_ sender: UIButton) {
-        guard let labelNumber = inputLabel.getNumber() else { return }
-        
-        if !isNewInput {
-            calculator.addNumber(labelNumber)
-        }
-        if isNewInput && calculator.countItems == 1 {
-            calculator.addLastOperation()
-        }
-        
-        calculateResult { result in
-            self.calculator.removeHistory { calculationItems in
-                let calculation = Calculation(expression: calculationItems, result: result)
-                self.addNewExample(calculation)
+    func equal() {
+        calculator.repeatsEqual()
+        calculateResult(isFinal: true) { result in
+            self.inputLabel.input(result)
+            self.calculator.equal(result: result) { items in
+                self.addNewExample(.init(expression: items, result: result))
             }
-            self.inputLabel.setTextLabel(number: result)
         }
-        isNewInput = true // Новый ввод разрешён
     }
-
-    func reset(_ sender: UIButton) {
+    
+    func minusNum() {
+        inputLabel.inputMinus()
+    }
+    
+    func reset() {
         resetCalculate()
     }
 }
 
-// MARK: - History Delegate
-extension ViewController: SettingActionHandler {
+// MARK: - Action Handler
+extension ViewController: SettingActionHandler, NavigationDoneActionHandler {
+    
     func eraseData(_ sender: AnyObject, forEvent event: UIEvent) {
         self.historyVC.table.reloadData()
     }
-}
-
-// MARK: - Navigation DoneDelegate
-extension ViewController: NavigationDoneActionHandler {
+    
     func done(_ sender: AnyObject, forEvent event: DoneEvent) {
         guard let navigationController = event.controller.navigationController else { return }
         navigationController.view.layer.animationTransition()
@@ -197,10 +161,8 @@ private extension ViewController {
     }
 }
 
-
 // MARK: - Animation
 extension ViewController {
-    
     func animationTableController(_ indexPath: IndexPath? = nil) {
         switch historyVC.stateVC {
         case true:
@@ -213,7 +175,6 @@ extension ViewController {
                 self.mainView.blurBG.isHidden = true
                 self.view.isUserInteractionEnabled = true
             }
-            
         case false:
             self.view.isUserInteractionEnabled = false
             self.mainView.blurBG.isHidden = false

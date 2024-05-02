@@ -32,5 +32,4 @@ extension CALayer {
         
         add(animationGroup, forKey: "groupAnimation")
     }
-    
 }

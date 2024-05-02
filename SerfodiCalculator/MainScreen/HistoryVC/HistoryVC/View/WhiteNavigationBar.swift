@@ -96,7 +96,6 @@ extension WhiteNavigationController: UIGestureRecognizerDelegate {
             break
         }
     }
-    
 }
 
 
@@ -117,5 +116,4 @@ extension WhiteNavigationController: UINavigationControllerDelegate {
     func navigationController(_ navigationController: UINavigationController, interactionControllerFor animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
         percentDrivenInteractiveTransition
     }
-    
 }

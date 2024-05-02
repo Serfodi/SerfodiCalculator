@@ -38,7 +38,6 @@
 		B05C9DDB2BCFEA6500A47DA4 /* CalculationTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B05C9DDA2BCFEA6500A47DA4 /* CalculationTransformer.swift */; };
 		B05C9DDD2BCFEA7D00A47DA4 /* CalculationBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = B05C9DDC2BCFEA7D00A47DA4 /* CalculationBox.swift */; };
 		B05C9DE12BCFF70E00A47DA4 /* HistoryCalculation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B05C9DE02BCFF70E00A47DA4 /* HistoryCalculation.swift */; };
-		B05C9DE42BD16DDB00A47DA4 /* CalculateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B05C9DE32BD16DDB00A47DA4 /* CalculateManager.swift */; };
 		B05C9DE62BD1703700A47DA4 /* ResponderChainActionSenderType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B05C9DE52BD1703700A47DA4 /* ResponderChainActionSenderType.swift */; };
 		B05C9DE82BD17B5A00A47DA4 /* SettingActionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B05C9DE72BD17B5A00A47DA4 /* SettingActionHandler.swift */; };
 		B064E2F62B5EB7AB00E56208 /* CalculationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B064E2F52B5EB7AB00E56208 /* CalculationError.swift */; };
@@ -89,6 +88,7 @@
 		B0B7EEE52BCDBD37002DDFAF /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B7EEE42BCDBD37002DDFAF /* CoreDataManager.swift */; };
 		B0B7EEE72BCDBFD7002DDFAF /* CoreDataContextProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B7EEE62BCDBFD7002DDFAF /* CoreDataContextProvider.swift */; };
 		B0B92D4B2BD6AD1B00C77633 /* ContentScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B92D4A2BD6AD1B00C77633 /* ContentScrollView.swift */; };
+		B0C42D372BDC357000B4A00B /* CalculationItemParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C42D362BDC357000B4A00B /* CalculationItemParser.swift */; };
 		B0FEF0462B9DC382001C1792 /* HistoryTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0899CFE2B9CA9DB00C12D7C /* HistoryTableView.swift */; };
 		B0FEF0472B9DD1A9001C1792 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B059F1D92B878D380079EFFA /* HistoryViewController.swift */; };
 		B0FEF0492B9DD38A001C1792 /* HistoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0FEF0482B9DD38A001C1792 /* HistoryTableViewController.swift */; };
@@ -147,7 +147,6 @@
 		B05C9DDA2BCFEA6500A47DA4 /* CalculationTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculationTransformer.swift; sourceTree = "<group>"; };
 		B05C9DDC2BCFEA7D00A47DA4 /* CalculationBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculationBox.swift; sourceTree = "<group>"; };
 		B05C9DE02BCFF70E00A47DA4 /* HistoryCalculation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCalculation.swift; sourceTree = "<group>"; };
-		B05C9DE32BD16DDB00A47DA4 /* CalculateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculateManager.swift; sourceTree = "<group>"; };
 		B05C9DE52BD1703700A47DA4 /* ResponderChainActionSenderType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponderChainActionSenderType.swift; sourceTree = "<group>"; };
 		B05C9DE72BD17B5A00A47DA4 /* SettingActionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingActionHandler.swift; sourceTree = "<group>"; };
 		B064E2F52B5EB7AB00E56208 /* CalculationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculationError.swift; sourceTree = "<group>"; };
@@ -199,6 +198,7 @@
 		B0B7EEE42BCDBD37002DDFAF /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		B0B7EEE62BCDBFD7002DDFAF /* CoreDataContextProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataContextProvider.swift; sourceTree = "<group>"; };
 		B0B92D4A2BD6AD1B00C77633 /* ContentScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentScrollView.swift; sourceTree = "<group>"; };
+		B0C42D362BDC357000B4A00B /* CalculationItemParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculationItemParser.swift; sourceTree = "<group>"; };
 		B0FEF0482B9DD38A001C1792 /* HistoryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -276,14 +276,6 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
-		B021E2102BD94B83005D3789 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				B0875FEF2BD940F60020CBE7 /* DynamicCalculateTests.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
 		B021E2132BD957A3005D3789 /* Storage */ = {
 			isa = PBXGroup;
 			children = (
@@ -299,6 +291,15 @@
 				B021E21C2BDA8AC0005D3789 /* SerfodiCalculatorUITestsLaunchTests.swift */,
 			);
 			path = SerfodiCalculatorUITests;
+			sourceTree = "<group>";
+		};
+		B021E2272BDAAC10005D3789 /* CalculatesTests */ = {
+			isa = PBXGroup;
+			children = (
+				B0875FEF2BD940F60020CBE7 /* DynamicCalculateTests.swift */,
+				B0C42D362BDC357000B4A00B /* CalculationItemParser.swift */,
+			);
+			path = CalculatesTests;
 			sourceTree = "<group>";
 		};
 		B02EC6502B5D8D4E00CE0122 = {
@@ -448,7 +449,6 @@
 			isa = PBXGroup;
 			children = (
 				B064E3032B61728000E56208 /* Operation.swift */,
-				B05C9DE32BD16DDB00A47DA4 /* CalculateManager.swift */,
 				B064E2F72B5EB7D900E56208 /* Calculate.swift */,
 				B099E0C12B6AA1F1000670CE /* DynamicCalculate.swift */,
 				B021E2232BDA9319005D3789 /* CalculationItemParser.swift */,
@@ -570,8 +570,8 @@
 			isa = PBXGroup;
 			children = (
 				B021E20F2BD94B77005D3789 /* Controller */,
+				B021E2272BDAAC10005D3789 /* CalculatesTests */,
 				B021E2132BD957A3005D3789 /* Storage */,
-				B021E2102BD94B83005D3789 /* Model */,
 				B021E20E2BD94B66005D3789 /* Supporting files */,
 			);
 			path = SerfodiCalculatorTests;
@@ -864,7 +864,6 @@
 				B03038012BAF47EB00CA1DC6 /* UINavigationItem + Extension.swift in Sources */,
 				B0B7EEDD2BCDAEA0002DDFAF /* DataStorageModel.xcdatamodeld in Sources */,
 				B064E2F82B5EB7D900E56208 /* Calculate.swift in Sources */,
-				B05C9DE42BD16DDB00A47DA4 /* CalculateManager.swift in Sources */,
 				B069C2D22BA371CE00503FEB /* ButtonCellListCell.swift in Sources */,
 				B069C2D42BA371F700503FEB /* ButtonCellContentView.swift in Sources */,
 				B00257BB2B8488D000311188 /* NumpadController.swift in Sources */,
@@ -935,6 +934,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B0C42D372BDC357000B4A00B /* CalculationItemParser.swift in Sources */,
 				B0875FF02BD940F60020CBE7 /* DynamicCalculateTests.swift in Sources */,
 				B021E20D2BD94A98005D3789 /* SerfodiCalculatorTests.swift in Sources */,
 				B021E2122BD95779005D3789 /* CoreDataRepositoryTests.swift in Sources */,
@@ -984,9 +984,13 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = VJ7AN5PN54;
 				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = serfodi.SerfodiCalculatorUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1001,9 +1005,13 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = VJ7AN5PN54;
 				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = serfodi.SerfodiCalculatorUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1061,7 +1069,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1115,7 +1123,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;

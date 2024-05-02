@@ -7,7 +7,20 @@
 
 import UIKit
 
-@objc protocol NumpadDelegate: AnyObject {
+protocol NumpadOperationDelegate: AnyObject {
+    func operating(_ operation: Operation)
+}
+
+protocol NumpadServiceDelegate: AnyObject {
+    func number(_ num: String)
+    func minusNum()
+    func equal()
+    func reset()
+}
+
+protocol NumpadDelegate: NumpadServiceDelegate, NumpadOperationDelegate {}
+
+@objc protocol NumpadButtonDelegate: AnyObject {
     func operating(_ sender: UIButton)
     @objc optional func number(_ sender: UIButton)
     @objc optional func minusNum(_ sender: UIButton)
@@ -92,7 +105,7 @@ final class NumpadController: UIView {
 
 // MARK: Delegate
 
-extension NumpadController: NumpadDelegate {
+extension NumpadController: NumpadButtonDelegate {
     
     func operating(_ sender: UIButton) {
         if setting.isVibration {
@@ -101,7 +114,8 @@ extension NumpadController: NumpadDelegate {
         if setting.isClicks {
             sender.animationTap()
         }
-        delegate?.operating(sender)
+        guard let operation = Operation(rawValue: sender.tag) else { return }
+        delegate?.operating(operation)
     }
     
     func number(_ sender: UIButton) {
@@ -111,7 +125,7 @@ extension NumpadController: NumpadDelegate {
             }
         }
         sender.animationTap()
-        delegate?.number?(sender)
+        delegate?.number("\(sender.tag)")
     }
     
     func minusNum(_ sender: UIButton) {
@@ -121,7 +135,7 @@ extension NumpadController: NumpadDelegate {
             }
         }
         sender.animationTap()
-        delegate?.minusNum?(sender)
+        delegate?.minusNum()
     }
     
     func equal(_ sender: UIButton) {
@@ -131,7 +145,7 @@ extension NumpadController: NumpadDelegate {
             }
         }
         sender.animationTap()
-        delegate?.equal?(sender)
+        delegate?.equal()
     }
     
     func reset(_ sender: UIButton) {
@@ -141,7 +155,7 @@ extension NumpadController: NumpadDelegate {
             }
         }
         sender.animationTap()
-        delegate?.reset?(sender)
+        delegate?.reset()
     }
 }
 

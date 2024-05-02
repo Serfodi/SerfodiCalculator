@@ -8,9 +8,9 @@
 import UIKit
 
 
-final class SecondNumpad: UIView, NumpadDelegate {
+final class SecondNumpad: UIView {
     
-    weak var delegate: NumpadDelegate?
+    weak var delegate: NumpadButtonDelegate?
         
     public let numpadButtons: [[NumpadButton]] = [
         [NumpadButton(.secondOperation(.root2)),   NumpadButton(.secondOperation(.root3)),     NumpadButton(.secondOperation(.rootYX)), NumpadButton(.secondOperation(.divisionByOne))],
@@ -19,8 +19,6 @@ final class SecondNumpad: UIView, NumpadDelegate {
         [NumpadButton(.secondOperation(.sinX)),    NumpadButton(.secondOperation(.cosX)),      NumpadButton(.secondOperation(.tanX)), NumpadButton(.secondOperation(.logY))],
         [NumpadButton(.secondOperation(.sinhX)),   NumpadButton(.secondOperation(.coshX)),     NumpadButton(.secondOperation(.tanhX)), NumpadButton(.secondOperation(.log10X))]
     ]
-    
-    
     
     private var mainVerticalStackView = UIStackView()
     private var spacing: CGFloat = 15

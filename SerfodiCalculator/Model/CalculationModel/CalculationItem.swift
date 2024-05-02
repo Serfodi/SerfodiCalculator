@@ -34,6 +34,10 @@ enum CalculationItem {
     }
 }
 
+// MARK: Equatable
+extension CalculationItem: Equatable {}
+
+
 // MARK: Codable
 
 extension CalculationItem: Codable {

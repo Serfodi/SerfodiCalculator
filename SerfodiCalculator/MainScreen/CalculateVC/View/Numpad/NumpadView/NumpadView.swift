@@ -10,7 +10,7 @@ import UIKit
 //@IBDesignable
 final class NumpadView: UIView {
 
-    weak var delegate: NumpadDelegate?
+    weak var delegate: NumpadButtonDelegate?
 
     var currentButton: UIButton!
     
@@ -65,17 +65,20 @@ final class NumpadView: UIView {
             $0.backgroundColor = NumpadAppearance.ServiceButton.normalColor.color()
             $0.setTitleColor(NumpadAppearance.ServiceButton.titleColor.color(), for: .normal)
             $0.titleLabel?.font = NumpadFontAppearance.numberFont
+            $0.accessibilityIdentifier = "serviceButtons\($0.titleLabel?.text ?? "")"
         }
         operationButtons.forEach {
             $0.backgroundColor = NumpadAppearance.OperatingButton.BGColor.normal.color()
             $0.setTitleColor(NumpadAppearance.OperatingButton.TitleColor.normal.color(), for: .normal)
             $0.setTitleColor(NumpadAppearance.OperatingButton.TitleColor.selected.color(), for: .selected)
             $0.titleLabel?.font = NumpadFontAppearance.numberFont
+            $0.accessibilityIdentifier = String(describing: operationButtons.self) + "\($0.tag)"
         }
         numberButtons.forEach {
             $0.backgroundColor = NumpadAppearance.NumberButton.normalColor.color()
             $0.setTitleColor(NumpadAppearance.NumberButton.titleColor.color(), for: .normal)
             $0.titleLabel?.font = NumpadFontAppearance.numberFont
+            $0.accessibilityIdentifier = String(describing: numberButtons.self) + ($0.titleLabel?.text ?? "")
         }
         
         view.layer.cornerRadius = 45

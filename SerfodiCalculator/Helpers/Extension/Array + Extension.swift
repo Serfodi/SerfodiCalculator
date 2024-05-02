@@ -13,10 +13,13 @@ extension Array where Element: Any {
     mutating func pop(_ numberPopLast: Int) -> [Element]? {
         var array: [Element] = []
         
+        guard self.count >= numberPopLast else { return nil }
+        
         for _ in 0..<numberPopLast {
             guard let last = popLast() else { return nil }
             array.append(last)
         }
+        
         return array.reversed()
     }
 }

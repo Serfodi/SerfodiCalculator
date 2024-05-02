@@ -8,15 +8,15 @@
 import Foundation
 
 protocol Calculate {
-    func calculate(items: [CalculationItem]) throws -> Double
+    func calculate(items: [CalculationItem], isFinal: Bool) throws -> Double
 }
 
 final class DynamicCalculate: Calculate {
     
     let parser: ItemParser = CalculationItemParser()
     
-    public func calculate(items: [CalculationItem]) throws -> Double {
-        let postfix = parser.parsing(items: items)
+    func calculate(items: [CalculationItem], isFinal: Bool) throws -> Double {
+        let postfix = parser.parsing(items: items, isFinal: isFinal)
         return try calculating(items: postfix)
     }
     
@@ -26,7 +26,6 @@ final class DynamicCalculate: Calculate {
         
         for index in items {
             switch index {
-                
             case .number(let number):
                 stack.append(number)
                 

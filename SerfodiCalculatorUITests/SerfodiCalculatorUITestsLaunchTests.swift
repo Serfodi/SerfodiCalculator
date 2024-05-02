@@ -7,6 +7,7 @@
 
 import XCTest
 
+
 final class SerfodiCalculatorUITestsLaunchTests: XCTestCase {
 
     override class var runsForEachTargetApplicationUIConfiguration: Bool {

@@ -25,6 +25,7 @@
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="right" lineBreakMode="clip" baselineAdjustment="alignBaselines" minimumScaleFactor="1" translatesAutoresizingMaskIntoConstraints="NO" id="oKN-Hv-xpk" customClass="DisplayLabel" customModule="SerfodiCalculator" customModuleProvider="target">
                                 <rect key="frame" x="30" y="328" width="333" height="80"/>
+                                <accessibility key="accessibilityConfiguration" identifier="inputLabel"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="80" id="xjJ-gM-wYy"/>
                                 </constraints>
