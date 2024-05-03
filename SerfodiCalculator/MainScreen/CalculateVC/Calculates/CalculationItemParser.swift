@@ -47,8 +47,8 @@ final class CalculationItemParser: ItemParser {
     
     private func priorityCalculate(items: [CalculationItem]) -> [CalculationItem]? {
         let point = pointsInflection(items)
-        if let point = point, (point + 1) < items.count {
-            let slice = items[(point+1)...]
+        if let point = point {
+            let slice = items[(point-1)...]
             return Array(slice)
         }
         return nil
@@ -61,6 +61,7 @@ final class CalculationItemParser: ItemParser {
         }
     }
     
+    
     private func pointsInflection(_ items: [CalculationItem]) -> Int? {
         var currentOperation: Operation?
         var currentIndex: Int?
@@ -71,9 +72,12 @@ final class CalculationItemParser: ItemParser {
                 currentIndex = index
                 continue
             }
-            if operation.priority >= currentOperation!.priority {
+            if operation.priority < currentOperation!.priority {
                 currentOperation = operation
                 currentIndex = index
+            } else if operation.priority > currentOperation!.priority {
+                currentOperation = operation
+                currentIndex = nil
             }
         }
         return currentIndex

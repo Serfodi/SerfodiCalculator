@@ -1,5 +1,5 @@
 //
-//  CalculationItemParser.swift
+//  CalculationItemParserTests.swift
 //  SerfodiCalculatorTests
 //
 //  Created by Сергей Насыбуллин on 26.04.2024.
@@ -75,5 +75,28 @@ final class CalculationItemParserTests: XCTestCase {
         let parsingE = parser.parsing(items: expression, isFinal: false)
         XCTAssertEqual(final, parsingE)
     }
+    
+    func testPointParsingIsFinal1() {
+        let expression: [CalculationItem] = [.number(1), .operation(.add), .number(4), .operation(.multiply), .number(2), .operation(.pow2)]
+        let final: [CalculationItem] = [.number(2), .operation(.pow2)]
+        let parsingE = parser.parsing(items: expression, isFinal: false)
+        XCTAssertEqual(final, parsingE)
+    }
+    
+    func testPointParsingIsFinal2() {
+        let expression: [CalculationItem] = [.number(2), .operation(.pow2), .operation(.pow2), .operation(.add), .number(4)]
+        let final: [CalculationItem] = [.number(2), .operation(.pow2), .operation(.pow2), .number(4), .operation(.add)]
+        let parsingE = parser.parsing(items: expression, isFinal: false)
+        XCTAssertEqual(final, parsingE)
+    }
+    
+    func testPointParsingIsFinal3() {
+        let expression: [CalculationItem] = [.number(2), .operation(.pow2), .operation(.pow2), .operation(.add), .number(4), .operation(.pow2)]
+        let final: [CalculationItem] = [.number(4), .operation(.pow2)]
+        let parsingE = parser.parsing(items: expression, isFinal: false)
+        XCTAssertEqual(final, parsingE)
+    }
+    
+    
     
 }
